@@ -1,0 +1,4296 @@
+{
+  "questionData": [
+    {
+      "id": 1,
+      "answer": "C",
+      "question": {
+        "questionDetail": "On highway, the maximum speed limit is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "70 km/hr.",
+          "90 km/hr.",
+          "110 km/hr."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 2,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What should be done to ensure good safety before hitting on the road?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Borrow vehicle from friends.",
+          "Ensure that the vehicle is in good conditions.",
+          "Ensure all the  relevant errands should be run on morning time."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 3,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Which of the following types of impact between vehicles is most dangerous?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Impact to the vehicle from the side.",
+          "Head-on impact to the vehicle.",
+          "Impact to the vehicle from the back."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 4,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Blind spot can be overcomed by:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Install high light before departing.",
+          "Turn and look slightly to left or right before changing lane.",
+          "Change to another lane without giving signals."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 5,
+      "answer": "A",
+      "question": {
+        "questionDetail": "When you are approaching a cross road with traffic lights controlled by traffic police, the CORRECT action would be:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Follow signs and instructions given by traffic police.",
+          "Continue the journey on the priority lane.",
+          "Follow the traffic light as normal."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 6,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What can be done to prevent collision with the vehicle from behind?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Giving signal within appropriate time.",
+          "Do not practise the safe distance rule.",
+          "Press the brake strongly and abruptly."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 7,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What action should be taken when approaching pedestrian crossing?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Slows the vehicle so that the vehicle can be stopped in time if needed.",
+          "Honk so that people will not cross.",
+          "Stop the vehicle suddenly so that vehicles from behind can stop."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 8,
+      "answer": "C",
+      "question": {
+        "questionDetail": "You realize that the footbrake of your vehicle is malfucntioning when going down hill. What should be your action?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Shift to high gear immediately.",
+          "Honk and flash the light.",
+          "Shift to low gea and use the handbrake."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 9,
+      "answer": "B",
+      "question": {
+        "questionDetail": "State the distance rule should be kept when following a vehicle.",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "12 seconds rule",
+          "2 seconds and 4 seconds rule.",
+          "6 seconds and 12 seconds rule."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 10,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What should be done when the traffic light change from red to green?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Honk before continuing the journey.",
+          "Continue the journey without caution.",
+          "Continue the jouney if it is safe."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 11,
+      "answer": "A",
+      "question": {
+        "questionDetail": "One of the contributing factors to road accidents is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Vehicle conditions.",
+          "Colour of the vehicle",
+          "Types of vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 12,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Choose the statement which indicate the attitude of a perfect driver.",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Not polite and not considerate.",
+          "Involve in accidents.",
+          "Obey the traffic rules."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 13,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What actions should be taken when approaching a traffic light?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Increase the speed of the vehicle.",
+          "Stop the vehicle.",
+          "Carefully obey the traffic light."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 14,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Kurikulum Pendidikan Pemandu (KPP) established for the purpose of?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Giving birth to Formula One driver.",
+          "Increase the capability to repair different types of vehicles.",
+          "Giving birth to driver who are knowledgeable, skilled and efficient."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 15,
+      "answer": "A",
+      "question": {
+        "questionDetail": "The acceptable alcohol content found the in urine, breath and blood of owner of Probationary Driving Licence (PDL) is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "0.00 mg alcohol.",
+          "1.00 mg alcohol.",
+          "2.00 mg alcohol."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 16,
+      "answer": "B",
+      "question": {
+        "questionDetail": "How many steps to be done in actual driving on the road?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Three (3).",
+          "Seven (7).",
+          "Ten (10)."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 17,
+      "answer": "B",
+      "question": {
+        "questionDetail": "According to the Prudent Driving Concept, steps can be taken to prevent accidents includes:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive/Ride with fast speed and prepare to brake at any time.",
+          "Identify, analyze the obstacles, make decision and act.",
+          "Follow the vehicle in front with close distance and overtake at any time."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 18,
+      "answer": "C",
+      "question": {
+        "questionDetail": "According to the Prudent Driving Concept, 2 seconds rule means:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Rules to park the vehicle.",
+          "Rules to make a turn in junction.",
+          "Rules to keep a safe distance when following other vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 19,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Which of the following statements is not a rule in junction:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Knowing direction.",
+          "Slows the vehicle.",
+          "Turn on the emergency light."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 20,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What should be done to prevent yourself from hitting the back of the vehicle you are following?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Follow the front vehicle with safe distance.",
+          "Always overtake the front vehicle without assessing the situation.",
+          "Always honk so that the front vehicle will drive faster."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 21,
+      "answer": "A",
+      "question": {
+        "questionDetail": "You are prohibited to honk in this area:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Hospital.",
+          "Road with bends.",
+          "Road junction"
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 22,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Road conditions is one of the factor contributing to accident and this can be prevented if:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Overtake vehicle in prohibited area.",
+          "Ride with fast speed and overtake other vehicle at bends of road.",
+          "Adjust the speed according to the road conditions."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 23,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What should be done to prevent the collision between the back of our vehicle and the vehicle behind when they are following us closely?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Increase speed of your vehicle so that vehicle behind will not follow us too closely.",
+          "Give signals and give way to vehicle at the back for them to overtake you in safe situation.",
+          "Honk so that the driver from the back slows the vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 24,
+      "answer": "B",
+      "question": {
+        "questionDetail": "How long do you need to give signals before changing the position or direction of your vehicle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "At least 1 second.",
+          "At least 3 seconds.",
+          "At least 7 seconds."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 25,
+      "answer": "C",
+      "question": {
+        "questionDetail": "You are not allowed to use the high light when:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Approaching junction.",
+          "Passing by village area.",
+          "Following other vehicles."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 26,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Safe ways to overtake other vehicle to be practised is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "10 Overtaking Rules.",
+          "8 Overtaking Rules",
+          "4 Overtaking Rules."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 27,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Rules can be used to prevent the collision with the vehicle in front is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "No particular rules were set.",
+          "Use the Rule of 2 Seconds.",
+          "Use the Rules of Overtaking."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 28,
+      "answer": "B",
+      "question": {
+        "questionDetail": "When is hazard light CANNOT be used?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "When there is an emergency.",
+          "During heavy rain or in haze.",
+          "Vehicle is damaged and stop at the side of the road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 29,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Which of the following factors will cause disaster on the road?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Listening to music while riding motorcycle.",
+          "Rider, vehicle, weather, trafic, sunlight and the road.",
+          "Stops the motorcycle and wear helmet."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 30,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Which of the following distance rule you did not obey and lead to accident where you hit the vehicle coming from the opposite direction while overtaking other vehicle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "12 seconds rule.",
+          "4 seconds rule.",
+          "2 seconds rule."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 31,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What factor should be considered before increase the speed of the vehicle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Long distance to destination and start the journey in the night.",
+          "Long time period of journey and departing late.",
+          "Road conditions, traffic, weather, vehicles, and the capability of driver."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 32,
+      "answer": "A",
+      "question": {
+        "questionDetail": "When the traffic light turns green, what should you do when you see a pedestrian is crossing the road?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Wait and give priority to the pedestrian.",
+          "Honk and continue forward immediately.",
+          "Give hand signals and start the journey."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 33,
+      "answer": "A",
+      "question": {
+        "questionDetail": "You can overtake other vehicle when:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "On the right side.",
+          "In roundabout.",
+          "In junction."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 34,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What should be done before turning on the engine of your vehicle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Use low gear.",
+          "Use high gear.",
+          "Ensure that the gear is in free gear position."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 35,
+      "answer": "B",
+      "question": {
+        "questionDetail": "While going down hill, what is the best way to reduce the speed of your vehicle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Shift to high gear and use the handbrake.",
+          "Shift to low gear and use the footbrake.",
+          "Only use the handbrake."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 36,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Which of the following is one of the factors will lead accident at the end of the journey?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Tired and sleepy.",
+          "Practise prudent driving.",
+          "Get enough rest."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 37,
+      "answer": "C",
+      "question": {
+        "questionDetail": "While going up a hill, what is the safe distance should be kept between two vehicles?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "The distance should be lesser than on a flat road.",
+          "The distance should be same as that on a flat road.",
+          "The distance should be more than on a flat road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 38,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Select the statement which shows the prudent way of driving on highway.",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive on the left lane and follow the speed limit.",
+          "Drive in middle of the road to avoid losing control.",
+          "Drive on the right side of the road and do not need to give any signals."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 39,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Which of the following area is allowed to overtake other vehicle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "In front of school",
+          "At bends with double-line.",
+          "On a straight right with disconnected short lines."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 40,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Which one of the following factors causes hydroplaning:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Roads filled puddles of water.",
+          "Dry road.",
+          "Bumpy road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 41,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Rule of 2 seconds need to be used:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "When parking  the vehicle.",
+          "While tailing other vehicle.",
+          "While making a right turn."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 42,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What should be done when the traffic light turns yellow:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Maintain the constant speed.",
+          "Increase the speed abruptly.",
+          "Reduce the speed of the vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 43,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Where are you allowed  to park your vehicle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "In front of a fire hydrant.",
+          "On a bridge.",
+          "At the parking lot."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 44,
+      "answer": "C",
+      "question": {
+        "questionDetail": "In which situation do we overtake the vehicle ahead?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "When the vehicle ahead is overtaking another vehicle.",
+          "When the vehicle ahead is moving with high speed.",
+          "When the vehicle ahead is switching to the left lane."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 45,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What actions should be taken to prevent the occurence of road accidents caused by road conditions?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Maintain the constant speed.",
+          "Turns on the emergency light.",
+          "Drive with suitable speed depending on the conditions of the road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 46,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What should be your action when you see the traffic light changes from green to yellow?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Accelerate the vehicle.",
+          "Slows the vehicle.",
+          "Prepare to stop the vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 47,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Which of the following statements CORRECTLY shows the safe way of making a U-turn?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Stay in the middle lane, give signals and make a U-turn.",
+          "Stay in the left lane, give signals and make a U-turn immediately.",
+          "Stay in the right lane, give corect signals and slows the vehicle make a U-turn when it is safe."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 48,
+      "answer": "A",
+      "question": {
+        "questionDetail": "When you wan to overtake other vehicle, you should:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Practise the Rule of 12 seconds.",
+          "Practise the Rule of 7 seconds.",
+          "Practise the Rule of 5 seconds."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 49,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What is the use of wearing bright colour clothes which reflects light in reducing the risk of accidents?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "To help the other road user to see the motorcyclist easier.",
+          "Giving birth to  courteous road users.",
+          "Make it easier for other road users to recognise the motorcyclist."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 50,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Which of the following statement is TRUE for area \"Road Under Repair\"?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "There is no traffic signboard temporary.",
+          "A lot of construction materials are found by the side of the road.",
+          "The speed of your vehicle is maintained."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 51,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What Rule of distance should be obeyed when tailing a vehicle ahead before overtaking it?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Rule of 12 seconds.",
+          "Rule of 2 seconds and 4 seconds.",
+          "Rule of 6 seconds and 12 seconds."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 52,
+      "answer": "B",
+      "question": {
+        "questionDetail": "In order to make sure your vehicle in always in good conditions, which of the following is the CORRECT safety step?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "The signal lights and the side-view mirror are not functioning..",
+          "To make sure that the brakes, lights and the horn of the vehicle are in good conditions.",
+          "Use worn off tyres"
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 53,
+      "answer": "C",
+      "question": {
+        "questionDetail": "When the vehicle ahead gives signal to make a right turn, what action should be taken by you?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Honk so that the vehicle immediately make a right turn.",
+          "Give signal to overtake the vehicle on the right and overtake the vehicle immediately.",
+          "Give signal to overtake the vehicle from the left and continue the journey if it is safe."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 54,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What should you do when the vehicle ahead accelerates when you are overtaking the vehicle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Slows the vehicle and drive back into the left lane.",
+          "Honk and flash high light to notify the vehicle.",
+          "Shift to high gear."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 55,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What should be done before driving into the right lane to overtake other vehicle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Your vehicle has to be in the suitable gear.",
+          "Practise the Rule of 7 seconds before overtaking vehicle.",
+          "Flash vehicle light and honk."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 56,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Which of the following is a dangerous place to overtake other vehicles?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Highway.",
+          "Road with bends and turns.",
+          "The overtaking lane."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 57,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What is the way to overtake long lorry (motor-lorry)?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Use suitable gear and accelerates your vehicle.",
+          "Honk for longer period of time so that the driver ahead slows down the vehicle.",
+          "Flash the hazard light and accelerate your vehicle"
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 58,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Which of the following is the driver's attitude which will lead to accidents?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Being prudent and considerate.",
+          "Being courteous and not impulsive.",
+          "Being not patient."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 59,
+      "answer": "C",
+      "question": {
+        "questionDetail": "If the vehicle behind wish to overtake your vehicle, you should:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Moves towards the left side of the road and stops your vehicle.",
+          "Increase the speed of your vehicle so that you will not be overtaken.",
+          "Slows down the vehicle and give way for the vehicle to overtake you."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 60,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Before embarking on a long journey, what should you do?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Get enought sleep and rest.",
+          "Bring extra foods to fill the stomach.",
+          "Take medicines to prevent tireness."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 61,
+      "answer": "C",
+      "question": {
+        "questionDetail": "According to Prudent Driving Concept, select the statements which is IRRELEVANT to the 10 Rules of Overtaking.",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Comminicate.",
+          "Giving signals.",
+          "Slows down the vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 62,
+      "answer": "A",
+      "question": {
+        "questionDetail": "The factor which causes two vehicles to collide with each other while overtaking is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "The driver did not obey the Rules of Overtaking.",
+          "The driver has checked the \"Blind Spot\".",
+          "C. The driver practises Rule of 2 seconds."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 63,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Overtaking from the left side is allowed when:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "The vehicle ahead wants to make a right turn.",
+          "Vehicles ahead lineup in a long queue.",
+          "Vehicles ahead move too slowly."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 64,
+      "answer": "B",
+      "question": {
+        "questionDetail": "On a straight road,the main cause of road disaster is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Use cheap tyres.",
+          "High speed vehicles on the road.",
+          "Use low gear."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 65,
+      "answer": "B",
+      "question": {
+        "questionDetail": "You are not allowed to honk when:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "You want to overtake other vehicles.",
+          "When approaching nearby hospital.",
+          "On the highway."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 66,
+      "answer": "C",
+      "question": {
+        "questionDetail": "The owner of the vehicle should have motor insurance which aims to:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Get the vehicle loan approved.",
+          "Reduce the rate of road accidents.",
+          "Give compensation to the victims of the accident."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 67,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What can you estimate when you see group of students coming out from the schoolbus in front of a vehicle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "The students will obey the traffic rules.",
+          "The students will wait by the side of the road.",
+          "The students will run across the road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 68,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Rule of 2 seconds means:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Rules to be obeyed when stopping vehicle.",
+          "Rules to be obeyed when slowing vehicle.",
+          "Rules to be obeyed when tailing a vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 69,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Select a place where parking of vehicle is prohibited from the following.",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Fire hyrdant..",
+          "Parking bay.",
+          "Rest and Recuperate station"
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 70,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Before embarking on a journey, what should be planned beforehand?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Increase the speed of vehicle.",
+          "Modify your vehicle.",
+          "Check the conditions of your vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 71,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Which of the following statements is the rule to be obeyed in junction?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Brake your vehicle suddenly.",
+          "Stops the vehicle.",
+          "Overtake the vehicle ahead."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 72,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Which of the following statements is TRUE about the use of gear?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Shift to high gear while climbing up the hill.",
+          "Shift to high gear while going down the hill.",
+          "Shift to low gear while climbing up the hill."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 73,
+      "answer": "B",
+      "question": {
+        "questionDetail": "During night time, what is the main cause of accident?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Cold weather.",
+          "Glare fro sunlight.",
+          "Quite road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 74,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What should be done when other vehicle is overtaking your vehicle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Accelerate the vehicle.",
+          "Reduce the speed of the vehicle.",
+          "Moves towards to the right side."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 75,
+      "answer": "B",
+      "question": {
+        "questionDetail": "According to Prudent Driving Concept, identify means:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Make decision before starting the journey and identify the destination.",
+          "Identify all the situations that will cause a person to be involved in accidents.",
+          "Identify the behaviour of other drivers, estimate the road situation and make sure that your vehicle is advancing slowly."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 76,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Accidents can be avoided during a heavy traffic by:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Turns on the vehicle light so that you can be seen by other drivers.",
+          "Plan your journey and pick the road with less traffic or start the journey earlier.",
+          "Use the emergency lane to avoid the traffic jam in order to reach the destination on time."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 77,
+      "answer": "A",
+      "question": {
+        "questionDetail": "When you see the signboard stating \"Give Way\", what should you do?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Slows the vehicle and give way to vehicle from right.",
+          "Slows the vehicle and give way to vehicle from opposite direction.",
+          "Continue the journey because other vehicles should give way to you."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 78,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What step can be done to prevent the collision with the vehicle ahead?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Honk if the vehicle ahead is moving too slowly.",
+          "Observe the vehicle ahead and obey to the distance rule.",
+          "Observe the conditions of the traffic at the back so that you do not ned to brake suddenly."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 79,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Planning of journey means:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Plan and allocate enough time for the journy so no rushing is required.",
+          "Bring enough food supply.",
+          "Use shortcuts when the traffic is busy."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 80,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What rules need to be obeyed when you are overtaking the vehicles ahead?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Rule of 10 seconds.",
+          "Rule of 12 seconds.",
+          "Rule of 16 seconds."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 81,
+      "answer": "B",
+      "question": {
+        "questionDetail": "In juction with traffic light, you should:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Increase the speed of the vehicle.",
+          "Obey the traffic light.",
+          "Brake abruptly."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 82,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Select the CORRECT statement about stopping at a slope.",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Press the brake and shift to low gear.",
+          "Press the brake and use the handbrake.",
+          "Free the gear and use handbrake."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 83,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Your vehicle is being overtaken by other vehicle. You should:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Reduce the speed of your vehicle.",
+          "Increase the speed of your vehicle.",
+          "Maintain the speed of your vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 84,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Accident with the vehicle from opposite direction can be avoided by obeying to which of the following group of 4 rules?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Observe opposite road, honk, flash the light and stops the vehicle.",
+          "Observe the opposite road, move to the right side, honk and flash the front light.",
+          "Observe the opposite road, move to the left side, reduce the speed of the vehicle and drive out from the road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 85,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Which of the following statements show the actions to be taken when reversing your vehicle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Honk, give signal and reverse the vehicle fastly.",
+          "Flash the front light to give signals to show that you are reversing your vehicle",
+          "Make sure there is no obstacles behind you, reverse the vehicle slowly and prepare to stop if needed."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 86,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Select the statement which show \"Good Consideration\".",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Take suitable actions according to traffic situation, road conditions and the weather.",
+          "Do not considered the information about the traffic disseminated by the mass media.",
+          "Just let other drivers on the road to take wise actions in order to prevent the occurence of accidents."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 87,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What is the solution for the problem of glare from other vehicle light at night?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "You need to close your eye temporary while waiting for the light of vehicle to pass by.",
+          "You need to use the sunglasses to overcome the vehicle lights which is too bright",
+          "Avoid to look straight to the direction of the vehicle light from the vehicles from the opposite direction and slows your vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 88,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Road accidents can be prevented if all drivers are having behaviour of:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive without patience and drive impulsively.",
+          "Drive with courtesy and being considerate.",
+          "To make sure that all other road users obey to the traffic rules."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 89,
+      "answer": "A",
+      "question": {
+        "questionDetail": "The brake lining of vehicle become wet after you washed your vehicle. You are advised to:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Testing the brake grip to make sure that it is working.",
+          "Brake immediately whicle reversing your vehicle with high speed.",
+          "Increase the speed of your vehicle before testing the brake."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 90,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Blind spot is found in which part of your vehicle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "The area at the back of your vehicle which cannot be seen with side-view mirror.",
+          "The area where you cannot see while you are reversing your vehicle.",
+          "The left and right area which you cannot see or check through the side-view mirror."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 91,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What should you do when you are involved in an accident?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Continue the journey to your destination.",
+          "Get a certification letter from The Public Works Department.",
+          "Make a report to the police and insurance company."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 92,
+      "answer": "B",
+      "question": {
+        "questionDetail": "High light cannot be used while tailing other vehicle at night because:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "To save the consumption of batteries.",
+          "Affects the eyesight of drivers in the vehicle ahead.",
+          "Make it difficult for your to estimate the distance between your vehicle and vehicle ahead correctly."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 93,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Which of the following is action to be taken before starting a journey?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "To make sure that the radio is functiong well.",
+          "To make sure that the air pressure of the tyres is enough.",
+          "To make sure that the handphone is brought along into the vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 94,
+      "answer": "B",
+      "question": {
+        "questionDetail": "You CANNOT continue your journey at junction eventhough you are on the priority lane. Which of the following statements describe the situation above?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "When you are not trapped in a traffic jam.",
+          "When there is fire engine, police or ambulance is passing by the junction",
+          "When you are given priority by the other driver."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 95,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What is the CORRECT distance for you to park your vehicle from a bus stop?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "3 metres.",
+          "6 metres.",
+          "9 metres."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 96,
+      "answer": "C",
+      "question": {
+        "questionDetail": "When other vehicles are trying to overtake you, what should you do?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Slows the vehicle and honk.",
+          "Slows the vehicle and moves towards the right side.",
+          "Slows the vehicle and moves towards the left side if needed."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 97,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Which of the following WILL NOT cause your vehicle to lose control?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Make a drastic turn.",
+          "Switch to other lane in a rush.",
+          "Use a low gear while going down a hill."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 98,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Which of the following statements shows a PRUDENT driver?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive slowly on the right lane of highway.",
+          "Responsible, patient and filled with confidence.",
+          "Do not respect and being rude to other drivers."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 99,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Which of the following shows the safe distance rule between two vehicles?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "2 seconds rule",
+          "10 seconds rule",
+          "12 seconds rule"
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 100,
+      "answer": "C",
+      "question": {
+        "questionDetail": "The traffic light changes from yellow to red. What should you do now?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Increase the speed of your vehicle.",
+          "Honk and continue the journey.",
+          "Stops the vehicle before the white lines safely."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 101,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What action should be done before you turns on the engine?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Press the clutch pedal and shift to gear one.",
+          "To make sure that the gear is in free gear position.",
+          "Press the clutch pedal and the accelerator."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 102,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Select the CORRECT action plan to overcome obctacles (hazard).",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Plan and take action according to the situation.",
+          "Indentify, predict, make the right decision and act.",
+          "Observe the surroundings and give signals before moving."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 103,
+      "answer": "B",
+      "question": {
+        "questionDetail": "When climbing up a high hill in vehicle, what should you do?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Use gear and clutch.",
+          "Use low gear.",
+          "Use high gear."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 104,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Overtaking of the vehicle ahead is needed when:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "The vehicle ahead is fast.",
+          "The vehicle ahead moves too slow.",
+          "The vehicle ahead make a U-Turn."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 105,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Which lane is suitable for you when you are approaching a roundabout and you want to make a left turn at the roundabout?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Left lane.",
+          "Right lane.",
+          "Emergency lane."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 106,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Your vehicle is in right lane and you wants to switch to left lane. You should:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "No need to give signals ad move to the left as fast as possible.",
+          "Increase the pseed and give signals while moving to the left.",
+          "Give signals for at least 3 seconds before moving towards the left."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 107,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What should you do when stopping at a junction?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Press the accelerator.",
+          "Free the gear.",
+          "Sound the horn."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 108,
+      "answer": "C",
+      "question": {
+        "questionDetail": "The CORRECT way of driving when on highway wth three lanes is",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Left lane to stop, drive slowly in the middle lane, right lane for faster vehicle.",
+          "Drive with high speed on the left lane, middle lane for overtaking, drive slowly on the right lane.",
+          "Drive slowly on the left lane, drive with normal speed on the middle lane, right lane is for overtaking."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 109,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Accident can be happened to anyone while reversing the vehicle. What can be done to prevent this?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "To make sure the actual situation before entering the vehicle, take a look at the rear-view and side-view mirror before reversing the vehicle.",
+          "Reverse the vehicle without turning your head to make sure the traffic situation.",
+          "Reverse the vehicle with high sped without looking at the actual situation of the surrounding."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 110,
+      "answer": "A",
+      "question": {
+        "questionDetail": "The fucntion of handbrake is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Stop at the slope of the hill.",
+          "Overtaking the vehicle ahead.",
+          "Drive on a slippery road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 111,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Prudent driving can be based on:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Overtaking other vehicle in a rush without giving any signals.",
+          "Plan the journey before starting the journey.",
+          "Drive with high speed because of late departure."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 112,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What is the wise action to be taken while driving in a heavy rain?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Sound the horn.",
+          "Drive with extra caution.",
+          "Drive with high speed."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 113,
+      "answer": "A",
+      "question": {
+        "questionDetail": "During rain, road accidents can be caused by:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "The driver cannot control the vehicle well.",
+          "Driver flash the vehicle light.",
+          "Driver drives slowly on the left lane."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 114,
+      "answer": "C",
+      "question": {
+        "questionDetail": "If the brake is malfuctioning when you are driving, what should you do?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Pull the handbrake immediately.",
+          "Sound the horn and flash the high light.",
+          "Press te brake repeatedly in fast manner."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 115,
+      "answer": "C",
+      "question": {
+        "questionDetail": "The seatbelt should be worn when:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "During short journey only.",
+          "During long journey only.",
+          "Everytime when you are driving."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 116,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Which of the following is one of the factors that causes accidents on the road.",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Nice weather.",
+          "Drivers make mistakes.",
+          "Good conditions of the road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 117,
+      "answer": "B",
+      "question": {
+        "questionDetail": "When driving at night, what should be done when tailing other vehicle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive with high speed.",
+          "Tail other vehicle with correct distance and using low light.",
+          "Use high light and tailing other vehicle with correct distance."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 118,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What should be done to prevent accidents if you are going on a long journey?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive at night only the air is cool.",
+          "Plan the journey and drive with prudent so that you will reach the destination safely.",
+          "Drive with high speed so that you will reach the destination faster."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 119,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Which of the followin statements indicate the attitude of a good driver?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Likes to race on the road.",
+          "Likes to drive slowly on the road.",
+          "Always be patient and being considerate."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 120,
+      "answer": "C",
+      "question": {
+        "questionDetail": "You see a vehicle ahead while you are climbing up a hill. What should you do now?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Follow closely at the back of the vehicle head.",
+          "Overtake the vehicle ahead to get a better view.",
+          "Maintain the safe distance with the vehicle ahead."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 121,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Choose the CORRECT way to hold the steering with both hands:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "On 8 o' clock direction- left hand and on 4 o' clock direction - right hand.",
+          "On 12 o' clock direction- left hand and on 6 o' clock direction - right hand.",
+          "On 10 o' clock direction- left hand and on 2 o' clock direction - right hand."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 122,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What action should be taken if you want to stop your vehicle safely?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Shifts to high gear and stops the vehicle immediately.",
+          "Give the left signal and stop at the right side of the road.",
+          "Take a look at the rear-view mirror, give signals and stops the vehicl on the left side of the road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 123,
+      "answer": "C",
+      "question": {
+        "questionDetail": "When going down a hill, what actions should be taken?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Pull the handbrake.",
+          "Use high gear.",
+          "Use low gear."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 124,
+      "answer": "C",
+      "question": {
+        "questionDetail": "The speed of the vehicle can be increased by pressing the:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Brake pedal.",
+          "Clutch pedal.",
+          "Accelerator pedal."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 125,
+      "answer": "C",
+      "question": {
+        "questionDetail": "If you vehicle is on fire suddenly, what should you do?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Continue the journey with caution.",
+          "Stops the vehicle and honk.",
+          "Stops the vehicle, turns off the engine and save the passengers."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 126,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Starts moving the vehicle by using:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Gear 3.",
+          "Gear 2.",
+          "Gear 1."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 127,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Rules that have to be obeyed while overtaking other vehicle is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Practise the 12 seconds rule an give signals for at least 3 seconds before moving to the right side.",
+          "To ensure that the vehicle ahead is moving with high speed before overtaking it.",
+          "Move to the right quickly and increase vehicle speed."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 128,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Before starting a journey during the peak hours, what should be done as a prudent driver?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Cancel the journey and chose to use air transport.",
+          "Continue the journey and endure the traffic jam.",
+          "Plan the journey ahead so that you do not need to face with peak hours or you can choose an alternative road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 129,
+      "answer": "B",
+      "question": {
+        "questionDetail": "According to The Road Transport Act 1987, offences related to alcohol is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Board a vehicle driven by a friend who is not under the influence of intoxicating drinks or alcohol.",
+          "Drive vehicle when you are under the influence of intoxicating drinks or alcohol.",
+          "Board a public transport vehicle driven by a person who is not under the influence of intoxicating drinks or alcohol."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 130,
+      "answer": "B",
+      "question": {
+        "questionDetail": "If you vehicle is overtaken by other vehicle, you CANNOT :",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive on the left lane.",
+          "Accelerate your vehicle.",
+          "Give signals to be overtaken."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 131,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What should be done when driving on a bumpy road?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive with higher speed.",
+          "Use handbrake.",
+          "Reduce the speed of the vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 132,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Which pedal should you be using when you want to stop your vehicle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Brake pedal followed by accelerator.",
+          "Accelerator followed by brake pedal.",
+          "Brake pedal followed by clutch pedal."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 133,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Vehicle factor is one of the contributing cause to accidents. This can be avoided by:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Making sure the vehicle is functioning well.",
+          "Making sure that the traffic is not busy.",
+          "Modifying the vehicle so that it can go faster"
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 134,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Examples of driver's responsibilities towards other road users include:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Driver must be vigilant in any situation.",
+          "Rights of other road users need not to be given attention.",
+          "Drives can drive with high speed in any situation."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 135,
+      "answer": "A",
+      "question": {
+        "questionDetail": "A group of children are playing by the side of the road while you are driving. What action should be taken by you?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Slows the vehicle, prepare to brake and stop if needed.",
+          "Reduce the sped, stops and observe the children at the side of the road.",
+          "Increase the speed and honk loudly so that the group of children can hear you."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 136,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What should be done if the vehicle from opposite direction using high light at night?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Use high light to remind the driver from the opposite direction so that he change to low light.",
+          "Use high light so that the driver from opposite direction cannot see.",
+          "Drive and enter the opposite lane so that the vehicle from opposite direction will stop by the side of the road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 137,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Choose the suitable times or frequency of using rear-view mirror while driving:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Every 1 to 2 seconds.",
+          "Every 5 to 8 seconds.",
+          "Every 2 to 5 minutes."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 138,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What should be done before driving?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Change the engine oil and the plug spark.",
+          "Adjust the seat and mirror, tighten the seatbelt.",
+          "Wash the vehicle every week."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 139,
+      "answer": "B",
+      "question": {
+        "questionDetail": "The main function of rear-view mirror to the driver is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Take a look at the passenger at the back.",
+          "To assess the hazard through the rear-view mirror.",
+          "As a decorative item in the vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 140,
+      "answer": "B",
+      "question": {
+        "questionDetail": "The vehicle you are driving is falling into a river. The best action to be take by you and the passenger will be:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Wait until to be saved.",
+          "Get out of the vehicle through the window.",
+          "Make sure that all the passengers close the window simultaneously."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 141,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What should you do if you see a signboard at a turn on the road?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Increase the speed if it is safe.",
+          "Slows the vehicle and drive with caution.",
+          "Drive in the middle lane to avoid losing control of the vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 142,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Action should be taken when switching to right lane while driving is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Slows the vehicle and switch to the lane.",
+          "Turn as soon as there is no vehicle coming from the opposite direction.",
+          "Take a look at the rear-view mirror and side-view mirror as well as giving enough signals before switching lane."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 143,
+      "answer": "C",
+      "question": {
+        "questionDetail": "You see a lost control vehicle coming from opposite direction while driving. What should you do now?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Continue the journey normally.",
+          "Contact the police immediately.",
+          "Stops the vehicle on the left side of the road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 144,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What should be done when you are approaching a crossroad?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "A.Reduce the speed, drive on the correct lane and stops before the white lines.",
+          "Reduce the speed and continue the journey slowly.",
+          "Reduce the seed and sound the horn of the vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 145,
+      "answer": "C",
+      "question": {
+        "questionDetail": "The meaning of prudent driver is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Ways to keep an eye on the behaviour of other road users.",
+          "Ways to control the usage of the oil and the servicing fees of the vehicle.",
+          "Ways of driving which can help to prevent the occurence of accidents."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 146,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What is the effect when someone is taking excess alcohol and drug?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Causes abnormal behaviour and out of control.",
+          "Reduce the physical and mental stress.",
+          "Improve the stamina and self-discipline."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 147,
+      "answer": "B",
+      "question": {
+        "questionDetail": "You felt tired while driving. What actions should be taken by you?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive even faster.",
+          "Stops the vehicle at a safe place and rest.",
+          "Continue the journey to your destination."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 148,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What should you know before taking the medicines given by the doctor?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Ask the doctor about the effect of the medicine on driver.",
+          "Stop driving after taking the medicine.",
+          "Drive slower than normal after taking the medicine."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 149,
+      "answer": "B",
+      "question": {
+        "questionDetail": "You have to give signals correctly to prevent accident. What is the meaning of this statement?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Flash the light of the vehicle.",
+          "Give signals or hand signals correctly.",
+          "Flash the hazard light and honk along the whole journey."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 150,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What should be done when driving on a slippery road?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Slows the vehicle so that it will be easier to control.",
+          "Drive in middle of the road so that your vehicle will not slip.",
+          "Drive normally and overtake all vehicles ahead."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 151,
+      "answer": "A",
+      "question": {
+        "questionDetail": "On a highway with two lane, what is the function of the right lane?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "For overtaking other vehicles.",
+          "Use it when you vehicle is being overtaken.",
+          "Use it while tailing the vehicles ahead."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 152,
+      "answer": "B",
+      "question": {
+        "questionDetail": "A driver who is concerned of other road users will:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Advise other road users if they are found to disobey the traffic rules.",
+          "Being tolerant with all road users in any situation.",
+          "Do not allow other road users to park your vehicle even in safe conditions."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 153,
+      "answer": "A",
+      "question": {
+        "questionDetail": "As a driver, what should you do if you see puddles of water and pedestrians are your way?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Slows the vehicle so that the puddles of water will not splash on the pedestrians.",
+          "Maintain the speed and drive normally.",
+          "Increase the speed of the vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 154,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Which of the action is NOT CIVILIZED during driving?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Overtaking other vehicles according to the rules.",
+          "Give way to vehicles on the right side.",
+          "Do not give signals correctly."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 155,
+      "answer": "B",
+      "question": {
+        "questionDetail": "You see a wild animal in middle of the road while you are driving. What should you do now?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Report to the local authorities.",
+          "Slows the vehicle, do not sound the horn and prepare to stop.",
+          "Drive normally and sound the horn so that the wild animal run away."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 156,
+      "answer": "B",
+      "question": {
+        "questionDetail": "When you realize that you are not wearing seatbelt while driving, you should:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Wear the safety belt straight eventhough you are driving.",
+          "Stops at the left side of the road and wear the safety belt.",
+          "No need to wear the safety belt."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 157,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What can be done if you feel sleepy while driving?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Turns on favourite music loudly.",
+          "Stops the vehicle and rest.",
+          "Continue the journey with the allowed speed limit."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 158,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What is the characteristics of not prudent driver?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Having basic knowledge about vehicle.",
+          "Likes to race and likes to drive with high speed.",
+          "Drive with caution and being considerate."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 159,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Why do you have to wear suitable clothes while driving?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "So that you can drive faster.",
+          "Clothes that is not suitable will restrict your movements.",
+          "You might be meeting your friends on the road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 160,
+      "answer": "C",
+      "question": {
+        "questionDetail": "The vehicle you are driving lost control and skid to the side of the road. What should you do now?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive the vehicle back on the main road.",
+          "Let the vehicle moves on its own.",
+          "Calm down and drive the vehicle back onto the main road slowly."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 161,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Which of the following ways of driving will lead to accidents?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive recklessly and being not considerate.",
+          "Drive with the set speed limit.",
+          "Drive with speed of 30km/hr nearby school area."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 162,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What should you be careful about when driving in housing area?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Children will appear suddenly in your way.",
+          "Pedestrians will always give attention to the traffic.",
+          "Motorcyclists always obey the traffic rules."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 163,
+      "answer": "B",
+      "question": {
+        "questionDetail": "While driving nearby school area, drivers need to:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Pull the handbrake.",
+          "Use low gear.",
+          "Gear must be in free position."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 164,
+      "answer": "B",
+      "question": {
+        "questionDetail": "When you realize that you are not wearing seatbelt while driving, you should:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Left lane.",
+          "Right lane.",
+          "Lane where there is no other vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 165,
+      "answer": "C",
+      "question": {
+        "questionDetail": "The less polite attitude while driving is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Give correct signals when you want to make a turn.",
+          "Use low light while tailing other vehicle.",
+          "Always turn on the high light while driving at night."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 166,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Driver need adjust the side-view miror to be able to see:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Tyres conditions and the colour of the vehicle.",
+          "Road conditions and the tyres conditions.",
+          "Vehicles coming from the back."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 167,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Abrupt brake while driving can be prevented by:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive with high speed and without caution.",
+          "Follow too closely to the vehicle ahead.",
+          "Ensure a safe tailing distance with the vehicle ahead."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 168,
+      "answer": "A",
+      "question": {
+        "questionDetail": "While driving, the collision with vehicles from opposite direction can results from:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Driving on the right side of the road.",
+          "Driving on the left side of the road.",
+          "Reduce the speed and look ahead."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 169,
+      "answer": "C",
+      "question": {
+        "questionDetail": "If you want to stop your vehicle by the side of the road and you wish to get out the vehicle. What should you do?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Straight away open the vehicle door and get out of the vehicle without looking to the left and right of the road.",
+          "Lower down the vehicle window and open the door before getting out of the vehicle.",
+          "Take a look at the side-view mirror and make sure there is no other vehicle from the back."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 170,
+      "answer": "A",
+      "question": {
+        "questionDetail": "In heavy rain which limit the sight, what should be done while driving?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Slows the vehicle in a safe place until the rain stops.",
+          "Accelerates the vehicle, turns on the hazard light and drive with caution.",
+          "Continue the journey normally until you reach the destination."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 171,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Using handphone without hand free kit while driving will cause the driver to:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive with calmness.",
+          "Reduce attention to the driving.",
+          "Do not feel tired in long journey."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 172,
+      "answer": "C",
+      "question": {
+        "questionDetail": "The 4 seconds rule should be used when:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Making a U-Turn.",
+          "Stopping at a junction.",
+          "Driving in a poor weather conditions."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 173,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Practise of prudent driving is with the purpose of:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Save the cost of journey.",
+          "To reach the destination fast.",
+          "To prevent the occurence of the accidents on the road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 174,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What should be estimated when driving approaching a sharp turn?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "There is no other vehicle ahead.",
+          "There is obstacle and other vehicles ahead.",
+          "Vehicles from the opposite direction drive in the correct lane."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 175,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Why is it difficult for drivers to estimate the distance and speed of the vehicle from the oppsite direction?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Because driving in the morning when the weather is hot.",
+          "Because driving at night when there is heavy rain.",
+          "Because driving in the afternoon when the weather is nice."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 176,
+      "answer": "A",
+      "question": {
+        "questionDetail": "The safe way of driving nearby school area is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Reduce the speed and use a suitable gear.",
+          "Drive with high speed and flash the front light.",
+          "Flash the front light and sound the horn."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 177,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Safe way to drive in area with junctions is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Straight away make a left turn.",
+          "Slows the vehicle.",
+          "Accelerates the vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 178,
+      "answer": "C",
+      "question": {
+        "questionDetail": "If the brake of your vehicle is malfunctioning suddenly while you are driving. What is the steps that need to be taken in order to stop you vehicle in a safe manner?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Pull the handbrake immediately to stop the vehicle.",
+          "Turns off the engine, let the vehicle move on its own and use your skills to control the steering.",
+          "Shift to low gear to slow the vehicle an pull the handbrake gradually."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 179,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Shifting gear while driving, you should:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Give attention to the road ahead.",
+          "Take a look at the vehicel behind.",
+          "Observe the passenger beside you."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 180,
+      "answer": "C",
+      "question": {
+        "questionDetail": "When driving in a rainy day, you should:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Turns on the vehicle light and honk.",
+          "Turns on the vehicle light and increase the speed of the vehicle.",
+          "Turns on the vehicle luight and drive with caution."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 181,
+      "answer": "A",
+      "question": {
+        "questionDetail": "In which of the following situations accidents occur easily?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive with high speed in a rain.",
+          "Wear theseatbelt.",
+          "Drive below the speed limit."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 182,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Select one factor which causes tireness while driving:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive for too long without rest.",
+          "Drive at night.",
+          "Drive in the morning."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 183,
+      "answer": "B",
+      "question": {
+        "questionDetail": "One example of attitudes of prudent and courteous driver is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Overtaking other vehicle at turn.",
+          "Obey the traffic rules.",
+          "Throw canned drinks out of the vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 184,
+      "answer": "C",
+      "question": {
+        "questionDetail": "According to Prudent Driving Concept, what is the CORRECT action while driving on highway?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Practise the 6 seconds rule.",
+          "Drive continuously without rest.",
+          "Drive on the left lane if not overtaking."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 185,
+      "answer": "B",
+      "question": {
+        "questionDetail": "You see a blind people crossing the road when you are driving. What is the CORRECT action to be taken?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Give warning by sounding the horn and continue the journey.",
+          "Reduce the speed and stop the vehicle to allow the blind people to cross the road.",
+          "Stops and advise the blind people so that he/she will not cross the road without the help of others."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 186,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What actions should be taken to prevent driving in a rush in order to reach the destination?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive in the morning as there is not much traffic.",
+          "Plan the journey so that you will have enough time.",
+          "Drive at night only in order to prevent traffic jam."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 187,
+      "answer": "C",
+      "question": {
+        "questionDetail": "A good and prudent driver will be able to estimate hazard and danger while driving so that:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Keep an eye on the movement of other vehicle.",
+          "Increase the rate of road accidents.",
+          "Prepare to prevent accidents."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 188,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Driver has to focus on the road and other hazard ahead. However, driver can look away for:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "When wearing the seatbelt.",
+          "When looking at the handphone.",
+          "When looking at the rear-view mirror and side-view mirror."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 189,
+      "answer": "C",
+      "question": {
+        "questionDetail": "You see a signboard showing that there is muddy road by the side of the main road. The CORRECT action will be:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Park the vehicle at the side of the road.",
+          "Increase the speed of your vehicle.",
+          "Be careful and slows the vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 190,
+      "answer": "B",
+      "question": {
+        "questionDetail": "The tyres of your vehicle suddenly punctured. What should you do now?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Sound the horn of the vehicle to serve as warning to other vehicles.",
+          "Brake slowly, control the vehicle and moving towards side of the road which is plane.",
+          "Brush suddenly so that the vehicle can be stopped immediately."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 191,
+      "answer": "B",
+      "question": {
+        "questionDetail": "When passing by an unfamiliar area, you should:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Increase the speed so that you can be familiar with the road.",
+          "Slows the vehicle and drive with caution to overcome any hazards.",
+          "Always look to the left and right side of the road while driving."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 192,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Which of the following will cause your vehicle to lose control at turns?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive with high speed.",
+          "Use low gear.",
+          "Drive within the speed limit."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 193,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What should you do when you feel tired after a while driving on the highway?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Stops and rest at Rest and Recuperate (R&R) area.",
+          "Drive with high speed so that you will reach earlier to rest.",
+          "Drive while listening to music to reenergize yourself."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 194,
+      "answer": "A",
+      "question": {
+        "questionDetail": "The effect of taking excess alcohol on the driver is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "The driver wil react to situation slower.",
+          "Improve the sight of the driver.",
+          "Improve the reaction time of the driver."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 195,
+      "answer": "C",
+      "question": {
+        "questionDetail": "We should give more attention to elderly pedestrian while driving because:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "They do not obey to the traffic rules.",
+          "They do not understand about the traffic rules.",
+          "Their hearing and eyesight is not so good."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 196,
+      "answer": "C",
+      "question": {
+        "questionDetail": "You are driving on a highway with three lanes and you see the signboard showing \" Left Lane Narrowing\". What should you do now?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Maintain the speed and shift to the right lane after seeing the signboard.",
+          "Increase the speed and shift to the right lane after seeing the signboard.",
+          "Reduce the speed and give way to vehicles from the right side before switching lane."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 197,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Accidents can occur while reversing vehicle, this can be prevented by:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Looking at the rear-view mirror and side-view mirror before reversing the vehicle.",
+          "Reversing the vehicle without look at the back, left and right.",
+          "Turn to back to see the actual condition of the surroundings."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 198,
+      "answer": "B",
+      "question": {
+        "questionDetail": "You are affected by the glare of the light while driving at night. What should you do now?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Sound the horn.",
+          "Slows the vehicle.",
+          "Use high light."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 199,
+      "answer": "A",
+      "question": {
+        "questionDetail": "If the bonnet of your vehicle suddenly opens when you are driving, what action should be taken?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Brake gradually towards the side of the road and look through window for direction.",
+          "Honk and give warnings to other road user so that they be more careful.",
+          "Stops the vehicle immediately to close the bonnet of your vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 200,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Planning of journey will form the behaviour of:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Not patient and being impulsive.",
+          "Prudent and not rushing.",
+          "Loss of courtesy and do not considerate."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 201,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What actions should be taken when you see a school bus stops by the side of the road with the emergency light on?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive with high speed and sound the horn.",
+          "Drive normally and overtaking other vehicle from the left side.",
+          "Drive with extra caution and stop the vehicle if needed."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 202,
+      "answer": "A",
+      "question": {
+        "questionDetail": "One of the MAIN thing to be noted while driving is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Obey the traffic rules.",
+          "Always overtake the vehicle ahead.",
+          "Follow closely to the vehicle ahead."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 203,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What should you do if you stop at a junction with traffic light?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Press the brake pedal, press the clutch pedal, pull the handbrake and free the gear.",
+          "Press the brake pedal and the clutch pedal simultaneouly.",
+          "Press the clutch pedl and shift to gear 1."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 204,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Choose the statement which can become a influence in your driving.",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "You need to be rush as you are running some important errands.",
+          "Challenge from other drivers who drive with high speed and styles.",
+          "Road conditions, traffic conditions, weather and the vehicle conditions."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 205,
+      "answer": "C",
+      "question": {
+        "questionDetail": "While tailing a vehicle approaching a construction site, what can you estimate?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Vehicle ahead will increase the speed.",
+          "Vehicle ahead maybe will turns on high light.",
+          "Vehicle ahead maybe will stop abrupty and suddenly."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 206,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What should you do when your accelerator suddenly stuck?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Free the gear, stops by the side of the road and turns off the ignition switch.",
+          "Press the clutch pedal and shift to high gear.",
+          "C.Continue the journey until you find a workshop."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 207,
+      "answer": "C",
+      "question": {
+        "questionDetail": "You are driving in a housing area. What action should be taken by you?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive while chit-chatting.",
+          "Drive while make greetings to the neighbourhood.",
+          "Always drive with extra caution and extra careful."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 208,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Vehicle which move passed through the pedestrian area is known as:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Moving out.",
+          "Moving in.",
+          "Movement of crossing."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 209,
+      "answer": "A",
+      "question": {
+        "questionDetail": "The light of your vehicle is not functioning while you are driving at night. What should you do now?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Slows the vehicle, give signals and stops by the side of the road.",
+          "Flash the emergency light and continue the journey.",
+          "Stops the vehicle immeditely without looking the vehicles behind."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 210,
+      "answer": "C",
+      "question": {
+        "questionDetail": "While driving on the road, what is associated with DANGER?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Very old age of the vehicle.",
+          "A lot of signboards which can be found at junctions on the road.",
+          "Hazard on the road such as poor conditions of the road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 211,
+      "answer": "C",
+      "question": {
+        "questionDetail": "The meaning of prudent driver is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive with high speed on the highway.",
+          "Overtake other vehicles without obeying the traffic rules.",
+          "Is able to drive with suitable speed according to the conditions of the road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 212,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What is the meaning of obstacles (hazard)?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Element to be used as guidance for the drivers.",
+          "Elements which cannot be identified by the drivers.",
+          "Elements which can identify the possible danger."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 213,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Smoke is coming out from the front of your vehicle and warning is given on the temperature indicator of your vehicle. What should you do now?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Turns off the engne and pour water into the radiator immediately.",
+          "Turns off the engine, wait until the engine cools down, and add water into the radiator.",
+          "Continue the journey until you find a mechanic workshop which can solve your problems."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 214,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Every driver should have good characteristic such as:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Do not care about the safetly of other people.",
+          "Being considerate towards other road users.",
+          "Do not respect the rights of other road users."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 215,
+      "answer": "B",
+      "question": {
+        "questionDetail": "The main characteristic of a prudent driver is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drivers do not focus while driving.",
+          "Driver does not commit any offences on the road. ",
+          "Driver who do not check their vehicle before starting the journey."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 216,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Which pedal should be pressed if you want to stop a car with manual transmission?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Brake pedal, clutch pedal, and accelerator pedal.",
+          "Clutch pedal and accelerator pedal.",
+          "Brake pedal and clutch pedal."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 217,
+      "answer": "B",
+      "question": {
+        "questionDetail": "The use of side-view and rear view mirror is for the purpose of:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "You will not feel sleepy easily.",
+          "Understand the situation at the back of the vehicle.",
+          "To ensure that there is no other vehicle ahead of our vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 218,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What actions should be taken when you are driving approaching a area with railway crossing?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Get the permission to cross this area from the responsible authorities.",
+          "Slows the vehicle and make sure that the area is safe before crossing.",
+          "Increase the speed of the vehicle in order to cross before the train passed by."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 219,
+      "answer": "C",
+      "question": {
+        "questionDetail": "The back tyre of your vehicle suddenly burst while you are driving. What should you do now?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Brake immediately and stops by the side of the road.",
+          "Do not press brake, stops gradually by the side of the road.",
+          "Hold the steering firmly, brakes slowly, give signals and stops at the side of the road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 220,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Using the handphone without hands free kit while driving will lead to:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Driver does not focus completely during driving.",
+          "Drivers will be able to estimate the hazard ahead.",
+          "Drivers will be able to remove boredom and remove the sleepiness."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 221,
+      "answer": "B",
+      "question": {
+        "questionDetail": "The seatbelt has to be worn when:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "After starting the journey.",
+          "Before starting the journey.",
+          "When you see a road block."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 222,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What is the meaning of using seatbelt while driving?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "To protect hands and legs when driving.",
+          "To prevent yourself from being summoned from the enforcers.",
+          "For the safety of drivers while driving."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 223,
+      "answer": "C",
+      "question": {
+        "questionDetail": "On a slippery surface, every driver needs to:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive with the emergency light on.",
+          "Stops until the suface of the road is dry.",
+          "Slows the vehicle so that your vehicle can be controlled easily."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 224,
+      "answer": "B",
+      "question": {
+        "questionDetail": "The feeling of anger while driving can be overcomed by:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive with faster speed and turns the radio on louder.",
+          "Stops at a safe place until you are calmed down.",
+          "Take a look to the left and right of the road as frequent as you can."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 225,
+      "answer": "B",
+      "question": {
+        "questionDetail": "The action of turning on the high light during night time will endanger the drivers from the oppsosite direction because:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "The driver is forced to stop the vehicle.",
+          "The driver will not be able to see the hazards ahead.",
+          "The driver will drive with faster speed."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 226,
+      "answer": "B",
+      "question": {
+        "questionDetail": "The handbrake of the car is for:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Slows the vehicle.",
+          "To make sure that the vehicle is not moving.",
+          "Move the vehicle forward."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 227,
+      "answer": "C",
+      "question": {
+        "questionDetail": "The high light needs to be used when:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "When tailing other vehicle.",
+          "When collide with the vehicle from opposite direction.",
+          "When driving at night and there is no other vehicle from the opposite direction."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 228,
+      "answer": "B",
+      "question": {
+        "questionDetail": "The windshield of your vehicle suddenly break while you are driving. What should you do now?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Continue driving normally and stops at a nearby mechanic workshop.",
+          "Slows the vehicle and look outside through windows and stops at a safe place.",
+          "Break the windshield while driving so that you can see clearly."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 229,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What should be done when driving through a sharp turn?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Reduce the speed and use the left lane.",
+          "Increase the speed and use the left lane.",
+          "Increase the speed and stays on the right lane."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 230,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Lane X is closed due to road under repair. Select the CORRECT statement for the figure below:",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/230.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "Vehicle on the lane X has to drive into lane Y in an alternating way.",
+          "Vehicles on the lane Y do not need to give way to vehicle on the lane X.",
+          "Vehicles in the lane X should stops and turn over."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 231,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Select the CORRECT statement for the situation below:",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/231.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "Vehicle B should give priority to vehicle A.",
+          "Vehicle A should give priority to vehicle B.",
+          "Vehicle A needs to increase the speed when vehicle B is seen."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 232,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Select the CORRECT statement for the figure below:",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/232.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "Vehicles in the lane B should give priority to vehicles in the lane A.",
+          "Vehicles in the lane B should give way to the vehicles in the the lane A.",
+          "Vehicles in the lane A should give way to the vehicles in the the lane B."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 233,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Select the CORRECT statement for the situation below:",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/233.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "Vehicle A is in the correct lane.",
+          "Vehicle B is in the correct lane.",
+          "Vehicle C is in the correct lane."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 234,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Select the CORRECT statement for the situation below:",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/234.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "Vehicle B should give way to vehicle C.",
+          "Vehicle A should give way to vehicle B.",
+          "Vehicle B should give way to vehicle A."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 235,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Driver A drives slowly in the lane Y on a highway. Which of the following statements is CORRECT for the figure below:",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/235.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "Driver A should switch to lane X.",
+          "Driver B should switch to lane X.",
+          "Driver A had exceed the speed limit."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 236,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Select the FALSE statement for the situation in the fgure below:",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/236.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "Vehicles in the lane B should be careful with the vehicles in the lane A.",
+          "Vehicles in the lane B need to give way to the vehicles in the lane A.",
+          "Vehicles in the lane A do not need to give way to the vehicles in the lane B."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 237,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Select the FALSE statement for the situation in the figure below:",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/237.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "Vehicle B has priority over vehicle A.",
+          "Vehicle C has priority over vehicle B.",
+          "Vehicle A has priority over vehicle C."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 238,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Select the CORRECT statement for the situation in the figure below:",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/238.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "Vehicles in te lane Y should give way to vehicles in the lane Z.",
+          "Vehicles in the lane X need to give way to vehicles in the lane Y.",
+          "Vehicles in the lane Y should give way to vehicles in the lane X."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 239,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Select the CORRECT statement for the situation in the figure below:",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/239.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "Vehicle C needs to follow a vehicle which may cause accident.",
+          "Vehicle B needs to give way to vehicle C.",
+          "Vehicle B needs to give way to vehicle A."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 240,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Select the CORRECT statement for the situation in the figure below:",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/240.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "Vehicle A needs to give way to vehicle B.",
+          "Vehicle B needs to give way to vehicle A.",
+          "Vehicle B needs to give way to vehicle C."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 241,
+      "answer": "A",
+      "question": {
+        "questionDetail": "If driver A wish to enter the junction on the right of the road, what should driver A do?",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/241.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "Give signals to make a right turn, give way to vehicles from the opposite direction and make the turn.",
+          "Make the turn without considering the vehicles from the opposite direction.",
+          "Give way to vehicles which coming out from the junction earlier."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 242,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What should be done by driver AB in a situation depicted in the figure below:",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/242.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "Allow the vehicle AC to continue the journey.",
+          "Allow the vehicle AD to continue the journey.",
+          "Allow both the vehicle AC and AD to continue the journey."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 243,
+      "answer": "C",
+      "question": {
+        "questionDetail": "When reaching at the junction X, you should:",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/243.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "No need to give direction signals and stops as you are driving onto the main road from a small jucntion.",
+          "Do not need to stop as there is no vehicle in the main road.",
+          "Give directional signals, stops and make sure that there is no vehicle on the main road, then only you come out from the small junction."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 244,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Select the FALSE statement for the situation in the figure below:",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/244.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "Vehicle A must give prioriry to vehicle C to continue the journey.",
+          "Vehicle C must give priority to vehicle B before conitnuing journey.",
+          "Vehicle must give priority to both vehicle A and vehicle C to continue their journey."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 245,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What actions should be taken by driver A when seeing driver B give signals to enter junction X?",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/245.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "Driver A can make a U-turn if driver A wants.",
+          "Driver A must stop and wait until driver B entered the junction.",
+          "Driver A straight come out from the junction eventhough driver B do not give signal to make a turn."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 246,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Select the FALSE statement for the situation in the figure below:",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/246.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "A.Vehicle C needs to give priority to vehicle B.",
+          "Vehicle A can only continue journey after vehicle B and vehicle C passed by.",
+          "Vehicle B needs to give priorty to vehicle C."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 247,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Select the CORRECT statement for the situation in the figure below:",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/247.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "Priority should be given to vehicle A to make a turn earlier.",
+          "Priority should be given to vehicle B to make a turn earlier.",
+          "Vehicle A and vehicle B can turn inro the junction X simultaneously."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 248,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Select the CORRECT statement for the situation in the figure below:",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/248.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "Vehicle B needs to give way to vehicle A.",
+          "Vehicle A needs to give way to vehicle B.",
+          "Vehicle B needs to give way to vehicle C."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 249,
+      "answer": "C",
+      "question": {
+        "questionDetail": "If you are driver C, what should you do?",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/249.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive out from the junction without consider about vehicle A and vehicle B.",
+          "Drive out of the junction after vehicle A makes a turn.",
+          "Drive out of the junction after vehicle B passed by."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 250,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Arrange the following vehicle based on their priority in the figure below:",
+        "questionDetailChoice": [],
+        "questionDetailImages": [
+          "assets/images/part2/250.jpg"
+        ]
+      },
+      "choices": {
+        "choiceDetail": [
+          "Vehicle B -> Vehicle A -> Vehicle C.",
+          "Vehicle B -> Vehicle C -> Vehicle A.",
+          "Vehicle C -> Vehicle B -> Vehicle A."
+        ],
+        "choiceImage": []
+      }
+    }
+  ]
+}

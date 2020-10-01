@@ -1,0 +1,1704 @@
+{
+  "questionData": [
+    {
+      "id": 1,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Probationary Driving Licence (PDL) cannot be converted to Competency Driving Licence (CDL) after exceeding expiry date for:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "6 months",
+          "2 years",
+          "1 year"
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 2,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Competency Driving Licence CANNOT be renewed after exceeding the expiry date for:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "3 Years",
+          "1 Year",
+          "6 Months"
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 3,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What age is qualified to apply for Class B Driving Licence?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "16 Year old",
+          "17 Year old",
+          "18 Year old"
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 4,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What rules should be obeyed by holder of Learner Driving Licence (LDL) while riding?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Display \"P\" plate.",
+          "Display \"L\" plate.",
+          "Having a passenger."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 5,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Which class of licence is required to ride a motorcycle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Class B.",
+          "Class D.",
+          "Class E."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 6,
+      "answer": "C",
+      "question": {
+        "questionDetail": "System KEJARA means:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Skillful System on the road.",
+          "Road education system.",
+          "Safety system on the road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 7,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Which of the following is an offence included under system KEJARA?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Driving exceeding the speed limit.",
+          "Drive an unregistered vehicle.",
+          "Drive a car which do not have insurance protection."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 8,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Under system KEJARA, which offence will cause the cancellation of Probationary Driving Licence (PDL)?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Use fake tyres.",
+          "Fail to obey the traffic light.",
+          "Overtake on twin-line lane."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 9,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Which class of licence need to be applied if you want to ride a motorcycle above 500c.c?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Class B.",
+          "Class B2.",
+          "Class D."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 10,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What conditions should be obeyed by motorcyclist with Learner Driving Licence (LDL)?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Display \"L\" plate on left and right side of the motorcycle.",
+          "Display \"P\" plate in front and behind of the motorcycle.",
+          "Display \"L\" plate in front and behind of motorcycle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 11,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What age is qualified to apply for Public Service Vehicle Driver's License (Bus)?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "18 Year old.",
+          "20 Year old.",
+          "21 Year old."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 12,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What age is qualified to apply for Class C Driving Licence?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "16 Year old.",
+          "18 Year old.",
+          "20 Year old."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 13,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Select the CORRECT combination for the statement below:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Class D Licence - Motorcycle",
+          "Class E Licence - Lorry",
+          "Class A Licence - Car"
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 14,
+      "answer": "A",
+      "question": {
+        "questionDetail": "How long is the valid period of the result of Part ll and Part lll of the driving examination for applying driving licence purpose?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "1 Year.",
+          "2 Years.",
+          "3 Years."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 15,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Minimum age to apply for Class D Driving Licence is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "16 Year old.",
+          "17 Year old.",
+          "18 Year old."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 16,
+      "answer": "A",
+      "question": {
+        "questionDetail": "One of the goals of system KEJARA is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Reduce the rate of road accidents.",
+          "To ensure drivers are able to manage their stress while driving.",
+          "Improve the drivng facilities on the road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 17,
+      "answer": "B",
+      "question": {
+        "questionDetail": "According to system KEJARA, Probationary Driving Licence can be cancelled if the holder of the licence accumulate amount of demerit points up to:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "6 Points.",
+          "10 Points.",
+          "12 Points."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 18,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Your Probationary Driving Licence has expired for more than a year while you are overseas, what should be done?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Appeal to The Road Transport Department Of Malaysia.",
+          "Drive without having a valid driving licence.",
+          "Stop driving forever."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 19,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What is the health level required for an individual to apply for driving licence?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Healthy body and is able to hear for a distance of 23 metres.",
+          "Healthy body, able to see for a distance of 23 metres and no colour-blindness.",
+          "Healthy body, able to hear for a distance of 20 metres and no colour-blindnes"
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 20,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What is the national speed limit while driving on highway?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "100 km/hr.",
+          "110 km/hr.",
+          "120 km/hr."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 21,
+      "answer": "B",
+      "question": {
+        "questionDetail": "How long is the validity period of Learner Driving Licence (LDL)?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "1 Year.",
+          "2 Years.",
+          "3 Years."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 22,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Criteria to be fulfilled before the Learner Driving Licence (LDL) can be issued to the appliant includes:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Attend KPP01 course and already completed KPP02 course.",
+          "Attend KPP01 course and pass Part l Examination.",
+          "Attend KPP03 course and only pass Part l Examination."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 23,
+      "answer": "B",
+      "question": {
+        "questionDetail": "How long is the validity period of Probationary Driving Licence (PDL)?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "1 Year.",
+          "2 Years.",
+          "3 Years."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 24,
+      "answer": "B",
+      "question": {
+        "questionDetail": "You going to the city with your wife and child on a motorcycle. What offence have you commited?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Allowing children to board the motorcycle.",
+          "Having more than one passenger.",
+          "Do not wear helmet."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 25,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What should be done before riding on a motorcycle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Wear the helmet properly.",
+          "Tighten seabelt.",
+          "Wear dark clothes,"
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 26,
+      "answer": "A",
+      "question": {
+        "questionDetail": "According to system KEJARA, when your Compentency Driving Licence (CDL) is cancelled, you:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Cannot drive a vehicle.",
+          "Can apply for Learner Driving Licence (LDL).",
+          "Can obtain Probationary Driving Licence (PDL)."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 27,
+      "answer": "C",
+      "question": {
+        "questionDetail": "For holders of Competency Driving Licence (CDL) who accumulate less than 15 demerit points, 7 demerit points will be deducted if he/she does not commit any offences for:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "6 months.",
+          "12 months.",
+          "24 months."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 28,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Holders of PDL licence do not display \"P\" plate while driving on the road is considered as an offence according to system KEJARA. This offence will cause:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "The cancellation of driving licence.",
+          "Driving licence will be suspended.",
+          "Drinving licence will be frozen."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 29,
+      "answer": "B",
+      "question": {
+        "questionDetail": "For candidates who are with disabilities (OKU), who should verify their qualification to apply for driving licence.",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Employer.",
+          "Registered General Practitioner (Doctor).",
+          "Parents (Father and Mother)."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 30,
+      "answer": "A",
+      "question": {
+        "questionDetail": "According to The Road Transport Act 1987, which of the following is considerd as an offence?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Exceed the speed limit.",
+          "Obeying the traffic rules while driving.",
+          "Drive carefully and be considerate of other road users."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 31,
+      "answer": "A",
+      "question": {
+        "questionDetail": "For the holders of Class D Learner Driving Licence (LDL), which of the following statements is CORRECT?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Holders of Class D Learner Driving Licence (LDL) are not allowed to drive by themselves alone.",
+          "Holders of Class D Learner Driving Licence (LDL) are allowed to drive by themselves alone.",
+          "Holders of Class D Learner Driving Licence (LDL) no need to display the \"L\" plate."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 32,
+      "answer": "B",
+      "question": {
+        "questionDetail": "For holders of Class B2 Learner Driving Licence (LDL), which of the following statements is CORRECT?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Holders of Class B2 Learner Driving Licence (LDL) are not allowed to ride by themselves alone.",
+          "Holders of Class B2 Learner Driving Licence (LDL) are not allowed to have passeger while riding.",
+          "Holders of Class B2 Learner Driving Licence (LDL) no need to display \"L\" plate."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 33,
+      "answer": "A",
+      "question": {
+        "questionDetail": "According to system KEJARA, what are the actions to be taken on the holders of Probationary Driving Licence (PDL) when they accumulate up to 10 demerit points?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Probationary Driving Licence (PDL) will be cancelled.",
+          "Probationary Driving Licence (PDL) will be suspended for 2 years.",
+          "Probationary Driving Licence (PDL) will be suspended for 3 months."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 34,
+      "answer": "A",
+      "question": {
+        "questionDetail": "When the Probationary Driving Licence (PDL) expired, how long will it take to convert to Competency Driving Licence (CDL)?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "1 Year.",
+          "2 Years.",
+          "3 Years."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 35,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Which of the following offences CANNOT be associated with The Road Transport Act 1987?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Did not display road tax.",
+          "Do not stop when stopped by other drivers.",
+          "Turn on motorcycle light in the morning."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 36,
+      "answer": "B",
+      "question": {
+        "questionDetail": "According to system KEJARA, which of the following offences will lead to the deduction of the demerit points?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Fail to bring insurance certificate.",
+          "Fail to obey the traffic light.",
+          "Did not tighten the seatbelt."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 37,
+      "answer": "B",
+      "question": {
+        "questionDetail": "How many demerit points will be incurred onto the holders of the Probationary Driving Licence (PDL) when they fail to display the \"P\" sign in front and at the back of the vehicle while driving on the road.",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "8 points.",
+          "10 points.",
+          "15 points."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 38,
+      "answer": "A",
+      "question": {
+        "questionDetail": "When a holder of Competency Driving Licence (CDL) accumulate up to or more than 15 demerit points for the first time. what actions will be taken against him/her?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Driving licence will be suspended for 6 months.",
+          "Driving licence will be suspended for 12 months.",
+          "Driving licence will be suspended for 24 months."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 39,
+      "answer": "C",
+      "question": {
+        "questionDetail": "If a driver is drunk, what wise action should be taken by him?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Healthy body and is able to hear for a distance of 23 metres.Drive the vehicle back to house with the companion of friends.",
+          "Ask a friend to sit at the passenger seat and show the way back to the house.",
+          "Ask the help from a friend who is not drunk to drive the vehicle or take public transport."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 40,
+      "answer": "C",
+      "question": {
+        "questionDetail": "One of the offecences on the road is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive in rainy days.",
+          "Drive within the speed limit.",
+          "Overtaking on twin-line lane."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 41,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Maximum period that a Competency Driving Licence (CDL) can be renewed is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "2 years.",
+          "5 years.",
+          "7 years."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 42,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Probationary period for holders of Probationary Driving Licence (PDL) is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "1 year.",
+          "2 years.",
+          "3 years."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 43,
+      "answer": "C",
+      "question": {
+        "questionDetail": "To apply for a Class E Competency Driving Licence (CDL), the age of the applicant must be:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "16 year old.",
+          "17 year old.",
+          "21 year old."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 44,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Learner Driving Licence (LDL) can be issued and renewed in 3 to 6 months until the maximum time period of:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "1 year.",
+          "2 years.",
+          "3 years."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 45,
+      "answer": "A",
+      "question": {
+        "questionDetail": "How long is the validity period of the examination result used to apply for driving licence?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "1 year.",
+          "2 years.",
+          "3 years."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 46,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Type of different licences can be obtained by public transport vehicle driver includes:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Competency Driving Licence and PSV Licence.",
+          "Competency Driving Licence and GDL Licence.",
+          "Competency Driving Licence and Conductor Licence."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 47,
+      "answer": "B",
+      "question": {
+        "questionDetail": "For holders of Probationary Driving Licence (PDL), they must display:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "\"L\" plate in front and at the back of the vehicle.",
+          "\"P\" plate in front and at the back of the vehicle.",
+          "\"L\" and \"P\" plate in front  of the vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 48,
+      "answer": "C",
+      "question": {
+        "questionDetail": "According to system KEJARA, what actions will be taken againt the holders of Competency Driving Licence (CDL) who accumulate more than 15 demerit points for the third time in a period of 5 years?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Competency Driving Licence (CDL) will be suspended for not more than 6 months.",
+          "Competency Driving Licence (CDL) will be suspended for not more than 12 months.",
+          "Competency Driving Licence (CDL) will be suspended 12 months and followed by the cancellation of the licence."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 49,
+      "answer": "C",
+      "question": {
+        "questionDetail": "How many demerit points will be incurred to the driver who disobey the traffic light?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "5 points.",
+          "8 points.",
+          "10 points."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 50,
+      "answer": "B",
+      "question": {
+        "questionDetail": "In heavy traffic area, drivers are not allowed to park their vehicle as they like because:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Make it difficult for other vehicle to park.",
+          "Bring about dangers, obstacles and difficulties for other road users.",
+          "Provides ample space for other vehicles to park."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 51,
+      "answer": "B",
+      "question": {
+        "questionDetail": "The \"P\" plate should be displayed on which part of a motorcyle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "On the front light and above or below the licence plate of the motorcycle.",
+          "Above or below the front light and above or below the licence plate of the motorcycle.",
+          "Above or below the front light and on the licence plate of the motorcycle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 52,
+      "answer": "C",
+      "question": {
+        "questionDetail": "The \"P\" plate should be displayed on which part of a car?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "On the left side of the windshield and right side of the back windshield.",
+          "On the right side of the windshield and left side of the back windshield.",
+          "On the left side of the windshield and left side of the back windshield."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 53,
+      "answer": "C",
+      "question": {
+        "questionDetail": "For Probationary Driving Licence (PDL), how long the holders CANNOT drive, hold or apply for driving licences including Learner Driving Licence (LDL)?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "3 months.",
+          "6 months.",
+          "12 months."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 54,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Which of the following licence holders do not need a probation period of 2 years?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Class E.",
+          "Class D.",
+          "Class C."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 55,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What offence is commited when a driver park his/her vehicle at a bus stop?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Induce anger in the bus driver.",
+          "Parking at prohibited place.",
+          "Induce anger in the bus passengers."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 56,
+      "answer": "B",
+      "question": {
+        "questionDetail": "According to system KEJARA, which of the following offences will be incurred 15 demerit points.",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Fail to wear the seatbelt.",
+          "Take part in illegal racing.",
+          "Do not display \"P\" plate on the vehicle."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 57,
+      "answer": "A",
+      "question": {
+        "questionDetail": "According to system KEJARA, what actions can be taken against the holder of Probationary Driving Licence (PDL) involved in illegal racing?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Probationary Driving Licence (PDL) will be cancelled.",
+          "Probationary Driving Licence (PDL) will be suspended for 6 months.",
+          "Probationary Driving Licence (PDL) will be suspended for 12 months."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 58,
+      "answer": "B",
+      "question": {
+        "questionDetail": "According to system KEJARA, demerit points will be incurred to the owner of Probationary Driving Licence (PDL) for which of the following offences?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Fail to display Motor Vehicle Licence.",
+          "Fail to display \"P\" plate on the vehicle.",
+          "Fail to bring along Learner Driving Licence (LDL)."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 59,
+      "answer": "B",
+      "question": {
+        "questionDetail": "According to system KEJARA, Competency Driving Licence (CDL) can be suspended after accumulating demerit points up to:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "8 points.",
+          "15 points.",
+          "20 points."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 60,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Select one offence on the road.",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Park vehicle on yellow lines.",
+          "Drive on a slippery road.",
+          "Disobey the yellow traffic light."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 61,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Which group of drivers are required to hold Probationary Driving Licence (PDL)?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "For those who apply driving licence for H class and I class vehicles.",
+          "For those who apply driving licence for E class, E1 class and E2 class vehicles.",
+          "For those who apply driving licence for A, A1, B, D, H and I class vehicles."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 62,
+      "answer": "C",
+      "question": {
+        "questionDetail": "For candidates with class D Learner Driving Licence (LDL), are they allowed to drive on the road?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "No.",
+          "Yes, if they reach the minimum age.",
+          "Yes, if there is a driving instructor."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 63,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Which type of licence can be obtained by drivers of Goods Vehicle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Competency Driving Licence (CDL) and PSV licence.",
+          "Competency Driving Licence (CDL) and GDL licence.",
+          "Competency Driving Licence (CDL) and Conductor licence."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 64,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Which classes of licence can be applied by someone who reached 18 year old?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Class B only.",
+          "Class D only.",
+          "Class B and Class D."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 65,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What shoud you do if you accidentally hit the children when they are crossing the road?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Continue to destination and keep this incident as secret.",
+          "Pay for their loss and continue the journey.",
+          "Stops the vehicle, give appropriate help and make a police report within 24 hours."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 66,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What conditions have to be obeyed by holders of Class D Learner Driving Licence (LDL)?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Cannot bring passengers or goods.",
+          "No need to display \"L\" sticker on the front and back of the vehicle.",
+          "Cannot drive alone by themselves."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 67,
+      "answer": "B",
+      "question": {
+        "questionDetail": "How long the Competency Driving Licence (CDL) will be suspended when the holders accumulate 15 demerit points for the first time?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "3 months.",
+          "6 months.",
+          "12 months."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 68,
+      "answer": "B",
+      "question": {
+        "questionDetail": "How many bonus marks will be awarded to a holder of Competency Driving Licence (CDL) who do not commit any offence under system KEJARA for 24 months?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "8 points.",
+          "7 points.",
+          "10 points."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 69,
+      "answer": "A",
+      "question": {
+        "questionDetail": "How many demerit points will be incurred if a driver is convicted with driving recklessly and dangerously?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "15 points.",
+          "10 points.",
+          "8 points."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 70,
+      "answer": "C",
+      "question": {
+        "questionDetail": "According to system KEJARA, what is the penalty for the holder of Competency Driving Licence (CDL) who accumulate up to or more than 15 demerit points or the SECOND TIME?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Driving licence will be cancelled.",
+          "Driving licence will be suspended for not more than 6 months.",
+          "Driving licence will be suspended for not more than 12 months."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 71,
+      "answer": "C",
+      "question": {
+        "questionDetail": "What is the punishment for holders of Probationary Driving Licence (PDL) who is having alcohol content in the breath, blood and urine?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Fine of RM 1000 or (3) months of imprisonment for first offence.",
+          "Can be compounded for RM 1000 for first offence.",
+          "Can be compounded for RM 2000 or (6) months of imprisonment for first offence."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 72,
+      "answer": "A",
+      "question": {
+        "questionDetail": "The acceptable alcohol content for holders of Probationary Driving Licence (PDL) while driving is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "0.00 microgram alcohol.",
+          "35 microgram alcohol.",
+          "80 microgram alcohol."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 73,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Holders of Probationary Driving Licence (PDL) need to display the \"P\" sticker on the vehicle. Which of the following is CORRECT sticker?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [],
+        "choiceImage": [
+          "assets/images/part3/73A.jpg",
+          "assets/images/part3/73B.jpg",
+          "assets/images/part3/73C.jpg"
+        ]
+      }
+    },
+    {
+      "id": 74,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Select one offence on the road.",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Radio is not functioning.",
+          "Signal lights of the vehicle is not functioning.",
+          "Servicing of the vehicle which is not up to date."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 75,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Which of the following locations are you permitted to park you vehicle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Bus stop.",
+          "Near a fire hyrant.",
+          "Parking lot."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 76,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Select one offence on the road.",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive with politenes and caution.",
+          "Drive on a slippery road.",
+          "Drive even when the driving licence has expired."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 77,
+      "answer": "B",
+      "question": {
+        "questionDetail": "What is the purpose of system KEJARA?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Reduce the traffic jam.",
+          "Reduce the rate of road accidents.",
+          "Shorten the lenght of the journey."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 78,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Prerequisite conditions to be fulfilled to take Laws and Regulations On The Road Part I is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Finished the circuit training module.",
+          "Finished only the practical training module.",
+          "Finished the KPP 01 training module."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 79,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Which of the following offences will incur the most demerit points?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Use worn out tyres.",
+          "Never bring along driving licence.",
+          "Drive carelessly and drive dangerously."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 80,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Which of the following offences will incur 10 demerit points on the holders of Probationary Driving Licence (PDL)?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Fail to obey to the traffic light.",
+          "Did not display \"P\" plate.",
+          "Did not obey the instructions of the traffic wardens."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 81,
+      "answer": "B",
+      "question": {
+        "questionDetail": "According to system KEJARA, which is the highest and lowest demerit points?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "20 points (highest) 5 points (lowest).",
+          "15 points (highest) 5 points (lowest).",
+          "10 points (highest) 5 points (lowest)."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 82,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What is the minimum age which qualified a person to apply for Class B2 and D driving licence respetively?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Above 16 year old, above 17 year old.",
+          "Above 18 year old, above 21 year old.",
+          "Above 19 year old, above 25 year old."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 83,
+      "answer": "B",
+      "question": {
+        "questionDetail": "The highest demerit points incurred on the drivers will be for which of the following offences?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Overtaking other vehicle on the double-line (continous line).",
+          "Drive without prudent and not being considerate.",
+          "Use handphone when driving on the road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 84,
+      "answer": "B",
+      "question": {
+        "questionDetail": "The Probationary Driving Licence (PDL) will be cancelled if the owner found commiting which of the following offences?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Fail to give way to vehicles of The Road Trasport Department (JPJ).",
+          "Fail to display the \"P\" plate on the vehicle.",
+          "Fail to bring along Learner Driving Licence (LDL) while driving on the road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 85,
+      "answer": "A",
+      "question": {
+        "questionDetail": "When driving licence is suspended, The driver CANNOT: ",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive on the road.",
+          "Board public transport vehicles.",
+          "Heat up the vehicle engine."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 86,
+      "answer": "A",
+      "question": {
+        "questionDetail": "What is the punishment for driver who continue driving on the road even after his/her driving licence was suspended?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Fine of RM 2000 or 6 months of imprisonment.",
+          "The driver will be prohibited to drive on the road for 1 year.",
+          "The driver is not allowed to apply for driving licence."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 87,
+      "answer": "A",
+      "question": {
+        "questionDetail": "According to system KEJARA, how long is the period that the driver is not allowed to obtain driving licence if his driving licence was suspended?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "12 months starting from the date of submission of the licence to the authorities.",
+          "12 months starting from the date of cancellation of the driving licence.",
+          "Whenever the driver think is suitable."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 88,
+      "answer": "B",
+      "question": {
+        "questionDetail": "How long the holders of Probationary Driving Licence (PDL) should display the \"P\" plate on their vehicle?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "1 year.",
+          "2 years",
+          "3 years."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 89,
+      "answer": "C",
+      "question": {
+        "questionDetail": "Which of the following offences will incur 5 demerit points to the holder of Probationary Driving Licence (PDL)?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Did not obey the traffic light while driving.",
+          "Did not display \"P\" sticker.",
+          "Did not bring along driving licence while driving on the road."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 90,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Why system KEJARA was established?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "To take action againts holders of Probationary Driving Licence (PDL) only.",
+          "To take action against he drivers who committed offences on the road.",
+          "To take action againts holders of Competency Driving Licence (CDL) only."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 91,
+      "answer": "A",
+      "question": {
+        "questionDetail": "Select one offence on the road.",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Drive/ride unregistered vehicles.",
+          "Drive/ride registered vehicles.",
+          "Drive/ride vehicles at night."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 92,
+      "answer": "C",
+      "question": {
+        "questionDetail": "How ofen do we need to renew Learner Driving Licence (LDL)?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Once in a year.",
+          "Once in 1 or 2 years.",
+          "Once in 3 to 6 months."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 93,
+      "answer": "C",
+      "question": {
+        "questionDetail": "According to system KEJARA, holders of Competency Driving Licence can be cancelled when the derimit points collected up to:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "15 or more demerit points for the first time.",
+          "15 or more demerit points for the second time.",
+          "15 or more demerit points for the third time in 5 years."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 94,
+      "answer": "C",
+      "question": {
+        "questionDetail": "To whom the system KEJARA was established?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Holders of Probationary Driving Licence (PDL).",
+          "Holders of Competency Driving Licence (CDL).",
+          "Holders of Probationary Driving Licence (PDL) and Competency Driving Licence (CDL)."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 95,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Who is responsible in taking the breath, blood, and urine specimens if needed to do so?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Nurse or doctor.",
+          "Enforcement officers.",
+          "Bank officers and Malaysia Post."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 96,
+      "answer": "C",
+      "question": {
+        "questionDetail": "According to system KEJARA, who is eligible to receive bonus?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Holders of Learner Driving Licence (LDL).",
+          "Holders of Probationary Driving Licence (PDL).",
+          "Holders of Competency Driving Licence (CDL)."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 97,
+      "answer": "C",
+      "question": {
+        "questionDetail": "One of the offence which is classified under system KEJARA is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Do not stop at road block.",
+          "Overtake other vehicle from the left side of the road.",
+          "Drive exceeding the speed limit."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 98,
+      "answer": "B",
+      "question": {
+        "questionDetail": "Which of the following licences can be classified under Vocational Driving Licence?",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Probationary Driving Licence (PDL).",
+          "Goods Vehicle Driving Licence (GDL).",
+          "Competency Driving Licence (CDL)."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 99,
+      "answer": "B",
+      "question": {
+        "questionDetail": "The conditions to be fulfilled in order to convert Probationary Driving Licence (PDL) to Competency Driving Licence (CDL) is:",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "Finished probationary period of 1 year and collected less than 10 demerit points.",
+          "Finished probationary period of 2 years and collected less than 10 demerit points.",
+          "Finished probationary period of 3 years and collected less than 10 demerit points."
+        ],
+        "choiceImage": []
+      }
+    },
+    {
+      "id": 100,
+      "answer": "A",
+      "question": {
+        "questionDetail": "When is the earliest period that the conversion fo Probationary Driving Licence (PDL) to Competency Driving Licence (CDL) can be processed?\n",
+        "questionDetailChoice": [],
+        "questionDetailImages": []
+      },
+      "choices": {
+        "choiceDetail": [
+          "7 days before the terminated period of probationary period.",
+          "14 days before the terminated period of probationary period.",
+          "21 days before the terminated period of probationary period."
+        ],
+        "choiceImage": []
+      }
+    }
+  ]
+}
