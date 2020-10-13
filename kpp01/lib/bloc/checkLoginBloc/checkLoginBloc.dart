@@ -1,14 +1,10 @@
 
-import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:kpp01/bloc/accountDataBloc/accountDataBloc.dart';
 import 'package:kpp01/bloc/checkLoginBloc/bloc.dart';
 import 'package:kpp01/bloc/loginBloc/bloc.dart';
 import 'package:kpp01/dataModel/httpModel.dart';
 import 'package:kpp01/httpSource.dart';
-import 'package:http/http.dart' as http;
 
 class CheckLoginBloc extends Bloc<CheckLoginEvent, CheckLoginState>{
   CheckLoginBloc(this.accountDataBloc, this.loginBloc):super(CheckLoginStateGood());
