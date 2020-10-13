@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:kpp01/bloc/appDataBloc/bloc.dart';
 import 'package:kpp01/bloc/checkLoginBloc/bloc.dart';
 import 'package:kpp01/bloc/loginBloc/bloc.dart';
@@ -19,7 +22,27 @@ void main() {
   return runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp>{
+
+  @override
+  void initState() {
+    super.initState();
+    if(Platform.isAndroid){
+      FlutterDisplayMode.current.then((displayMode) {
+        FlutterDisplayMode.setMode(displayMode);
+        FlutterDisplayMode.setDeviceDefault();
+        print(displayMode);
+      });
+
+    }
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +123,7 @@ class MyApp extends StatelessWidget {
      /// ),
     );
   }
+
 }
 
 class MyMainApp extends StatelessWidget{

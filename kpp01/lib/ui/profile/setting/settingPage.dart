@@ -86,7 +86,7 @@ class SettingPage extends StatelessWidget{
                     indent: appDataModel.dataAppSizePlugin.scaleW*15,
                     endIndent: appDataModel.dataAppSizePlugin.scaleW*15,
                     text1: Text("Version"),
-                    text2: Text("0.0.1"),
+                    text2: Text(appDataModel.myDeviceData.packageInfo.version),
                     onTap: (){},
                   ),
 

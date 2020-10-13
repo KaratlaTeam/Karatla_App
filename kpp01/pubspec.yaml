@@ -32,6 +32,9 @@ dependencies:
   material_design_icons_flutter: ^4.0.5345
   http: ^0.12.2
   shared_preferences: ^0.5.12
+  device_info: ^0.4.2+8
+  package_info: ^0.4.3
+  flutter_displaymode: ^0.1.0
 
   #not use
   font_awesome_flutter: ^8.8.1

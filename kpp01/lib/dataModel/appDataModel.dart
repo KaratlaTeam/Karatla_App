@@ -11,7 +11,7 @@ class AppDataModel{
   initialData(){
     this.myThemeData = MyThemeData();
     this.dataAppSizePlugin = DataAppSizePlugin()..getSizeData();
-    this.myDeviceData = MyDeviceData();
+    this.myDeviceData = MyDeviceData()..initialData();
   }
 
 }
