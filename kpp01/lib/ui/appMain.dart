@@ -76,7 +76,7 @@ class AppMainBody extends StatelessWidget{
                           color: bottomNavigationDataModel.color1,
                           iconSize: appDataModel.dataAppSizePlugin.scaleW*bottomNavigationDataModel.size1,
                           onPressed: (){
-                            BlocProvider.of<CheckLoginBloc>(context).add(CheckLoginEventCheck(context));
+                            //BlocProvider.of<CheckLoginBloc>(context).add(CheckLoginEventCheck(context));
                             BlocProvider.of<BottomNavigationBloc>(context).add(BottomNavigationEventChangePage(0));
                           },
                         );
@@ -91,7 +91,7 @@ class AppMainBody extends StatelessWidget{
                           color: bottomNavigationDataModel.color2,
                           iconSize: appDataModel.dataAppSizePlugin.scaleW*bottomNavigationDataModel.size2,
                           onPressed: (){
-                            BlocProvider.of<CheckLoginBloc>(context).add(CheckLoginEventCheck(context));
+                            //BlocProvider.of<CheckLoginBloc>(context).add(CheckLoginEventCheck(context));
                             BlocProvider.of<BottomNavigationBloc>(context).add(BottomNavigationEventChangePage(1));
                           },
                         );
@@ -106,7 +106,7 @@ class AppMainBody extends StatelessWidget{
                           color: bottomNavigationDataModel.color3,
                           iconSize: appDataModel.dataAppSizePlugin.scaleW*bottomNavigationDataModel.size3,
                           onPressed: (){
-                            BlocProvider.of<CheckLoginBloc>(context).add(CheckLoginEventCheck(context));
+                            //BlocProvider.of<CheckLoginBloc>(context).add(CheckLoginEventCheck(context));
                             BlocProvider.of<BottomNavigationBloc>(context).add(BottomNavigationEventChangePage(2));
                           },
                         );

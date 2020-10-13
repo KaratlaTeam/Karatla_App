@@ -2,15 +2,17 @@
 import 'package:bloc/bloc.dart';
 import 'package:kpp01/bloc/accountDataBloc/accountDataBloc.dart';
 import 'package:kpp01/bloc/checkLoginBloc/bloc.dart';
+import 'package:kpp01/bloc/internetCheckBloc/bloc.dart';
 import 'package:kpp01/bloc/loginBloc/bloc.dart';
 import 'package:kpp01/dataModel/httpModel.dart';
 import 'package:kpp01/httpSource.dart';
 
 class CheckLoginBloc extends Bloc<CheckLoginEvent, CheckLoginState>{
-  CheckLoginBloc(this.accountDataBloc, this.loginBloc):super(CheckLoginStateGood());
+  CheckLoginBloc(this.accountDataBloc, this.loginBloc,this.internetCheckBloc):super(CheckLoginStateGood());
 
   AccountDataBloc accountDataBloc;
   LoginBloc loginBloc;
+  InternetCheckBloc internetCheckBloc;
 
   @override
   Stream<CheckLoginState> mapEventToState(CheckLoginEvent event) async*{
@@ -21,39 +23,45 @@ class CheckLoginBloc extends Bloc<CheckLoginEvent, CheckLoginState>{
 
     } else if(event is CheckLoginEventCheck){
 
-      try{
-        Map body = {
-          "code":1600,
-          "data": {
-            "my_uuid": accountDataBloc.accountDataModel.myUuid,
-            "my_device_id_now": accountDataBloc.accountDataModel.myDeviceIdNow,
-            "my_phone": accountDataBloc.accountDataModel.myPhone,
-          }
-        };
+      yield* _mapEventCheckLogin(event);
 
-        HttpSource httpSource = HttpSource();
-        HttpModel  httpModel = await httpSource.requestPost(
-          body,
-          HttpSource.checkLogin,
-          HttpSource.headers,
-        );
+    }
 
-        if(httpModel.code == 1601){
-          yield CheckLoginStateGood();
+  }
 
-        } else {
-          loginBloc.add(LoginEventSignOut());
-          yield CheckLoginStateBad();
-
+  Stream<CheckLoginState> _mapEventCheckLogin(CheckLoginEventCheck eventCheck)async*{
+    try{
+      Map body = {
+        "code":1600,
+        "data": {
+          "my_uuid": accountDataBloc.accountDataModel.myUuid,
+          "my_device_id_now": accountDataBloc.accountDataModel.myDeviceIdNow,
+          "my_phone": accountDataBloc.accountDataModel.myPhone,
         }
+      };
 
-      }catch(e){
-        print("CheckLoginStateError: $e");
+
+      HttpSource httpSource = HttpSource();
+      HttpModel  httpModel = await httpSource.requestPost(
+        body,
+        HttpSource.checkLogin,
+        HttpSource.headers,
+      );
+
+      if(httpModel.code == 1601){
+        yield CheckLoginStateGood();
+
+      } else {
         loginBloc.add(LoginEventSignOut());
         yield CheckLoginStateBad();
 
       }
-    }
 
+    }catch(e){
+      print("CheckLoginStateError: $e");
+      loginBloc.add(LoginEventSignOut());
+      yield CheckLoginStateBad();
+
+    }
   }
 }

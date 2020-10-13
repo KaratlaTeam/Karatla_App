@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
+import 'package:kpp01/bloc/internetCheckBloc/bloc.dart';
 import 'package:kpp01/bloc/registerBloc/registerBloc.dart';
 import 'package:kpp01/bloc/registerBloc/registerEvent.dart';
 import 'package:kpp01/bloc/registerBloc/registerState.dart';
@@ -52,7 +53,7 @@ class _RegisterAccountCreateState extends State<RegisterAccountCreate>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return BlocProvider(create: (context) => RegisterBloc(),
+    return BlocProvider(create: (context) => RegisterBloc(internetCheckBloc: BlocProvider.of<InternetCheckBloc>(context)),
       child: Scaffold(
         backgroundColor: BlocProvider.of<AppDataBloc>(context).appDataModel.myThemeData.mySkyBlue,
         appBar: AppBar(backgroundColor: BlocProvider.of<AppDataBloc>(context).appDataModel.myThemeData.mySkyBlue,iconTheme: IconThemeData(color: Colors.white),),
@@ -221,6 +222,7 @@ class _RegisterAccountCreateState extends State<RegisterAccountCreate>{
                         phone: widget.phoneN,
                         passWord: _textEditingController2.text,
                         confirmPassWord: _textEditingController3.text,
+                        context: context,
                       ));
                     },
                   ),

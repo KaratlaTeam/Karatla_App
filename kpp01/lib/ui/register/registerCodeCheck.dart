@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
+import 'package:kpp01/bloc/internetCheckBloc/bloc.dart';
 import 'package:kpp01/bloc/registerBloc/registerBloc.dart';
 import 'package:kpp01/bloc/registerBloc/registerEvent.dart';
 import 'package:kpp01/bloc/registerBloc/registerState.dart';
@@ -46,7 +47,7 @@ class _RegisterCodeCheckState extends State<RegisterCodeCheck>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return BlocProvider(create: (context) => RegisterBloc(),
+    return BlocProvider(create: (context) => RegisterBloc(internetCheckBloc: BlocProvider.of<InternetCheckBloc>(context)),
       child: Scaffold(
         backgroundColor: BlocProvider.of<AppDataBloc>(context).appDataModel.myThemeData.mySkyBlue,
         appBar: AppBar(backgroundColor: BlocProvider.of<AppDataBloc>(context).appDataModel.myThemeData.mySkyBlue,iconTheme: IconThemeData(color: Colors.white),),
@@ -174,6 +175,7 @@ class _RegisterCodeCheckState extends State<RegisterCodeCheck>{
                       BlocProvider.of<RegisterBloc>(context).add(RegisterEventCodeRegister(
                         phone: _countryCode + _textEditingController1.text,
                         code: _textEditingController2.text,
+                        context: context,
                       ));
                     },
                   ),
@@ -200,29 +202,42 @@ class _RegisterCodeCheckState extends State<RegisterCodeCheck>{
         child: Text("Get Code"),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         onPressed: () async{
-          if(_textEditingController1.text == "" || _textEditingController1.text.startsWith("0") || _textEditingController1.text.startsWith("60")){
-            Scaffold.of(context).showSnackBar(SnackBar(content: Text("Please enter correct phone number, do no start with '0' and '60'. ")));
-          }else{
-            timerBloc.add(Start(duration: 60));
 
-            try {
-              print("get code from: ${HttpSource.getCode + _countryCode + _textEditingController1.text}");
-              HttpSource httpSource = HttpSource();
-              HttpModel  httpModel = await httpSource.requestGet(
-                HttpSource.getCode + _countryCode + _textEditingController1.text,
-              );
-
-              if(httpModel.code != 1801){
-                Scaffold.of(context).showSnackBar(SnackBar(content: Text("Get code fail, please check and try later.")));
-              }
-            }catch(e){
-              Scaffold.of(context).showSnackBar(SnackBar(content: Text("Get code fail, please check and try later!")));
-              print(e);
-            }
-
+          BlocProvider.of<InternetCheckBloc>(context).add(InternetCheckEventCheck(context: context));
+          await Future.delayed(Duration(milliseconds: 800));
+          if(BlocProvider.of<InternetCheckBloc>(context).state is InternetCheckStateGod){
+            _getCode(timerBloc, context);
           }
+
         },
       );
     }
+  }
+
+  _getCode(TimerBloc timerBloc, BuildContext context)async{
+    if(_textEditingController1.text == "" || _textEditingController1.text.startsWith("0") || _textEditingController1.text.startsWith("60")){
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text("Please enter correct phone number, do no start with '0' and '60'. ")));
+    }else{
+      timerBloc.add(Start(duration: 60));
+
+      try {
+        print("get code from: ${HttpSource.getCode + _countryCode + _textEditingController1.text}");
+
+        HttpSource httpSource = HttpSource();
+        HttpModel  httpModel = await httpSource.requestGet(
+          HttpSource.getCode + _countryCode + _textEditingController1.text,
+        );
+
+        if(httpModel.code != 1801){
+          Scaffold.of(context).showSnackBar(SnackBar(content: Text("Get code fail, please check and try later.")));
+        }
+
+      }catch(e){
+        Scaffold.of(context).showSnackBar(SnackBar(content: Text("Get code fail, please check and try later!")));
+        print(e);
+      }
+
+    }
+
   }
 }

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:kpp01/bloc/appDataBloc/bloc.dart';
 import 'package:kpp01/bloc/checkLoginBloc/bloc.dart';
+import 'package:kpp01/bloc/internetCheckBloc/bloc.dart';
 import 'package:kpp01/bloc/loginBloc/bloc.dart';
 import 'package:kpp01/bloc/loginBloc/loginBloc.dart';
 import 'package:kpp01/bloc/accountDataBloc/bloc.dart';
@@ -56,26 +57,29 @@ class _MyAppState extends State<MyApp>{
         ),
       ],
       child: BlocProvider(
-        create: (BuildContext context) => LoginBloc(BlocProvider.of<AccountDataBloc>(context)),
+        create: (BuildContext context) => InternetCheckBloc(context: null,)..add(InternetCheckEventCheck()),
         child: BlocProvider(
-          create: (BuildContext context) => CheckLoginBloc(BlocProvider.of<AccountDataBloc>(context),BlocProvider.of<LoginBloc>(context)),
-          child: BlocBuilder<AppDataBloc,AppDataState>(
+          create: (BuildContext context) => LoginBloc(BlocProvider.of<AccountDataBloc>(context),BlocProvider.of<InternetCheckBloc>(context)),
+          child: BlocProvider(
+            create: (BuildContext context) => CheckLoginBloc(BlocProvider.of<AccountDataBloc>(context),BlocProvider.of<LoginBloc>(context),BlocProvider.of<InternetCheckBloc>(context)),
+            child: BlocBuilder<AppDataBloc,AppDataState>(
               builder: (context,appDataState){
                 return BlocBuilder<AccountDataBloc,AccountDataState>(
-                builder: (context,accountDataState){
-                  if(appDataState is AppDataStateGettingData || accountDataState is AccountDataStateInitialDataDoing){
-                    return StatePageLoading();
+                  builder: (context,accountDataState){
+                    if(appDataState is AppDataStateGettingData || accountDataState is AccountDataStateInitialDataDoing){
+                      return StatePageLoading();
 
-                  } else if(appDataState is AppDataStateError){
-                    return StatePageError();
+                    } else if(appDataState is AppDataStateError){
+                      return StatePageError();
 
-                  }else {
-                    return MyMainApp(appDataStateGotData: appDataState,);
+                    }else {
+                      return MyMainApp(appDataStateGotData: appDataState,);
 
-                  }
-                },
+                    }
+                  },
                 );
-            },
+              },
+            ),
           ),
         ),
       ),
@@ -126,17 +130,21 @@ class _MyAppState extends State<MyApp>{
 
 }
 
-class MyMainApp extends StatelessWidget{
+class MyMainApp extends StatefulWidget {
 
   const MyMainApp({
     Key key,
     this.appDataStateGotData,
     //this.widget,
-}):super(key:key);
+  }) :super(key: key);
 
   final AppDataStateGotData appDataStateGotData;
-  //final Widget widget;
 
+  @override
+  _MyMainAppState createState() => _MyMainAppState();
+}
+
+class _MyMainAppState extends State<MyMainApp>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -149,39 +157,59 @@ class MyMainApp extends StatelessWidget{
       },
       debugShowCheckedModeBanner: true,
       title: 'PKK01',
-      theme: appDataStateGotData.appDataModel.myThemeData.themeDataLight,
-      darkTheme: appDataStateGotData.appDataModel.myThemeData.themeDataDark,
+      theme: widget.appDataStateGotData.appDataModel.myThemeData.themeDataLight,
+      darkTheme: widget.appDataStateGotData.appDataModel.myThemeData.themeDataDark,
       themeMode: ThemeMode.light,
       //onGenerateRoute: _AppRouter(appDataBloc: BlocProvider.of<AppDataBloc>(context)).onGenerateRoute,///_router.onGenerateRoute,
       //initialRoute: "Kpp01TestHomePage",
       home: Scaffold(
-        body: BlocBuilder<LoginBloc,LoginState>(
-          builder: (context,loginState){
-            return BlocConsumer<CheckLoginBloc,CheckLoginState>(
-              listener: (context,checkLoginState){
-                if(checkLoginState is CheckLoginStateBad){
-                  Scaffold.of(context).showSnackBar(SnackBar(content: Text("Your account/device has changed, please login again.")));
+        key: widget.key,
+        body: Stack(
+          children: [
+            BlocConsumer<InternetCheckBloc, InternetCheckState>(
+              listener: (BuildContext context, InternetCheckState internetCheckState){
+
+                if((internetCheckState is InternetCheckStateBad || internetCheckState is InternetCheckStateError) && internetCheckState.context != null){
+                  BlocProvider.of<InternetCheckBloc>(context).add(InternetCheckEventToNoAction());
+                  Scaffold.of(internetCheckState.context).showSnackBar(SnackBar(content: Text("You are in the offline"))) ;
+
                 }
+
               },
-              builder: (context, checkLoginState){
-                return BlocBuilder<AccountDataBloc,AccountDataState>(
-                  builder: (context,accountDataState){
-                    if(loginState is LoginStateSignSuccessful &&  (checkLoginState is CheckLoginStateGood || checkLoginState is CheckLoginStateReadyToBad)){
-                      return  AppMain();
+              builder: (BuildContext context, InternetCheckState internetCheckState){
 
-                    } else if(accountDataState is AccountDataStateFinish && accountDataState.accountDataModel.myState == "ON" && checkLoginState is CheckLoginStateGood ){
-                      BlocProvider.of<LoginBloc>(context).add(LoginEventSignInChangeToSuccessful());
-                      return AppMain();
+                return BlocBuilder<LoginBloc,LoginState>(
+                    builder: (context,loginState){
+                      return BlocConsumer<CheckLoginBloc,CheckLoginState>(
+                        listener: (context,checkLoginState){
+                          if(checkLoginState is CheckLoginStateBad){
+                            Scaffold.of(context).showSnackBar(SnackBar(content: Text("Your account/device has changed, please login again.")));
+                          }
+                        },
+                        builder: (context, checkLoginState){
+                          return BlocBuilder<AccountDataBloc,AccountDataState>(
+                            builder: (context,accountDataState){
+                              if(loginState is LoginStateSignSuccessful &&  (checkLoginState is CheckLoginStateGood || checkLoginState is CheckLoginStateReadyToBad)){
+                                return  AppMain();
 
-                    } else {
-                      return SignInPage();
+                              } else if(accountDataState is AccountDataStateFinish && accountDataState.accountDataModel.myState == "ON" && checkLoginState is CheckLoginStateGood ){
+                                BlocProvider.of<LoginBloc>(context).add(LoginEventSignInChangeToSuccessful());
+                                return AppMain();
 
+                              } else {
+                                return SignInPage();
+
+                              }
+                            },
+                          );
+                        },
+                      );
                     }
-                  },
                 );
               },
-            );
-          }
+            ),
+
+          ],
         ),
       ),
     );

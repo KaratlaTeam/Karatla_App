@@ -192,6 +192,7 @@ class _SignInPageState extends State<SignInPage>{
                       loginAccount: _loginType == "PHONE" ? _countryCode + _textEditingController1.text : _textEditingController1.text,
                       password: _textEditingController2.text,
                       myDeviceIdNow: appDataModel.myDeviceData.deviceId,
+                      context: context,
                     ));
                   },
                 ),

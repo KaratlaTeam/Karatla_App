@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:kpp01/bloc/internetCheckBloc/bloc.dart';
 import 'package:kpp01/dataModel/httpModel.dart';
 
 class HttpSource{
@@ -19,6 +20,7 @@ class HttpSource{
   };
 
   Future<HttpModel> requestGet(String url)async{
+
     print("send request get");
 
     var request = await http.get(
@@ -36,7 +38,8 @@ class HttpSource{
     return httpModel;
   }
 
-  Future<HttpModel> requestPost(Map body, String url, Map<String,String> headers)async{
+  Future<HttpModel> requestPost(Map body, String url, Map<String,String> headers, )async{
+
     print("send request post");
     var request = await http.post(
       url,
@@ -52,6 +55,14 @@ class HttpSource{
 
     return httpModel;
   }
+
+  //checkInternetEvent(InternetCheckBloc internetCheckBloc, InternetCheckEventCheck internetCheckEventCheck, Object function)async*{
+  //  internetCheckBloc.add(internetCheckEventCheck);
+  //  await Future.delayed(Duration(milliseconds: 800));
+  //  if(internetCheckBloc.state is InternetCheckStateGod){
+  //    yield* function;
+  //  }
+  //}
 
 }
 
