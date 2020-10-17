@@ -12,6 +12,7 @@ import 'package:kpp01/dataModel/testDataModel.dart';
 import 'package:kpp01/statePage.dart';
 import 'package:kpp01/ui/profile/setting/settingPage.dart';
 import 'package:http/http.dart' as http;
+import 'package:kpp01/uiPlugin/myStepper/myStepper.dart';
 
 class ProfileMainPage extends StatelessWidget{
   @override
@@ -34,8 +35,8 @@ class ProfileMainPage extends StatelessWidget{
                       color: appDataModel.myThemeData.myThemeColor,
                     ),
 
-                    ListView(
-                      padding: EdgeInsets.all(appDataModel.dataAppSizePlugin.scaleW*10),
+                    Column(
+                      //padding: EdgeInsets.all(appDataModel.dataAppSizePlugin.scaleW*10),
                       children: <Widget>[
                         Card(
                           margin: EdgeInsets.only(top: appDataModel.dataAppSizePlugin.height/3-appDataModel.dataAppSizePlugin.scaleW*50,left: appDataModel.dataAppSizePlugin.scaleW*50,right: appDataModel.dataAppSizePlugin.scaleW*50),
@@ -115,6 +116,11 @@ class ProfileMainPage extends StatelessWidget{
                               ],
                             ),
                           ),
+                        ),
+                        Container(
+                          //color: Colors.red,
+                          child: MyNewStepper(),
+                          margin: EdgeInsets.symmetric(horizontal: appDataModel.dataAppSizePlugin.scaleW*50),
                         ),
                       ],
                     ),

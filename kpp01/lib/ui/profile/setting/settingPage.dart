@@ -41,39 +41,44 @@ class SettingPage extends StatelessWidget{
                     endIndent: appDataModel.dataAppSizePlugin.scaleW*15,
                     text1: Text("Name"),
                     text2: Text(accountDataModel.myName),
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => TextFieldPage(
-                        hintText: "New Name",
-                        profileDataEnum: AccountDataEnum.NAME,
-                      )));
-                    },
+                    iconData: null,
+                    onTap: null,
+                    //    (){
+                    //  Navigator.push(context, MaterialPageRoute(builder: (context) => TextFieldPage(
+                    //    hintText: "New Name",
+                    //    profileDataEnum: AccountDataEnum.NAME,
+                    //  )));
+                    //},
                   ),
                   ProfileListCard(
                     indent: appDataModel.dataAppSizePlugin.scaleW*15,
                     endIndent: appDataModel.dataAppSizePlugin.scaleW*15,
+                    height: appDataModel.dataAppSizePlugin.scaleH*20,
                     text1: Text("Phone"),
                     text2: Text(accountDataModel.myPhone),
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => TextFieldPage(
-                        hintText: "New Phone",
-                        profileDataEnum: AccountDataEnum.PONE,
-                      )));
-                    },
+                    iconData: null,
+                    onTap: null,
+                   //     (){
+                   //   Navigator.push(context, MaterialPageRoute(builder: (context) => TextFieldPage(
+                   //     hintText: "New Phone",
+                   //     profileDataEnum: AccountDataEnum.PONE,
+                   //   )));
+                   // },
                   ),
-                  ProfileListCard(
-                    indent: appDataModel.dataAppSizePlugin.scaleW*15,
-                    endIndent: appDataModel.dataAppSizePlugin.scaleW*15,
-                    text1: Text("Email"),
-                    text2: Text(accountDataModel.myEmail),
-                    height: appDataModel.dataAppSizePlugin.scaleH*20,
-                    color: Colors.transparent,
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => TextFieldPage(
-                        hintText: "New email",
-                        profileDataEnum: AccountDataEnum.EMAIL,
-                      )));
-                    },
-                  ),
+                  //ProfileListCard(
+                  //  indent: appDataModel.dataAppSizePlugin.scaleW*15,
+                  //  endIndent: appDataModel.dataAppSizePlugin.scaleW*15,
+                  //  text1: Text("Email"),
+                  //  text2: Text(accountDataModel.myEmail),
+                  //  height: appDataModel.dataAppSizePlugin.scaleH*20,
+                  //  color: Colors.transparent,
+                  //  onTap: (){
+                  //    Navigator.push(context, MaterialPageRoute(builder: (context) => TextFieldPage(
+                  //      hintText: "New email",
+                  //      profileDataEnum: AccountDataEnum.EMAIL,
+                  //    )));
+                  //  },
+                  //),
 
 
                   ProfileListCard(
@@ -133,6 +138,7 @@ class ProfileListCard extends StatelessWidget{
     this.onTap,
     this.height: 1.0,
     this.color,
+    this.iconData: Icons.arrow_right,
 }):super(key:key);
 
   final Text text1;
@@ -142,6 +148,7 @@ class ProfileListCard extends StatelessWidget{
   final GestureTapCallback onTap;
   final double height;
   final Color color;
+  final IconData iconData;
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +162,7 @@ class ProfileListCard extends StatelessWidget{
             child: ListTile(
               title: text1,
               subtitle: text2,
-              trailing: Icon(Icons.arrow_right),
+              trailing: Icon(iconData),
             ),
           ),
           Divider(height: height,indent: indent,endIndent: endIndent,color: color,),
