@@ -80,135 +80,142 @@ class _SignInPageState extends State<SignInPage>{
         },
         builder: (context,loginState){
           AppDataModel appDataModel = BlocProvider.of<AppDataBloc>(context).appDataModel;
-          return Column(
-            //mainAxisAlignment: MainAxisAlignment.center,
+          return ListView(
             children: <Widget>[
 
               Container(
-                child: Image.asset("assets/images/logo/logo2.jpg",fit: BoxFit.cover,width: appDataModel.dataAppSizePlugin.scaleW*200,),
-                margin: EdgeInsets.only(top: appDataModel.dataAppSizePlugin.scaleH*120,),
-                //alignment: Alignment.bottomCenter,
-              ),
+                height: appDataModel.dataAppSizePlugin.height,
+                child: Column(
+                  children: [
+                    Container(
+                      //color: Colors.red,
+                      child: Image.asset("assets/images/logo/logo2.jpg",fit: BoxFit.contain, height: appDataModel.dataAppSizePlugin.scaleW*200,),
+                      margin: EdgeInsets.symmetric(vertical: appDataModel.dataAppSizePlugin.scaleH*20,),
+                      //alignment: Alignment.bottomCenter,
+                    ),
 
-              Card(
-                margin: EdgeInsets.only(left: appDataModel.dataAppSizePlugin.scaleW*30, right: appDataModel.dataAppSizePlugin.scaleW*30,),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                child: Container(
-                  margin: EdgeInsets.all(appDataModel.dataAppSizePlugin.scaleW*30),
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          FlatButton(
-                            onPressed: (){
-                              setState(() {
-                                _loginType = "PHONE";
-                                _textEditingController1.text = '';
-                              });
-                            } ,
-                            child: Text("Phone"),
-                            textColor: _loginType == "PHONE" ? Colors.black : Colors.grey,
-                            splashColor: Colors.white,
-                            highlightColor: Colors.white,
-                          ),
-                          FlatButton(
-                            onPressed: (){
-                              setState(() {
-                                _loginType = "EMAIL";
-                                _textEditingController1.text = '';
-                              });
-                            },
-                            child: Text("Email",),
-                            textColor: _loginType == "EMAIL" ? Colors.black : Colors.grey,
-                            splashColor: Colors.white,
-                            highlightColor: Colors.white,
-                          )
-                        ],
-                      ),
-                      TextField(
-                        inputFormatters: [
-                          WhitelistingTextInputFormatter(RegExp(_loginType == "PHONE" ? "[0-9]" : "[a-zA-Z0-9@.]")),
-                          LengthLimitingTextInputFormatter(20),
-                        ],
-                        controller: _textEditingController1,
-                        cursorColor: Colors.black,
-                        keyboardType: TextInputType.emailAddress,
-                        maxLines: 1,
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelText: _loginType == "PHONE" ? "Phone" : "Email",
-                          hintText: _loginType == "PHONE" ? "1732*****": "ppm@gmail.com",
-                          prefixText: _loginType == "PHONE" ? "60-" : null,
-                        ),
-                        onChanged: (text){
-                          print("Account: $text");
-                        },
-                      ),
-
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            flex: 6,
-                            child: TextField(
-                              inputFormatters: [
-                                WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")),
-                                LengthLimitingTextInputFormatter(15),
+                    Card(
+                      margin: EdgeInsets.only(left: appDataModel.dataAppSizePlugin.scaleW*30, right: appDataModel.dataAppSizePlugin.scaleW*30,),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                      child: Container(
+                        margin: EdgeInsets.all(appDataModel.dataAppSizePlugin.scaleW*30),
+                        child: Column(
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                FlatButton(
+                                  onPressed: (){
+                                    setState(() {
+                                      _loginType = "PHONE";
+                                      _textEditingController1.text = '';
+                                    });
+                                  } ,
+                                  child: Text("Phone"),
+                                  textColor: _loginType == "PHONE" ? Colors.black : Colors.grey,
+                                  splashColor: Colors.white,
+                                  highlightColor: Colors.white,
+                                ),
+                                FlatButton(
+                                  onPressed: (){
+                                    setState(() {
+                                      _loginType = "EMAIL";
+                                      _textEditingController1.text = '';
+                                    });
+                                  },
+                                  child: Text("Email",),
+                                  textColor: _loginType == "EMAIL" ? Colors.black : Colors.grey,
+                                  splashColor: Colors.white,
+                                  highlightColor: Colors.white,
+                                )
                               ],
-                              obscureText: true,
-                              controller: _textEditingController2,
+                            ),
+                            TextField(
+                              inputFormatters: [
+                                WhitelistingTextInputFormatter(RegExp(_loginType == "PHONE" ? "[0-9]" : "[a-zA-Z0-9@.]")),
+                                LengthLimitingTextInputFormatter(20),
+                              ],
+                              controller: _textEditingController1,
                               cursorColor: Colors.black,
-                              keyboardType: TextInputType.text,
-                              //maxLength: 30,
+                              keyboardType: TextInputType.emailAddress,
                               maxLines: 1,
-                              onChanged: (text){
-                                print("Password: $text");
-                                //_textEditingController2.text = text;
-                              },
                               decoration: InputDecoration(
                                 border: UnderlineInputBorder(),
-                                labelText: "Password",
+                                labelText: _loginType == "PHONE" ? "Phone" : "Email",
+                                hintText: _loginType == "PHONE" ? "1732*****": "ppm@gmail.com",
+                                prefixText: _loginType == "PHONE" ? "60-" : null,
                               ),
+                              onChanged: (text){
+                                print("Account: $text");
+                              },
                             ),
-                          ),
 
-                        ],
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  flex: 6,
+                                  child: TextField(
+                                    inputFormatters: [
+                                      WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")),
+                                      LengthLimitingTextInputFormatter(15),
+                                    ],
+                                    obscureText: true,
+                                    controller: _textEditingController2,
+                                    cursorColor: Colors.black,
+                                    keyboardType: TextInputType.text,
+                                    //maxLength: 30,
+                                    maxLines: 1,
+                                    onChanged: (text){
+                                      print("Password: $text");
+                                      //_textEditingController2.text = text;
+                                    },
+                                    decoration: InputDecoration(
+                                      border: UnderlineInputBorder(),
+                                      labelText: "Password",
+                                    ),
+                                  ),
+                                ),
+
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
+                    ),
 
-              Container(
-                //color: Colors.deepPurpleAccent,
-                margin: EdgeInsets.symmetric(vertical: appDataModel.dataAppSizePlugin.scaleH*40, horizontal: appDataModel.dataAppSizePlugin.scaleW*150),
-                child: RaisedButton(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  color: appDataModel.myThemeData.myWhiteBlue,
-                  child: Text("Login"),
-                  onPressed: (){
-                    BlocProvider.of<LoginBloc>(context).add(LoginEventSignIn(
-                      loginType: _loginType,
-                      loginAccount: _loginType == "PHONE" ? _countryCode + _textEditingController1.text : _textEditingController1.text,
-                      password: _textEditingController2.text,
-                      myDeviceIdNow: appDataModel.myDeviceData.deviceId,
-                      context: context,
-                    ));
-                  },
-                ),
-                //margin: EdgeInsets.only(top: appDataModel.dataAppSizePlugin.scaleH*50),
-              ),
-              Expanded(
-                child: Container(
-                  //color: Colors.red,
-                  padding: EdgeInsets.only(right: appDataModel.dataAppSizePlugin.scaleW*20, bottom: appDataModel.dataAppSizePlugin.scaleH*20,),
-                  alignment: Alignment.bottomRight,
-                  child: FlatButton(
-                    child: Text("Register",style: TextStyle(color: Colors.white),),
-                    onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterCodeCheck()));
-                    },
-                  ),
+                    Container(
+                      //color: Colors.deepPurpleAccent,
+                      margin: EdgeInsets.symmetric(vertical: appDataModel.dataAppSizePlugin.scaleH*40, horizontal: appDataModel.dataAppSizePlugin.scaleW*150),
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        color: appDataModel.myThemeData.myWhiteBlue,
+                        child: Text("Login"),
+                        onPressed: (){
+                          BlocProvider.of<LoginBloc>(context).add(LoginEventSignIn(
+                            loginType: _loginType,
+                            loginAccount: _loginType == "PHONE" ? _countryCode + _textEditingController1.text : _textEditingController1.text,
+                            password: _textEditingController2.text,
+                            myDeviceIdNow: appDataModel.myDeviceData.deviceId,
+                            context: context,
+                          ));
+                        },
+                      ),
+                      //margin: EdgeInsets.only(top: appDataModel.dataAppSizePlugin.scaleH*50),
+                    ),
+                    Expanded(
+                      child: Container(
+                        //color: Colors.red,
+                        padding: EdgeInsets.only(right: appDataModel.dataAppSizePlugin.scaleW*20, bottom: appDataModel.dataAppSizePlugin.scaleH*50.0,),
+                        alignment: Alignment.bottomRight,
+                        child: FlatButton(
+                          child: Text("Register",style: TextStyle(color: Colors.white),),
+                          onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterCodeCheck()));
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

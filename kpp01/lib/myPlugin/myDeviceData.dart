@@ -15,12 +15,15 @@ class MyDeviceData{
     if(Platform.isAndroid){
       AndroidDeviceInfo androidDeviceInfo = await deviceInfoPlugin.androidInfo;
       deviceId = androidDeviceInfo.androidId;
+      print("device: ${androidDeviceInfo.version.sdkInt}");
 
     }else{
       IosDeviceInfo iosDeviceInfo = await deviceInfoPlugin.iosInfo;
       deviceId = iosDeviceInfo.identifierForVendor;
+      print("device: ${iosDeviceInfo.name} ${iosDeviceInfo.systemName} ${iosDeviceInfo.systemVersion}");
 
     }
+
 
   }
 

@@ -120,8 +120,9 @@ class ProfileMainPage extends StatelessWidget{
                         Container(
                           //color: Colors.red,
                           child: MyNewStepper(),
-                          margin: EdgeInsets.symmetric(horizontal: appDataModel.dataAppSizePlugin.scaleW*50),
+                          margin: EdgeInsets.symmetric(horizontal: appDataModel.dataAppSizePlugin.scaleW*70),
                         ),
+
                       ],
                     ),
                     Container(

@@ -7,7 +7,7 @@ class DataAppSizePlugin {
   double get width => _width ;
   double get pixelRatio => _pixelRatio;
   double get top => _top;
-  double get scaleH => (_height-_top-_bottom)/(_oHeight-44-34);
+  double get scaleH => (_height-_top-_bottom)/(_oHeight-48-34);
   double get scaleW => _width/_oWidth;
   double get scaleFortSize {
     return scaleW/1.0;
@@ -31,7 +31,7 @@ class DataAppSizePlugin {
   ///326 ppi
   ///pixelRatio:2.0
   ///6.1 寸
-  ///top:44dp
+  ///top:48dp
   ///bottom:34dp
   static const int _oHeight = 896;
   static const int _oWidth = 414;
@@ -46,5 +46,25 @@ class DataAppSizePlugin {
     this._fontSizeScale = _mediaQuery.textScaleFactor;
     this._bottom = _mediaQuery.padding.bottom;
     this._brightness = _mediaQuery.platformBrightness;
+
+    print("---------------------------New-------------------------");
+    print("_height : $_height dp ${_height*_pixelRatio}px");
+    print("_width : $_width dp ${_width*_pixelRatio}px");
+    print("_pixelRatio: $_pixelRatio");
+    print("scaleH: ${(_height-_top-_bottom)/(_oHeight-44-34)}");
+    print("scaleW: ${_width/_oWidth}");
+    print("scaleFortSize: ${scaleW/1.0}");
+    print("_top: $_top dp");
+    print("_bottom: $_bottom dp");
+    print("");
+
+    print("---------------------------Old-------------------------");
+    print("iphone 11  6.1寸");
+    print("_height : 896dp 1792px");
+    print("_width : 414 dp 828px");
+    print("_pixelRatio: 2.0");
+    print("top: 48dp");
+    print("bottom:34dp");
+    print("");
   }
 }

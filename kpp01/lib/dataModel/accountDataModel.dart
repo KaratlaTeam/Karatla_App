@@ -111,7 +111,7 @@ class AccountDataModel {
 
   Future<AccountDataModel> getSharePFavorite(AccountDataModel accountDataModel)async{
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var jsonBody = sharedPreferences.getString("my_favorite_list_part_list");
+    var jsonBody = sharedPreferences.getString("my_favorite_list_part_list${accountDataModel.myUuid}");
     if(jsonBody == null){
       accountDataModel.myFavoriteListPartList = MyFavoriteListPartList(
         myFavoriteListPart1: MyFavoriteListPart1(myFavoriteListPart1: List<int>()),
@@ -129,7 +129,7 @@ class AccountDataModel {
 
   Future<AccountDataModel> getSharePTest(AccountDataModel accountDataModel)async{
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var jsonBody = sharedPreferences.getString("my_test_answer_all_model_list");
+    var jsonBody = sharedPreferences.getString("my_test_answer_all_model_list${accountDataModel.myUuid}");
     if(jsonBody == null){
       accountDataModel.myTestAnswerAllModelList = TestAnswerAllModelList(testAnswerAllModel: List<TestAnswerAllModel>());
     }else{
@@ -139,6 +139,22 @@ class AccountDataModel {
     }
 
     return accountDataModel;
+  }
+
+  Future setSharePFavorite()async{
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString("my_favorite_list_part_list$myUuid", json.encode(myFavoriteListPartList.toJson()));
+  }
+
+  Future setSharePTest()async{
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString("my_test_answer_all_model_list$myUuid", json.encode(myTestAnswerAllModelList.toJson()));
+  }
+
+  Future setSharePLogOut()async{
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    myState = "OFF";
+    sharedPreferences.setString("my_state", myState);
   }
 
 }
