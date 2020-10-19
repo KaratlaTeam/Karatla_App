@@ -34,8 +34,8 @@ class BottomNavigationBloc extends Bloc<BottomNavigationEvent,BottomNavigationSt
     BottomNavigationDataModel bottomNavigationDataModel = BottomNavigationDataModel();
     Color mySelect = myThemeData.myThemeColor;
     Color myNotSelect = myThemeData.unSelectColor;
-    double mySelectSize = 25;
-    double myNotSelectSize = 15;
+    double mySelectSize = 30;
+    double myNotSelectSize = 20;
 
     if(index == 0){
       await bottomNavigationDataModel.setData(
