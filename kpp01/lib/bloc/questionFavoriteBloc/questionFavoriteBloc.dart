@@ -54,16 +54,11 @@ class QuestionFavoriteBloc extends Bloc<QuestionFavoriteEvent,QuestionFavoriteSt
           }
           break;
       }
-      await setShareP("my_favorite_list_part_list", accountDataModel.myFavoriteListPartList.toJson());
+      await accountDataModel.setSharePFavorite();
       yield QuestionFavoriteStateOnPressedFinished(accountDataModel);
     }catch(e){
       yield QuestionFavoriteStateError(e: e,)..backError();
     }
-  }
-
-  setShareP(String key, var jsonBody)async{
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.setString(key, json.encode(jsonBody));
   }
 
 }

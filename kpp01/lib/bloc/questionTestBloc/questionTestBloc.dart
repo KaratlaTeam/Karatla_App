@@ -1,21 +1,18 @@
-import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
-import 'package:kpp01/bloc/accountDataBloc/bloc.dart';
 import 'package:kpp01/bloc/questionTestBloc/bloc.dart';
 import 'package:kpp01/dataModel/finishTestModel.dart';
 import 'package:kpp01/dataModel/accountDataModel.dart';
 import 'package:kpp01/dataModel/testDataModel.dart';
-import 'package:kpp01/typedef.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class QuestionTestBloc extends Bloc<QuestionTestEvent,QuestionTestState>{
-  QuestionTestBloc(this.testAnswerModelList,this.testAnswerAllModelList):
-        super(QuestionTestStateFinishTestFinished(testAnswerAllModelList: testAnswerAllModelList));
+  QuestionTestBloc(this.testAnswerModelList,this.testAnswerAllModelList, this.accountDataModel):
+        super(QuestionTestStateFinishTestFinished(testAnswerAllModelList: testAnswerAllModelList, accountDataModel: accountDataModel));
 
   //final TestDataModel testDataModel ;
   List<TestAnswerModel> testAnswerModelList;
   TestAnswerAllModelList testAnswerAllModelList;
+  final AccountDataModel accountDataModel ;
 
 
   @override
@@ -61,7 +58,7 @@ class QuestionTestBloc extends Bloc<QuestionTestEvent,QuestionTestState>{
       testAnswerAllModel = _addTestAnswerAllModel(finishTestModel.testQuestionIndexList, finishTestModel.timeSpendSecond);
       this.testAnswerAllModelList.testAnswerAllModel.add(testAnswerAllModel);
 
-      await setShareP("my_test_answer_all_model_list", this.testAnswerAllModelList.toJson());
+      await accountDataModel.setSharePTest();
 
 
       _initialData();
@@ -97,11 +94,6 @@ class QuestionTestBloc extends Bloc<QuestionTestEvent,QuestionTestState>{
 
   _initialData(){
     this.testAnswerModelList = List<TestAnswerModel>(50);
-  }
-
-  setShareP(String key, var jsonBody)async{
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.setString(key, json.encode(jsonBody));
   }
 
 }

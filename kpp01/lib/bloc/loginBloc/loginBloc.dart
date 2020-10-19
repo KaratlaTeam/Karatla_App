@@ -44,10 +44,7 @@ class LoginBloc extends Bloc<LoginEvent,LoginState>{
       yield LoginStateSignOutProcess();
 
       try{
-        accountDataBloc.accountDataModel.myState = "OFF";
-        SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-        sharedPreferences.setString("my_state", accountDataBloc.accountDataModel.myState);
-
+        await accountDataBloc.accountDataModel.setSharePLogOut();
 
         Map body = {
           "code":1700,
