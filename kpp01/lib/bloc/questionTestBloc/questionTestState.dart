@@ -1,4 +1,5 @@
 
+import 'package:kpp01/dataModel/accountDataModel.dart';
 import 'package:kpp01/dataModel/testDataModel.dart';
 
 abstract class QuestionTestState{
@@ -17,9 +18,10 @@ class QuestionTestStateFinishTestProcessing extends QuestionTestState{
 
 }
 class QuestionTestStateFinishTestFinished extends QuestionTestState{
-  QuestionTestStateFinishTestFinished({this.testAnswerAllModelList});
+  QuestionTestStateFinishTestFinished({this.testAnswerAllModelList, this.accountDataModel});
   //final TestDataModel testDataModel;
   final TestAnswerAllModelList testAnswerAllModelList;
+  final AccountDataModel accountDataModel ;
 }
 
 class QuestionTestStateTestStartStarting extends QuestionTestState{
