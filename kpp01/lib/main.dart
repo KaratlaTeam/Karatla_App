@@ -83,48 +83,6 @@ class _MyAppState extends State<MyApp>{
           ),
         ),
       ),
-
-
-     /// BlocBuilder<AppDataBloc,AppDataState>(
-     ///   builder: (context,appDataState){
-     ///     return BlocBuilder<AccountDataBloc,AccountDataState>(
-     ///       builder: (context,accountDataState){
-     ///         return BlocProvider(
-     ///           create: (BuildContext context) => LoginBloc(BlocProvider.of<AccountDataBloc>(context)),
-     ///           child: BlocBuilder<LoginBloc,LoginState>(
-     ///             builder: (context,loginState){
-     ///               return BlocProvider(
-     ///                 create: (BuildContext context) => CheckLoginBloc(BlocProvider.of<AccountDataBloc>(context),BlocProvider.of<LoginBloc>(context)),
-     ///                 child: BlocBuilder<CheckLoginBloc,CheckLoginState>(
-     ///                   builder: (context, checkLoginState){
-     ///                     if(appDataState is AppDataStateGettingData || accountDataState is AccountDataStateInitialDataDoing){
-     ///                       return StatePageLoading();
-///
-     ///                     } else if(appDataState is AppDataStateError){
-     ///                       return StatePageError();
-///
-     ///                     } else if(loginState is LoginStateSignSuccessful && appDataState is AppDataStateGotData && (checkLoginState is CheckLoginStateGood || checkLoginState is CheckLoginStateReadyToBad)){
-     ///                       return  MyMainApp(appDataStateGotData: appDataState, widget: AppMain(),);
-///
-     ///                     } else if(accountDataState is AccountDataStateFinish && appDataState is AppDataStateGotData && accountDataState.accountDataModel.loginState == "ON" && (checkLoginState is CheckLoginStateGood || checkLoginState is CheckLoginStateReadyToBad)){
-     ///                       BlocProvider.of<LoginBloc>(context).add(LoginEventSignInChangeToSuccessful());
-     ///                       return MyMainApp(appDataStateGotData: appDataState, widget: AppMain(),);
-///
-     ///                     } else {
-     ///                       return MyMainApp(appDataStateGotData: appDataState, widget: SignInPage(),);
-///
-     ///                     }
-///
-     ///                   },
-     ///                 ),
-     ///               );
-     ///             },
-     ///           ),
-     ///         );
-     ///       },
-     ///     );
-     ///   },
-     /// ),
     );
   }
 

@@ -14,6 +14,10 @@ class LoginEventSignIn extends LoginEvent{
   final BuildContext context;
 }
 
+class LoginEventSignInCanSignIn extends LoginEvent{
+
+}
+
 class LoginEventSignInChangeToSuccessful extends LoginEvent{}
 
 

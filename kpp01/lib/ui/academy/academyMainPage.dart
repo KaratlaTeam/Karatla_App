@@ -22,11 +22,11 @@ class AcademyMainPage extends StatelessWidget{
             children: <Widget>[
               Container(
                 //color: Colors.red,
-                padding: EdgeInsets.only(top: appDataModel.dataAppSizePlugin.top+appDataModel.dataAppSizePlugin.scaleH*70,bottom: appDataModel.dataAppSizePlugin.scaleH*45,),
+                padding: EdgeInsets.only(top: appDataModel.dataAppSizePlugin.top+appDataModel.dataAppSizePlugin.scaleH*60,bottom: appDataModel.dataAppSizePlugin.scaleH*45,),
                 child: RefreshIndicator(
                   onRefresh: _onRefresh,
                   child: ListView.builder(
-                    padding: EdgeInsets.only(top: appDataModel.dataAppSizePlugin.scaleH*20,left: appDataModel.dataAppSizePlugin.scaleW*10,right: appDataModel.dataAppSizePlugin.scaleW*10,bottom: appDataModel.dataAppSizePlugin.scaleH*40),
+                    padding: EdgeInsets.only(top: appDataModel.dataAppSizePlugin.scaleH*20,left: appDataModel.dataAppSizePlugin.scaleW*10,right: appDataModel.dataAppSizePlugin.scaleW*10,bottom: appDataModel.dataAppSizePlugin.scaleH*30),
                     itemCount: 20,
                     itemBuilder: (context,index){
                       return MyOpenContainer(
@@ -75,7 +75,7 @@ class AcademyMainPage extends StatelessWidget{
                   Container(
                     padding: EdgeInsets.only(top: appDataModel.dataAppSizePlugin.top),
                     color: Colors.white,
-                    height: appDataModel.dataAppSizePlugin.scaleH*70+appDataModel.dataAppSizePlugin.top,
+                    height: appDataModel.dataAppSizePlugin.scaleH*60+appDataModel.dataAppSizePlugin.top,
                     alignment: Alignment.bottomCenter,
                     child: Center(
                       child: Row(

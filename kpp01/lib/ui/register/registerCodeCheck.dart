@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
+import 'package:kpp01/bloc/getCodeBloc/bloc.dart';
+import 'package:kpp01/bloc/getCodeBloc/getCodeBloc.dart';
 import 'package:kpp01/bloc/internetCheckBloc/bloc.dart';
 import 'package:kpp01/bloc/registerBloc/registerBloc.dart';
 import 'package:kpp01/bloc/registerBloc/registerEvent.dart';
@@ -47,7 +49,8 @@ class _RegisterCodeCheckState extends State<RegisterCodeCheck>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return BlocProvider(create: (context) => RegisterBloc(internetCheckBloc: BlocProvider.of<InternetCheckBloc>(context)),
+    return BlocProvider(
+      create: (context) => RegisterBloc(internetCheckBloc: BlocProvider.of<InternetCheckBloc>(context)),
       child: Scaffold(
         backgroundColor: BlocProvider.of<AppDataBloc>(context).appDataModel.myThemeData.mySkyBlue,
         appBar: AppBar(backgroundColor: BlocProvider.of<AppDataBloc>(context).appDataModel.myThemeData.mySkyBlue,iconTheme: IconThemeData(color: Colors.white),),
@@ -86,7 +89,7 @@ class _RegisterCodeCheckState extends State<RegisterCodeCheck>{
           },
           builder: (context,registerState){
             AppDataModel appDataModel = BlocProvider.of<AppDataBloc>(context).appDataModel;
-            return Column(
+            return ListView(
               //mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
 
@@ -148,10 +151,25 @@ class _RegisterCodeCheckState extends State<RegisterCodeCheck>{
                               width: appDataModel.dataAppSizePlugin.scaleW*100,
                               child: BlocProvider(
                                 create: (BuildContext context) => TimerBloc(Ticker(),30),
-                                child: BlocBuilder<TimerBloc,TimerState>(
-                                  builder: (context,timerState){
-                                    return _getCodeTime(BlocProvider.of<TimerBloc>(context), timerState, context);
-                                  },
+                                child: BlocProvider(
+                                  create:  (BuildContext context) => GetCodeBloc(internetCheckBloc: BlocProvider.of<InternetCheckBloc>(context), timerBloc: BlocProvider.of<TimerBloc>(context)),
+                                  child: BlocBuilder<TimerBloc,TimerState>(
+                                    builder: (context,timerState){
+                                      return BlocListener<GetCodeBloc, GetCodeState>(
+                                        listener: (context,getCodeState){
+                                          if(getCodeState is GetCodeStateError){
+                                            Scaffold.of(context).showSnackBar(SnackBar(content: Text("Get code fail, please check and try later!")));
+
+                                          }else if(getCodeState is GetCodeStateFail){
+                                            Scaffold.of(context).showSnackBar(SnackBar(content: Text(getCodeState.text)));
+
+                                          }
+
+                                        },
+                                        child: _getCodeTime(BlocProvider.of<TimerBloc>(context), timerState, context),
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
                             ),
@@ -203,41 +221,10 @@ class _RegisterCodeCheckState extends State<RegisterCodeCheck>{
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         onPressed: () async{
 
-          BlocProvider.of<InternetCheckBloc>(context).add(InternetCheckEventCheck(context: context));
-          await Future.delayed(Duration(milliseconds: 800));
-          if(BlocProvider.of<InternetCheckBloc>(context).state is InternetCheckStateGod){
-            _getCode(timerBloc, context);
-          }
-
+          BlocProvider.of<GetCodeBloc>(context).add(GetCodeEventStart(context: context, text: _textEditingController1.text, countryCode: _countryCode));
         },
       );
     }
   }
 
-  _getCode(TimerBloc timerBloc, BuildContext context)async{
-    if(_textEditingController1.text == "" || _textEditingController1.text.startsWith("0") || _textEditingController1.text.startsWith("60")){
-      Scaffold.of(context).showSnackBar(SnackBar(content: Text("Please enter correct phone number, do no start with '0' and '60'. ")));
-    }else{
-      timerBloc.add(Start(duration: 60));
-
-      try {
-        print("get code from: ${HttpSource.getCode + _countryCode + _textEditingController1.text}");
-
-        HttpSource httpSource = HttpSource();
-        HttpModel  httpModel = await httpSource.requestGet(
-          HttpSource.getCode + _countryCode + _textEditingController1.text,
-        );
-
-        if(httpModel.code != 1801){
-          Scaffold.of(context).showSnackBar(SnackBar(content: Text("Get code fail, please check and try later.")));
-        }
-
-      }catch(e){
-        Scaffold.of(context).showSnackBar(SnackBar(content: Text("Get code fail, please check and try later!")));
-        print(e);
-      }
-
-    }
-
-  }
 }

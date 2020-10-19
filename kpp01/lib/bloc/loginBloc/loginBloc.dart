@@ -1,5 +1,4 @@
-import 'dart:convert';
-import 'package:flutter/cupertino.dart';
+import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kpp01/bloc/accountDataBloc/bloc.dart';
 import 'package:kpp01/bloc/internetCheckBloc/bloc.dart';
@@ -12,14 +11,24 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginBloc extends Bloc<LoginEvent,LoginState>{
-  LoginBloc(this.accountDataBloc, this.internetCheckBloc):super(LoginStateSignOutFinished());
+  LoginBloc(this.accountDataBloc, this.internetCheckBloc):super(LoginStateSignOutFinished()){
+    streamSubscription = internetCheckBloc.listen((InternetCheckState internetCheckState) {
+      if(internetCheckState is InternetCheckStateGod && event is LoginEventSignIn){
+        add(LoginEventSignInCanSignIn());
 
+      }
+    });
+  }
+
+  StreamSubscription streamSubscription;
   AccountDataBloc accountDataBloc;
   InternetCheckBloc internetCheckBloc;
+  LoginEvent event ;
 
   @override
   Future<Function> close() {
     accountDataBloc.close();
+    streamSubscription.cancel();
     return super.close();
   }
 
@@ -29,16 +38,13 @@ class LoginBloc extends Bloc<LoginEvent,LoginState>{
     if(event is LoginEventSignInChangeToSuccessful){
       yield LoginStateSignSuccessful();
 
+    } else if(event is LoginEventSignInCanSignIn) {
+      yield* _mapToLogin(this.event);
+      this.event = null;
+
     } else if(event is LoginEventSignIn){
-      //HttpSource httpSource = HttpSource();
-      //httpSource.checkInternetEvent(internetCheckBloc, InternetCheckEventCheck(context: event.context), _mapToLogin(event));
-
+      this.event = event;
       internetCheckBloc.add(InternetCheckEventCheck(context: event.context));
-      await Future.delayed(Duration(milliseconds: 800));
-      if(internetCheckBloc.state is InternetCheckStateGod){
-        yield* _mapToLogin(event);
-      }
-
 
     }else if(event is LoginEventSignOut){
       yield LoginStateSignOutProcess();

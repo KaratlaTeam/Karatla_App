@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,24 +10,45 @@ import 'package:kpp01/dataModel/httpModel.dart';
 import 'package:kpp01/httpSource.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent,RegisterState>{
-  RegisterBloc({this.internetCheckBloc}):super(RegisterStateRegisterFinished());
+  RegisterBloc({this.internetCheckBloc}):super(RegisterStateRegisterFinished()){
+   streamSubscription = internetCheckBloc.listen((InternetCheckState internetCheckState) {
+     if(internetCheckState is InternetCheckStateGod && event is RegisterEventCodeRegister){
+       add(RegisterEventCodeCanRegister());
+
+     }else if(internetCheckState is InternetCheckStateGod && event is RegisterEventAccountRegister){
+       add(RegisterEventAccountCanRegister());
+
+     }
+   });
+  }
+
   InternetCheckBloc internetCheckBloc;
+  RegisterEvent event;
+  StreamSubscription streamSubscription;
+
+  @override
+  Future<Function> close() {
+    streamSubscription.cancel();
+    return super.close();
+  }
 
   @override
   Stream<RegisterState> mapEventToState(RegisterEvent event) async*{
-    if(event is RegisterEventAccountRegister){
+    if(event is RegisterEventCodeCanRegister) {
+      yield* _mapEventToCodeRegister(this.event);
+      this.event = null;
+
+    }else if(event is RegisterEventAccountCanRegister) {
+      yield* _mapEventToAccountRegister(this.event);
+      this.event = null;
+
+    } else if(event is RegisterEventAccountRegister){
+      this.event = event;
       internetCheckBloc.add(InternetCheckEventCheck(context: event.context));
-      await Future.delayed(Duration(milliseconds: 800));
-      if(internetCheckBloc.state is InternetCheckStateGod){
-        yield* _mapEventToAccountRegister(event);
-      }
 
     }else if(event is RegisterEventCodeRegister){
+      this.event = event;
       internetCheckBloc.add(InternetCheckEventCheck(context: event.context));
-      await Future.delayed(Duration(milliseconds: 800));
-      if(internetCheckBloc.state is InternetCheckStateGod){
-        yield* _mapEventToCodeRegister(event);
-      }
 
     }
   }

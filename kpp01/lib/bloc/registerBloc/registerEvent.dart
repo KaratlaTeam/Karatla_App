@@ -27,3 +27,11 @@ class RegisterEventCodeRegister extends RegisterEvent{
   final String code;
   final BuildContext context;
 }
+
+class RegisterEventCodeCanRegister extends RegisterEvent{
+
+}
+
+class RegisterEventAccountCanRegister extends RegisterEvent{
+
+}

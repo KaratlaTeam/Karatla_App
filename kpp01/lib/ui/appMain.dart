@@ -64,7 +64,7 @@ class AppMainBody extends StatelessWidget{
             //color: Colors.red,
             elevation: 0,
             child: Container(
-              height: appDataModel.dataAppSizePlugin.scaleH*75,
+              height: appDataModel.dataAppSizePlugin.scaleH*55+appDataModel.dataAppSizePlugin.bottom,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
