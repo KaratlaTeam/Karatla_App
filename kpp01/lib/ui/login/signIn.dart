@@ -11,6 +11,7 @@ import 'package:kpp01/bloc/loginBloc/bloc.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
 import 'package:kpp01/typedef.dart';
 import 'package:kpp01/ui/register/registerCodeCheck.dart';
+import 'package:kpp01/uiPlugin/myTextField/myTextFaild.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -132,11 +133,11 @@ class _SignInPageState extends State<SignInPage>{
                             ),
                             TextField(
                               inputFormatters: [
-                                WhitelistingTextInputFormatter(RegExp(_loginType == "PHONE" ? "[0-9]" : "[a-zA-Z0-9@.]")),
+                                FilteringTextInputFormatter.allow(RegExp(_loginType == "PHONE" ? "[0-9]" : "[a-zA-Z0-9@.]")),
                                 LengthLimitingTextInputFormatter(20),
                               ],
                               controller: _textEditingController1,
-                              cursorColor: Colors.black,
+                              //cursorColor: Colors.black,
                               keyboardType: TextInputType.emailAddress,
                               maxLines: 1,
                               decoration: InputDecoration(
@@ -156,12 +157,12 @@ class _SignInPageState extends State<SignInPage>{
                                   flex: 6,
                                   child: TextField(
                                     inputFormatters: [
-                                      WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")),
+                                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
                                       LengthLimitingTextInputFormatter(15),
                                     ],
                                     obscureText: true,
                                     controller: _textEditingController2,
-                                    cursorColor: Colors.black,
+                                    //cursorColor: Colors.black,
                                     keyboardType: TextInputType.text,
                                     //maxLength: 30,
                                     maxLines: 1,

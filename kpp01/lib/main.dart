@@ -10,6 +10,7 @@ import 'package:kpp01/bloc/internetCheckBloc/bloc.dart';
 import 'package:kpp01/bloc/loginBloc/bloc.dart';
 import 'package:kpp01/bloc/loginBloc/loginBloc.dart';
 import 'package:kpp01/bloc/accountDataBloc/bloc.dart';
+import 'package:kpp01/bloc/registerBloc/registerBloc.dart';
 import 'package:kpp01/bloc/simpleBlocDelegate.dart';
 import 'package:flutter/material.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
@@ -107,68 +108,81 @@ class _MyMainAppState extends State<MyMainApp>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
-      builder: (BuildContext context, Widget child){
-        return MediaQuery(
-          child: child,
-          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-        );
-      },
+      //builder: (BuildContext context, Widget child){
+      //  return MediaQuery(
+      //    child: child,
+      //    data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+      //  );
+      //},
       debugShowCheckedModeBanner: true,
-      title: 'PKK01',
+      title: 'PPM',
       theme: widget.appDataStateGotData.appDataModel.myThemeData.themeDataLight,
-      darkTheme: widget.appDataStateGotData.appDataModel.myThemeData.themeDataDark,
+      //darkTheme: widget.appDataStateGotData.appDataModel.myThemeData.themeDataDark,
       themeMode: ThemeMode.light,
       //onGenerateRoute: _AppRouter(appDataBloc: BlocProvider.of<AppDataBloc>(context)).onGenerateRoute,///_router.onGenerateRoute,
       //initialRoute: "Kpp01TestHomePage",
-      home: Scaffold(
-        key: widget.key,
-        body: Stack(
-          children: [
-            BlocConsumer<InternetCheckBloc, InternetCheckState>(
-              listener: (BuildContext context, InternetCheckState internetCheckState){
+      home: MyHome(),
+    );
+  }
+}
 
-                if((internetCheckState is InternetCheckStateBad || internetCheckState is InternetCheckStateError) && internetCheckState.context != null){
-                  BlocProvider.of<InternetCheckBloc>(context).add(InternetCheckEventToNoAction());
-                  Scaffold.of(internetCheckState.context).showSnackBar(SnackBar(content: Text("You are in the offline"))) ;
 
-                }
+class MyHome extends StatefulWidget {
+  @override
+  _MyHomeState createState() => _MyHomeState();
+}
 
-              },
-              builder: (BuildContext context, InternetCheckState internetCheckState){
+class _MyHomeState extends State<MyHome>{
 
-                return BlocBuilder<LoginBloc,LoginState>(
-                    builder: (context,loginState){
-                      return BlocConsumer<CheckLoginBloc,CheckLoginState>(
-                        listener: (context,checkLoginState){
-                          if(checkLoginState is CheckLoginStateBad){
-                            Scaffold.of(context).showSnackBar(SnackBar(content: Text("Your account/device has changed, please login again.")));
-                          }
-                        },
-                        builder: (context, checkLoginState){
-                          return BlocBuilder<AccountDataBloc,AccountDataState>(
-                            builder: (context,accountDataState){
-                              if(loginState is LoginStateSignSuccessful &&  (checkLoginState is CheckLoginStateGood || checkLoginState is CheckLoginStateReadyToBad)){
-                                return  AppMain();
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      body: Stack(
+        children: [
+          BlocConsumer<InternetCheckBloc, InternetCheckState>(
+            listener: (BuildContext context, InternetCheckState internetCheckState){
+              if((internetCheckState is InternetCheckStateBad || internetCheckState is InternetCheckStateError) && internetCheckState.context != null){
+                BlocProvider.of<InternetCheckBloc>(context).add(InternetCheckEventToNoAction());
+                Scaffold.of(internetCheckState.context).showSnackBar(SnackBar(content: Text("Internet or service error"))) ;
 
-                              } else if(accountDataState is AccountDataStateFinish && accountDataState.accountDataModel.myState == "ON" && checkLoginState is CheckLoginStateGood ){
-                                BlocProvider.of<LoginBloc>(context).add(LoginEventSignInChangeToSuccessful());
-                                return AppMain();
+              }
 
-                              } else {
-                                return SignInPage();
+            },
+            builder: (BuildContext context, InternetCheckState internetCheckState){
+              return BlocBuilder<LoginBloc,LoginState>(
+                  builder: (context,loginState){
+                    return BlocConsumer<CheckLoginBloc,CheckLoginState>(
+                      listener: (context,checkLoginState){
+                        if(checkLoginState is CheckLoginStateBad){
+                          Scaffold.of(context).showSnackBar(SnackBar(content: Text("Your account/device has changed, please login again.")));
 
-                              }
-                            },
-                          );
-                        },
-                      );
-                    }
-                );
-              },
-            ),
+                        }
+                      },
+                      builder: (context, checkLoginState){
+                        return BlocBuilder<AccountDataBloc,AccountDataState>(
+                          builder: (context,accountDataState){
+                            if(loginState is LoginStateSignSuccessful &&  (checkLoginState is CheckLoginStateGood || checkLoginState is CheckLoginStateReadyToBad)){
+                              return  AppMain();
 
-          ],
-        ),
+                            } else if(accountDataState is AccountDataStateFinish && accountDataState.accountDataModel.myState == "ON" && checkLoginState is CheckLoginStateGood ){
+                              BlocProvider.of<LoginBloc>(context).add(LoginEventSignInChangeToSuccessful());
+                              return AppMain();
+
+                            } else {
+                              return SignInPage();
+
+                            }
+                          },
+                        );
+                      },
+                    );
+                  }
+              );
+            },
+          ),
+
+        ],
       ),
     );
   }

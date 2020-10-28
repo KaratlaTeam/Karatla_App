@@ -22,8 +22,9 @@ class GetCodeBloc extends Bloc<GetCodeEvent, GetCodeState>{
   StreamSubscription streamSubscription;
   TimerBloc timerBloc;
 
+
   @override
-  Future<Function> close() {
+  Future<void> close() {
     streamSubscription.cancel();
     return super.close();
   }

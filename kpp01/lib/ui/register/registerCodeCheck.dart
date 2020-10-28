@@ -8,6 +8,7 @@ import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
 import 'package:kpp01/bloc/getCodeBloc/bloc.dart';
 import 'package:kpp01/bloc/getCodeBloc/getCodeBloc.dart';
 import 'package:kpp01/bloc/internetCheckBloc/bloc.dart';
+import 'package:kpp01/bloc/loginBloc/bloc.dart';
 import 'package:kpp01/bloc/registerBloc/registerBloc.dart';
 import 'package:kpp01/bloc/registerBloc/registerEvent.dart';
 import 'package:kpp01/bloc/registerBloc/registerState.dart';
@@ -104,11 +105,11 @@ class _RegisterCodeCheckState extends State<RegisterCodeCheck>{
 
                         TextField(
                           inputFormatters: [
-                            WhitelistingTextInputFormatter(RegExp("[0-9]")),
+                            FilteringTextInputFormatter.allow(RegExp("[0-9]")),
                             LengthLimitingTextInputFormatter(12),
                           ],
                           controller: _textEditingController1,
-                          cursorColor: Colors.black,
+                          //cursorColor: Colors.black,
                           keyboardType: TextInputType.phone,
                           maxLines: 1,
                           decoration: InputDecoration(
@@ -128,11 +129,11 @@ class _RegisterCodeCheckState extends State<RegisterCodeCheck>{
                               width: appDataModel.dataAppSizePlugin.scaleW*180,
                               child: TextField(
                                 inputFormatters: [
-                                  WhitelistingTextInputFormatter(RegExp("[0-9]")),
+                                  FilteringTextInputFormatter.allow(RegExp("[0-9]")),
                                   LengthLimitingTextInputFormatter(6),
                                 ],
                                 controller: _textEditingController2,
-                                cursorColor: Colors.black,
+                                //cursorColor: Colors.black,
                                 keyboardType: TextInputType.phone,
                                 //maxLength: 30,
                                 maxLines: 1,

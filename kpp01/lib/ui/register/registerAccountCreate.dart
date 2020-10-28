@@ -105,11 +105,11 @@ class _RegisterAccountCreateState extends State<RegisterAccountCreate>{
                       children: <Widget>[
                         TextField(
                           inputFormatters: [
-                            WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")),
+                            FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
                             LengthLimitingTextInputFormatter(10),
                           ],
                           controller: _textEditingController1,
-                          cursorColor: Colors.black,
+                          //cursorColor: Colors.black,
                           keyboardType: TextInputType.text,
                           maxLines: 1,
                           decoration: InputDecoration(
@@ -138,12 +138,12 @@ class _RegisterAccountCreateState extends State<RegisterAccountCreate>{
 
                         TextField(
                           inputFormatters: [
-                            WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")),
+                            FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
                             LengthLimitingTextInputFormatter(20),
                           ],
                           obscureText: true,
                           controller: _textEditingController2,
-                          cursorColor: Colors.black,
+                          //cursorColor: Colors.black,
                           keyboardType: TextInputType.text,
                           //maxLength: 30,
                           maxLines: 1,
@@ -172,12 +172,12 @@ class _RegisterAccountCreateState extends State<RegisterAccountCreate>{
                         ),
                         TextField(
                           inputFormatters: [
-                            WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")),
+                            FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
                             LengthLimitingTextInputFormatter(20),
                           ],
                           obscureText: true,
                           controller: _textEditingController3,
-                          cursorColor: Colors.black,
+                          //cursorColor: Colors.black,
                           keyboardType: TextInputType.text,
                           //maxLength: 30,
                           maxLines: 1,

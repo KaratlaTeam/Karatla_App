@@ -26,7 +26,7 @@ class LoginBloc extends Bloc<LoginEvent,LoginState>{
   LoginEvent event ;
 
   @override
-  Future<Function> close() {
+  Future<void> close() {
     accountDataBloc.close();
     streamSubscription.cancel();
     return super.close();

@@ -68,6 +68,7 @@ class MyThemeData {
       case 0:
         {
           return ThemeData(
+            visualDensity: VisualDensity.adaptivePlatformDensity,
             primarySwatch: _ThemeDataLightColor,
             primaryColor: _myThemeColor,
             primaryColorBrightness: Brightness.light,
@@ -102,6 +103,7 @@ class MyThemeData {
       case 0:
         {
           return ThemeData(
+            visualDensity: VisualDensity.adaptivePlatformDensity,
             pageTransitionsTheme: PageTransitionsTheme(
               builders: {
                 TargetPlatform.android: SharedAxisPageTransitionsBuilder(

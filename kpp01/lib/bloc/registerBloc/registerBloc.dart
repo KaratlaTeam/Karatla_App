@@ -27,7 +27,7 @@ class RegisterBloc extends Bloc<RegisterEvent,RegisterState>{
   StreamSubscription streamSubscription;
 
   @override
-  Future<Function> close() {
+  Future<void> close() {
     streamSubscription.cancel();
     return super.close();
   }

@@ -194,7 +194,7 @@ class _TextFieldPageState extends State<TextFieldPage>{
 
   @override
   void initState() {
-    textEditingController1 = TextEditingController();
+    textEditingController1 = TextEditingController(text: "");
     profileDataModel = AccountDataModel();
     super.initState();
   }

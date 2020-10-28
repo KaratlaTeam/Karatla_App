@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,45 +25,20 @@ class InternetCheckBloc extends Bloc<InternetCheckEvent,InternetCheckState>{
       yield InternetCheckStateChecking(context);
 
       context = event.context;
-      var req = await internetCheck();
+      print("InternetChecking");
 
       try{
-
-        if(req == true){
-          yield InternetCheckStateGod(context);
-
-        }else{
-          yield InternetCheckStateBad(context);
-
-        }
+        await http.get("https://karatla.com/api/account/get/all");
+        yield InternetCheckStateGod(context);
 
       }catch(e){
+        //yield InternetCheckStateBad(context);
         yield InternetCheckStateError(e: e,context: context)..backError();
       }
 
     }else if(event is InternetCheckEventToNoAction){
       yield InternetCheckStateNoAction(context);
     }
-  }
-
-  Future<bool> internetCheck()async{
-    print("InternetChecking");
-
-    try{
-      await http.get("https://google.com");
-      return true;
-
-    }catch (e){
-      try{
-        await http.get("https://baidu.com");
-        return true;
-
-      }catch(e){
-        return false;
-      }
-
-    }
-
   }
 
 }
