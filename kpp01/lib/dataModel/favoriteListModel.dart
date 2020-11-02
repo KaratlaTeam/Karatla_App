@@ -14,13 +14,13 @@ class MyFavoriteListPartList{
   }
 
   Map<String, dynamic> toJson(){
-
     Map<String, dynamic> myFavoriteListPartList = Map<String, dynamic>();
     myFavoriteListPartList["my_favorite_list_part1"] = this.myFavoriteListPart1 == null ? MyFavoriteListPart1(myFavoriteListPart1: List<int>()) : this.myFavoriteListPart1.toJson();
     myFavoriteListPartList["my_favorite_list_part2"] = this.myFavoriteListPart2 == null ? MyFavoriteListPart2(myFavoriteListPart2: List<int>()) : this.myFavoriteListPart2.toJson();
     myFavoriteListPartList["my_favorite_list_part3"] = this.myFavoriteListPart3 == null ? MyFavoriteListPart3(myFavoriteListPart3: List<int>()) : this.myFavoriteListPart3.toJson();
     return myFavoriteListPartList;
   }
+  
 }
 
 class MyFavoriteListPart1{

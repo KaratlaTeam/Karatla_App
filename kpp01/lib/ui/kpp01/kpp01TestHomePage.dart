@@ -33,7 +33,7 @@ class Kpp01TestHomePage extends StatelessWidget {
           create: (BuildContext context) => QuestionPageBloc(QuestionPageModel()),
         ),
         BlocProvider(
-          create: (BuildContext context) => QuestionTestBloc(List<TestAnswerModel>(50),BlocProvider.of<AccountDataBloc>(context).accountDataModel.myTestAnswerAllModelList, BlocProvider.of<AccountDataBloc>(context).accountDataModel),
+          create: (BuildContext context) => QuestionTestBloc(List<TestAnswerModel>(50),BlocProvider.of<AccountDataBloc>(context).accountDataModel),
         ),
         BlocProvider(
           create: (BuildContext context) => QuestionFavoriteBloc(BlocProvider.of<AccountDataBloc>(context).accountDataModel),

@@ -18,9 +18,8 @@ class QuestionTestStateFinishTestProcessing extends QuestionTestState{
 
 }
 class QuestionTestStateFinishTestFinished extends QuestionTestState{
-  QuestionTestStateFinishTestFinished({this.testAnswerAllModelList, this.accountDataModel});
+  QuestionTestStateFinishTestFinished({this.accountDataModel});
   //final TestDataModel testDataModel;
-  final TestAnswerAllModelList testAnswerAllModelList;
   final AccountDataModel accountDataModel ;
 }
 

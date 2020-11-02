@@ -6,9 +6,6 @@ import 'package:kpp01/bloc/loginBloc/bloc.dart';
 import 'package:kpp01/dataModel/accountDataModel.dart';
 import 'package:kpp01/dataModel/httpModel.dart';
 import 'package:kpp01/httpSource.dart';
-import 'package:kpp01/typedef.dart';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginBloc extends Bloc<LoginEvent,LoginState>{
   LoginBloc(this.accountDataBloc, this.internetCheckBloc):super(LoginStateSignOutFinished()){

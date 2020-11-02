@@ -10,7 +10,6 @@ import 'package:kpp01/bloc/internetCheckBloc/bloc.dart';
 import 'package:kpp01/bloc/loginBloc/bloc.dart';
 import 'package:kpp01/bloc/loginBloc/loginBloc.dart';
 import 'package:kpp01/bloc/accountDataBloc/bloc.dart';
-import 'package:kpp01/bloc/registerBloc/registerBloc.dart';
 import 'package:kpp01/bloc/simpleBlocDelegate.dart';
 import 'package:flutter/material.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';

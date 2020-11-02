@@ -19,14 +19,9 @@ class SettingPage extends StatelessWidget{
     return BlocBuilder<AppDataBloc,AppDataState>(
       builder: (context,appDataState){
         AppDataModel appDataModel = _getAppDataModel(appDataState);
+        AccountDataModel accountDataModel = BlocProvider.of<AccountDataBloc>(context).accountDataModel;
 
-        return BlocBuilder<AccountDataBloc,AccountDataState>(
-          builder: (context,accountDataState){
-            AccountDataModel accountDataModel;
-            if(accountDataState is AccountDataStateFinish){
-              accountDataModel = accountDataState.accountDataModel;
-            }
-            return Scaffold(
+        return Scaffold(
               appBar: AppBar(),
               body: ListView(
                 children: <Widget>[
@@ -113,8 +108,6 @@ class SettingPage extends StatelessWidget{
                 ],
               ),
             );
-          },
-        );
       },
     );
   }

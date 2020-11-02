@@ -24,6 +24,10 @@ class AccountDataBloc extends Bloc<AccountDataEvent,AccountDataState>{
       }catch(e){
         yield AccountDataStateError(e: e)..backError();
       }
+    }else if(event is AccountDataEventChangeData){
+      ///TODO change todo
+      add(AccountDataEventChangeToFinish());
+
     }else if(event is AccountDataEventChangeToFinish){
 
       yield AccountDataStateFinish(accountDataModel: accountDataModel);

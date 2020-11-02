@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kpp01/bloc/accountDataBloc/bloc.dart';
 import 'package:kpp01/bloc/questionDataBloc/bloc.dart';
 import 'package:kpp01/bloc/questionTestBloc/bloc.dart';
 import 'package:kpp01/dataModel/testDataModel.dart';
@@ -19,12 +18,13 @@ class TestHistory extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return BlocBuilder<AccountDataBloc,AccountDataState>(
-      builder: (context,accountDataState){
+   
+    return BlocBuilder<QuestionTestBloc,QuestionTestState>(
+      cubit: questionTestBloc,
+      builder: (context,questionTestState){
         List<TestAnswerAllModel> testAnswerAllModelList = List<TestAnswerAllModel>();
-        if(accountDataState is AccountDataStateFinish){
-          testAnswerAllModelList = accountDataState.accountDataModel.myTestAnswerAllModelList.testAnswerAllModel;
+        if(questionTestState is QuestionTestStateFinishTestFinished){
+          testAnswerAllModelList = questionTestState.accountDataModel.myTestAnswerAllModelList.testAnswerAllModel;
         }
         return BlocBuilder<QuestionDataBloc,QuestionDataState>(
           cubit: questionDataBloc,

@@ -1,10 +1,7 @@
 
-import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
 import 'package:kpp01/bloc/questionFavoriteBloc/bloc.dart';
 import 'package:kpp01/dataModel/accountDataModel.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class QuestionFavoriteBloc extends Bloc<QuestionFavoriteEvent,QuestionFavoriteState>{
   QuestionFavoriteBloc(this.accountDataModel):

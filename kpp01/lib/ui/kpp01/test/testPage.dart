@@ -165,7 +165,7 @@ class TestPageDetail extends StatelessWidget{
                           return TestResult(
                             questionDataList: questionDataList,
                             testQuestionIndexList: testList,
-                            testAnswerModelList: questionTestState.testAnswerAllModelList.testAnswerAllModel.last.testAnswerModelList,
+                            testAnswerModelList: questionTestState.accountDataModel.myTestAnswerAllModelList.testAnswerAllModel.last.testAnswerModelList,
                           );
                         }else if(questionTestState is QuestionTestStateFinishTestProcessing){
                           return Scaffold(

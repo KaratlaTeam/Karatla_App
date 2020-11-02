@@ -2,29 +2,44 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
-import 'package:kpp01/dataModel/appDataModel.dart';
 import 'package:kpp01/uiPlugin/myStepper/stepper.dart' as MyStepper;
 import 'package:kpp01/uiPlugin/myTextField/myTextFaild.dart';
 
 class MyNewStepper extends StatefulWidget{
+  const MyNewStepper({
+    Key key,
+    this.index: 0,
+    this.date,
+    this.time,
+    this.content,
+    this.isActive,
+    this.onStepTapped,
+    this.onStepContinue,
+    this.onStepCancel,
+    this.onPressedMark,
+  }):super(key: key);
+
+  final int index ;
+  final List<String> date ;
+  final List<String>  time ;
+  final List<String>  content ;
+  final List<bool>  isActive ;
+  final ValueChanged<int> onStepTapped;
+  final VoidCallback onStepContinue;
+  final VoidCallback onStepCancel;
+  //final VoidCallback onPressedMark;
+  final ValueChanged<TextEditingController> onPressedMark;
+
   @override
   _MyNewStepperState createState() => _MyNewStepperState();
 }
 
 class _MyNewStepperState extends State<MyNewStepper>{
 
-  int index ;
-  List date = ["", "", "", "", ""];
-  List time = ["", "", "", "", ""];
-  List content = ["", "", "", "", ""];
-  List isActive = [true, true, true, true, true, ];
-  bool showSchedule = true;
-
   TextEditingController textEditingController;
 
   @override
   initState(){
-    index = 0;
     textEditingController = TextEditingController(text: "");
     super.initState();
   }
@@ -38,69 +53,16 @@ class _MyNewStepperState extends State<MyNewStepper>{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return ListView(
       padding: EdgeInsets.only(bottom: BlocProvider.of<AppDataBloc>(context).appDataModel.dataAppSizePlugin.scaleH*40),
       children: [
         MyStepper.Stepper(
 
-          currentStep: index,
+          currentStep: widget.index,
           physics: NeverScrollableScrollPhysics(),
-          onStepTapped: (int index){
-            setState(() {
-              this.index = index;
-            });
-          },
-          onStepContinue: (){
-            if(this.isActive[index] == false){
-              setState(() {
-                this.isActive[index] = true;
-              });
-            }else{
-              setState(() {
-                this.isActive[index] = false;
-              });
-            }
-
-          },
-
-          onStepCancel: ()async{
-
-            DateTime dateTime;
-            DateTime dateTime2;
-
-            var date = await showDatePicker(
-              context: context,
-              initialDate: DateTime.now(),
-              firstDate: DateTime(DateTime.now().year - 1),
-              lastDate: DateTime(DateTime.now().year + 2),
-            );
-
-            if(date != null){
-              var time = await showTimePicker(
-                context: context ,
-                initialTime: TimeOfDay.now(),
-                helpText: "SELECT START TIME",
-              );
-              if(time != null){
-                var time2 = await showTimePicker(
-                  context: context ,
-                  initialTime: TimeOfDay.now(),
-                  helpText: "SELECT FINISH TIME",
-                );
-                if(time2 != null){
-                  dateTime = DateTime(date.year,date.month,date.day,time.hour,time.minute);
-                  dateTime2 = DateTime(date.year,date.month,date.day,time2.hour,time2.minute);
-                  print("$dateTime - $dateTime2");
-                  setState(() {
-                    this.date[index] = "${date.month} - ${date.day} - ${date.year}";
-                    this.time[index] = "${time.hour} : ${time.minute} ~ ${time2.hour} : ${time2.minute}";
-                  });
-                }
-              }
-            }
-
-          },
+          onStepTapped: widget.onStepTapped,
+          onStepContinue: widget.onStepContinue,
+          onStepCancel: widget.onStepCancel,
           controlsBuilder:  (BuildContext context, { VoidCallback onStepContinue, VoidCallback onStepCancel}){
             return Container(
               //color: Colors.red,
@@ -111,38 +73,7 @@ class _MyNewStepperState extends State<MyNewStepper>{
                   TextButton(onPressed: onStepCancel, child: Text("Time")),
                   TextButton(
                     onPressed: (){
-                      showDialog(context: context, builder: (build) {
-                        return SimpleDialog(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                          title: Text("Mark Schedule"),
-                          children: <Widget>[
-                            Container(
-                              margin: EdgeInsets.symmetric(horizontal: 20),
-                              height: 50,
-                              width: 300,
-                              child: MyTextField(
-                                lengthLimiting: 30,
-                                filterPattern: RegExp("[a-zA-Z0-9!,.?\\s]"),
-                                textEditingController: textEditingController,
-                              ),
-                            ),
-                            Container(
-                              alignment: Alignment.center,
-                              child: FlatButton(
-                                onPressed: () {
-                                  setState(() {
-                                    content[index] = textEditingController.text;
-                                    textEditingController.clear();
-                                    Navigator.pop(context);
-                                  });
-                                },
-                                child: Text("Ok"),
-                              ),
-                            ),
-                          ],
-                        );
-                      });
-
+                      widget.onPressedMark(textEditingController);
                     },
                     child: Text("Mark"),
                   ),
@@ -151,11 +82,11 @@ class _MyNewStepperState extends State<MyNewStepper>{
             );
           },
           steps: [
-            step(date[0], time[0], content[0], isActive[0]),
-            step(date[1], time[1], content[1], isActive[1]),
-            step(date[2], time[2], content[2], isActive[2]),
-            step(date[3], time[3], content[3], isActive[3]),
-            step(date[4], time[4], content[4], isActive[4]),
+            step(widget.date[0], widget.time[0], widget.content[0], widget.isActive[0]),
+            step(widget.date[1], widget.time[1], widget.content[1], widget.isActive[1]),
+            step(widget.date[2], widget.time[2], widget.content[2], widget.isActive[2]),
+            step(widget.date[3], widget.time[3], widget.content[3], widget.isActive[3]),
+            step(widget.date[4], widget.time[4], widget.content[4], widget.isActive[4]),
           ],
         )
       ],
@@ -165,9 +96,9 @@ class _MyNewStepperState extends State<MyNewStepper>{
     return MyStepper.Step(
       isActive: isActive,
       state: MyStepper.StepState.indexed,
-      title: Text(date),
+      title: Text("$date"+"${content != "" ? " ("+content+")" : ""}"),
       subtitle: Text(time),
-      content: Text(content),
+      content: Text(""),
     );
   }
 }

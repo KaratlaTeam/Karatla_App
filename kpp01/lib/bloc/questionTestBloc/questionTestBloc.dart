@@ -6,12 +6,11 @@ import 'package:kpp01/dataModel/accountDataModel.dart';
 import 'package:kpp01/dataModel/testDataModel.dart';
 
 class QuestionTestBloc extends Bloc<QuestionTestEvent,QuestionTestState>{
-  QuestionTestBloc(this.testAnswerModelList,this.testAnswerAllModelList, this.accountDataModel):
-        super(QuestionTestStateFinishTestFinished(testAnswerAllModelList: testAnswerAllModelList, accountDataModel: accountDataModel));
+  QuestionTestBloc(this.testAnswerModelList, this.accountDataModel):
+        super(QuestionTestStateFinishTestFinished(accountDataModel: accountDataModel));
 
   //final TestDataModel testDataModel ;
   List<TestAnswerModel> testAnswerModelList;
-  TestAnswerAllModelList testAnswerAllModelList;
   final AccountDataModel accountDataModel ;
 
 
@@ -56,13 +55,13 @@ class QuestionTestBloc extends Bloc<QuestionTestEvent,QuestionTestState>{
     yield QuestionTestStateFinishTestProcessing();
     try{
       testAnswerAllModel = _addTestAnswerAllModel(finishTestModel.testQuestionIndexList, finishTestModel.timeSpendSecond);
-      this.testAnswerAllModelList.testAnswerAllModel.add(testAnswerAllModel);
+      this.accountDataModel.myTestAnswerAllModelList.testAnswerAllModel.add(testAnswerAllModel);
 
       await accountDataModel.setSharePTest();
 
 
       _initialData();
-      yield QuestionTestStateFinishTestFinished(testAnswerAllModelList: this.testAnswerAllModelList);
+      yield QuestionTestStateFinishTestFinished(accountDataModel: this.accountDataModel);
     }catch(e){
       yield QuestionTestStateError(e: e)..backError();
     }

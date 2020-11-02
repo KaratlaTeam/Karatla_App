@@ -56,14 +56,13 @@ class FavoritePage extends StatelessWidget {
                 return BlocBuilder<QuestionFavoriteBloc,QuestionFavoriteState>(
                   cubit: questionFavoriteBloc,
                   builder: (context, questionFavoriteState){
-
-                    return BlocBuilder<AccountDataBloc,AccountDataState>(
-                      builder: (context,accountDataState){
-                        AccountDataModel accountDataModel;
-                        if(accountDataState is AccountDataStateFinish){
-                          accountDataModel = accountDataState.accountDataModel;
+                    AccountDataModel accountDataModel;
+                    if(questionFavoriteState is QuestionFavoriteStateOnPressedFinished){
+                          //accountDataModel = accountDataState.accountDataModel;
+                          accountDataModel = questionFavoriteState.accountDataModel;
                         }
-                        List<int> favoritePart1 = accountDataModel.myFavoriteListPartList.myFavoriteListPart1.myFavoriteListPart1;
+                        
+                      List<int> favoritePart1 = accountDataModel.myFavoriteListPartList.myFavoriteListPart1.myFavoriteListPart1;
                         List<int> favoritePart2 = accountDataModel.myFavoriteListPartList.myFavoriteListPart2.myFavoriteListPart2;
                         List<int> favoritePart3 = accountDataModel.myFavoriteListPartList.myFavoriteListPart3.myFavoriteListPart3;
                         List<List<int>> favoriteList = [favoritePart1,favoritePart2,favoritePart3];
@@ -134,8 +133,6 @@ class FavoritePage extends StatelessWidget {
                             ),
                           );
                         }
-                      },
-                    );
                   },
                 );
               },

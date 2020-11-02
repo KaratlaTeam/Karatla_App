@@ -5,7 +5,7 @@ class SimpleBlocObserver extends BlocObserver{
 
   @override
   void onEvent(Bloc bloc, Object event) {
-    print("event: "+event.toString());
+    print("【${DateTime.now()}】 event: "+event.toString());
     super.onEvent(bloc, event);
   }
 
@@ -22,7 +22,7 @@ class SimpleBlocObserver extends BlocObserver{
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
-    print(transition);
+    print("【${DateTime.now()}】 $transition");
     super.onTransition(bloc, transition);
   }
 }
