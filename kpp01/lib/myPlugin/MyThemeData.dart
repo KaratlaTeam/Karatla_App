@@ -53,10 +53,10 @@ class MyThemeData {
   static const Map<int , Color> _colorBlack ={
     50: const Color(0xFFFF5722),
     100: const Color(0xFFFF5722),
-    200: const Color(0xFF000000),///进度条背景色
-    300: const Color(0xFFFF5722),
+    200: _myGreyBlue,///进度条背景色,输入标颜色,光标选择时颜色
+    300: _myThemeColor,///textSelectionHandleColor
     400: const Color(0xFFFF5722),
-    500: _myThemeColor,///控制tab横线颜色
+    500: const Color(_myThemeColorInt),///控制tab横线,进度条，ios textSelectionHandleColor,
     600: const Color(0xFFFF5722),
     700: const Color(0xFFFF5722),
     800: const Color(0xFFFF5722),

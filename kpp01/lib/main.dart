@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:kpp01/bloc/appDataBloc/bloc.dart';
@@ -19,6 +20,12 @@ import 'package:kpp01/ui/login/signIn.dart';
 
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      systemNavigationBarColor: Colors.white,
+    )
+  );
   Bloc.observer = SimpleBlocObserver();
   return runApp(MyApp());
 }
@@ -105,7 +112,7 @@ class MyMainApp extends StatefulWidget {
 class _MyMainAppState extends State<MyMainApp>{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
     return MaterialApp(
       //builder: (BuildContext context, Widget child){
       //  return MediaQuery(
@@ -116,7 +123,7 @@ class _MyMainAppState extends State<MyMainApp>{
       debugShowCheckedModeBanner: true,
       title: 'PPM',
       theme: widget.appDataStateGotData.appDataModel.myThemeData.themeDataLight,
-      //darkTheme: widget.appDataStateGotData.appDataModel.myThemeData.themeDataDark,
+      darkTheme: widget.appDataStateGotData.appDataModel.myThemeData.themeDataLight,
       themeMode: ThemeMode.light,
       //onGenerateRoute: _AppRouter(appDataBloc: BlocProvider.of<AppDataBloc>(context)).onGenerateRoute,///_router.onGenerateRoute,
       //initialRoute: "Kpp01TestHomePage",

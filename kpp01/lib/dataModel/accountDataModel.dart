@@ -25,7 +25,6 @@ class AccountDataModel {
     this.schedeluModel,
   });
   
-///TODO 创建个人datamodel
   String myUuid,myPhone,myEmail,myName,myPhoto,myDeviceIdNow;
   String myLoginType;
   String myState;

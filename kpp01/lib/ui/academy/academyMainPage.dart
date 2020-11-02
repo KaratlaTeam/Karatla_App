@@ -22,7 +22,10 @@ class AcademyMainPage extends StatelessWidget{
             children: <Widget>[
               Container(
                 //color: Colors.red,
-                padding: EdgeInsets.only(top: appDataModel.dataAppSizePlugin.top+appDataModel.dataAppSizePlugin.scaleH*60,bottom: appDataModel.dataAppSizePlugin.scaleH*45,),
+                padding: EdgeInsets.only(
+                  top: appDataModel.dataAppSizePlugin.top,//+appDataModel.dataAppSizePlugin.scaleH*60,
+                bottom: appDataModel.dataAppSizePlugin.scaleH*45,
+                ),
                 child: RefreshIndicator(
                   onRefresh: _onRefresh,
                   child: ListView.builder(
@@ -54,78 +57,63 @@ class AcademyMainPage extends StatelessWidget{
                   ),
                 ),
               ),
-              Stack(
-                children: <Widget>[
-                  //Container(
-                  //  color: Colors.white,
-                  //  height: dataAppSizePlugin.top+dataAppSizePlugin.scaleH*25,
-                  //  padding: EdgeInsets.only(top: dataAppSizePlugin.top,left: dataAppSizePlugin.scaleW*10),
-                  //  child: GestureDetector(
-                  //    onTap: (){
+              //Stack(
+              //  children: <Widget>[
+        //
+              //    Container(
+              //      padding: EdgeInsets.only(top: appDataModel.dataAppSizePlugin.top),
+              //      color: Colors.white,
+              //      height: appDataModel.dataAppSizePlugin.scaleH*60+appDataModel.dataAppSizePlugin.top,
+              //      alignment: Alignment.bottomCenter,
+              //      child: Center(
+              //        child: Row(
+              //          mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //          children: <Widget>[
 //
-                  //    },
-                  //    child: Container(
-                  //      child: Row(children: <Widget>[
-                  //        Icon(Icons.location_on,size: dataAppSizePlugin.scaleW*18,),
-                  //       // Text(" Kajange",maxLines: 1,style: TextStyle(fontSize: dataAppSizePlugin.scaleFortSize*13),),
-                  //      ],),
-                  //    ),
-                  //  ),
-                  //),
-                  Container(
-                    padding: EdgeInsets.only(top: appDataModel.dataAppSizePlugin.top),
-                    color: Colors.white,
-                    height: appDataModel.dataAppSizePlugin.scaleH*60+appDataModel.dataAppSizePlugin.top,
-                    alignment: Alignment.bottomCenter,
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-
-                          GestureDetector(
-                            onTap: (){
-
-                            },
-                            child: Container(
-                              child: Row(children: <Widget>[
-                                Text(" Distance",maxLines: 1),
-                                Icon(Icons.swap_vert,size: 18,),
-                              ],),
-                            ),
-                          ),
-                          //GestureDetector(
-                          //  onTap: (){
-                          //  },
-                          //  child: Container(
-                          //    child: Row(children: <Widget>[
-                          //      Text(" Comment",maxLines: 1,),
-                          //      Icon(Icons.swap_vert,size: 18,),
-                          //    ],),
-                          //  ),
-                          //),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: appDataModel.dataAppSizePlugin.scaleW*50,
-                    color: Colors.white,
-                    height: appDataModel.dataAppSizePlugin.top+appDataModel.dataAppSizePlugin.scaleH*50,
-                    padding: EdgeInsets.only(top: appDataModel.dataAppSizePlugin.scaleH*20,left: appDataModel.dataAppSizePlugin.scaleW*10),
-                    child: GestureDetector(
-                      onTap: (){
-                      },
-                      child: Container(
-                        child: Row(children: <Widget>[
-                          Icon(Icons.location_on,size: appDataModel.dataAppSizePlugin.scaleW*18,),
-                          // Text(" Kajange",maxLines: 1,style: TextStyle(fontSize: dataAppSizePlugin.scaleFortSize*13),),
-                        ],),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              //            GestureDetector(
+              //              onTap: (){
+//
+              //              },
+              //              child: Container(
+              //                child: Row(children: <Widget>[
+              //                  Text(" Distance",maxLines: 1),
+              //                  Icon(Icons.swap_vert,size: 18,),
+              //                ],),
+              //              ),
+              //            ),
+              //            //GestureDetector(
+              //            //  onTap: (){
+              //            //  },
+              //            //  child: Container(
+              //            //    child: Row(children: <Widget>[
+              //            //      Text(" Comment",maxLines: 1,),
+              //            //      Icon(Icons.swap_vert,size: 18,),
+              //            //    ],),
+              //            //  ),
+              //            //),
+              //          ],
+              //        ),
+              //      ),
+              //    ),
+              //    Container(
+              //      alignment: Alignment.center,
+              //      width: appDataModel.dataAppSizePlugin.scaleW*50,
+              //      color: Colors.white,
+              //      height: appDataModel.dataAppSizePlugin.top+appDataModel.dataAppSizePlugin.scaleH*50,
+              //      padding: EdgeInsets.only(top: appDataModel.dataAppSizePlugin.scaleH*20,left: appDataModel.dataAppSizePlugin.scaleW*10),
+              //      child: GestureDetector(
+              //        onTap: (){
+              //        },
+              //        child: Container(
+              //          child: Row(children: <Widget>[
+              //            Icon(Icons.location_on,size: appDataModel.dataAppSizePlugin.scaleW*18,),
+              //            // Text(" Kajange",maxLines: 1,style: TextStyle(fontSize: dataAppSizePlugin.scaleFortSize*13),),
+              //          ],),
+              //        ),
+              //      ),
+              //    ),
+              //  ],
+              //),
             ],
           ),
         );
