@@ -1,0 +1,6 @@
+
+class DrivingAcademyDataEvent{}
+
+class DrivingAcademyDataEventGetData extends DrivingAcademyDataEvent{}
+
+class DrivingAcademyDataEventGetDataFromInternet extends DrivingAcademyDataEvent{}

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:kpp01/bloc/appDataBloc/bloc.dart';
 import 'package:kpp01/bloc/checkLoginBloc/bloc.dart';
 import 'package:kpp01/bloc/internetCheckBloc/bloc.dart';
@@ -24,6 +25,9 @@ void main() {
     SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       systemNavigationBarColor: Colors.white,
+      statusBarBrightness: Brightness.light, /// Only honored in iOS.
+      statusBarIconBrightness: Brightness.dark,///Only honored in Android version M and greater.
+      systemNavigationBarIconBrightness: Brightness.dark,///Only honored in Android versions O and greater.
     )
   );
   Bloc.observer = SimpleBlocObserver();
@@ -39,7 +43,7 @@ class _MyAppState extends State<MyApp>{
 
   @override
   void initState() {
-    super.initState();
+    
     if(Platform.isAndroid){
       FlutterDisplayMode.current.then((displayMode) {
         FlutterDisplayMode.setMode(displayMode);
@@ -48,7 +52,11 @@ class _MyAppState extends State<MyApp>{
       });
 
     }
-
+    //FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
+    //FlutterStatusbarcolor.setStatusBarColor(Colors.transparent,animate: true);
+    //FlutterStatusbarcolor.setNavigationBarWhiteForeground(true);
+    //FlutterStatusbarcolor.setNavigationBarColor(Colors.white,animate: true);
+    super.initState();
   }
 
 

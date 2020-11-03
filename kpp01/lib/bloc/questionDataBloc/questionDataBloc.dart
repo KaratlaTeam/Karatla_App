@@ -29,9 +29,9 @@ class QuestionDataBloc extends Bloc<QuestionDataEvent,QuestionDataState>{
   }
 
   Future<QuestionDataList> _getQuestionData()async{
-    String jsonStringPart1 = await rootBundle.loadString('assets/json/questionJsonPartOne');
-    String jsonStringPart2 = await rootBundle.loadString('assets/json/questionJsonPartTwo');
-    String jsonStringPart3 = await rootBundle.loadString('assets/json/questionJsonPartThree');
+    String jsonStringPart1 = await rootBundle.loadString('assets/json/questionJsonPartOne.json');
+    String jsonStringPart2 = await rootBundle.loadString('assets/json/questionJsonPartTwo.json');
+    String jsonStringPart3 = await rootBundle.loadString('assets/json/questionJsonPartThree.json');
 
     final jsonResponsePart1 = await json.decode(jsonStringPart1);
     final jsonResponsePart2 = await json.decode(jsonStringPart2);

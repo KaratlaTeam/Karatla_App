@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kpp01/bloc/DrivingAcademyDataBloc/bloc.dart';
 import 'package:kpp01/bloc/accountDataBloc/bloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataState.dart';
@@ -123,15 +125,18 @@ class AppMainBody extends StatelessWidget{
       },
     );
   }
-  StatelessWidget _bottomNavigationPageChange(int index){
-    if(index == 0){
-      return AcademyMainPage();
-    }else if(index == 1){
-      return Kpp01TestHomePage();
-    }else if(index == 2){
-      return ProfileMainPage();
-    }else{
-      return StatePageError();
-    }
+  Widget _bottomNavigationPageChange(int index){
+    return IndexedStack(
+      index: index,
+      children: [
+        BlocProvider(
+          create: (BuildContext context) => DrivingAcademyDataBloc()..add(DrivingAcademyDataEventGetData()),
+          child: AcademyMainPage(),
+        ),
+        
+        Kpp01TestHomePage(),
+        ProfileMainPage(),
+      ],
+    );
   }
 }

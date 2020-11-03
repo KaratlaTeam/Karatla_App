@@ -24,7 +24,7 @@ class MyThemeData {
   static const MaterialColor _ThemeDataLightColor = MaterialColor(_myThemeColorInt, _colorWhite,);
   static const MaterialColor _ThemeDataDarkColor = MaterialColor(_primaryColorBlack, _colorBlack,);
 
-  static const int _myThemeColorInt = 0xFF87CEFA;
+  static const int _myThemeColorInt = 0xFF87CEFA;///  天蓝
   static const Color _myThemeColor = _mySkyBlue;
   static const Color _scaffoldColor = _myWhiteBlue;
   static const Color _unSelectColor = _myGreyBlue;
