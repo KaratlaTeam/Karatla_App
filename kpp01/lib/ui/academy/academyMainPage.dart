@@ -34,177 +34,160 @@ class _AcademyMainPageState extends State<AcademyMainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppDataBloc, AppDataState>(
-      builder: (context, appDataState) {
-        AppDataModel appDataModel = _getAppDataModel(appDataState);
-        return BlocBuilder<DrivingAcademyDataBloc, DrivingAcademyDataState>(
-          builder: (context, drivingAcademyDataState) {
-            if (drivingAcademyDataState is DrivingAcademyDataStateError) {
-              return StatePageError();
-            } else if (drivingAcademyDataState
-                is DrivingAcademyDataStateGetting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (drivingAcademyDataState is DrivingAcademyDataStateGot) {
-              if (drivingAcademyDataState.drivingAcademyDataModelList == null) {
-                BlocProvider.of<DrivingAcademyDataBloc>(context)
-                    .add(DrivingAcademyDataEventGetDataFromInternet());
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else {
-                return Scaffold(
-                  body: Stack(
-                    //alignment: Alignment.center,
-                    children: <Widget>[
-                      Container(
-                        //color: Colors.red,
+    AppDataModel appDataModel =
+        BlocProvider.of<AppDataBloc>(context).appDataModel;
+    return BlocBuilder<DrivingAcademyDataBloc, DrivingAcademyDataState>(
+      builder: (context, drivingAcademyDataState) {
+        if (drivingAcademyDataState is DrivingAcademyDataStateError) {
+          return StatePageError();
+        } else if (drivingAcademyDataState is DrivingAcademyDataStateGetting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (drivingAcademyDataState is DrivingAcademyDataStateGot) {
+          if (drivingAcademyDataState.drivingAcademyDataModelList == null) {
+            BlocProvider.of<DrivingAcademyDataBloc>(context)
+                .add(DrivingAcademyDataEventGetDataFromInternet());
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return Scaffold(
+              body: Stack(
+                //alignment: Alignment.center,
+                children: <Widget>[
+                  Container(
+                    //color: Colors.red,
+                    padding: EdgeInsets.only(
+                      top: appDataModel.dataAppSizePlugin
+                          .top, //+appDataModel.dataAppSizePlugin.scaleH*60,
+                      bottom: appDataModel.dataAppSizePlugin.scaleH * 45,
+                    ),
+                    child: RefreshIndicator(
+                      onRefresh: () async {
+                        BlocProvider.of<DrivingAcademyDataBloc>(context)
+                            .add(DrivingAcademyDataEventGetDataFromInternet());
+                      },
+                      child: ListView.builder(
                         padding: EdgeInsets.only(
-                          top: appDataModel.dataAppSizePlugin
-                              .top, //+appDataModel.dataAppSizePlugin.scaleH*60,
-                          bottom: appDataModel.dataAppSizePlugin.scaleH * 45,
-                        ),
-                        child: RefreshIndicator(
-                          onRefresh: () async {
-                            BlocProvider.of<DrivingAcademyDataBloc>(context).add(
-                                DrivingAcademyDataEventGetDataFromInternet());
-                          },
-                          child: ListView.builder(
-                            padding: EdgeInsets.only(
-                                top: appDataModel.dataAppSizePlugin.scaleH * 20,
-                                left:
-                                    appDataModel.dataAppSizePlugin.scaleW * 10,
-                                right:
-                                    appDataModel.dataAppSizePlugin.scaleW * 10,
-                                bottom:
-                                    appDataModel.dataAppSizePlugin.scaleH * 30),
-                            itemCount: drivingAcademyDataState
-                                .drivingAcademyDataModelList
-                                .drivingAcademyDataModelList
-                                .length,
-                            itemBuilder: (context, index) {
-                              return MyOpenContainer(
-                                closedShape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                closedElevation: 1,
-                                height:
+                            top: appDataModel.dataAppSizePlugin.scaleH * 20,
+                            left: appDataModel.dataAppSizePlugin.scaleW * 10,
+                            right: appDataModel.dataAppSizePlugin.scaleW * 10,
+                            bottom: appDataModel.dataAppSizePlugin.scaleH * 30),
+                        itemCount: drivingAcademyDataState
+                            .drivingAcademyDataModelList
+                            .drivingAcademyDataModelList
+                            .length,
+                        itemBuilder: (context, index) {
+                          return MyOpenContainer(
+                            closedShape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            closedElevation: 1,
+                            height: appDataModel.dataAppSizePlugin.scaleW * 120,
+                            width: 0,
+                            margin: EdgeInsets.only(
+                              bottom:
+                                  appDataModel.dataAppSizePlugin.scaleH * 20,
+                            ),
+                            openColor: Colors.white,
+                            closedColor: Colors.white,
+                            closedBuilder:
+                                (BuildContext context, VoidCallback onTap) {
+                              return AcademyMainPageCard(
+                                index: index,
+                                photoHeight:
                                     appDataModel.dataAppSizePlugin.scaleW * 120,
-                                width: 0,
-                                margin: EdgeInsets.only(
-                                  bottom:
-                                      appDataModel.dataAppSizePlugin.scaleH *
-                                          20,
-                                ),
-                                openColor: Colors.white,
-                                closedColor: Colors.white,
-                                closedBuilder:
-                                    (BuildContext context, VoidCallback onTap) {
-                                  return AcademyMainPageCard(
-                                    index: index,
-                                    photoHeight:
-                                        appDataModel.dataAppSizePlugin.scaleW *
-                                            120,
-                                    photoWidth:
-                                        appDataModel.dataAppSizePlugin.scaleW *
-                                            150,
-                                    //height: dataAppSizePlugin.scaleW*140,
-                                    //marginBottom: dataAppSizePlugin.scaleW*15,
-                                    name: drivingAcademyDataState
-                                        .drivingAcademyDataModelList
-                                        .drivingAcademyDataModelList[index]
-                                        .name,
-                                    location: drivingAcademyDataState
-                                        .drivingAcademyDataModelList
-                                        .drivingAcademyDataModelList[index]
-                                        .location[0],
-                                  );
-                                },
-                                openContainerBuilder:
-                                    (BuildContext context, VoidCallback _) {
-                                  return AcademyDetailPage();
-                                },
+                                photoWidth:
+                                    appDataModel.dataAppSizePlugin.scaleW * 150,
+                                //height: dataAppSizePlugin.scaleW*140,
+                                //marginBottom: dataAppSizePlugin.scaleW*15,
+                                name: drivingAcademyDataState
+                                    .drivingAcademyDataModelList
+                                    .drivingAcademyDataModelList[index]
+                                    .name,
+                                location: drivingAcademyDataState
+                                    .drivingAcademyDataModelList
+                                    .drivingAcademyDataModelList[index]
+                                    .location[0],
                               );
                             },
-                          ),
-                        ),
+                            openContainerBuilder:
+                                (BuildContext context, VoidCallback _) {
+                              return AcademyDetailPage(
+                                drivingAcademyDataModel: drivingAcademyDataState.drivingAcademyDataModelList.drivingAcademyDataModelList[index],
+                              );
+                            },
+                          );
+                        },
                       ),
-                      //Stack(
-                      //  children: <Widget>[
-                      //
-                      //    Container(
-                      //      padding: EdgeInsets.only(top: appDataModel.dataAppSizePlugin.top),
-                      //      color: Colors.white,
-                      //      height: appDataModel.dataAppSizePlugin.scaleH*60+appDataModel.dataAppSizePlugin.top,
-                      //      alignment: Alignment.bottomCenter,
-                      //      child: Center(
-                      //        child: Row(
-                      //          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      //          children: <Widget>[
-//
-                      //            GestureDetector(
-                      //              onTap: (){
-//
-                      //              },
-                      //              child: Container(
-                      //                child: Row(children: <Widget>[
-                      //                  Text(" Distance",maxLines: 1),
-                      //                  Icon(Icons.swap_vert,size: 18,),
-                      //                ],),
-                      //              ),
-                      //            ),
-                      //            //GestureDetector(
-                      //            //  onTap: (){
-                      //            //  },
-                      //            //  child: Container(
-                      //            //    child: Row(children: <Widget>[
-                      //            //      Text(" Comment",maxLines: 1,),
-                      //            //      Icon(Icons.swap_vert,size: 18,),
-                      //            //    ],),
-                      //            //  ),
-                      //            //),
-                      //          ],
-                      //        ),
-                      //      ),
-                      //    ),
-                      //    Container(
-                      //      alignment: Alignment.center,
-                      //      width: appDataModel.dataAppSizePlugin.scaleW*50,
-                      //      color: Colors.white,
-                      //      height: appDataModel.dataAppSizePlugin.top+appDataModel.dataAppSizePlugin.scaleH*50,
-                      //      padding: EdgeInsets.only(top: appDataModel.dataAppSizePlugin.scaleH*20,left: appDataModel.dataAppSizePlugin.scaleW*10),
-                      //      child: GestureDetector(
-                      //        onTap: (){
-                      //        },
-                      //        child: Container(
-                      //          child: Row(children: <Widget>[
-                      //            Icon(Icons.location_on,size: appDataModel.dataAppSizePlugin.scaleW*18,),
-                      //            // Text(" Kajange",maxLines: 1,style: TextStyle(fontSize: dataAppSizePlugin.scaleFortSize*13),),
-                      //          ],),
-                      //        ),
-                      //      ),
-                      //    ),
-                      //  ],
-                      //),
-                    ],
+                    ),
                   ),
-                );
-              }
-            } else {
-              return StatePageError();
-            }
-          },
-        );
+                  //Stack(
+                  //  children: <Widget>[
+                  //
+                  //    Container(
+                  //      padding: EdgeInsets.only(top: appDataModel.dataAppSizePlugin.top),
+                  //      color: Colors.white,
+                  //      height: appDataModel.dataAppSizePlugin.scaleH*60+appDataModel.dataAppSizePlugin.top,
+                  //      alignment: Alignment.bottomCenter,
+                  //      child: Center(
+                  //        child: Row(
+                  //          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  //          children: <Widget>[
+//
+                  //            GestureDetector(
+                  //              onTap: (){
+//
+                  //              },
+                  //              child: Container(
+                  //                child: Row(children: <Widget>[
+                  //                  Text(" Distance",maxLines: 1),
+                  //                  Icon(Icons.swap_vert,size: 18,),
+                  //                ],),
+                  //              ),
+                  //            ),
+                  //            //GestureDetector(
+                  //            //  onTap: (){
+                  //            //  },
+                  //            //  child: Container(
+                  //            //    child: Row(children: <Widget>[
+                  //            //      Text(" Comment",maxLines: 1,),
+                  //            //      Icon(Icons.swap_vert,size: 18,),
+                  //            //    ],),
+                  //            //  ),
+                  //            //),
+                  //          ],
+                  //        ),
+                  //      ),
+                  //    ),
+                  //    Container(
+                  //      alignment: Alignment.center,
+                  //      width: appDataModel.dataAppSizePlugin.scaleW*50,
+                  //      color: Colors.white,
+                  //      height: appDataModel.dataAppSizePlugin.top+appDataModel.dataAppSizePlugin.scaleH*50,
+                  //      padding: EdgeInsets.only(top: appDataModel.dataAppSizePlugin.scaleH*20,left: appDataModel.dataAppSizePlugin.scaleW*10),
+                  //      child: GestureDetector(
+                  //        onTap: (){
+                  //        },
+                  //        child: Container(
+                  //          child: Row(children: <Widget>[
+                  //            Icon(Icons.location_on,size: appDataModel.dataAppSizePlugin.scaleW*18,),
+                  //            // Text(" Kajange",maxLines: 1,style: TextStyle(fontSize: dataAppSizePlugin.scaleFortSize*13),),
+                  //          ],),
+                  //        ),
+                  //      ),
+                  //    ),
+                  //  ],
+                  //),
+                ],
+              ),
+            );
+          }
+        } else {
+          return StatePageError();
+        }
       },
     );
-  }
-
-  AppDataModel _getAppDataModel(AppDataState appDataState) {
-    if (appDataState is AppDataStateGotData) {
-      return appDataState.appDataModel;
-    } else {
-      return null;
-    }
   }
 
   //Future _onRefresh(BuildContext context) async {
@@ -240,101 +223,85 @@ class AcademyMainPageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return BlocBuilder<AppDataBloc, AppDataState>(
-      builder: (context, appDataState) {
-        AppDataModel appDataModel = _getAppDataModel(appDataState);
-        return Container(
-          child: Row(
-            children: <Widget>[
-              ClipRRect(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    bottomLeft: Radius.circular(10)),
-                child: Image.asset(
-                  "assets/images/academy/academyExample.png",
-                  fit: BoxFit.cover,
-                  height: photoHeight,
-                  width: photoWidth,
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  //color: Colors.red,
-                  margin: EdgeInsets.symmetric(
-                      vertical: appDataModel.dataAppSizePlugin.scaleW * 10),
-                  child: ListTile(
-                    title: Text(
-                      name,
-                      style: TextStyle(
-                          fontSize:
-                              appDataModel.dataAppSizePlugin.scaleFortSize *
-                                  13),
-                      maxLines: 2,
-                    ),
-                    subtitle: Column(
-                      //mainAxisAlignment: MainAxisAlignment.center,
-                      //crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          //width: appDataModel.dataAppSizePlugin.scaleW*50,
-                          margin: EdgeInsets.only(
-                              bottom:
-                                  appDataModel.dataAppSizePlugin.scaleH * 15,
-                              top: appDataModel.dataAppSizePlugin.scaleH * 40),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.location_on,
-                                size: 17,
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(
-                                    left:
-                                        appDataModel.dataAppSizePlugin.scaleW *
-                                            5),
-                                width:
-                                    appDataModel.dataAppSizePlugin.scaleW * 190,
-                                child: Text(
-                                  location,
-                                  maxLines: 2,
-                                  style: TextStyle(
-                                    fontSize: appDataModel
-                                            .dataAppSizePlugin.scaleFortSize *
-                                        13,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        //Container(
-                        //  margin: EdgeInsets.only(bottom: dataAppSizePlugin.scaleH*10),
-                        //  child: Row(children: <Widget>[
-                        //    Icon(Icons.star,size: 17,),
-                        //    Icon(Icons.star,size: 17,),
-                        //    Icon(Icons.star,size: 17,),
-                        //    Icon(Icons.star,size: 17,),
-                        //    Icon(Icons.star_border,size: dataAppSizePlugin.scaleW*17,),
-                        //    Text(" 4.3/5 (30)",style: TextStyle(fontSize: dataAppSizePlugin.scaleFortSize*14),),
-                        //  ],),
-                        //),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
+    AppDataModel appDataModel =
+        BlocProvider.of<AppDataBloc>(context).appDataModel;
+    return Container(
+      child: Row(
+        children: <Widget>[
+          ClipRRect(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
+            child: Image.asset(
+              "assets/images/academy/academyExample.png",
+              fit: BoxFit.cover,
+              height: photoHeight,
+              width: photoWidth,
+            ),
           ),
-        );
-      },
+          Expanded(
+            child: Container(
+              //color: Colors.red,
+              margin: EdgeInsets.symmetric(
+                  vertical: appDataModel.dataAppSizePlugin.scaleW * 10),
+              child: ListTile(
+                title: Text(
+                  name,
+                  style: TextStyle(
+                      fontSize:
+                          appDataModel.dataAppSizePlugin.scaleFortSize * 13),
+                  maxLines: 2,
+                ),
+                subtitle: Column(
+                  //mainAxisAlignment: MainAxisAlignment.center,
+                  //crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      //width: appDataModel.dataAppSizePlugin.scaleW*50,
+                      margin: EdgeInsets.only(
+                          bottom: appDataModel.dataAppSizePlugin.scaleH * 15,
+                          top: appDataModel.dataAppSizePlugin.scaleH * 40),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(
+                            Icons.location_on,
+                            size: 17,
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(
+                                left:
+                                    appDataModel.dataAppSizePlugin.scaleW * 5),
+                            width: appDataModel.dataAppSizePlugin.scaleW * 190,
+                            child: Text(
+                              location,
+                              maxLines: 2,
+                              style: TextStyle(
+                                fontSize: appDataModel
+                                        .dataAppSizePlugin.scaleFortSize *
+                                    13,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    //Container(
+                    //  margin: EdgeInsets.only(bottom: dataAppSizePlugin.scaleH*10),
+                    //  child: Row(children: <Widget>[
+                    //    Icon(Icons.star,size: 17,),
+                    //    Icon(Icons.star,size: 17,),
+                    //    Icon(Icons.star,size: 17,),
+                    //    Icon(Icons.star,size: 17,),
+                    //    Icon(Icons.star_border,size: dataAppSizePlugin.scaleW*17,),
+                    //    Text(" 4.3/5 (30)",style: TextStyle(fontSize: dataAppSizePlugin.scaleFortSize*14),),
+                    //  ],),
+                    //),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
-  }
-
-  AppDataModel _getAppDataModel(AppDataState appDataState) {
-    if (appDataState is AppDataStateGotData) {
-      return appDataState.appDataModel;
-    } else {
-      return null;
-    }
   }
 }
