@@ -20,7 +20,9 @@ class QuestionBody extends StatelessWidget{
     @required this.dataQuestionImage,
     @required this.dataChoicesDetail,
     @required this.dataChoiceImage,
-    @required this.answerLetterList,
+    //@required this.answerLetterList,
+    @required this.answerLetter,
+    @required this.choicesLetter,
     @required this.getLetterColors,
     @required this.onTap,
   }):super(key:key);
@@ -30,7 +32,9 @@ class QuestionBody extends StatelessWidget{
   final List dataQuestionImage;
   final List dataChoicesDetail;
   final List dataChoiceImage;
-  final List<List<String>> answerLetterList;
+  //final List<List<String>> answerLetterList;
+  final List<String> answerLetter;
+  final List<String> choicesLetter;
   final ListColorsWithIndexCallback getLetterColors;
   final IndexCallback onTap;
 
@@ -55,7 +59,7 @@ class QuestionBody extends StatelessWidget{
                 child: QuestionBodyPart(
                   onTap: null,
                   direction: Axis.vertical,
-                  answerLetterList: answerLetterList[1],
+                  answerLetterList: choicesLetter,
                   listData: dataQuestionChoices,
                   getLetterColors: (int index){
                     return [Colors.black,appDataModel.myThemeData.myWhiteBlue];
@@ -67,7 +71,7 @@ class QuestionBody extends StatelessWidget{
                 child:  QuestionBodyPart(
                   onTap: null,
                   direction: Axis.horizontal,
-                  answerLetterList: answerLetterList[1],
+                  answerLetterList: choicesLetter,
                   listData: dataQuestionImage,
                   getLetterColors: (int index){
                     return [Colors.black,appDataModel.myThemeData.myWhiteBlue];
@@ -79,7 +83,7 @@ class QuestionBody extends StatelessWidget{
                 child: QuestionBodyPart(
                   onTap: onTap,
                   direction: Axis.vertical,
-                  answerLetterList: answerLetterList[0],
+                  answerLetterList: answerLetter,
                   listData: dataChoicesDetail,
                   getLetterColors: getLetterColors,
                   hasAnswerLetter: true,
@@ -90,7 +94,7 @@ class QuestionBody extends StatelessWidget{
                 child: QuestionBodyPart(
                   onTap: onTap,
                   direction: Axis.horizontal,
-                  answerLetterList: answerLetterList[0],
+                  answerLetterList: answerLetter,
                   listData: dataChoiceImage,
                   getLetterColors: getLetterColors,
                 ),

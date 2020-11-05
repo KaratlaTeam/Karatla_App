@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kpp01/bloc/DrivingAcademyDataBloc/bloc.dart';
+import 'package:kpp01/bloc/drivingAcademyDataBloc/bloc.dart';
 import 'package:kpp01/bloc/accountDataBloc/bloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataState.dart';

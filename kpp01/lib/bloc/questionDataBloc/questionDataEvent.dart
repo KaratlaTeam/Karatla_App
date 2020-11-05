@@ -5,3 +5,7 @@ abstract class QuestionDataEvent {
 class QuestionDataEventGetQuestionData extends QuestionDataEvent{
 
 }
+
+class QuestionDataEventGetQuestionDataFromInternet extends QuestionDataEvent{
+
+}

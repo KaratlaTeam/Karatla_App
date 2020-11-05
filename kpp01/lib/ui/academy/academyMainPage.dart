@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kpp01/bloc/DrivingAcademyDataBloc/DrivingAcademyDataBloc.dart';
-import 'package:kpp01/bloc/DrivingAcademyDataBloc/DrivingAcademyDataEvent.dart';
-import 'package:kpp01/bloc/DrivingAcademyDataBloc/DrivingAcademyDataState.dart';
+import 'package:kpp01/bloc/drivingAcademyDataBloc/drivingAcademyDataBloc.dart';
+import 'package:kpp01/bloc/drivingAcademyDataBloc/drivingAcademyDataEvent.dart';
+import 'package:kpp01/bloc/drivingAcademyDataBloc/drivingAcademyDataState.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataState.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
@@ -45,14 +45,7 @@ class _AcademyMainPageState extends State<AcademyMainPage> {
             child: CircularProgressIndicator(),
           );
         } else if (drivingAcademyDataState is DrivingAcademyDataStateGot) {
-          if (drivingAcademyDataState.drivingAcademyDataModelList == null) {
-            BlocProvider.of<DrivingAcademyDataBloc>(context)
-                .add(DrivingAcademyDataEventGetDataFromInternet());
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            return Scaffold(
+           return Scaffold(
               body: Stack(
                 //alignment: Alignment.center,
                 children: <Widget>[
@@ -182,7 +175,6 @@ class _AcademyMainPageState extends State<AcademyMainPage> {
                 ],
               ),
             );
-          }
         } else {
           return StatePageError();
         }

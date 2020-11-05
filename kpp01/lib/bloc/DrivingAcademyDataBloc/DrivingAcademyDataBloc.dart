@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kpp01/bloc/DrivingAcademyDataBloc/DrivingAcademyDataEvent.dart';
-import 'package:kpp01/bloc/DrivingAcademyDataBloc/DrivingAcademyDataState.dart';
+import 'package:kpp01/bloc/drivingAcademyDataBloc/drivingAcademyDataEvent.dart';
+import 'package:kpp01/bloc/drivingAcademyDataBloc/drivingAcademyDataState.dart';
 import 'package:kpp01/dataModel/drivingAcademyDataModel.dart';
 import 'package:kpp01/dataModel/httpModel.dart';
 
@@ -17,9 +17,16 @@ class DrivingAcademyDataBloc extends Bloc<DrivingAcademyDataEvent,DrivingAcademy
     if(event is DrivingAcademyDataEventGetData){
       yield DrivingAcademyDataStateGetting();
       try{
+        DrivingAcademyDataModelList drivingAcademyDataModelList = DrivingAcademyDataModelList()..initialData();
         drivingAcademyDataModelList = await drivingAcademyDataModelList.getSharePAcademyDataList(drivingAcademyDataModelList);
-        yield DrivingAcademyDataStateGot(drivingAcademyDataModelList: drivingAcademyDataModelList);
-
+        if(drivingAcademyDataModelList == null){
+          add(DrivingAcademyDataEventGetDataFromInternet());
+        }else{
+          ///TODO check internet
+          this.drivingAcademyDataModelList = drivingAcademyDataModelList;
+          yield DrivingAcademyDataStateGot(drivingAcademyDataModelList: this.drivingAcademyDataModelList);
+        }
+        
       }catch(e){
         yield DrivingAcademyDataStateError(e: e)..backError();
 
@@ -27,14 +34,17 @@ class DrivingAcademyDataBloc extends Bloc<DrivingAcademyDataEvent,DrivingAcademy
     }else if(event is DrivingAcademyDataEventGetDataFromInternet){
       yield DrivingAcademyDataStateGetting();
       try{
-        //TODO internet
+        ///TODO check internet
+        //TODO change to http
+        DrivingAcademyDataModelList drivingAcademyDataModelList = DrivingAcademyDataModelList()..initialData();
         String requestBody = await rootBundle.loadString('assets/json/drivingData.json');
         var json = await jsonDecode(requestBody);
         HttpModel httpMode = HttpModel.fromJson(json);
 
         drivingAcademyDataModelList = DrivingAcademyDataModelList.fromJson(httpMode.data);
         await drivingAcademyDataModelList.setSharePAcademyDataList(drivingAcademyDataModelList);
-        yield DrivingAcademyDataStateGot(drivingAcademyDataModelList: drivingAcademyDataModelList);
+        this.drivingAcademyDataModelList = drivingAcademyDataModelList;
+        yield DrivingAcademyDataStateGot(drivingAcademyDataModelList: this.drivingAcademyDataModelList);
 
       }catch (e){
         yield DrivingAcademyDataStateError(e: e)..backError();

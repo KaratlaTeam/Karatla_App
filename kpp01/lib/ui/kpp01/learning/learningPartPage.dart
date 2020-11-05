@@ -8,7 +8,7 @@ import 'package:kpp01/bloc/questionFavoriteBloc/bloc.dart';
 import 'package:kpp01/bloc/questionPageBloc/bloc.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
 import 'package:kpp01/dataModel/questionPageModel.dart';
-import 'package:kpp01/dataModel/questionPartModel.dart';
+import 'package:kpp01/dataModel/questionDataModel.dart';
 import 'package:flutter/material.dart';
 import 'package:kpp01/myPlugin/MyThemeData.dart';
 import 'package:kpp01/myPlugin/dataAppSizePlugin.dart';
@@ -53,7 +53,7 @@ class LearningPartPage extends StatelessWidget{
 
                 List questionData = _getQuestionData(questionDataState);
                 List<QuestionData> questionList = questionData[0];
-                List<List<String>> answerLetterList = questionData[1];
+                QuestionDataModel questionDataModel = questionData[1];
 
                 return Scaffold(
                   appBar: AppBar(
@@ -74,9 +74,10 @@ class LearningPartPage extends StatelessWidget{
                         dataQuestionImage: questionList[index].question.questionDetailImages,
                         dataChoicesDetail: questionList[index].choices.choiceDetail,
                         dataChoiceImage: questionList[index].choices.choiceImage,
-                        answerLetterList: answerLetterList,
+                        answerLetter: questionDataModel.questionDataModelDetail.answerLetter,
+                        choicesLetter: questionDataModel.questionDataModelDetail.choicesLetter,
                         getLetterColors: (int key){
-                          return  _getLetterColors(key,answerLetterList,questionList[index].answer,appDataModel.myThemeData);
+                          return  _getLetterColors(key,questionDataModel.questionDataModelDetail.answerLetter,questionList[index].answer,appDataModel.myThemeData);
                         },
                       );
                     },
@@ -121,8 +122,8 @@ class LearningPartPage extends StatelessWidget{
     }
   }
 
-  List<Color> _getLetterColors(int index,List answerLetterList, String dataAnswer,MyThemeData myThemeData){
-    if(dataAnswer != answerLetterList[0][index]){
+  List<Color> _getLetterColors(int index,List answerLetter, String dataAnswer,MyThemeData myThemeData){
+    if(dataAnswer != answerLetter[index]){
       return [Colors.black,myThemeData.myWhiteBlue];
     }else{
       return [Colors.white,Color(0xFF87CEFA)];
@@ -158,17 +159,17 @@ class LearningPartPage extends StatelessWidget{
 
   List _getQuestionData(QuestionDataState questionDataState){
     List<QuestionData> questionList;
-    List<List<String>> answerLetterList;
+    QuestionDataModel questionDataModel;
     if(questionDataState is QuestionDataStateGotQuestionData){
       if(partListNumber == "One"){
-        questionList = questionDataState.questionDataList.partOneList;
+        questionList = questionDataState.questionDataModel.questionDataModelDetail.questionPart1.questionData;
       }else if(partListNumber == "Two"){
-        questionList = questionDataState.questionDataList.partTwoList;
+        questionList = questionDataState.questionDataModel.questionDataModelDetail.questionPart2.questionData;
       }else if(partListNumber == "Three"){
-        questionList = questionDataState.questionDataList.partThreeList;
+        questionList = questionDataState.questionDataModel.questionDataModelDetail.questionPart3.questionData;
       }
-      answerLetterList = questionDataState.questionDataList.answerLetterList;
-      return [questionList,answerLetterList];
+      questionDataModel = questionDataState.questionDataModel;
+      return [questionList,questionDataModel];
     }else{
       return null;
     }

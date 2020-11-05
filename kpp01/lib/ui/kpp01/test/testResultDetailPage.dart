@@ -3,9 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataState.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
-import 'package:kpp01/dataModel/questionPartModel.dart';
+import 'package:kpp01/dataModel/questionDataModel.dart';
 import 'package:kpp01/myPlugin/MyThemeData.dart';
-import 'package:kpp01/myPlugin/dataAppSizePlugin.dart';
 import 'package:kpp01/uiPlugin/questionPage/questionBody.dart';
 
 class TestResultDetailPage extends StatelessWidget{
@@ -14,12 +13,15 @@ class TestResultDetailPage extends StatelessWidget{
     Key key,
     this.questionData,
     this.selectedAnswer,
-    this.answerLetterList,
+    this.answerLetter,
+    this.choicesLetter,
 }):super(key:key);
 
   final QuestionData questionData;
   final String selectedAnswer;
-  final List<List<String>> answerLetterList;
+  //final List<List<String>> answerLetterList;
+  final List<String> answerLetter;
+  final List<String> choicesLetter;
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +39,10 @@ class TestResultDetailPage extends StatelessWidget{
             dataQuestionImage: questionData.question.questionDetailImages,
             dataChoicesDetail: questionData.choices.choiceDetail,
             dataChoiceImage: questionData.choices.choiceImage,
-            answerLetterList: answerLetterList,
+            answerLetter: answerLetter,
+            choicesLetter: choicesLetter,
             getLetterColors: (int key){
-              return _getLetterColors(key, answerLetterList, questionData.answer ,selectedAnswer,appDataModel.myThemeData);
+              return _getLetterColors(key, answerLetter, questionData.answer ,selectedAnswer,appDataModel.myThemeData);
             },
             onTap: null,
           ),
@@ -61,11 +64,11 @@ class TestResultDetailPage extends StatelessWidget{
     }
   }
 
-  List<Color> _getLetterColors(int index,List answerLetterList, String correctAnswer,String selectedAnswer,MyThemeData myThemeData){
-    if(correctAnswer == answerLetterList[0][index]){
+  List<Color> _getLetterColors(int index,List answerLetter, String correctAnswer,String selectedAnswer,MyThemeData myThemeData){
+    if(correctAnswer == answerLetter[index]){
       return [Colors.white,Colors.green];
     }else if(selectedAnswer != "No answer"){
-      if(selectedAnswer != correctAnswer && selectedAnswer == answerLetterList[0][index]){
+      if(selectedAnswer != correctAnswer && selectedAnswer == answerLetter[index]){
         return [Colors.white,Colors.red];
       }else{
         return [Colors.black,myThemeData.myWhiteBlue];

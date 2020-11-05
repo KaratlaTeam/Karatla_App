@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kpp01/dataModel/questionPartModel.dart';
+import 'package:kpp01/dataModel/questionDataModel.dart';
 import 'package:kpp01/dataModel/testDataModel.dart';
 import 'package:kpp01/ui/kpp01/test/testResultDetailPage.dart';
 
@@ -7,12 +7,12 @@ class TestResult extends StatefulWidget {
 
   TestResult({
     Key key,
-    this.questionDataList,
+    this.questionDataModel,
     this.testQuestionIndexList,
     this.testAnswerModelList,
   }) :super(key: key);
 
-  final QuestionDataList questionDataList;
+  final QuestionDataModel questionDataModel;
   final List<TestQuestionIndexListPart> testQuestionIndexList ;
   final List<TestAnswerModel> testAnswerModelList;
 
@@ -45,11 +45,11 @@ class _TestResultState extends State<TestResult>{
             String selectedAnswer = "No answer";
 
             if(index<15&&index >=0){
-              questionData = widget.questionDataList.partOneList[widget.testQuestionIndexList[0].testQuestionIndexListPartList[index]];
+              questionData = widget.questionDataModel.questionDataModelDetail.questionPart1.questionData[widget.testQuestionIndexList[0].testQuestionIndexListPartList[index]];
             }else if(index >=15 &&index <40){
-              questionData = widget.questionDataList.partTwoList[widget.testQuestionIndexList[1].testQuestionIndexListPartList[index-15]];
+              questionData = widget.questionDataModel.questionDataModelDetail.questionPart2.questionData[widget.testQuestionIndexList[1].testQuestionIndexListPartList[index-15]];
             }else if(index >=40 &&index <50){
-              questionData = widget.questionDataList.partThreeList[widget.testQuestionIndexList[2].testQuestionIndexListPartList[index-40]];
+              questionData = widget.questionDataModel.questionDataModelDetail.questionPart3.questionData[widget.testQuestionIndexList[2].testQuestionIndexListPartList[index-40]];
             }
 
             if(widget.testAnswerModelList[index] != null){
@@ -69,7 +69,8 @@ class _TestResultState extends State<TestResult>{
                       TestResultDetailPage(
                         questionData: questionData,
                         selectedAnswer: selectedAnswer,
-                        answerLetterList: widget.questionDataList.answerLetterList,
+                        answerLetter: widget.questionDataModel.questionDataModelDetail.answerLetter,
+                        choicesLetter: widget.questionDataModel.questionDataModelDetail.choicesLetter,
                   )));
                 },
               ),

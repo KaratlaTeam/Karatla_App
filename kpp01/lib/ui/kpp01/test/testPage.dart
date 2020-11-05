@@ -7,10 +7,10 @@ import 'package:kpp01/bloc/questionFavoriteBloc/bloc.dart';
 import 'package:kpp01/bloc/questionPageBloc/bloc.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
 import 'package:kpp01/dataModel/finishTestModel.dart';
+import 'package:kpp01/dataModel/questionDataModel.dart';
 import 'package:kpp01/dataModel/questionPageModel.dart';
 import 'package:kpp01/bloc/questionTestBloc/bloc.dart';
 import 'package:kpp01/bloc/questionTestIndexBloc/bloc.dart';
-import 'package:kpp01/dataModel/questionPartModel.dart';
 import 'package:kpp01/dataModel/testDataModel.dart';
 import 'package:kpp01/myPlugin/MyThemeData.dart';
 import 'package:kpp01/myPlugin/dataAppSizePlugin.dart';
@@ -153,8 +153,10 @@ class TestPageDetail extends StatelessWidget{
                   cubit: questionDataBloc,
                   builder: (context,questionDataState){
 
-                    QuestionDataList questionDataList = _getQuestionDataList(questionDataState);
-                    List<List<String>> answerLetterList  = questionDataList.answerLetterList;
+                    QuestionDataModel questionDataModel = QuestionDataModel();
+                    if(questionDataState is QuestionDataStateGotQuestionData){
+                       questionDataModel = questionDataState.questionDataModel;
+                       }
 
                     return BlocBuilder<QuestionTestBloc,QuestionTestState>(
                       cubit: questionTestBloc,
@@ -163,7 +165,7 @@ class TestPageDetail extends StatelessWidget{
 
                         if(questionTestState is QuestionTestStateFinishTestFinished ){
                           return TestResult(
-                            questionDataList: questionDataList,
+                            questionDataModel: questionDataModel,
                             testQuestionIndexList: testList,
                             testAnswerModelList: questionTestState.accountDataModel.myTestAnswerAllModelList.testAnswerAllModel.last.testAnswerModelList,
                           );
@@ -218,7 +220,7 @@ class TestPageDetail extends StatelessWidget{
                                       questionPageBloc.add(QuestionPageEventChangePagePartNumber(pageIndex: page, partID: partId));
                                     },
                                     itemBuilder: (BuildContext context, int index) {
-                                      List dataAndIndex = _getDataAndQuestionIndex(questionTestState, questionDataList, index, testList);
+                                      List dataAndIndex = _getDataAndQuestionIndex(questionTestState, questionDataModel, index, testList);
                                       QuestionData data = dataAndIndex[0];
                                       int questionIndex = dataAndIndex[1];
 
@@ -228,12 +230,13 @@ class TestPageDetail extends StatelessWidget{
                                         dataQuestionImage: data.question.questionDetailImages,
                                         dataChoicesDetail: data.choices.choiceDetail,
                                         dataChoiceImage: data.choices.choiceImage,
-                                        answerLetterList: answerLetterList,
+                                        answerLetter: questionDataModel.questionDataModelDetail.answerLetter,
+                                        choicesLetter: questionDataModel.questionDataModelDetail.choicesLetter,
                                         getLetterColors: (int key) {
-                                          return _getLetterColors(index, key, answerLetterList,appDataModel.myThemeData);
+                                          return _getLetterColors(index, key, questionDataModel.questionDataModelDetail.answerLetter, appDataModel.myThemeData);
                                         },
                                         onTap: (int key) {
-                                          _onSelected(index, key, answerLetterList, questionIndex, data);
+                                          _onSelected(index, key, questionDataModel.questionDataModelDetail.answerLetter, questionIndex, data);
                                         },
                                       );
                                     },
@@ -346,34 +349,27 @@ class TestPageDetail extends StatelessWidget{
     }
   }
 
-  QuestionDataList _getQuestionDataList(QuestionDataState questionDataState){
-    if(questionDataState is QuestionDataStateGotQuestionData){
-      return questionDataState.questionDataList;
-    }else{
-      return null;
-    }
-  }
 
-  List _getDataAndQuestionIndex(QuestionTestState questionTestState,QuestionDataList questionDataList,int index,List<TestQuestionIndexListPart> testList ){
+  List _getDataAndQuestionIndex(QuestionTestState questionTestState,QuestionDataModel questionDataModel,int index,List<TestQuestionIndexListPart> testList ){
     QuestionData data;
     int questionIndex;/// from 0 to ~
 
     if (index < 15 && index >= 0) {
       questionIndex = testList[0].testQuestionIndexListPartList[index];
-      data = questionDataList.partOneList[questionIndex];
+      data = questionDataModel.questionDataModelDetail.questionPart1.questionData[questionIndex];
     } else if (index >= 15 && index < 40) {
     questionIndex = testList[1].testQuestionIndexListPartList[index - 15];
-    data = questionDataList.partTwoList[questionIndex];
+    data = questionDataModel.questionDataModelDetail.questionPart2.questionData[questionIndex];
     } else if (index >= 40 && index < 50) {
     questionIndex = testList[2].testQuestionIndexListPartList[index - 40];
-    data = questionDataList.partThreeList[questionIndex];
+    data = questionDataModel.questionDataModelDetail.questionPart3.questionData[questionIndex];
     }
     return [data,questionIndex];
   }
 
-  List<Color> _getLetterColors(int pageIndex,int letterIndex,List answerLetterList,MyThemeData myThemeData){
+  List<Color> _getLetterColors(int pageIndex,int letterIndex,List answerLetter,MyThemeData myThemeData){
     if(questionTestBloc.testAnswerModelList[pageIndex]!= null){
-      if(questionTestBloc.testAnswerModelList[pageIndex].selectedAnswer != answerLetterList[0][letterIndex]){
+      if(questionTestBloc.testAnswerModelList[pageIndex].selectedAnswer != answerLetter[letterIndex]){
         return [Colors.black,myThemeData.myWhiteBlue];
       }else{
         return [Colors.white,myThemeData.myThemeColor];
@@ -383,16 +379,16 @@ class TestPageDetail extends StatelessWidget{
     }
   }
 
-  _onSelected(int pageIndex,int letterIndex,List answerLetterList,int questionIndex,QuestionData data){
+  _onSelected(int pageIndex,int letterIndex,List answerLetter,int questionIndex,QuestionData data){
     TestAnswerModel testAnswerModel = TestAnswerModel(
       pageIndex: pageIndex,
       questionIndex: questionIndex,
-      selectedAnswer: answerLetterList[0][letterIndex],
+      selectedAnswer: answerLetter[letterIndex],
       correctAnswer:  data.answer,
     );
     questionTestBloc.add(QuestionTestEventChangeTestAnswerData(testAnswerModel: testAnswerModel),);
-    print(answerLetterList[0][letterIndex]);
-    if(answerLetterList[0][letterIndex]==data.answer){
+    print(answerLetter[letterIndex]);
+    if(answerLetter[letterIndex]==data.answer){
       print('true');
     }else{
       print("false");

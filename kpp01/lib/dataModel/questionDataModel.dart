@@ -1,9 +1,94 @@
-class QuestionPartModel<T>{
-   T of<T>(){
-    T value;
-    return value;
+import 'dart:convert';
+
+import 'package:shared_preferences/shared_preferences.dart';
+
+class QuestionDataModel {
+  final QuestionDataModelDetail questionDataModelDetail;
+
+  QuestionDataModel({this.questionDataModelDetail});
+
+  factory QuestionDataModel.fromJson(Map<String, dynamic> json) {
+    return QuestionDataModel(
+      questionDataModelDetail: json["questionDataModelDetail"] != null ? QuestionDataModelDetail.fromJson(json["questionDataModelDetail"]) : null,
+    );
   }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> questionDataModelMap = Map<String, dynamic>();
+    if(this.questionDataModelDetail != null){
+      questionDataModelMap["questionDataModelDetail"] = this.questionDataModelDetail.toJson();
+    }
+    
+    return questionDataModelMap;
+    }
+
+    Future setSharePQuestionDataModel(QuestionDataModel questionDataModel) async{
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      await sharedPreferences.setString("questionDataModel",json.encode(questionDataModel.toJson()));
+    }
+
+    Future<QuestionDataModel> getSharePQuestionDataModel(QuestionDataModel questionDataModel) async{
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      var jsonBody = sharedPreferences.getString("questionDataModel");
+      if (jsonBody != null) {
+          var decodeJsonBody = await json.decode(jsonBody);
+          questionDataModel = QuestionDataModel.fromJson(decodeJsonBody);
+      }else {
+          questionDataModel = null;
+     }
+
+      return questionDataModel;
+    }
 }
+
+class QuestionDataModelDetail{
+  QuestionDataModelDetail({
+    this.version, this.answerLetter, this.choicesLetter, this.questionPart1, this.questionPart2, this.questionPart3,
+  });
+
+  final int version;
+  final List<String> answerLetter;
+  final List<String> choicesLetter;
+  final QuestionPart1 questionPart1;
+  final QuestionPart2 questionPart2;
+  final QuestionPart3 questionPart3;
+
+  factory QuestionDataModelDetail.fromJson(Map<String, dynamic> json) {
+    return QuestionDataModelDetail(
+      version: json["version"] != null ? json["version"] : null,
+      answerLetter: json["answerLetter"] != null ? List<String>.from(json["answerLetter"]) : null,
+      choicesLetter: json["choicesLetter"] != null ? List<String>.from(json["choicesLetter"]) : null,
+      questionPart1: json["questionPart1"] != null ? QuestionPart1.fromJson(json["questionPart1"]): null,
+      questionPart2: json["questionPart2"] != null ? QuestionPart2.fromJson(json["questionPart2"]): null,
+      questionPart3: json["questionPart3"] != null ? QuestionPart3.fromJson(json["questionPart3"]): null,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> questionDataModelDetailMap = Map<String, dynamic>();
+    if(this.version != null){
+      questionDataModelDetailMap["version"] = this.version;
+    }
+    if(this.answerLetter != null){
+      questionDataModelDetailMap["answerLetter"] = this.answerLetter;
+    }
+    if(this.choicesLetter != null){
+      questionDataModelDetailMap["choicesLetter"] = this.choicesLetter;
+    }
+    if(this.questionPart1 != null){
+      questionDataModelDetailMap["questionPart1"] = this.questionPart1.toJson();
+      }
+    if(this.questionPart2 != null){
+      questionDataModelDetailMap["questionPart2"] = this.questionPart2.toJson();
+      }
+    if(this.questionPart3 != null){
+      questionDataModelDetailMap["questionPart3"] = this.questionPart3.toJson();
+      }
+    
+    return questionDataModelDetailMap;
+    }
+}
+
 
 class QuestionPart1 {
   List<QuestionData> questionData;

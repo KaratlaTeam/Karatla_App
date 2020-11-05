@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kpp01/bloc/questionDataBloc/bloc.dart';
 import 'package:kpp01/bloc/questionTestBloc/bloc.dart';
+import 'package:kpp01/dataModel/questionDataModel.dart';
 import 'package:kpp01/dataModel/testDataModel.dart';
 import 'package:kpp01/ui/kpp01/test/testResult.dart';
 
@@ -29,9 +30,9 @@ class TestHistory extends StatelessWidget{
         return BlocBuilder<QuestionDataBloc,QuestionDataState>(
           cubit: questionDataBloc,
           builder: (context,questionDataState){
-            QuestionDataList questionDataList;
+            QuestionDataModel questionDataModel;
             if(questionDataState is QuestionDataStateGotQuestionData){
-              questionDataList = questionDataState.questionDataList;
+              questionDataModel = questionDataState.questionDataModel;
             }
             if(testAnswerAllModelList.isEmpty){
               return Scaffold(
@@ -58,7 +59,7 @@ class TestHistory extends StatelessWidget{
                             Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
                               return TestResult(
                                 //index: index,
-                                questionDataList: questionDataList,
+                                questionDataModel: questionDataModel,
                                 testAnswerModelList: testAnswerAllModelList[index].testAnswerModelList,
                                 testQuestionIndexList: testAnswerAllModelList[index].testQuestionIndexList,
                               );

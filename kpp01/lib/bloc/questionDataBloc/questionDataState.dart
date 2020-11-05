@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:kpp01/dataModel/questionDataModel.dart';
 import 'package:kpp01/dataModel/testDataModel.dart';
 
 abstract class QuestionDataState{
@@ -9,8 +10,8 @@ class QuestionDataStateGettingQuestionData extends QuestionDataState{
 }
 
 class QuestionDataStateGotQuestionData extends QuestionDataState{
-  final QuestionDataList questionDataList;
-  const QuestionDataStateGotQuestionData({@required this.questionDataList}):assert(questionDataList != null);
+  final QuestionDataModel questionDataModel;
+  const QuestionDataStateGotQuestionData({@required this.questionDataModel}):assert(questionDataModel != null);
 }
 
 class QuestionDataStateError extends QuestionDataState{

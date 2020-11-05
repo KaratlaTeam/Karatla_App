@@ -1,5 +1,4 @@
 
-import 'package:kpp01/dataModel/questionPartModel.dart';
 
 class TestAnswerAllModelList{
   TestAnswerAllModelList({this.testAnswerAllModel});
@@ -27,14 +26,6 @@ class TestAnswerAllModelList{
   }
 
 
-}
-
-class QuestionDataList{
-  const QuestionDataList(this.partOneList,this.partTwoList,this.partThreeList,this.answerLetterList);
-  final List<QuestionData> partOneList;
-  final List<QuestionData> partTwoList;
-  final List<QuestionData> partThreeList;
-  final List<List<String>> answerLetterList;
 }
 
 class TestAnswerModel{
