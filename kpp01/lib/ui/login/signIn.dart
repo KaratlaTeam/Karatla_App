@@ -1,6 +1,4 @@
 
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,9 +7,9 @@ import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
 import 'package:kpp01/bloc/checkLoginBloc/bloc.dart';
 import 'package:kpp01/bloc/loginBloc/bloc.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
-import 'package:kpp01/typedef.dart';
+
 import 'package:kpp01/ui/register/registerCodeCheck.dart';
-import 'package:kpp01/uiPlugin/myTextField/myTextFaild.dart';
+
 
 class SignInPage extends StatefulWidget {
   @override
@@ -44,7 +42,7 @@ class _SignInPageState extends State<SignInPage>{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    //  
     return Scaffold(
       backgroundColor: BlocProvider.of<AppDataBloc>(context).appDataModel.myThemeData.mySkyBlue,
       body: BlocConsumer<LoginBloc,LoginState>(

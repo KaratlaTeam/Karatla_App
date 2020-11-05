@@ -57,7 +57,8 @@ class LoginBloc extends Bloc<LoginEvent,LoginState>{
         };
 
         HttpSource httpSource = HttpSource();
-        HttpModel  httpModel = await httpSource.requestPost(
+       // HttpModel  httpModel = 
+        await httpSource.requestPost(
           body,
           HttpSource.logout,
           HttpSource.headers,

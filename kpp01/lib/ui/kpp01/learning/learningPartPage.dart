@@ -2,7 +2,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kpp01/bloc/appDataBloc/bloc.dart';
-import 'package:kpp01/bloc/accountDataBloc/bloc.dart';
 import 'package:kpp01/bloc/questionDataBloc/bloc.dart';
 import 'package:kpp01/bloc/questionFavoriteBloc/bloc.dart';
 import 'package:kpp01/bloc/questionPageBloc/bloc.dart';
@@ -11,7 +10,6 @@ import 'package:kpp01/dataModel/questionPageModel.dart';
 import 'package:kpp01/dataModel/questionDataModel.dart';
 import 'package:flutter/material.dart';
 import 'package:kpp01/myPlugin/MyThemeData.dart';
-import 'package:kpp01/myPlugin/dataAppSizePlugin.dart';
 import 'package:kpp01/uiPlugin/questionPage/questionBody.dart';
 import 'package:kpp01/uiPlugin/questionPage/questionBottom.dart';
 
@@ -34,7 +32,7 @@ class LearningPartPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    //  
     return BlocBuilder<AppDataBloc,AppDataState>(
       builder: (context,appDataState){
         AppDataModel appDataModel = _getAppDataModel(appDataState);

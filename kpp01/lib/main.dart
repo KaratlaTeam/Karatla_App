@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:kpp01/bloc/appDataBloc/bloc.dart';
 import 'package:kpp01/bloc/checkLoginBloc/bloc.dart';
 import 'package:kpp01/bloc/internetCheckBloc/bloc.dart';
@@ -150,7 +149,7 @@ class _MyHomeState extends State<MyHome>{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
     return Scaffold(
       body: Stack(
         children: [

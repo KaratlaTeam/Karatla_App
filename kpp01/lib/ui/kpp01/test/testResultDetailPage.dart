@@ -26,7 +26,7 @@ class TestResultDetailPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     //print("TestResultDetailPage rebuild");
-    // TODO: implement build
+    //  
     return BlocBuilder<AppDataBloc,AppDataState>(
       builder: (context,appDataState){
         AppDataModel appDataModel = _getAppDataModel(appDataState);

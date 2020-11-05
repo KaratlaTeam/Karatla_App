@@ -1,6 +1,5 @@
-import 'package:kpp01/myPlugin/dataAppSizePlugin.dart';
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class MyScaffold extends StatelessWidget{
   const MyScaffold({
@@ -14,7 +13,7 @@ class MyScaffold extends StatelessWidget{
   final Color color;
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    
     return Column(
       children: <Widget>[
         Container(

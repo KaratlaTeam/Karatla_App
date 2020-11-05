@@ -1,6 +1,5 @@
 
 
-import 'package:kpp01/bloc/schedeluBloc/bloc.dart';
 import 'package:kpp01/dataModel/scheduleModel.dart';
 
 abstract class SchedeluEvent{}

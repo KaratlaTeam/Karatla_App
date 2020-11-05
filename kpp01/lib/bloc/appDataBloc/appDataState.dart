@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
-import 'package:kpp01/myPlugin/MyThemeData.dart';
-import 'package:kpp01/myPlugin/dataAppSizePlugin.dart';
+
 
 abstract class AppDataState{
   const AppDataState();

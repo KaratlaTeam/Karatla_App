@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+
 import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -75,7 +75,7 @@ class _AcademyDetailPageState extends State<AcademyDetailPage> {
   Widget build(BuildContext context) {
     AppDataModel appDataModel =
         BlocProvider.of<AppDataBloc>(context).appDataModel;
-    // TODO: implement build
+    //  
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[

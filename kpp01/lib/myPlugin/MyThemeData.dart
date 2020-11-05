@@ -117,7 +117,7 @@ class MyThemeData {
             primarySwatch: _ThemeDataDarkColor,
             tabBarTheme: TabBarTheme(indicatorSize: TabBarIndicatorSize.label),
             textTheme: TextTheme(
-              body1: TextStyle(
+              bodyText2: TextStyle(
                 fontSize: dataAppSizeModel.scaleFortSize*16,
                 ///letterSpacing: dataAppSizeModel.scaleW*0.5,
                 ///wordSpacing: dataAppSizeModel.scaleW*0.7,

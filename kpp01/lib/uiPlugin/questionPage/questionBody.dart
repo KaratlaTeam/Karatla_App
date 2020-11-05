@@ -5,8 +5,6 @@ import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataState.dart';
 import 'package:flutter/material.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
-import 'package:kpp01/myPlugin/MyThemeData.dart';
-import 'package:kpp01/myPlugin/dataAppSizePlugin.dart';
 import 'package:kpp01/typedef.dart';
 import 'package:kpp01/uiPlugin/questionPage/questionBodyPart.dart';
 
@@ -40,7 +38,7 @@ class QuestionBody extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    
     return BlocBuilder<AppDataBloc,AppDataState>(
       builder: (context,appDataState){
         AppDataModel appDataModel = _getAppDataModel(appDataState);

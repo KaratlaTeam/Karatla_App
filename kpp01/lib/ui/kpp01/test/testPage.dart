@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataState.dart';
-import 'package:kpp01/bloc/accountDataBloc/bloc.dart';
 import 'package:kpp01/bloc/questionDataBloc/bloc.dart';
 import 'package:kpp01/bloc/questionFavoriteBloc/bloc.dart';
 import 'package:kpp01/bloc/questionPageBloc/bloc.dart';
@@ -13,7 +12,6 @@ import 'package:kpp01/bloc/questionTestBloc/bloc.dart';
 import 'package:kpp01/bloc/questionTestIndexBloc/bloc.dart';
 import 'package:kpp01/dataModel/testDataModel.dart';
 import 'package:kpp01/myPlugin/MyThemeData.dart';
-import 'package:kpp01/myPlugin/dataAppSizePlugin.dart';
 import 'package:kpp01/myPlugin/timerPluginWithBloc/bloc/bloc.dart';
 import 'package:kpp01/myPlugin/timerPluginWithBloc/ticker.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +55,7 @@ class _TestPageState extends State<TestPage>{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    //  
     return Scaffold(
       body: BlocProvider(
         create: (BuildContext context) => QuestionTestIndexBloc()..add(QuestionTestIndexEventGetIndex()),

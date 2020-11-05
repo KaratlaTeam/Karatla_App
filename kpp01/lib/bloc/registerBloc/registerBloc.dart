@@ -1,11 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kpp01/bloc/internetCheckBloc/bloc.dart';
 import 'package:kpp01/bloc/registerBloc/registerEvent.dart';
 import 'package:kpp01/bloc/registerBloc/registerState.dart';
-import 'package:http/http.dart' as http;
 import 'package:kpp01/dataModel/httpModel.dart';
 import 'package:kpp01/httpSource.dart';
 
@@ -82,7 +80,8 @@ class RegisterBloc extends Bloc<RegisterEvent,RegisterState>{
         };
 
         HttpSource httpSource = HttpSource();
-        HttpModel  httpModel = await httpSource.requestPost(
+        //HttpModel  httpModel = 
+        await httpSource.requestPost(
           body,
           HttpSource.register,
           HttpSource.headers,

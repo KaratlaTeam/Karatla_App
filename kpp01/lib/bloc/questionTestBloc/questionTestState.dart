@@ -1,6 +1,5 @@
 
 import 'package:kpp01/dataModel/accountDataModel.dart';
-import 'package:kpp01/dataModel/testDataModel.dart';
 
 abstract class QuestionTestState{
 

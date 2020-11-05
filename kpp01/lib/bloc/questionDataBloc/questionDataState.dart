@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:kpp01/dataModel/questionDataModel.dart';
-import 'package:kpp01/dataModel/testDataModel.dart';
 
 abstract class QuestionDataState{
   const QuestionDataState();

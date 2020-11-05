@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,16 +7,13 @@ import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
 import 'package:kpp01/bloc/getCodeBloc/bloc.dart';
 import 'package:kpp01/bloc/getCodeBloc/getCodeBloc.dart';
 import 'package:kpp01/bloc/internetCheckBloc/bloc.dart';
-import 'package:kpp01/bloc/loginBloc/bloc.dart';
 import 'package:kpp01/bloc/registerBloc/registerBloc.dart';
 import 'package:kpp01/bloc/registerBloc/registerEvent.dart';
 import 'package:kpp01/bloc/registerBloc/registerState.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
-import 'package:kpp01/dataModel/httpModel.dart';
-import 'package:kpp01/httpSource.dart';
+
 import 'package:kpp01/myPlugin/timerPluginWithBloc/bloc/bloc.dart';
 import 'package:kpp01/myPlugin/timerPluginWithBloc/ticker.dart';
-import 'package:http/http.dart' as http;
 import 'package:kpp01/ui/register/registerAccountCreate.dart';
 
 class RegisterCodeCheck extends StatefulWidget {
@@ -49,7 +45,7 @@ class _RegisterCodeCheckState extends State<RegisterCodeCheck>{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    
     return BlocProvider(
       create: (context) => RegisterBloc(internetCheckBloc: BlocProvider.of<InternetCheckBloc>(context)),
       child: Scaffold(

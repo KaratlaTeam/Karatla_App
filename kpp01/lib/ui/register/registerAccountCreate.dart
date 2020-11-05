@@ -52,7 +52,7 @@ class _RegisterAccountCreateState extends State<RegisterAccountCreate>{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    
     return BlocProvider(create: (context) => RegisterBloc(internetCheckBloc: BlocProvider.of<InternetCheckBloc>(context)),
       child: Scaffold(
         backgroundColor: BlocProvider.of<AppDataBloc>(context).appDataModel.myThemeData.mySkyBlue,

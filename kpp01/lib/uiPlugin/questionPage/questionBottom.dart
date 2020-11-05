@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataState.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
-import 'package:kpp01/myPlugin/dataAppSizePlugin.dart';
 import 'package:kpp01/typedef.dart';
 
 class QuestionBottom extends StatelessWidget{
@@ -27,7 +26,7 @@ class QuestionBottom extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+   
     return BlocBuilder<AppDataBloc,AppDataState>(
       builder: (context,appDataState){
         AppDataModel appDataModel = _getAppDataModel(appDataState);
@@ -85,7 +84,7 @@ class QuestionBottomSheetRight extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+ 
     return GestureDetector(
       onTap: (){
         showModalBottomSheet(
@@ -126,7 +125,7 @@ class QuestionBottomSheet extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    
     return BlocBuilder<AppDataBloc,AppDataState>(
       builder: (context,appDataState){
         AppDataModel appDataModel = _getAppDataModel(appDataState);

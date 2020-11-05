@@ -1,4 +1,4 @@
-import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +7,7 @@ import 'package:kpp01/bloc/drivingAcademyDataBloc/drivingAcademyDataBloc.dart';
 import 'package:kpp01/bloc/drivingAcademyDataBloc/drivingAcademyDataEvent.dart';
 import 'package:kpp01/bloc/drivingAcademyDataBloc/drivingAcademyDataState.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
-import 'package:kpp01/bloc/appDataBloc/appDataState.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
-import 'package:kpp01/dataModel/drivingAcademyDataModel.dart';
 import 'package:kpp01/statePage.dart';
 import 'package:kpp01/ui/academy/academyDetailPage.dart';
 import 'package:kpp01/uiPlugin/myCircleButton.dart';
@@ -22,13 +20,13 @@ class AcademyMainPage extends StatefulWidget {
 class _AcademyMainPageState extends State<AcademyMainPage> {
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    
     super.dispose();
   }
 
@@ -214,7 +212,7 @@ class AcademyMainPageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    //  
     AppDataModel appDataModel =
         BlocProvider.of<AppDataBloc>(context).appDataModel;
     return Container(

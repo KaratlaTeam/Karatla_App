@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:kpp01/typedef.dart';
 
 abstract class LoginEvent{
 

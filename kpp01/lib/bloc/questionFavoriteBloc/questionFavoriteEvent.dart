@@ -1,6 +1,5 @@
 
 import 'package:flutter/cupertino.dart';
-import 'package:kpp01/bloc/accountDataBloc/bloc.dart';
 
 abstract class QuestionFavoriteEvent{
   const QuestionFavoriteEvent();

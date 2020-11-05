@@ -7,15 +7,13 @@ import 'package:kpp01/bloc/loginBloc/bloc.dart';
 import 'package:kpp01/bloc/accountDataBloc/bloc.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
 import 'package:kpp01/dataModel/accountDataModel.dart';
-import 'package:kpp01/myPlugin/MyThemeData.dart';
-import 'package:kpp01/myPlugin/dataAppSizePlugin.dart';
 import 'package:kpp01/statePage.dart';
 import 'package:kpp01/typedef.dart';
 
 class SettingPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
     return BlocBuilder<AppDataBloc,AppDataState>(
       builder: (context,appDataState){
         AppDataModel appDataModel = _getAppDataModel(appDataState);
@@ -145,7 +143,7 @@ class ProfileListCard extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    
     return GestureDetector(
       onTap: onTap,
       child: Column(
@@ -201,7 +199,7 @@ class _TextFieldPageState extends State<TextFieldPage>{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+  
     return BlocBuilder<AppDataBloc,AppDataState>(
       builder: (context,appDataState){
         AppDataModel appDataModel = _getAppDataModel(appDataState);
@@ -257,7 +255,7 @@ class _TextFieldPageState extends State<TextFieldPage>{
     if(widget.profileDataEnum == AccountDataEnum.EMAIL){
       return TextField(
         inputFormatters: [
-          WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9@.]")),
+          FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9@.]"))
         ],
         controller: textEditingController1,
         cursorColor: Colors.black,
@@ -272,7 +270,7 @@ class _TextFieldPageState extends State<TextFieldPage>{
     }else if(widget.profileDataEnum == AccountDataEnum.NAME){
       return TextField(
         inputFormatters: [
-          WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")),
+          FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]"))
         ],
         controller: textEditingController1,
         cursorColor: Colors.black,
@@ -287,7 +285,7 @@ class _TextFieldPageState extends State<TextFieldPage>{
     }else if(widget.profileDataEnum == AccountDataEnum.PONE){
       return TextField(
         inputFormatters: [
-          WhitelistingTextInputFormatter.digitsOnly,
+          FilteringTextInputFormatter.digitsOnly
         ],
         controller: textEditingController1,
         cursorColor: Colors.black,

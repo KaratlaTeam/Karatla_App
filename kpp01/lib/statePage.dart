@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class StatePageWaiting extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    
     return Scaffold(body: Center(child: CircularProgressIndicator(),),);
   }
 }
@@ -11,7 +11,7 @@ class StatePageWaiting extends StatelessWidget{
 class StatePageLoading extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.red,
@@ -26,7 +26,7 @@ class StatePageLoading extends StatelessWidget{
 class StatePageError extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    
     return MaterialApp(
       home: Scaffold(
         body: Center(

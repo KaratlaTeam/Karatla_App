@@ -104,7 +104,7 @@ class FavoritePage extends StatelessWidget {
                               List dataAndIndex = _getDataAndQuestionIndex(
                                   questionDataModel, index, favoriteList);
                               QuestionData data = dataAndIndex[0];
-                              int questionIndex = dataAndIndex[1];
+                              //int questionIndex = dataAndIndex[1];
 
                               return QuestionBody(
                                 dataQuestionDetail:

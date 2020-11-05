@@ -8,7 +8,6 @@ import 'package:kpp01/bloc/questionPageBloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
-import 'package:kpp01/myPlugin/dataAppSizePlugin.dart';
 import 'package:kpp01/ui/kpp01/learning/learningPartPage.dart';
 import 'package:kpp01/uiPlugin/myCircleButton.dart';
 
@@ -27,7 +26,7 @@ class LearningPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    //  
     return BlocBuilder<AppDataBloc,AppDataState>(
       builder: (context,appDataState){
         AppDataModel appDataModel = _getAppDataModel(appDataState);

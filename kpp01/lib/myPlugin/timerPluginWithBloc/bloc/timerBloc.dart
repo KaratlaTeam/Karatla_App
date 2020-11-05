@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 import './bloc.dart';
 import '../ticker.dart';

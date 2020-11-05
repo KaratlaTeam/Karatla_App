@@ -1,9 +1,5 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
-import 'package:kpp01/bloc/appDataBloc/appDataState.dart';
-import 'package:kpp01/myPlugin/dataAppSizePlugin.dart';
 
 class MyCircleButton extends StatelessWidget{
   const MyCircleButton({
@@ -69,7 +65,7 @@ class MyOpenContainer extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    //  
     return Container(
       height: height,
       width: width,

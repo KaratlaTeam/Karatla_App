@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataState.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
-import 'package:kpp01/myPlugin/dataAppSizePlugin.dart';
 import 'package:kpp01/typedef.dart';
 
 
@@ -30,7 +29,7 @@ class QuestionBodyPart extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    
     switch(direction){
       case Axis.horizontal:
         return Row(
@@ -100,7 +99,7 @@ class SingleChoice extends StatelessWidget{
   
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
     switch(direction){
       case Axis.horizontal:
         return BlocBuilder<AppDataBloc,AppDataState>(

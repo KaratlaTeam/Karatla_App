@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
 import 'package:kpp01/uiPlugin/myStepper/stepper.dart' as MyStepper;
-import 'package:kpp01/uiPlugin/myTextField/myTextFaild.dart';
 
 class MyNewStepper extends StatefulWidget{
   const MyNewStepper({

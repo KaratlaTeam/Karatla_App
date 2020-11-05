@@ -23,7 +23,7 @@ class Kpp01TestHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    
     return MultiProvider(
       providers: [
         BlocProvider(
@@ -92,7 +92,7 @@ class _Kpp01TestHomePageDetailState extends State<Kpp01TestHomePageDetail>{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    
     return BlocBuilder<AppDataBloc,AppDataState>(
       builder: (context,appDataState){
         AppDataModel appDataModel = _getAppDataModel(appDataState);
