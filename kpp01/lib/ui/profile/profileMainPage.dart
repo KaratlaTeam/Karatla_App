@@ -110,7 +110,7 @@ class ProfileMainPage extends StatelessWidget {
                                         children: <Widget>[
                                           Column(
                                             children: <Widget>[
-                                              Text("Test"),
+                                              Text("quiz"),
                                               Text(accountDataModel
                                                   .myTestAnswerAllModelList
                                                   .testAnswerAllModel

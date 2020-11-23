@@ -127,6 +127,10 @@ class _MyMainAppState extends State<MyMainApp>{
       //    data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       //  );
       //},
+      localeResolutionCallback: (deviceLocale, supportedlocales){
+        print('deviceLocale: $deviceLocale');
+        print('deviceLocale: $supportedlocales');
+      },
       debugShowCheckedModeBanner: true,
       title: 'PPM',
       theme: widget.appDataStateGotData.appDataModel.myThemeData.themeDataLight,

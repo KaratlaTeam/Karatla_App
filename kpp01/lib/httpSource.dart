@@ -5,13 +5,21 @@ import 'package:kpp01/dataModel/httpModel.dart';
 
 class HttpSource{
 
-  static const String getCode = "https://karatla.com/api/account/validation/code/";
-  static const String checkCode = "https://karatla.com/api/account/validation/code/check/";
-  static const String register = "https://karatla.com/api/account/new";
-  static const String login = "https://karatla.com/api/account/login";
-  static const String logout = "https://karatla.com/api/account/logout";
-  static const String getAccount = "https://karatla.com/api/account/get";
-  static const String checkLogin = "https://karatla.com/api/account/check";
+  //static const String webUrl = "https://karatla.com";
+  static const String webUrl = "http://localhost:8080";
+  //static const String webUrl = "https://192.168.0.139:443";
+
+  static const String checkInternet = "https://baidu.com";
+  static const String getCode = "$webUrl/api/account/validation/code/";
+  static const String checkCode = "$webUrl/api/account/validation/code/check/";
+  static const String register = "$webUrl/api/account/new";
+  static const String login = "$webUrl/api/account/login";
+  static const String logout = "$webUrl/api/account/logout";
+  static const String getAccount = "$webUrl/api/account/get";
+  static const String checkLogin = "$webUrl/api/account/check";
+
+  static const String getQuestionJsonData = "$webUrl/api/json/question/get/";
+  static const String getQcademyJsonData = "$webUrl/api/json/academy/get/";
 
 
   static const Map<String,String> headers = {

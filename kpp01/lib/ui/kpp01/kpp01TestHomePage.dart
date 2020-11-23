@@ -15,7 +15,7 @@ import 'package:kpp01/statePage.dart';
 import 'package:kpp01/ui/kpp01/favorite/favorite.dart';
 import 'package:kpp01/ui/kpp01/history/testHistory.dart';
 import 'package:kpp01/ui/kpp01/learning/learning.dart';
-import 'package:kpp01/ui/kpp01/test/testPage.dart';
+import 'package:kpp01/ui/kpp01/quiz/testPage.dart';
 import 'package:kpp01/uiPlugin/myCircleButton.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +27,7 @@ class Kpp01TestHomePage extends StatelessWidget {
     return MultiProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => QuestionDataBloc()..add(QuestionDataEventGetQuestionData()),
+          create: (BuildContext context) => QuestionDataBloc()..add(QuestionDataEventGetQuestionData(systemLanguage: "en")),
         ),
         BlocProvider(
           create: (BuildContext context) => QuestionPageBloc(QuestionPageModel()),
@@ -140,7 +140,7 @@ class _Kpp01TestHomePageDetailState extends State<Kpp01TestHomePageDetail>{
                                   margin: EdgeInsets.symmetric(horizontal: appDataModel.dataAppSizePlugin.scaleW*15,vertical: appDataModel.dataAppSizePlugin.scaleH*5),
                                   child: Image.asset("assets/images/kpp01Main/quiz.png",fit: BoxFit.cover,),
                                 ),
-                                Text("Test"),
+                                Text("quiz"),
                               ],
                             );
                           },

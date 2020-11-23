@@ -127,7 +127,7 @@ class AppMainBody extends StatelessWidget{
       index: index,
       children: [
         BlocProvider(
-          create: (BuildContext context) => DrivingAcademyDataBloc()..add(DrivingAcademyDataEventGetData()),
+          create: (BuildContext context) => DrivingAcademyDataBloc()..add(DrivingAcademyDataEventGetData(systemLanguage: "en")),
           child: AcademyMainPage(),
         ),
         

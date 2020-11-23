@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kpp01/dataModel/questionDataModel.dart';
 import 'package:kpp01/dataModel/testDataModel.dart';
-import 'package:kpp01/ui/kpp01/test/testResultDetailPage.dart';
+import 'package:kpp01/ui/kpp01/quiz/testResultDetailPage.dart';
 
 class TestResult extends StatefulWidget {
 

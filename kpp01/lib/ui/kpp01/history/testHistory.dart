@@ -5,7 +5,7 @@ import 'package:kpp01/bloc/questionDataBloc/bloc.dart';
 import 'package:kpp01/bloc/questionTestBloc/bloc.dart';
 import 'package:kpp01/dataModel/questionDataModel.dart';
 import 'package:kpp01/dataModel/testDataModel.dart';
-import 'package:kpp01/ui/kpp01/test/testResult.dart';
+import 'package:kpp01/ui/kpp01/quiz/testResult.dart';
 
 class TestHistory extends StatelessWidget{
   TestHistory({
@@ -37,7 +37,7 @@ class TestHistory extends StatelessWidget{
             if(testAnswerAllModelList.isEmpty){
               return Scaffold(
                 appBar: AppBar(),
-                body: Center(child: Text("No test history!"),),
+                body: Center(child: Text("No quiz history!"),),
               );
             }else{
               return Scaffold(

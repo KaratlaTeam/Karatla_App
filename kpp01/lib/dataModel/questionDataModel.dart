@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:kpp01/typedef.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class QuestionDataModel {
@@ -22,14 +23,14 @@ class QuestionDataModel {
     return questionDataModelMap;
     }
 
-    Future setSharePQuestionDataModel(QuestionDataModel questionDataModel) async{
+    Future setSharePQuestionDataModel(QuestionDataModel questionDataModel, String systemLanguage) async{
       SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-      await sharedPreferences.setString("questionDataModel",json.encode(questionDataModel.toJson()));
+      await sharedPreferences.setString("questionData_$systemLanguage",json.encode(questionDataModel.toJson()));
     }
 
-    Future<QuestionDataModel> getSharePQuestionDataModel(QuestionDataModel questionDataModel) async{
+    Future<QuestionDataModel> getSharePQuestionDataModel(QuestionDataModel questionDataModel, String systemLanguage) async{
       SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-      var jsonBody = sharedPreferences.getString("questionDataModel");
+      var jsonBody = sharedPreferences.getString("questionData_$systemLanguage");
       if (jsonBody != null) {
           var decodeJsonBody = await json.decode(jsonBody);
           questionDataModel = QuestionDataModel.fromJson(decodeJsonBody);
@@ -46,7 +47,7 @@ class QuestionDataModelDetail{
     this.version, this.answerLetter, this.choicesLetter, this.questionPart1, this.questionPart2, this.questionPart3,
   });
 
-  final int version;
+  final double version;
   final List<String> answerLetter;
   final List<String> choicesLetter;
   final QuestionPart1 questionPart1;

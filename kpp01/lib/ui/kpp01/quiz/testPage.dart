@@ -16,7 +16,7 @@ import 'package:kpp01/myPlugin/timerPluginWithBloc/bloc/bloc.dart';
 import 'package:kpp01/myPlugin/timerPluginWithBloc/ticker.dart';
 import 'package:flutter/material.dart';
 import 'package:kpp01/statePage.dart';
-import 'package:kpp01/ui/kpp01/test/testResult.dart';
+import 'package:kpp01/ui/kpp01/quiz/testResult.dart';
 import 'package:kpp01/uiPlugin/myWillPopScope.dart';
 import 'package:kpp01/uiPlugin/questionPage/questionBody.dart';
 import 'package:kpp01/uiPlugin/questionPage/questionBottom.dart';
@@ -178,7 +178,7 @@ class TestPageDetail extends StatelessWidget{
                         }else{
                           return BlocBuilder<TimerBloc, TimerState>(
                             builder: (context, timerState) {
-                              /// stop test
+                              /// stop quiz
                               return MyWillPopScope(
                                 pause: true,
                                 flatButtonL: FlatButton(
@@ -200,7 +200,7 @@ class TestPageDetail extends StatelessWidget{
                                 child: Scaffold(
                                   //backgroundColor: Colors.white,
                                   appBar: AppBar(
-                                    title: Text('Test'),
+                                    title: Text('quiz'),
                                     centerTitle: false,
                                     elevation: 0,
                                     actions: <Widget>[
@@ -277,10 +277,10 @@ class TestPageDetail extends StatelessWidget{
                                           onWillPop: () async {
                                             return false;
                                           },
-                                          /// finish test
+                                          /// finish quiz
                                           child: SimpleDialog(
                                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                            title: Text("Do you want to finish this test ?"),
+                                            title: Text("Do you want to finish this quiz ?"),
                                             children: <Widget>[
                                               FlatButton(
                                                 onPressed: () {

@@ -16,3 +16,5 @@ enum AccountDataEnum{
 //enum LoginType{EMAIL,PHONE}
 
 enum HttpType{GET,POST}
+
+enum SystemLanguage{EN,CN,MALAY}

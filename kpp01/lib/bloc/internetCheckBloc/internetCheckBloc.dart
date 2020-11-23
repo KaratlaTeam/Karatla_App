@@ -1,10 +1,10 @@
 
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kpp01/bloc/internetCheckBloc/bloc.dart';
 import 'package:http/http.dart' as http;
+import 'package:kpp01/httpSource.dart';
 
 class InternetCheckBloc extends Bloc<InternetCheckEvent,InternetCheckState>{
   InternetCheckBloc({this.context,}):super(InternetCheckStateNoAction(context));
@@ -24,7 +24,7 @@ class InternetCheckBloc extends Bloc<InternetCheckEvent,InternetCheckState>{
       print("InternetChecking");
 
       try{
-        await http.get("https://karatla.com/api/account/get/all");
+        await http.get(HttpSource.checkInternet);
         yield InternetCheckStateGod(context);
 
       }catch(e){

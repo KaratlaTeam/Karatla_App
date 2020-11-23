@@ -6,6 +6,7 @@ abstract class QuestionDataState{
 }
 
 class QuestionDataStateGettingQuestionData extends QuestionDataState{
+
 }
 
 class QuestionDataStateGotQuestionData extends QuestionDataState{

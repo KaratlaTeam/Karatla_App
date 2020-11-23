@@ -32,9 +32,10 @@ class DrivingAcademyDataModelList {
   }
 
   Future<DrivingAcademyDataModelList> getSharePAcademyDataList(
+    String systemLanguage,
       DrivingAcademyDataModelList drivingAcademyDataModelList) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var jsonBody = sharedPreferences.getString("drivingAcademyDataModelList");
+    var jsonBody = sharedPreferences.getString("drivingAcademyDataModelList_$systemLanguage");
     if (jsonBody != null) {
       var decodeJsonBody = await json.decode(jsonBody);
       drivingAcademyDataModelList =
@@ -47,9 +48,10 @@ class DrivingAcademyDataModelList {
   }
 
   Future setSharePAcademyDataList(
+    String systemLanguage,
       DrivingAcademyDataModelList drivingAcademyDataModelList) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.setString("drivingAcademyDataModelList",
+    await sharedPreferences.setString("drivingAcademyDataModelList_$systemLanguage",
         json.encode(drivingAcademyDataModelList.toJson()));
   }
 }
