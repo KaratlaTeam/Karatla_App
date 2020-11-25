@@ -7,7 +7,6 @@ import 'package:kpp01/bloc/questionDataBloc/bloc.dart';
 import 'package:kpp01/dataModel/httpModel.dart';
 import 'package:kpp01/dataModel/questionDataModel.dart';
 import 'package:kpp01/httpSource.dart';
-import 'package:kpp01/stringScource.dart';
 
 class QuestionDataBloc extends Bloc<QuestionDataEvent,QuestionDataState>{
   QuestionDataBloc():super(QuestionDataStateGettingQuestionData());

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataState.dart';
@@ -8,10 +9,14 @@ import 'package:kpp01/bloc/questionFavoriteBloc/bloc.dart';
 import 'package:kpp01/bloc/questionPageBloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:kpp01/bloc/questionTestBloc/bloc.dart';
+import 'package:kpp01/bloc/systemLanguage/systemLanguage_bloc.dart';
+import 'package:kpp01/bloc/systemLanguage/systemLanguage_event.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
 import 'package:kpp01/dataModel/questionPageModel.dart';
+import 'package:kpp01/dataModel/systemLanguageModel.dart';
 import 'package:kpp01/dataModel/testDataModel.dart';
 import 'package:kpp01/statePage.dart';
+import 'package:kpp01/typedef.dart';
 import 'package:kpp01/ui/kpp01/favorite/favorite.dart';
 import 'package:kpp01/ui/kpp01/history/testHistory.dart';
 import 'package:kpp01/ui/kpp01/learning/learning.dart';
@@ -96,6 +101,7 @@ class _Kpp01TestHomePageDetailState extends State<Kpp01TestHomePageDetail>{
     return BlocBuilder<AppDataBloc,AppDataState>(
       builder: (context,appDataState){
         AppDataModel appDataModel = _getAppDataModel(appDataState);
+        SystemLanguageModel sl = BlocProvider.of<SystemLanguageBloc>(context).systemLanguageModel;
         return Scaffold(
           body: Container(
             //color: Colors.amber,
@@ -108,7 +114,7 @@ class _Kpp01TestHomePageDetailState extends State<Kpp01TestHomePageDetail>{
                     //color: Colors.blue,
                     alignment: Alignment.bottomLeft,
                     padding: EdgeInsets.only(left: appDataModel.dataAppSizePlugin.scaleW*50),
-                    child: Text("KPP01",style: TextStyle(fontSize: appDataModel.dataAppSizePlugin.scaleFortSize*30,fontWeight: FontWeight.w500),),
+                    child: Text( sl.kpp01Title,style: TextStyle(fontSize: appDataModel.dataAppSizePlugin.scaleFortSize*30,fontWeight: FontWeight.w500),),
                   ),
                 ),
                 Flexible(

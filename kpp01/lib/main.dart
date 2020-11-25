@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -13,8 +14,11 @@ import 'package:kpp01/bloc/loginBloc/loginBloc.dart';
 import 'package:kpp01/bloc/accountDataBloc/bloc.dart';
 import 'package:kpp01/bloc/simpleBlocDelegate.dart';
 import 'package:flutter/material.dart';
+import 'package:kpp01/bloc/systemLanguage/bloc.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
+import 'package:kpp01/dataModel/systemLanguageModel.dart';
 import 'package:kpp01/statePage.dart';
+import 'package:kpp01/typedef.dart';
 import 'package:kpp01/ui/appMain.dart';
 import 'package:kpp01/ui/login/signIn.dart';
 
@@ -65,6 +69,9 @@ class _MyAppState extends State<MyApp>{
       providers: [
         BlocProvider(
           create: (BuildContext context) => AppDataBloc(appDataModel: AppDataModel())..add(AppDataEventGetData(0)),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => SystemLanguageBloc()..add(SystemLanguageEventChange(systemLanguageCode: SystemLanguageCode.EN)),
         ),
         BlocProvider(
           create: (BuildContext context) => AccountDataBloc()..add(AccountDataEventInitialData()),
@@ -129,7 +136,9 @@ class _MyMainAppState extends State<MyMainApp>{
       //},
       localeResolutionCallback: (deviceLocale, supportedlocales){
         print('deviceLocale: $deviceLocale');
-        print('deviceLocale: $supportedlocales');
+        print('supportedlocales: $supportedlocales');
+        //BlocProvider.of<SystemLanguageBloc>(context).add(SystemLanguageEventChange(systemLanguageCode: deviceLocale.toLanguageTag()  == "en" ? SystemLanguageCode.EN : SystemLanguageCode.CN));
+        return deviceLocale;
       },
       debugShowCheckedModeBanner: true,
       title: 'PPM',

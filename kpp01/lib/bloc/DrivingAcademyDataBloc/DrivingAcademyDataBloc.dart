@@ -7,7 +7,6 @@ import 'package:kpp01/bloc/drivingAcademyDataBloc/drivingAcademyDataState.dart';
 import 'package:kpp01/dataModel/drivingAcademyDataModel.dart';
 import 'package:kpp01/dataModel/httpModel.dart';
 import 'package:kpp01/httpSource.dart';
-import 'package:kpp01/stringScource.dart';
 
 class DrivingAcademyDataBloc extends Bloc<DrivingAcademyDataEvent,DrivingAcademyDataState>{
   DrivingAcademyDataBloc():super(DrivingAcademyDataStateGetting());
