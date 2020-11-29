@@ -5,8 +5,7 @@ abstract class GetCodeEvent{
 }
 
 class GetCodeEventStart extends GetCodeEvent{
-  const GetCodeEventStart({this.context, this.text, this.countryCode});
-  final BuildContext context;
+  const GetCodeEventStart({this.text, this.countryCode});
   final String text;
   final String countryCode;
 }

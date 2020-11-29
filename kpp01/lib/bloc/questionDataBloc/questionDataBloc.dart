@@ -1,17 +1,33 @@
 
-import 'dart:convert';
+import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
+import 'package:kpp01/bloc/internetCheckBloc/bloc.dart';
 import 'package:kpp01/bloc/questionDataBloc/bloc.dart';
 import 'package:kpp01/dataModel/httpModel.dart';
 import 'package:kpp01/dataModel/questionDataModel.dart';
 import 'package:kpp01/httpSource.dart';
 
 class QuestionDataBloc extends Bloc<QuestionDataEvent,QuestionDataState>{
-  QuestionDataBloc():super(QuestionDataStateGettingQuestionData());
+  QuestionDataBloc({this.internetCheckBloc}):super(QuestionDataStateGettingQuestionData()){
+    streamSubscription = internetCheckBloc.listen((InternetCheckState internetCheckState) {
+      if(internetCheckState is InternetCheckStateGod && questionDataEvent is QuestionDataEventCheckInternetThenGet){
+        add(QuestionDataEventGetQuestionDataFromInternet());
+      }
+     });
+  }
 
+  StreamSubscription streamSubscription; 
   QuestionDataModel questionDataModel = QuestionDataModel();
+  InternetCheckBloc internetCheckBloc;
+  QuestionDataEvent questionDataEvent;
+
+  @override
+  Future<void> close() {
+    streamSubscription.cancel();
+    return super.close();
+  }
 
   @override
   Stream<QuestionDataState> mapEventToState(QuestionDataEvent event) async*{
@@ -22,7 +38,7 @@ class QuestionDataBloc extends Bloc<QuestionDataEvent,QuestionDataState>{
         QuestionDataModel questionDataModel = QuestionDataModel();
         questionDataModel = await questionDataModel.getSharePQuestionDataModel(questionDataModel, event.systemLanguage);
         if(questionDataModel == null){
-          add(QuestionDataEventGetQuestionDataFromInternet(systemLanguage: event.systemLanguage));
+          add(QuestionDataEventCheckInternetThenGet(systemLanguage: event.systemLanguage));
         }else{
           ///TODO check internet
           ///TODO check questionData version
@@ -35,17 +51,22 @@ class QuestionDataBloc extends Bloc<QuestionDataEvent,QuestionDataState>{
 
       }
       
+    }else if(event is QuestionDataEventCheckInternetThenGet){
+      questionDataEvent = event;
+      internetCheckBloc.add(InternetCheckEventCheck());
+      
     }else if(event is QuestionDataEventGetQuestionDataFromInternet){
-      yield* _mapStartToGetDataFromInternet(event);
+      yield* _mapStartToGetDataFromInternet(questionDataEvent);
+      questionDataEvent = null;
     }
   }
 
-  Stream<QuestionDataState> _mapStartToGetDataFromInternet(QuestionDataEventGetQuestionDataFromInternet getQuestionData)async*{
+  Stream<QuestionDataState> _mapStartToGetDataFromInternet(QuestionDataEventCheckInternetThenGet getQuestionData)async*{
     yield QuestionDataStateGettingQuestionData();
     try{
-        //TODO check internet
-        //TODO change to http and filter by language
-      print("get from internet");
+        
+      print("get questiondata from internet");
+      print("system language: ${getQuestionData.systemLanguage}");
       QuestionDataModel questionDataModel = QuestionDataModel();
 
       HttpSource httpSource = HttpSource();

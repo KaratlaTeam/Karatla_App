@@ -7,6 +7,8 @@ import 'package:kpp01/bloc/appDataBloc/appDataState.dart';
 import 'package:kpp01/bloc/bottomNavigationBloc/bloc.dart';
 import 'package:kpp01/bloc/checkLoginBloc/bloc.dart';
 import 'package:kpp01/bloc/checkLoginBloc/checkLoginBloc.dart';
+import 'package:kpp01/bloc/internetCheckBloc/internetCheckBloc.dart';
+import 'package:kpp01/bloc/internetCheckBloc/internetCheckEvent.dart';
 import 'package:kpp01/bloc/systemLanguage/systemLanguage_bloc.dart';
 import 'package:kpp01/bloc/systemLanguage/systemLanguage_event.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
@@ -63,6 +65,7 @@ class AppMainBody extends StatelessWidget{
     return BlocBuilder<CheckLoginBloc,CheckLoginState>(
       builder: (context,checkLoginState){
         return Scaffold(
+          
           body: _bottomNavigationPageChange(bottomNavigationDataModel.index),
           bottomSheet: BottomAppBar(
             //color: Colors.red,
@@ -130,7 +133,7 @@ class AppMainBody extends StatelessWidget{
       index: index,
       children: [
         BlocProvider(
-          create: (BuildContext context) => DrivingAcademyDataBloc()..add(DrivingAcademyDataEventGetData(systemLanguage: "en")),
+          create: (BuildContext context) => DrivingAcademyDataBloc(BlocProvider.of<InternetCheckBloc>(context))..add(DrivingAcademyDataEventGetData(systemLanguage: BlocProvider.of<SystemLanguageBloc>(context).systemLanguageModel.codeString())),
           child: AcademyMainPage(),
         ),
         

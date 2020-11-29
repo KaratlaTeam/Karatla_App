@@ -4,19 +4,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataState.dart';
 import 'package:kpp01/bloc/accountDataBloc/bloc.dart';
+import 'package:kpp01/bloc/internetCheckBloc/bloc.dart';
 import 'package:kpp01/bloc/questionDataBloc/bloc.dart';
 import 'package:kpp01/bloc/questionFavoriteBloc/bloc.dart';
 import 'package:kpp01/bloc/questionPageBloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:kpp01/bloc/questionTestBloc/bloc.dart';
 import 'package:kpp01/bloc/systemLanguage/systemLanguage_bloc.dart';
-import 'package:kpp01/bloc/systemLanguage/systemLanguage_event.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
 import 'package:kpp01/dataModel/questionPageModel.dart';
 import 'package:kpp01/dataModel/systemLanguageModel.dart';
 import 'package:kpp01/dataModel/testDataModel.dart';
 import 'package:kpp01/statePage.dart';
-import 'package:kpp01/typedef.dart';
 import 'package:kpp01/ui/kpp01/favorite/favorite.dart';
 import 'package:kpp01/ui/kpp01/history/testHistory.dart';
 import 'package:kpp01/ui/kpp01/learning/learning.dart';
@@ -29,10 +28,11 @@ class Kpp01TestHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    return MultiProvider(
+    return Scaffold(
+      body: MultiProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => QuestionDataBloc()..add(QuestionDataEventGetQuestionData(systemLanguage: "en")),
+          create: (BuildContext context) => QuestionDataBloc(internetCheckBloc: BlocProvider.of<InternetCheckBloc>(context))..add(QuestionDataEventGetQuestionData(systemLanguage: BlocProvider.of<SystemLanguageBloc>(context).systemLanguageModel.codeString())),
         ),
         BlocProvider(
           create: (BuildContext context) => QuestionPageBloc(QuestionPageModel()),
@@ -61,6 +61,7 @@ class Kpp01TestHomePage extends StatelessWidget {
           },
         ),
       ),
+    ),
     );
   }
 }
@@ -114,7 +115,15 @@ class _Kpp01TestHomePageDetailState extends State<Kpp01TestHomePageDetail>{
                     //color: Colors.blue,
                     alignment: Alignment.bottomLeft,
                     padding: EdgeInsets.only(left: appDataModel.dataAppSizePlugin.scaleW*50),
-                    child: Text( sl.kpp01Title,style: TextStyle(fontSize: appDataModel.dataAppSizePlugin.scaleFortSize*30,fontWeight: FontWeight.w500),),
+                    child: RichText(
+                      text: TextSpan(
+                        text: sl.kpp01Title,
+                        style: TextStyle(fontSize: appDataModel.dataAppSizePlugin.scaleFortSize*30,fontWeight: FontWeight.w500, color: Colors.black),
+                        children: <TextSpan>[
+                          TextSpan(text: 'v${_questionDataBloc.questionDataModel.questionDataModelDetail.version}', style: TextStyle(fontSize: appDataModel.dataAppSizePlugin.scaleFortSize*15, color: Colors.grey),)
+                        ]
+                      ),
+                    ),
                   ),
                 ),
                 Flexible(

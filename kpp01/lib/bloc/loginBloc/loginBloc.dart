@@ -41,7 +41,7 @@ class LoginBloc extends Bloc<LoginEvent,LoginState>{
 
     } else if(event is LoginEventSignIn){
       this.event = event;
-      internetCheckBloc.add(InternetCheckEventCheck(context: event.context));
+      internetCheckBloc.add(InternetCheckEventCheck());
 
     }else if(event is LoginEventSignOut){
       yield LoginStateSignOutProcess();
@@ -75,7 +75,6 @@ class LoginBloc extends Bloc<LoginEvent,LoginState>{
 
   Stream<LoginState> _mapToLogin(LoginEventSignIn event)async*{
     yield LoginStateSignProcess();
-
     if(event.password == "" || event.loginAccount == ""){
       yield LoginStateSignFail(text: "account or password can not empty!");
       yield LoginStateSignOutFinished();

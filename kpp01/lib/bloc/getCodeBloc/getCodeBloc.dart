@@ -38,7 +38,7 @@ class GetCodeBloc extends Bloc<GetCodeEvent, GetCodeState>{
 
     }else if(event is GetCodeEventStart){
       this.event = event;
-      internetCheckBloc.add(InternetCheckEventCheck(context: event.context));
+      internetCheckBloc.add(InternetCheckEventCheck());
 
     }
 

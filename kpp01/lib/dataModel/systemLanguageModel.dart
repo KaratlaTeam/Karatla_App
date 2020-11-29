@@ -13,7 +13,7 @@ class SystemLanguageModel{
     return _title_en;
   }
 
-    String get kpp01Title {
+  String get kpp01Title {
     if(systemLanguageCode == SystemLanguageCode.EN){
       return _kpp01Title_en;
     }else if(systemLanguageCode == SystemLanguageCode.CN){
@@ -24,6 +24,16 @@ class SystemLanguageModel{
 
   initialData(){
     systemLanguageCode = SystemLanguageCode.EN;
+  }
+
+  codeString(){
+    if(this.systemLanguageCode == SystemLanguageCode.EN){
+      return "en";
+    }else if(this.systemLanguageCode == SystemLanguageCode.CN){
+      return "cn";
+    }else if(this.systemLanguageCode == SystemLanguageCode.MALAY){
+      return "malay";
+    }
   }
 
 

@@ -222,7 +222,6 @@ class _RegisterAccountCreateState extends State<RegisterAccountCreate>{
                         phone: widget.phoneN,
                         passWord: _textEditingController2.text,
                         confirmPassWord: _textEditingController3.text,
-                        context: context,
                       ));
                     },
                   ),

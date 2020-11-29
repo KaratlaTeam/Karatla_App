@@ -7,7 +7,11 @@ import 'package:kpp01/bloc/drivingAcademyDataBloc/drivingAcademyDataBloc.dart';
 import 'package:kpp01/bloc/drivingAcademyDataBloc/drivingAcademyDataEvent.dart';
 import 'package:kpp01/bloc/drivingAcademyDataBloc/drivingAcademyDataState.dart';
 import 'package:kpp01/bloc/appDataBloc/appDataBloc.dart';
+import 'package:kpp01/bloc/internetCheckBloc/internetCheckBloc.dart';
+import 'package:kpp01/bloc/internetCheckBloc/internetCheckEvent.dart';
+import 'package:kpp01/bloc/systemLanguage/systemLanguage_bloc.dart';
 import 'package:kpp01/dataModel/appDataModel.dart';
+import 'package:kpp01/dataModel/systemLanguageModel.dart';
 import 'package:kpp01/statePage.dart';
 import 'package:kpp01/ui/academy/academyDetailPage.dart';
 import 'package:kpp01/uiPlugin/myCircleButton.dart';
@@ -56,8 +60,9 @@ class _AcademyMainPageState extends State<AcademyMainPage> {
                     ),
                     child: RefreshIndicator(
                       onRefresh: () async {
+                        SystemLanguageModel systemLanguageModel = BlocProvider.of<SystemLanguageBloc>(context).systemLanguageModel;
                         BlocProvider.of<DrivingAcademyDataBloc>(context)
-                            .add(DrivingAcademyDataEventGetDataFromInternet());
+                            .add(DrivingAcademyDataEventCheckInternetThenGet(systemLanguage: systemLanguageModel.codeString()));
                       },
                       child: ListView.builder(
                         padding: EdgeInsets.only(

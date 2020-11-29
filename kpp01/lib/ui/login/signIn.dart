@@ -189,14 +189,14 @@ class _SignInPageState extends State<SignInPage>{
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         color: appDataModel.myThemeData.myWhiteBlue,
                         child: Text("Login"),
-                        onPressed: (){
+                        onPressed: ()async{
                           BlocProvider.of<LoginBloc>(context).add(LoginEventSignIn(
                             loginType: _loginType,
                             loginAccount: _loginType == "PHONE" ? _countryCode + _textEditingController1.text : _textEditingController1.text,
                             password: _textEditingController2.text,
                             myDeviceIdNow: appDataModel.myDeviceData.deviceId,
-                            context: context,
                           ));
+                          Future.delayed(Duration(seconds: 2));
                         },
                       ),
                       //margin: EdgeInsets.only(top: appDataModel.dataAppSizePlugin.scaleH*50),

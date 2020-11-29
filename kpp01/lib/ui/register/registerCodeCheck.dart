@@ -190,7 +190,6 @@ class _RegisterCodeCheckState extends State<RegisterCodeCheck>{
                       BlocProvider.of<RegisterBloc>(context).add(RegisterEventCodeRegister(
                         phone: _countryCode + _textEditingController1.text,
                         code: _textEditingController2.text,
-                        context: context,
                       ));
                     },
                   ),
@@ -218,7 +217,7 @@ class _RegisterCodeCheckState extends State<RegisterCodeCheck>{
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         onPressed: () async{
 
-          BlocProvider.of<GetCodeBloc>(context).add(GetCodeEventStart(context: context, text: _textEditingController1.text, countryCode: _countryCode));
+          BlocProvider.of<GetCodeBloc>(context).add(GetCodeEventStart(text: _textEditingController1.text, countryCode: _countryCode));
         },
       );
     }

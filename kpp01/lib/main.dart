@@ -22,17 +22,20 @@ import 'package:kpp01/typedef.dart';
 import 'package:kpp01/ui/appMain.dart';
 import 'package:kpp01/ui/login/signIn.dart';
 
-
 void main() {
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      systemNavigationBarColor: Colors.white,
-      statusBarBrightness: Brightness.light, /// Only honored in iOS.
-      statusBarIconBrightness: Brightness.dark,///Only honored in Android version M and greater.
-      systemNavigationBarIconBrightness: Brightness.dark,///Only honored in Android versions O and greater.
-    )
-  );
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    systemNavigationBarColor: Colors.white,
+    statusBarBrightness: Brightness.light,
+
+    /// Only honored in iOS.
+    statusBarIconBrightness: Brightness.dark,
+
+    ///Only honored in Android version M and greater.
+    systemNavigationBarIconBrightness: Brightness.dark,
+
+    ///Only honored in Android versions O and greater.
+  ));
   Bloc.observer = SimpleBlocObserver();
   return runApp(MyApp());
 }
@@ -42,18 +45,15 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp>{
-
+class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-    
-    if(Platform.isAndroid){
+    if (Platform.isAndroid) {
       FlutterDisplayMode.current.then((displayMode) {
         FlutterDisplayMode.setMode(displayMode);
         FlutterDisplayMode.setDeviceDefault();
         print(displayMode);
       });
-
     }
     //FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
     //FlutterStatusbarcolor.setStatusBarColor(Colors.transparent,animate: true);
@@ -62,40 +62,49 @@ class _MyAppState extends State<MyApp>{
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => AppDataBloc(appDataModel: AppDataModel())..add(AppDataEventGetData(0)),
+          create: (BuildContext context) =>
+              AppDataBloc(appDataModel: AppDataModel())
+                ..add(AppDataEventGetData(0)),
         ),
         BlocProvider(
-          create: (BuildContext context) => SystemLanguageBloc()..add(SystemLanguageEventChange(systemLanguageCode: SystemLanguageCode.EN)),
+          create: (BuildContext context) => SystemLanguageBloc()
+            ..add(SystemLanguageEventChange(
+                systemLanguageCode: SystemLanguageCode.EN)),
         ),
         BlocProvider(
-          create: (BuildContext context) => AccountDataBloc()..add(AccountDataEventInitialData()),
+          create: (BuildContext context) =>
+              AccountDataBloc()..add(AccountDataEventInitialData()),
         ),
       ],
       child: BlocProvider(
-        create: (BuildContext context) => InternetCheckBloc(context: null,)..add(InternetCheckEventCheck()),
+        create: (BuildContext context) => InternetCheckBloc()..add(InternetCheckEventCheck()),
         child: BlocProvider(
-          create: (BuildContext context) => LoginBloc(BlocProvider.of<AccountDataBloc>(context),BlocProvider.of<InternetCheckBloc>(context)),
+          create: (BuildContext context) => LoginBloc(
+              BlocProvider.of<AccountDataBloc>(context),
+              BlocProvider.of<InternetCheckBloc>(context)),
           child: BlocProvider(
-            create: (BuildContext context) => CheckLoginBloc(BlocProvider.of<AccountDataBloc>(context),BlocProvider.of<LoginBloc>(context),BlocProvider.of<InternetCheckBloc>(context)),
-            child: BlocBuilder<AppDataBloc,AppDataState>(
-              builder: (context,appDataState){
-                return BlocBuilder<AccountDataBloc,AccountDataState>(
-                  builder: (context,accountDataState){
-                    if(appDataState is AppDataStateGettingData || accountDataState is AccountDataStateInitialDataDoing){
+            create: (BuildContext context) => CheckLoginBloc(
+                BlocProvider.of<AccountDataBloc>(context),
+                BlocProvider.of<LoginBloc>(context),
+                BlocProvider.of<InternetCheckBloc>(context)),
+            child: BlocBuilder<AppDataBloc, AppDataState>(
+              builder: (context, appDataState) {
+                return BlocBuilder<AccountDataBloc, AccountDataState>(
+                  builder: (context, accountDataState) {
+                    if (appDataState is AppDataStateGettingData ||
+                        accountDataState is AccountDataStateInitialDataDoing) {
                       return StatePageLoading();
-
-                    } else if(appDataState is AppDataStateError){
+                    } else if (appDataState is AppDataStateError) {
                       return StatePageError();
-
-                    }else {
-                      return MyMainApp(appDataStateGotData: appDataState,);
-
+                    } else {
+                      return MyMainApp(
+                        appDataStateGotData: appDataState,
+                      );
                     }
                   },
                 );
@@ -106,16 +115,14 @@ class _MyAppState extends State<MyApp>{
       ),
     );
   }
-
 }
 
 class MyMainApp extends StatefulWidget {
-
   const MyMainApp({
     Key key,
     this.appDataStateGotData,
     //this.widget,
-  }) :super(key: key);
+  }) : super(key: key);
 
   final AppDataStateGotData appDataStateGotData;
 
@@ -123,10 +130,9 @@ class MyMainApp extends StatefulWidget {
   _MyMainAppState createState() => _MyMainAppState();
 }
 
-class _MyMainAppState extends State<MyMainApp>{
+class _MyMainAppState extends State<MyMainApp> {
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       //builder: (BuildContext context, Widget child){
       //  return MediaQuery(
@@ -134,7 +140,7 @@ class _MyMainAppState extends State<MyMainApp>{
       //    data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       //  );
       //},
-      localeResolutionCallback: (deviceLocale, supportedlocales){
+      localeResolutionCallback: (deviceLocale, supportedlocales) {
         print('deviceLocale: $deviceLocale');
         print('supportedlocales: $supportedlocales');
         //BlocProvider.of<SystemLanguageBloc>(context).add(SystemLanguageEventChange(systemLanguageCode: deviceLocale.toLanguageTag()  == "en" ? SystemLanguageCode.EN : SystemLanguageCode.CN));
@@ -143,7 +149,8 @@ class _MyMainAppState extends State<MyMainApp>{
       debugShowCheckedModeBanner: true,
       title: 'PPM',
       theme: widget.appDataStateGotData.appDataModel.myThemeData.themeDataLight,
-      darkTheme: widget.appDataStateGotData.appDataModel.myThemeData.themeDataLight,
+      darkTheme:
+          widget.appDataStateGotData.appDataModel.myThemeData.themeDataLight,
       themeMode: ThemeMode.light,
       //onGenerateRoute: _AppRouter(appDataBloc: BlocProvider.of<AppDataBloc>(context)).onGenerateRoute,///_router.onGenerateRoute,
       //initialRoute: "Kpp01TestHomePage",
@@ -152,62 +159,62 @@ class _MyMainAppState extends State<MyMainApp>{
   }
 }
 
-
 class MyHome extends StatefulWidget {
   @override
   _MyHomeState createState() => _MyHomeState();
 }
 
-class _MyHomeState extends State<MyHome>{
-
+class _MyHomeState extends State<MyHome> {
+  final GlobalKey<ScaffoldState> _globalKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
+      key: _globalKey,
       body: Stack(
         children: [
-          BlocConsumer<InternetCheckBloc, InternetCheckState>(
-            listener: (BuildContext context, InternetCheckState internetCheckState){
-              if((internetCheckState is InternetCheckStateBad || internetCheckState is InternetCheckStateError) && internetCheckState.context != null){
-                BlocProvider.of<InternetCheckBloc>(context).add(InternetCheckEventToNoAction());
-                Scaffold.of(internetCheckState.context).showSnackBar(SnackBar(content: Text("Internet or service error"))) ;
-
+          BlocBuilder<LoginBloc, LoginState>(builder: (context, loginState) {
+            return BlocConsumer<CheckLoginBloc, CheckLoginState>(
+              listener: (context, checkLoginState) {
+                if (checkLoginState is CheckLoginStateBad) {
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                          "Your account/device has changed, please login again.")));
+                }
+              },
+              builder: (context, checkLoginState) {
+                return BlocBuilder<AccountDataBloc, AccountDataState>(
+                  builder: (context, accountDataState) {
+                    if (loginState is LoginStateSignSuccessful &&
+                        (checkLoginState is CheckLoginStateGood ||
+                            checkLoginState is CheckLoginStateReadyToBad)) {
+                      return AppMain();
+                    } else if (accountDataState is AccountDataStateFinish &&
+                        accountDataState.accountDataModel.myState == "ON" &&
+                        checkLoginState is CheckLoginStateGood) {
+                      BlocProvider.of<LoginBloc>(context)
+                          .add(LoginEventSignInChangeToSuccessful());
+                      return AppMain();
+                    } else {
+                      return SignInPage();
+                    }
+                  },
+                );
+              },
+            );
+          }),
+          BlocListener<InternetCheckBloc, InternetCheckState>(
+            listener:
+                (BuildContext context, InternetCheckState internetCheckState) {
+              if (internetCheckState is InternetCheckStateError) {
+                BlocProvider.of<InternetCheckBloc>(context)
+                    .add(InternetCheckEventToNoAction());
+                    print("Internet or service error");
+                    _globalKey.currentState.showSnackBar(
+                    SnackBar(content: Text("Internet or service error")));
               }
-
             },
-            builder: (BuildContext context, InternetCheckState internetCheckState){
-              return BlocBuilder<LoginBloc,LoginState>(
-                  builder: (context,loginState){
-                    return BlocConsumer<CheckLoginBloc,CheckLoginState>(
-                      listener: (context,checkLoginState){
-                        if(checkLoginState is CheckLoginStateBad){
-                          Scaffold.of(context).showSnackBar(SnackBar(content: Text("Your account/device has changed, please login again.")));
-
-                        }
-                      },
-                      builder: (context, checkLoginState){
-                        return BlocBuilder<AccountDataBloc,AccountDataState>(
-                          builder: (context,accountDataState){
-                            if(loginState is LoginStateSignSuccessful &&  (checkLoginState is CheckLoginStateGood || checkLoginState is CheckLoginStateReadyToBad)){
-                              return  AppMain();
-
-                            } else if(accountDataState is AccountDataStateFinish && accountDataState.accountDataModel.myState == "ON" && checkLoginState is CheckLoginStateGood ){
-                              BlocProvider.of<LoginBloc>(context).add(LoginEventSignInChangeToSuccessful());
-                              return AppMain();
-
-                            } else {
-                              return SignInPage();
-
-                            }
-                          },
-                        );
-                      },
-                    );
-                  }
-              );
-            },
+            child: Center(),
           ),
-
         ],
       ),
     );

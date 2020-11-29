@@ -42,11 +42,11 @@ class RegisterBloc extends Bloc<RegisterEvent,RegisterState>{
 
     } else if(event is RegisterEventAccountRegister){
       this.event = event;
-      internetCheckBloc.add(InternetCheckEventCheck(context: event.context));
+      internetCheckBloc.add(InternetCheckEventCheck());
 
     }else if(event is RegisterEventCodeRegister){
       this.event = event;
-      internetCheckBloc.add(InternetCheckEventCheck(context: event.context));
+      internetCheckBloc.add(InternetCheckEventCheck());
 
     }
   }

@@ -7,33 +7,31 @@ import 'package:http/http.dart' as http;
 import 'package:kpp01/httpSource.dart';
 
 class InternetCheckBloc extends Bloc<InternetCheckEvent,InternetCheckState>{
-  InternetCheckBloc({this.context,}):super(InternetCheckStateNoAction(context));
+  InternetCheckBloc():super(InternetCheckStateNoAction());
 
-  BuildContext context ;
 
   @override
   Stream<InternetCheckState> mapEventToState(InternetCheckEvent event) async*{
     if(event is InternetCheckEventToGod){
 
-      yield InternetCheckStateGod(context);
+      yield InternetCheckStateGod();
 
     }else if(event is InternetCheckEventCheck){
-      yield InternetCheckStateChecking(context);
+      yield InternetCheckStateChecking();
 
-      context = event.context;
       print("InternetChecking");
 
       try{
         await http.get(HttpSource.checkInternet);
-        yield InternetCheckStateGod(context);
+        yield InternetCheckStateGod();
 
       }catch(e){
         //yield InternetCheckStateBad(context);
-        yield InternetCheckStateError(e: e,context: context)..backError();
+        yield InternetCheckStateError(e: e)..backError();
       }
 
     }else if(event is InternetCheckEventToNoAction){
-      yield InternetCheckStateNoAction(context);
+      yield InternetCheckStateNoAction();
     }
   }
 

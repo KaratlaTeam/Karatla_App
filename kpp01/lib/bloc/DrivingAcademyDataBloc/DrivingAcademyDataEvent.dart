@@ -13,9 +13,11 @@ class DrivingAcademyDataEventGetData extends DrivingAcademyDataEvent{
       }):assert(systemLanguage != null);
 }
 
-class DrivingAcademyDataEventGetDataFromInternet extends DrivingAcademyDataEvent{
-        final String systemLanguage;
-      const DrivingAcademyDataEventGetDataFromInternet({
+class DrivingAcademyDataEventCheckInternetThenGet extends DrivingAcademyDataEvent{
+      final String systemLanguage;
+      const DrivingAcademyDataEventCheckInternetThenGet({
         @required this.systemLanguage,
       }):assert(systemLanguage != null);
 }
+
+class DrivingAcademyDataEventGetDataFromInternet extends DrivingAcademyDataEvent{}

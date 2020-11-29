@@ -17,4 +17,4 @@ enum AccountDataEnum{
 
 enum HttpType{GET,POST}
 
-enum SystemLanguageCode{EN,CN,MALAY}
+enum SystemLanguageCode{EN,CN,MALAY,}

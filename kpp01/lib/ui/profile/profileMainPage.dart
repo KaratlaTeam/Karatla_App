@@ -199,7 +199,7 @@ class ProfileMainPage extends StatelessWidget {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      Navigator.push(
+                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => SettingPage()));
