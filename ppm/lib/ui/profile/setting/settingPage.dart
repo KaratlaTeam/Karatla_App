@@ -21,6 +21,7 @@ class SettingPage extends StatelessWidget {
         AppDataModel appDataModel = _getAppDataModel(appDataState);
         AccountDataModel accountDataModel =
             BlocProvider.of<AccountDataBloc>(context).accountDataModel;
+        SystemLanguageBloc systemLanguageBloc = BlocProvider.of<SystemLanguageBloc>(context);
 
         return Scaffold(
           appBar: AppBar(),
@@ -90,17 +91,26 @@ class SettingPage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10)),
                             //title: Text("Please Select Your Language"),
                             children: <Widget>[
-                              FlatButton(onPressed: (){
-                                BlocProvider.of<SystemLanguageBloc>(context).add(SystemLanguageEventChange(systemLanguageCode:SystemLanguageCode.EN));
+                              FlatButton(
+                                onPressed: systemLanguageBloc.systemLanguageModel.systemLanguageCode != SystemLanguageCode.EN ?(){
+                                systemLanguageBloc.add(SystemLanguageEventChange(systemLanguageCode:SystemLanguageCode.EN));
                                 Navigator.pop(context);
-                              }, 
+                              } : null, 
                               child: Text("Evglish"),
                               ),
-                              FlatButton(onPressed: (){
-                                BlocProvider.of<SystemLanguageBloc>(context).add(SystemLanguageEventChange(systemLanguageCode:SystemLanguageCode.CN));
+                              FlatButton(
+                                onPressed: systemLanguageBloc.systemLanguageModel.systemLanguageCode != SystemLanguageCode.CN ?(){
+                                systemLanguageBloc.add(SystemLanguageEventChange(systemLanguageCode:SystemLanguageCode.CN));
                                 Navigator.pop(context);
-                              }, 
+                              } : null, 
                               child: Text("Chinese(Simplified)"),
+                              ),
+                              FlatButton(
+                                onPressed: systemLanguageBloc.systemLanguageModel.systemLanguageCode != SystemLanguageCode.MALAY ?(){
+                                systemLanguageBloc.add(SystemLanguageEventChange(systemLanguageCode:SystemLanguageCode.MALAY));
+                                Navigator.pop(context);
+                              } : null, 
+                              child: Text("Malay"),
                               ),
                             ],
                           );

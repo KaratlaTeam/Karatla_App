@@ -1,6 +1,7 @@
 
 import 'dart:async';
-
+import 'package:bloc/bloc.dart';
+import 'package:PPM/bloc/systemLanguage/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:PPM/bloc/drivingAcademyDataBloc/drivingAcademyDataEvent.dart';
 import 'package:PPM/bloc/drivingAcademyDataBloc/drivingAcademyDataState.dart';
@@ -12,7 +13,7 @@ import 'package:PPM/dataModel/httpModel.dart';
 import 'package:PPM/httpSource.dart';
 
 class DrivingAcademyDataBloc extends Bloc<DrivingAcademyDataEvent,DrivingAcademyDataState>{
-  DrivingAcademyDataBloc(this.internetCheckBloc):super(DrivingAcademyDataStateGetting()){
+  DrivingAcademyDataBloc(this.internetCheckBloc, this.systemLanguageBloc):super(DrivingAcademyDataStateGetting()){
       streamSubscription = internetCheckBloc.listen((InternetCheckState internetCheckState) {
       if(internetCheckState is InternetCheckStateGod && drivingAcademyDataEvent is DrivingAcademyDataEventCheckInternetThenGet){
         add(DrivingAcademyDataEventGetDataFromInternet());
@@ -22,16 +23,25 @@ class DrivingAcademyDataBloc extends Bloc<DrivingAcademyDataEvent,DrivingAcademy
         }
       }
      });
+
+     streamSubscription2 = systemLanguageBloc.listen((SystemLanguageState systemLanguageState) {
+       if(systemLanguageState is SystemLanguageStateJustChanged){
+         add(DrivingAcademyDataEventGetData(systemLanguage: systemLanguageState.systemLanguageModel.codeString()));
+       }
+     });
   }
 
   DrivingAcademyDataModelList drivingAcademyDataModelList ;
   StreamSubscription streamSubscription; 
+  StreamSubscription streamSubscription2; 
   InternetCheckBloc internetCheckBloc;
   DrivingAcademyDataEvent drivingAcademyDataEvent;
+  SystemLanguageBloc systemLanguageBloc;
 
   @override
   Future<void> close() {
     streamSubscription.cancel();
+    streamSubscription2.cancel();
     return super.close();
   }
 

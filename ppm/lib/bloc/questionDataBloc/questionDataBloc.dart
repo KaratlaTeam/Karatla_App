@@ -1,6 +1,7 @@
 
 import 'dart:async';
 
+import 'package:PPM/bloc/systemLanguage/bloc.dart';
 import 'package:bloc/bloc.dart';
 import 'package:PPM/bloc/internetCheckBloc/bloc.dart';
 import 'package:PPM/bloc/questionDataBloc/bloc.dart';
@@ -9,7 +10,7 @@ import 'package:PPM/dataModel/questionDataModel.dart';
 import 'package:PPM/httpSource.dart';
 
 class QuestionDataBloc extends Bloc<QuestionDataEvent,QuestionDataState>{
-  QuestionDataBloc({this.internetCheckBloc}):super(QuestionDataStateGettingQuestionData()){
+  QuestionDataBloc({this.internetCheckBloc, this.systemLanguageBloc}):super(QuestionDataStateGettingQuestionData()){
     streamSubscription = internetCheckBloc.listen((InternetCheckState internetCheckState) {
       if(internetCheckState is InternetCheckStateGod && questionDataEvent is QuestionDataEventCheckInternetThenGet){
         add(QuestionDataEventGetQuestionDataFromInternet());
@@ -19,16 +20,25 @@ class QuestionDataBloc extends Bloc<QuestionDataEvent,QuestionDataState>{
         }
       }
      });
+
+     streamSubscription2 = systemLanguageBloc.listen((SystemLanguageState systemLanguageState) {
+       if(systemLanguageState is SystemLanguageStateJustChanged){
+         add(QuestionDataEventGetQuestionData(systemLanguage: systemLanguageState.systemLanguageModel.codeString()));
+       }
+     });
   }
 
   StreamSubscription streamSubscription; 
+  StreamSubscription streamSubscription2; 
   QuestionDataModel questionDataModel = QuestionDataModel();
   InternetCheckBloc internetCheckBloc;
   QuestionDataEvent questionDataEvent;
+  SystemLanguageBloc systemLanguageBloc;
 
   @override
   Future<void> close() {
     streamSubscription.cancel();
+    streamSubscription2.cancel();
     return super.close();
   }
 
@@ -44,9 +54,22 @@ class QuestionDataBloc extends Bloc<QuestionDataEvent,QuestionDataState>{
         if(questionDataModel == null){
           add(QuestionDataEventCheckInternetThenGet(systemLanguage: event.systemLanguage));
         }else{
-          ///TODO check internet
-          ///TODO check questionData version
-          yield QuestionDataStateGotQuestionData(questionDataModel: this.questionDataModel);
+          try{
+          HttpSource httpSource = HttpSource();
+          HttpModel httpModel = await httpSource.requestGet(HttpSource.checkQuestionVersion);
+          double newVersion = httpModel.data["version"];
+          double dataVersion = questionDataModel.questionDataModelDetail.version;
+          print("new version $newVersion");
+          if(newVersion != dataVersion){
+            add(QuestionDataEventCheckInternetThenGet(systemLanguage: event.systemLanguage));
+          }else{
+            yield QuestionDataStateGotQuestionData(questionDataModel: this.questionDataModel);
+          }
+          }catch(e){
+            print("check question version error");
+            yield QuestionDataStateGotQuestionData(questionDataModel: this.questionDataModel);
+          }
+          
         }
 
       }catch(e){

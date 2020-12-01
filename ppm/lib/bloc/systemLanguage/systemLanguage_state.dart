@@ -7,8 +7,14 @@ import 'package:PPM/dataModel/systemLanguageModel.dart';
 abstract class SystemLanguageState{
   const SystemLanguageState();
 }
-class SystemLanguageStateProcessing extends SystemLanguageState {
 
+class SystemLanguageStateProcessing extends SystemLanguageState {}
+
+class SystemLanguageStateJustChanged extends SystemLanguageState {
+    const SystemLanguageStateJustChanged({
+    @required this.systemLanguageModel,
+  }):assert(systemLanguageModel != null);
+  final SystemLanguageModel systemLanguageModel;
 }
 
 class SystemLanguageStateFinished extends SystemLanguageState {

@@ -112,7 +112,7 @@ class SingleChoice extends StatelessWidget{
               child: Column(
                 children: <Widget>[
                   CachedNetworkImage(
-                    imageUrl: HttpSource.webUrl+value,
+                    imageUrl: HttpSource.webUrl+HttpSource.getQuestionImages+value,
                     width: single == false ? appDataModel.dataAppSizePlugin.scaleW*90 : appDataModel.dataAppSizePlugin.scaleW*300,
                     height: appDataModel.dataAppSizePlugin.scaleW*100,
                     placeholder: (context, url) => CircularProgressIndicator(),

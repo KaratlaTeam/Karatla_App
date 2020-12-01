@@ -32,7 +32,10 @@ class Kpp01TestHomePage extends StatelessWidget {
       body: MultiProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => QuestionDataBloc(internetCheckBloc: BlocProvider.of<InternetCheckBloc>(context))..add(QuestionDataEventGetQuestionData(systemLanguage: BlocProvider.of<SystemLanguageBloc>(context).systemLanguageModel.codeString())),
+          create: (BuildContext context) => QuestionDataBloc(
+            internetCheckBloc: BlocProvider.of<InternetCheckBloc>(context),
+            systemLanguageBloc: BlocProvider.of<SystemLanguageBloc>(context),
+          )..add(QuestionDataEventGetQuestionData(systemLanguage: BlocProvider.of<SystemLanguageBloc>(context).systemLanguageModel.codeString())),
         ),
         BlocProvider(
           create: (BuildContext context) => QuestionPageBloc(QuestionPageModel()),

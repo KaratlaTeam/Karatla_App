@@ -133,7 +133,10 @@ class AppMainBody extends StatelessWidget{
       index: index,
       children: [
         BlocProvider(
-          create: (BuildContext context) => DrivingAcademyDataBloc(BlocProvider.of<InternetCheckBloc>(context))..add(DrivingAcademyDataEventGetData(systemLanguage: BlocProvider.of<SystemLanguageBloc>(context).systemLanguageModel.codeString())),
+          create: (BuildContext context) => DrivingAcademyDataBloc(
+            BlocProvider.of<InternetCheckBloc>(context),
+            BlocProvider.of<SystemLanguageBloc>(context),
+          )..add(DrivingAcademyDataEventGetData(systemLanguage: BlocProvider.of<SystemLanguageBloc>(context).systemLanguageModel.codeString())),
           child: AcademyMainPage(),
         ),
         

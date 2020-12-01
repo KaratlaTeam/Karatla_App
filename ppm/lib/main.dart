@@ -16,7 +16,6 @@ import 'package:PPM/bloc/simpleBlocDelegate.dart';
 import 'package:flutter/material.dart';
 import 'package:PPM/bloc/systemLanguage/bloc.dart';
 import 'package:PPM/dataModel/appDataModel.dart';
-import 'package:PPM/dataModel/systemLanguageModel.dart';
 import 'package:PPM/statePage.dart';
 import 'package:PPM/typedef.dart';
 import 'package:PPM/ui/appMain.dart';
@@ -82,7 +81,8 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: BlocProvider(
-        create: (BuildContext context) => InternetCheckBloc()..add(InternetCheckEventCheck()),
+        create: (BuildContext context) =>
+            InternetCheckBloc()..add(InternetCheckEventCheck()),
         child: BlocProvider(
           create: (BuildContext context) => LoginBloc(
               BlocProvider.of<AccountDataBloc>(context),
@@ -94,18 +94,23 @@ class _MyAppState extends State<MyApp> {
                 BlocProvider.of<InternetCheckBloc>(context)),
             child: BlocBuilder<AppDataBloc, AppDataState>(
               builder: (context, appDataState) {
-                return BlocBuilder<AccountDataBloc, AccountDataState>(
-                  builder: (context, accountDataState) {
-                    if (appDataState is AppDataStateGettingData ||
-                        accountDataState is AccountDataStateInitialDataDoing) {
-                      return StatePageLoading();
-                    } else if (appDataState is AppDataStateError) {
-                      return StatePageError();
-                    } else {
-                      return MyMainApp(
-                        appDataStateGotData: appDataState,
-                      );
-                    }
+                return BlocBuilder<SystemLanguageBloc, SystemLanguageState>(
+                  builder: (context, systemLanguageState) {
+                    return BlocBuilder<AccountDataBloc, AccountDataState>(
+                      builder: (context, accountDataState) {
+                        if (appDataState is AppDataStateGettingData ||
+                            accountDataState
+                                is AccountDataStateInitialDataDoing) {
+                          return StatePageLoading();
+                        } else if (appDataState is AppDataStateError) {
+                          return StatePageError();
+                        } else {
+                          return MyMainApp(
+                            appDataStateGotData: appDataState,
+                          );
+                        }
+                      },
+                    );
                   },
                 );
               },
@@ -209,13 +214,14 @@ class _MyHomeState extends State<MyHome> {
               if (internetCheckState is InternetCheckStateError) {
                 BlocProvider.of<InternetCheckBloc>(context)
                     .add(InternetCheckEventToNoAction());
-                    print("Internet or service error");
-                    _globalKey.currentState.showSnackBar(
+                print("Internet or service error");
+                _globalKey.currentState.showSnackBar(
                     SnackBar(content: Text("Internet or service error")));
               }
             },
-            builder: (BuildContext context, InternetCheckState internetCheckState) {
-              if(internetCheckState is InternetCheckStateChecking){
+            builder:
+                (BuildContext context, InternetCheckState internetCheckState) {
+              if (internetCheckState is InternetCheckStateChecking) {
                 return Center(
                   child: Container(
                     width: 15.0,
@@ -223,7 +229,7 @@ class _MyHomeState extends State<MyHome> {
                     child: CircularProgressIndicator(),
                   ),
                 );
-              }else{
+              } else {
                 return Container();
               }
             },

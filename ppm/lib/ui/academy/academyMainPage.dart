@@ -240,7 +240,7 @@ class AcademyMainPageCard extends StatelessWidget {
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
             child: CachedNetworkImage(
-              imageUrl: HttpSource.webUrl+drivingAcademyDataModelList.drivingAcademyDataModelList[index].photos[0],
+              imageUrl: HttpSource.webUrl+HttpSource.getAcademyImages+drivingAcademyDataModelList.drivingAcademyDataModelList[index].photos[0],
               width: photoWidth,
               height: photoHeight,
               fit: BoxFit.cover,

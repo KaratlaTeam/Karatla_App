@@ -17,9 +17,13 @@ class HttpSource{
   static const String logout = "$webUrl/api/account/logout";
   static const String getAccount = "$webUrl/api/account/get";
   static const String checkLogin = "$webUrl/api/account/check";
+  static const String checkQuestionVersion = "$webUrl/api/question/version";
 
-  static const String getQuestionJsonData = "$webUrl/api/json/question/get/";
-  static const String getQcademyJsonData = "$webUrl/api/json/academy/get/";
+  static const String getQuestionJsonData = "$webUrl/api/json/question/";
+  static const String getQcademyJsonData = "$webUrl/api/json/academy/";
+
+  static const String getQuestionImages = "$webUrl/api/images/question/";
+  static const String getAcademyImages = "$webUrl/api/images/academy/";
 
 
   static const Map<String,String> headers = {
