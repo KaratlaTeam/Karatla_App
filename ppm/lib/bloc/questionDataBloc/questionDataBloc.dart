@@ -59,10 +59,12 @@ class QuestionDataBloc extends Bloc<QuestionDataEvent,QuestionDataState>{
           HttpModel httpModel = await httpSource.requestGet(HttpSource.checkQuestionVersion);
           double newVersion = httpModel.data["version"];
           double dataVersion = questionDataModel.questionDataModelDetail.version;
-          print("new version $newVersion");
+          print("new version: $newVersion");
           if(newVersion != dataVersion){
+            print("version old");
             add(QuestionDataEventCheckInternetThenGet(systemLanguage: event.systemLanguage));
           }else{
+            print("version new");
             yield QuestionDataStateGotQuestionData(questionDataModel: this.questionDataModel);
           }
           }catch(e){
