@@ -268,7 +268,7 @@ class _AcademyDetailPageState extends State<AcademyDetailPage> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(7.0),
                       child: CachedNetworkImage(
-                        imageUrl: HttpSource.getAcademyImages+widget.drivingAcademyDataModel.location[1],
+                        imageUrl: HttpSource.getAcademyImages+widget.drivingAcademyDataModel.mapPicture,
                         fit: BoxFit.cover,
                         placeholder: (context, url) => CircularProgressIndicator(),
                         errorWidget: (context, url, error) => Icon(Icons.error),

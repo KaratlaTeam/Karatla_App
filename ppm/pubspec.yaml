@@ -43,6 +43,8 @@ dependencies:
   flutter_statusbarcolor: ^0.2.3
   path_provider: ^1.6.24
   cached_network_image: ^2.3.3
+  geolocator: ^6.1.9
+
 
 dev_dependencies:
   flutter_test:

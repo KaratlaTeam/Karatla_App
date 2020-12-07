@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DrivingAcademyDataModelList {
@@ -53,6 +54,28 @@ class DrivingAcademyDataModelList {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString("drivingAcademyDataModelList_$systemLanguage",
         json.encode(drivingAcademyDataModelList.toJson()));
+  }
+
+  mySort(double myLatitude, double myLongitude){
+    List<Map> mapModelList = List<Map>();
+    List<DrivingAcademyDataModel> myDrivingAcademyDataModelList = List<DrivingAcademyDataModel>();
+
+    for(DrivingAcademyDataModel drivingAcademyDataModel in this.drivingAcademyDataModelList){
+      double latitude = double.parse(drivingAcademyDataModel.location[1]);
+      double longitude = double.parse(drivingAcademyDataModel.location[2]);
+      double distance =  Geolocator.distanceBetween(myLatitude, myLongitude, latitude, longitude);
+      mapModelList.add({"distance": distance, "data": drivingAcademyDataModel});
+    }
+
+    mapModelList.sort((a,b) => a["distance"].compareTo(b["distance"]));
+    print(mapModelList);
+
+    for(Map map in mapModelList){
+      myDrivingAcademyDataModelList.add(map["data"]);
+    }
+
+    this.drivingAcademyDataModelList = myDrivingAcademyDataModelList;
+
   }
 }
 
