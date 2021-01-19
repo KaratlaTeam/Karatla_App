@@ -127,7 +127,7 @@ class _Kpp01TestHomePageDetailState extends State<Kpp01TestHomePageDetail>{
                     padding: EdgeInsets.only(left: appDataModel.dataAppSizePlugin.scaleW*50),
                     child: RichText(
                       text: TextSpan(
-                        text: sl.kpp01Title,
+                        text: sl.kpp01TestHomePageKPP01,
                         style: TextStyle(fontSize: appDataModel.dataAppSizePlugin.scaleFortSize*30,fontWeight: FontWeight.w500, color: Colors.black),
                         children: <TextSpan>[
                           TextSpan(text: 'v${_questionDataBloc.questionDataModel.questionDataModelDetail.version}', style: TextStyle(fontSize: appDataModel.dataAppSizePlugin.scaleFortSize*15, color: Colors.grey),)
@@ -165,7 +165,7 @@ class _Kpp01TestHomePageDetailState extends State<Kpp01TestHomePageDetail>{
                                   margin: EdgeInsets.symmetric(horizontal: appDataModel.dataAppSizePlugin.scaleW*15,vertical: appDataModel.dataAppSizePlugin.scaleH*5),
                                   child: Image.asset("assets/images/kpp01Main/quiz.png",fit: BoxFit.cover,),
                                 ),
-                                Text("quiz"),
+                                Text(sl.kpp01TestHomePageQuiz),
                               ],
                             );
                           },
@@ -195,7 +195,7 @@ class _Kpp01TestHomePageDetailState extends State<Kpp01TestHomePageDetail>{
                                   margin: EdgeInsets.symmetric(horizontal: appDataModel.dataAppSizePlugin.scaleW*15,vertical: appDataModel.dataAppSizePlugin.scaleH*5),
                                   child: Image.asset("assets/images/kpp01Main/open-book.png",fit: BoxFit.cover),
                                 ),
-                                Text("Practice"),
+                                Text(sl.kpp01TestHomePagePractice),
                               ],
                             );
                           },
@@ -223,7 +223,7 @@ class _Kpp01TestHomePageDetailState extends State<Kpp01TestHomePageDetail>{
                                 margin: EdgeInsets.symmetric(horizontal: appDataModel.dataAppSizePlugin.scaleW*15,vertical: appDataModel.dataAppSizePlugin.scaleH*5),
                                 child: Image.asset("assets/images/kpp01Main/history.png",fit: BoxFit.cover,),
                               ),
-                              Text("History"),
+                              Text(sl.kpp01TestHomePageHistory),
                             ],
                           );
                         },
@@ -248,7 +248,7 @@ class _Kpp01TestHomePageDetailState extends State<Kpp01TestHomePageDetail>{
                                 margin: EdgeInsets.symmetric(horizontal: appDataModel.dataAppSizePlugin.scaleW*15,vertical: appDataModel.dataAppSizePlugin.scaleH*5),
                                 child: Image.asset("assets/images/kpp01Main/star.png",fit: BoxFit.cover,width: appDataModel.dataAppSizePlugin.scaleW*120,),
                               ),
-                              Text("Favorite"),
+                              Text(sl.kpp01TestHomePageFavorite),
                             ],
                           );
                         },

@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:PPM/bloc/systemLanguage/systemLanguage_bloc.dart';
+import 'package:PPM/dataModel/systemLanguageModel.dart';
 import 'package:PPM/httpSource.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -77,6 +79,7 @@ class _AcademyDetailPageState extends State<AcademyDetailPage> {
   Widget build(BuildContext context) {
     AppDataModel appDataModel =
         BlocProvider.of<AppDataBloc>(context).appDataModel;
+    SystemLanguageModel sl = BlocProvider.of<SystemLanguageBloc>(context).systemLanguageModel;
     //  
     return Scaffold(
       body: CustomScrollView(
@@ -149,7 +152,7 @@ class _AcademyDetailPageState extends State<AcademyDetailPage> {
                         margin: EdgeInsets.all(
                             appDataModel.dataAppSizePlugin.scaleW * 10),
                         child: ListTile(
-                          title: Text("About Us"),
+                          title: Text(sl.academyDetailPageAbout),
                           subtitle: Column(
                             children: <Widget>[
                               Divider(),
@@ -243,7 +246,7 @@ class _AcademyDetailPageState extends State<AcademyDetailPage> {
                                     text: widget
                                         .drivingAcademyDataModel.location[0]));
                                 Scaffold.of(context).showSnackBar(
-                                    SnackBar(content: Text("Location Copied")));
+                                    SnackBar(content: Text(sl.academyDetailPageCopied)));
                               },
                             ));
                       },
@@ -261,7 +264,7 @@ class _AcademyDetailPageState extends State<AcademyDetailPage> {
                     Clipboard.setData(ClipboardData(
                         text: widget.drivingAcademyDataModel.location[0]));
                     Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text("Location Copied")));
+                        SnackBar(content: Text(sl.academyDetailPageCopied)));
                   },
                   child: Container(
                     height: appDataModel.dataAppSizePlugin.scaleH * 250,
@@ -283,7 +286,7 @@ class _AcademyDetailPageState extends State<AcademyDetailPage> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {},
-        label: Text("Register"),
+        label: Text(sl.academyDetailRegister),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
       ),

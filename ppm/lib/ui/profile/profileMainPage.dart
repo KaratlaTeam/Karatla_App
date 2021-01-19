@@ -1,3 +1,5 @@
+import 'package:PPM/bloc/systemLanguage/bloc.dart';
+import 'package:PPM/dataModel/systemLanguageModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,6 +20,7 @@ import 'package:PPM/uiPlugin/myTextField/myTextFaild.dart';
 class ProfileMainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemLanguageModel systemLanguageModel = BlocProvider.of<SystemLanguageBloc>(context).systemLanguageModel;
     return BlocProvider(
       create: (BuildContext context) => SchedeluBloc(
           accountDataModel:
@@ -110,7 +113,7 @@ class ProfileMainPage extends StatelessWidget {
                                         children: <Widget>[
                                           Column(
                                             children: <Widget>[
-                                              Text("quiz"),
+                                              Text(systemLanguageModel.profileMainPageQuiz),
                                               Text(accountDataModel
                                                   .myTestAnswerAllModelList
                                                   .testAnswerAllModel
@@ -120,7 +123,7 @@ class ProfileMainPage extends StatelessWidget {
                                           ),
                                           Column(
                                             children: <Widget>[
-                                              Text("Pass"),
+                                              Text(systemLanguageModel.profileMainPagePass),
                                               Text(_getPassAmount(
                                                   accountDataModel
                                                       .myTestAnswerAllModelList
@@ -129,7 +132,7 @@ class ProfileMainPage extends StatelessWidget {
                                           ),
                                           Column(
                                             children: <Widget>[
-                                              Text("Fail"),
+                                              Text(systemLanguageModel.profileMainPageFail),
                                               Text(_getFailAmount(
                                                   accountDataModel
                                                       .myTestAnswerAllModelList

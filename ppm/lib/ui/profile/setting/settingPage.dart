@@ -36,7 +36,7 @@ class SettingPage extends StatelessWidget {
               ProfileListCard(
                 indent: appDataModel.dataAppSizePlugin.scaleW * 15,
                 endIndent: appDataModel.dataAppSizePlugin.scaleW * 15,
-                text1: Text("Name"),
+                text1: Text(systemLanguageBloc.systemLanguageModel.settingPageName),
                 text2: Text(accountDataModel.myName),
                 iconData: null,
                 onTap: null,
@@ -51,7 +51,7 @@ class SettingPage extends StatelessWidget {
                 indent: appDataModel.dataAppSizePlugin.scaleW * 15,
                 endIndent: appDataModel.dataAppSizePlugin.scaleW * 15,
                 height: appDataModel.dataAppSizePlugin.scaleH * 20,
-                text1: Text("Phone"),
+                text1: Text(systemLanguageBloc.systemLanguageModel.settingPagePhone),
                 text2: Text(accountDataModel.myPhone),
                 iconData: null,
                 onTap: null,
@@ -81,7 +81,7 @@ class SettingPage extends StatelessWidget {
                 indent: appDataModel.dataAppSizePlugin.scaleW * 15,
                 endIndent: appDataModel.dataAppSizePlugin.scaleW * 15,
                 height: appDataModel.dataAppSizePlugin.scaleH * 20,
-                text1: Text("language"),
+                text1: Text(systemLanguageBloc.systemLanguageModel.settingPageLanguage),
                 onTap: () {
                   showDialog(
                       context: context,
@@ -103,14 +103,14 @@ class SettingPage extends StatelessWidget {
                                 systemLanguageBloc.add(SystemLanguageEventChange(systemLanguageCode:SystemLanguageCode.CN));
                                 Navigator.pop(context);
                               } : null, 
-                              child: Text("Chinese(Simplified)"),
+                              child: Text("简体中文"),
                               ),
                               FlatButton(
                                 onPressed: systemLanguageBloc.systemLanguageModel.systemLanguageCode != SystemLanguageCode.MALAY ?(){
                                 systemLanguageBloc.add(SystemLanguageEventChange(systemLanguageCode:SystemLanguageCode.MALAY));
                                 Navigator.pop(context);
                               } : null, 
-                              child: Text("Malay"),
+                              child: Text("Melayu"),
                               ),
                             ],
                           );
@@ -121,14 +121,7 @@ class SettingPage extends StatelessWidget {
               ProfileListCard(
                 indent: appDataModel.dataAppSizePlugin.scaleW * 15,
                 endIndent: appDataModel.dataAppSizePlugin.scaleW * 15,
-                text1: Text("About us"),
-                onTap: () {},
-              ),
-              ProfileListCard(
-                indent: appDataModel.dataAppSizePlugin.scaleW * 15,
-                endIndent: appDataModel.dataAppSizePlugin.scaleW * 15,
-                text1: Text("Version"),
-                text2: Text(appDataModel.myDeviceData.packageInfo.version),
+                text1: Text(systemLanguageBloc.systemLanguageModel.settingPageAbout),
                 onTap: () {},
               ),
 
@@ -148,7 +141,7 @@ class SettingPage extends StatelessWidget {
                     Navigator.of(context).pop();
                   },
                   child: Text(
-                    "Log Out",
+                    systemLanguageBloc.systemLanguageModel.settingPageLogOut,
                     style: TextStyle(color: Colors.red),
                   ),
                 ),

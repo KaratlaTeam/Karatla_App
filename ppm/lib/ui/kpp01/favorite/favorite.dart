@@ -1,3 +1,5 @@
+import 'package:PPM/bloc/systemLanguage/systemLanguage_bloc.dart';
+import 'package:PPM/dataModel/systemLanguageModel.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:PPM/bloc/appDataBloc/appDataBloc.dart';
 import 'package:PPM/bloc/appDataBloc/appDataState.dart';
@@ -32,6 +34,7 @@ class FavoritePage extends StatelessWidget {
     return BlocBuilder<AppDataBloc, AppDataState>(
       builder: (context, appDataState) {
         AppDataModel appDataModel = _getAppDataModel(appDataState);
+        SystemLanguageModel sl = BlocProvider.of<SystemLanguageBloc>(context).systemLanguageModel;
 
         return BlocBuilder<QuestionPageBloc, QuestionPageState>(
           cubit: questionPageBloc,
@@ -83,13 +86,13 @@ class FavoritePage extends StatelessWidget {
                         return Scaffold(
                           appBar: AppBar(),
                           body: Center(
-                            child: Text("No favorite question!"),
+                            child: Text(sl.favoritePageNoFavorite),
                           ),
                         );
                       } else {
                         return Scaffold(
                           appBar: AppBar(
-                            title: Text('Favorite'),
+                            title: Text(sl.favoritePageFavorite),
                             centerTitle: false,
                           ),
                           body: PageView.builder(

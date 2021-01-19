@@ -1,3 +1,5 @@
+import 'package:PPM/bloc/systemLanguage/systemLanguage_bloc.dart';
+import 'package:PPM/dataModel/systemLanguageModel.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:PPM/bloc/appDataBloc/appDataBloc.dart';
 import 'package:PPM/bloc/appDataBloc/appDataState.dart';
@@ -110,6 +112,7 @@ class TestPageDetail extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    SystemLanguageModel sl = BlocProvider.of<SystemLanguageBloc>(context).systemLanguageModel;
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -180,6 +183,7 @@ class TestPageDetail extends StatelessWidget{
                             builder: (context, timerState) {
                               /// stop quiz
                               return MyWillPopScope(
+                                text: Text(sl.testPageDoYouLeave),
                                 pause: true,
                                 flatButtonL: FlatButton(
                                   onPressed: () {
@@ -188,19 +192,19 @@ class TestPageDetail extends StatelessWidget{
                                     Navigator.of(context).pop();
                                     Navigator.of(context).pop();
                                   },
-                                  child: Text("Yes"),
+                                  child: Text(sl.testPageYes),
                                 ),
                                 flatButtonR: FlatButton(
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                     BlocProvider.of<TimerBloc>(context).add(Resume());
                                   },
-                                  child: Text("No"),
+                                  child: Text(sl.testPageNo),
                                 ),
                                 child: Scaffold(
                                   //backgroundColor: Colors.white,
                                   appBar: AppBar(
-                                    title: Text('quiz'),
+                                    title: Text(sl.testPageQuiz),
                                     centerTitle: false,
                                     elevation: 0,
                                     actions: <Widget>[
@@ -267,7 +271,7 @@ class TestPageDetail extends StatelessWidget{
                                   ),
 
                                   floatingActionButton: FloatingActionButton.extended(
-                                    label: Text('Finish',style: TextStyle(color: Colors.white),),
+                                    label: Text(sl.testPageFinish,style: TextStyle(color: Colors.white),),
                                     elevation: 2,
                                     backgroundColor: Colors.redAccent,
                                     onPressed: () {
@@ -280,7 +284,7 @@ class TestPageDetail extends StatelessWidget{
                                           /// finish quiz
                                           child: SimpleDialog(
                                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                            title: Text("Do you want to finish this quiz ?"),
+                                            title: Text(sl.testPageDoYouFinish),
                                             children: <Widget>[
                                               FlatButton(
                                                 onPressed: () {
@@ -290,14 +294,14 @@ class TestPageDetail extends StatelessWidget{
                                                   ));
                                                   Navigator.of(context).pop();
                                                 },
-                                                child: Text("Yes"),
+                                                child: Text(sl.testPageYes),
                                               ),
                                               FlatButton(
                                                 onPressed: () {
                                                   Navigator.of(context).pop();
                                                   BlocProvider.of<TimerBloc>(context).add(Resume());
                                                 },
-                                                child: Text("No"),
+                                                child: Text(sl.testPageNo,)
                                               ),
                                             ],
                                           ),

@@ -1,3 +1,5 @@
+import 'package:PPM/bloc/systemLanguage/systemLanguage_bloc.dart';
+import 'package:PPM/dataModel/systemLanguageModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,6 +54,7 @@ class _MyNewStepperState extends State<MyNewStepper>{
 
   @override
   Widget build(BuildContext context) {
+    SystemLanguageModel systemLanguageModel = BlocProvider.of<SystemLanguageBloc>(context).systemLanguageModel;
     return ListView(
       padding: EdgeInsets.only(bottom: BlocProvider.of<AppDataBloc>(context).appDataModel.dataAppSizePlugin.scaleH*40),
       children: [
@@ -68,13 +71,13 @@ class _MyNewStepperState extends State<MyNewStepper>{
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  TextButton(onPressed: onStepContinue, child: Text("State")),
-                  TextButton(onPressed: onStepCancel, child: Text("Time")),
+                  TextButton(onPressed: onStepContinue, child: Text(systemLanguageModel.profileMainPageState)),
+                  TextButton(onPressed: onStepCancel, child: Text(systemLanguageModel.profileMainPageTime)),
                   TextButton(
                     onPressed: (){
                       widget.onPressedMark(textEditingController);
                     },
-                    child: Text("Mark"),
+                    child: Text(systemLanguageModel.profileMainPageMark),
                   ),
                 ],
               ),

@@ -1,4 +1,8 @@
 
+import 'dart:io';
+
+import 'package:PPM/bloc/systemLanguage/systemLanguage_bloc.dart';
+import 'package:PPM/dataModel/systemLanguageModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:PPM/bloc/appDataBloc/bloc.dart';
@@ -32,7 +36,7 @@ class LearningPartPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    //  
+    SystemLanguageModel sl = BlocProvider.of<SystemLanguageBloc>(context).systemLanguageModel;
     return BlocBuilder<AppDataBloc,AppDataState>(
       builder: (context,appDataState){
         AppDataModel appDataModel = _getAppDataModel(appDataState);
@@ -55,7 +59,7 @@ class LearningPartPage extends StatelessWidget{
 
                 return Scaffold(
                   appBar: AppBar(
-                    title: Text('Part ${partId.toString()}'),
+                    title: Text('${sl.learningPartPagePart} ${partId.toString()}'),
                     centerTitle: false,
                   ),
                   body: PageView.builder(

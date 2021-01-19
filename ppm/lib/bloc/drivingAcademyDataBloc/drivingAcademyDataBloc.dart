@@ -115,7 +115,8 @@ class DrivingAcademyDataBloc extends Bloc<DrivingAcademyDataEvent,DrivingAcademy
     double myLongitude = myDeviceLocation.position.longitude;
     double myLatitude = myDeviceLocation.position.latitude;
     // 2.9517488522900077, 101.82337690484789
-    this.drivingAcademyDataModelList.mySort(2.9517488522900077, 101.82337690484789);
+    //this.drivingAcademyDataModelList.mySort(2.9517488522900077, 101.82337690484789);
+    this.drivingAcademyDataModelList.mySort(myLatitude, myLongitude);
     
   }
 

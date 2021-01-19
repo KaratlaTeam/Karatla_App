@@ -1,4 +1,6 @@
 
+import 'package:PPM/bloc/systemLanguage/systemLanguage_bloc.dart';
+import 'package:PPM/dataModel/systemLanguageModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:PPM/bloc/questionDataBloc/bloc.dart';
@@ -19,7 +21,7 @@ class TestHistory extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-   
+   SystemLanguageModel sl = BlocProvider.of<SystemLanguageBloc>(context).systemLanguageModel;
     return BlocBuilder<QuestionTestBloc,QuestionTestState>(
       cubit: questionTestBloc,
       builder: (context,questionTestState){
@@ -37,7 +39,7 @@ class TestHistory extends StatelessWidget{
             if(testAnswerAllModelList.isEmpty){
               return Scaffold(
                 appBar: AppBar(),
-                body: Center(child: Text("No quiz history!"),),
+                body: Center(child: Text(sl.testHistoryNoHistory),),
               );
             }else{
               return Scaffold(

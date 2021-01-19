@@ -13,7 +13,7 @@ class SystemLanguageBloc extends Bloc<SystemLanguageEvent,SystemLanguageState>{
     if(event is SystemLanguageEventChange){
       yield SystemLanguageStateProcessing();
       try{
-        this.systemLanguageModel.systemLanguageCode = event.systemLanguageCode;
+        this.systemLanguageModel.changeLanguage(event.systemLanguageCode);
         yield SystemLanguageStateJustChanged(systemLanguageModel: this.systemLanguageModel);
         yield SystemLanguageStateFinished(systemLanguageModel: this.systemLanguageModel);
 
