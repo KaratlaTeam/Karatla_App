@@ -5,11 +5,12 @@ import 'package:PPM/dataModel/httpModel.dart';
 
 class HttpSource{
 
-  //static const String webUrl = "https://karatla.com";
-  static const String webUrl = "http://localhost:8080";
-  //static const String webUrl = "https://192.168.0.139:443";
+  static const String webUrl = "http://127.0.0.1:8080";
+  //static const String webUrl = "http://localhost:8080";
+  //static const String webUrl = "https://www.karatla.com";
 
   static const String checkInternet = "https://baidu.com";
+  //static const String deleteValidationCode = "$webUrl/api/account/validation/code/delete/";
   static const String getCode = "$webUrl/api/account/validation/code/";
   static const String checkCode = "$webUrl/api/account/validation/code/check/";
   static const String register = "$webUrl/api/account/new";

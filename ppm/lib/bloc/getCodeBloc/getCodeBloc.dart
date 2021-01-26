@@ -15,12 +15,24 @@ class GetCodeBloc extends Bloc<GetCodeEvent, GetCodeState>{
       }
     });
 
+    //streamSubscription2 = timerBloc.listen((TimerState timerState) {
+    //  print(canDelete);
+    //  if( timerState is Finished ){
+    //    print(1);
+    //    //add(GetCodeEventCanDeleteCode());
+    //  }
+    //});
+
   }
 
   InternetCheckBloc internetCheckBloc;
   GetCodeEvent event;
   StreamSubscription streamSubscription;
   TimerBloc timerBloc;
+  int timeS = 60;
+
+  //String countryCode, phoneN;
+  //bool canDelete = false;
 
 
   @override
@@ -36,11 +48,22 @@ class GetCodeBloc extends Bloc<GetCodeEvent, GetCodeState>{
       yield*_mapEventToStart(this.event);
       this.event = null;
 
+      //await Future.delayed(Duration(seconds: timeS ));
+      //print("times up $timeS");
+      //if(canDelete){
+      //  add(GetCodeEventDeleteCode(countryCode: this.countryCode, text: this.phoneN));
+      //}
+
     }else if(event is GetCodeEventStart){
       this.event = event;
       internetCheckBloc.add(InternetCheckEventCheck());
 
     }
+    //else if(event is GetCodeEventDeleteCode){
+    //  yield* _mapEventToDelete(event);
+    //  this.canDelete = false;
+//
+    //}
 
   }
 
@@ -53,7 +76,7 @@ class GetCodeBloc extends Bloc<GetCodeEvent, GetCodeState>{
         yield GetCodeStateFail(text: "Please enter correct phone number, do no start with '0' and '60'. ");
 
       }else{
-        timerBloc.add(Start(duration: 60));
+        timerBloc.add(Start(duration: timeS));
         print("get code from: ${HttpSource.getCode + eventStart.countryCode + eventStart.text}");
 
         HttpSource httpSource = HttpSource();
@@ -62,9 +85,14 @@ class GetCodeBloc extends Bloc<GetCodeEvent, GetCodeState>{
         );
 
         if(httpModel.code != 1801){
-          yield GetCodeStateFail(text: "Please enter correct phone number, do no start with '0' and '60'. ");
+          yield GetCodeStateFail(text: "send code fail");
 
         }
+        //else {
+        //  this.countryCode = eventStart.countryCode;
+        //  this.phoneN = eventStart.text;
+        //  this.canDelete = true;
+        //}
 
       }
       yield GetCodeStateFinish();
@@ -73,5 +101,37 @@ class GetCodeBloc extends Bloc<GetCodeEvent, GetCodeState>{
     }
 
   }
+
+  //Stream<GetCodeState> _mapEventToDelete(GetCodeEventDeleteCode deleteCode)async*{
+  //  yield GetCodeStateProcess();
+//
+  //  try{
+  //    print("delete validation code , phone number: ${HttpSource.deleteValidationCode+deleteCode.countryCode+deleteCode.text}");
+  //    Map body = {
+  //      "code":1850,
+  //      "data": {
+  //        "phone":deleteCode.countryCode+deleteCode.text,
+  //      },
+  //    };
+  //    HttpSource httpSource = HttpSource();
+  //    HttpModel  httpModel = await httpSource.requestPost(
+  //      body,
+  //      HttpSource.deleteValidationCode+deleteCode.countryCode+deleteCode.text,
+  //      HttpSource.headers,
+  //    );
+//
+  //    if(httpModel.code == 1852){
+  //      yield GetCodeStateFail(text: "delete fail ");
+//
+  //    }else if(httpModel.code == 1853){
+  //      yield GetCodeStateFail(text: "request code wrong");
+//
+  //    }
+  //    yield GetCodeStateFinish();
+//
+  //  }catch(e){
+  //    yield GetCodeStateError(e: e)..backError();
+  //  }
+  //}
   
 }

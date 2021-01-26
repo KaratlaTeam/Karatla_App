@@ -13,3 +13,14 @@ class GetCodeEventStart extends GetCodeEvent{
 class GetCodeEventCanStart extends GetCodeEvent{
 
 }
+
+//class GetCodeEventDeleteCode extends GetCodeEvent{
+//  const GetCodeEventDeleteCode({this.text, this.countryCode});
+//  final String text;
+//  final String countryCode;
+//
+//}
+//
+//class GetCodeEventCanDeleteCode extends GetCodeEvent{
+//
+//}
