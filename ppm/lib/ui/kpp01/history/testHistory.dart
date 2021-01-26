@@ -26,8 +26,8 @@ class TestHistory extends StatelessWidget{
       cubit: questionTestBloc,
       builder: (context,questionTestState){
         List<TestAnswerAllModel> testAnswerAllModelList = List<TestAnswerAllModel>();
-        if(questionTestState is QuestionTestStateFinishTestFinished){
-          testAnswerAllModelList = questionTestState.accountDataModel.myTestAnswerAllModelList.testAnswerAllModel;
+        if(questionTestState is QuestionTestStateFinishTestFinished || questionTestState is QuestionTestStateTestStopStopped){
+          testAnswerAllModelList = questionTestBloc.accountDataModel.myTestAnswerAllModelList.testAnswerAllModel;
         }
         return BlocBuilder<QuestionDataBloc,QuestionDataState>(
           cubit: questionDataBloc,
