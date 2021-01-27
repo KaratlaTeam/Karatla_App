@@ -22,6 +22,7 @@ import 'package:PPM/ui/appMain.dart';
 import 'package:PPM/ui/login/signIn.dart';
 
 void main() {
+
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     systemNavigationBarColor: Colors.white,
@@ -47,6 +48,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
+    // set FPS follow system
     if (Platform.isAndroid) {
       FlutterDisplayMode.current.then((displayMode) {
         FlutterDisplayMode.setMode(displayMode);
@@ -54,11 +56,28 @@ class _MyAppState extends State<MyApp> {
         print(displayMode);
       });
     }
+
+    //SystemChrome.setPreferredOrientations([
+    //  DeviceOrientation.portraitUp,
+    //  DeviceOrientation.portraitDown
+    //]);
+
     //FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
     //FlutterStatusbarcolor.setStatusBarColor(Colors.transparent,animate: true);
     //FlutterStatusbarcolor.setNavigationBarWhiteForeground(true);
     //FlutterStatusbarcolor.setNavigationBarColor(Colors.white,animate: true);
     super.initState();
+  }
+
+  @override
+  void dispose(){
+    //SystemChrome.setPreferredOrientations([
+    //  DeviceOrientation.portraitUp,
+    //  DeviceOrientation.portraitDown,
+    //  DeviceOrientation.landscapeLeft,
+    //  DeviceOrientation.landscapeRight,
+    //]);
+    super.dispose();
   }
 
   @override
@@ -139,12 +158,12 @@ class _MyMainAppState extends State<MyMainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //builder: (BuildContext context, Widget child){
-      //  return MediaQuery(
-      //    child: child,
-      //    data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-      //  );
-      //},
+      builder: (BuildContext context, Widget child){
+        return MediaQuery(
+          child: child,
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0, boldText: false),
+        );
+      },
       ///localeResolutionCallback: (deviceLocale, supportedlocales) {
       ///  print('deviceLocale: $deviceLocale');
       ///  print('supportedlocales: $supportedlocales');
