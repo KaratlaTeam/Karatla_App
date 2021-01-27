@@ -37,7 +37,7 @@ class LoginBloc extends Bloc<LoginEvent,LoginState>{
 
     } else if(event is LoginEventSignInCanSignIn) {
       yield* _mapToLogin(this.event);
-      this.event = null;
+      //this.event = null;
 
     } else if(event is LoginEventSignIn){
       this.event = event;
@@ -75,6 +75,7 @@ class LoginBloc extends Bloc<LoginEvent,LoginState>{
 
   Stream<LoginState> _mapToLogin(LoginEventSignIn event)async*{
     yield LoginStateSignProcess();
+    this.event = null;
     if(event.password == "" || event.loginAccount == ""){
       yield LoginStateSignFail(text: "account or password can not empty!");
       yield LoginStateSignOutFinished();

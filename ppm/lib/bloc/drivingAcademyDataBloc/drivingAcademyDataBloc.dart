@@ -77,7 +77,7 @@ class DrivingAcademyDataBloc extends Bloc<DrivingAcademyDataEvent,DrivingAcademy
 
     }else if(event is DrivingAcademyDataEventGetDataFromInternet){
       yield* _mapStartToGetDataFromInternet(drivingAcademyDataEvent);
-      drivingAcademyDataEvent = null;
+      //drivingAcademyDataEvent = null;
     }else if(event is DrivingAcademyDataEventInternetErrorWithoutData){
       yield DrivingAcademyDataStateError(e: "Get data error, please try again latter.")..backError();
     }
@@ -86,6 +86,7 @@ class DrivingAcademyDataBloc extends Bloc<DrivingAcademyDataEvent,DrivingAcademy
   Stream<DrivingAcademyDataState> _mapStartToGetDataFromInternet(DrivingAcademyDataEventCheckInternetThenGet eventCheckInternetThenGet)async*{
     yield DrivingAcademyDataStateGetting();
       try{
+        drivingAcademyDataEvent = null;
         print("get academy data from internet");
         print("system language: ${eventCheckInternetThenGet.systemLanguage}");
         DrivingAcademyDataModelList drivingAcademyDataModelList = DrivingAcademyDataModelList()..initialData();

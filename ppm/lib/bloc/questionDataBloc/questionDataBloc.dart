@@ -85,7 +85,7 @@ class QuestionDataBloc extends Bloc<QuestionDataEvent,QuestionDataState>{
       
     }else if(event is QuestionDataEventGetQuestionDataFromInternet){
       yield* _mapStartToGetDataFromInternet(questionDataEvent);
-      questionDataEvent = null;
+      //questionDataEvent = null;
     }else if(event is QuestionDataEventInternetErrorWithoutData){
       yield QuestionDataStateError(e: "Get data fail")..backError();
     }
@@ -94,7 +94,7 @@ class QuestionDataBloc extends Bloc<QuestionDataEvent,QuestionDataState>{
   Stream<QuestionDataState> _mapStartToGetDataFromInternet(QuestionDataEventCheckInternetThenGet getQuestionData)async*{
     yield QuestionDataStateGettingQuestionData();
     try{
-        
+      questionDataEvent = null;
       print("get questiondata from internet");
       print("system language: ${getQuestionData.systemLanguage}");
       QuestionDataModel questionDataModel = QuestionDataModel();

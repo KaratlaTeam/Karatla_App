@@ -34,11 +34,11 @@ class RegisterBloc extends Bloc<RegisterEvent,RegisterState>{
   Stream<RegisterState> mapEventToState(RegisterEvent event) async*{
     if(event is RegisterEventCodeCanRegister) {
       yield* _mapEventToCodeRegister(this.event);
-      this.event = null;
+      //this.event = null;
 
     }else if(event is RegisterEventAccountCanRegister) {
       yield* _mapEventToAccountRegister(this.event);
-      this.event = null;
+      //this.event = null;
 
     } else if(event is RegisterEventAccountRegister){
       this.event = event;
@@ -53,6 +53,7 @@ class RegisterBloc extends Bloc<RegisterEvent,RegisterState>{
 
   Stream<RegisterState> _mapEventToAccountRegister(RegisterEventAccountRegister event) async*{
     yield RegisterStateRegisterStart();
+    this.event = null;
     try{
       if(event.passWord != event.confirmPassWord || event.passWord == "" || event.passWord.length < 8 || event.userName == "" || event.userName.length < 2 ){
         String failText = '';
@@ -97,6 +98,7 @@ class RegisterBloc extends Bloc<RegisterEvent,RegisterState>{
 
   Stream<RegisterState> _mapEventToCodeRegister(RegisterEventCodeRegister event) async*{
     yield RegisterStateRegisterStart();
+    this.event = null;
     try{
       if(event.code.length < 6){
         yield RegisterStateRegisterFail(text: "Please enter correct code");

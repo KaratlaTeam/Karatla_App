@@ -46,7 +46,7 @@ class GetCodeBloc extends Bloc<GetCodeEvent, GetCodeState>{
 
     if(event is GetCodeEventCanStart){
       yield*_mapEventToStart(this.event);
-      this.event = null;
+      //this.event = null;
 
       //await Future.delayed(Duration(seconds: timeS ));
       //print("times up $timeS");
@@ -71,7 +71,7 @@ class GetCodeBloc extends Bloc<GetCodeEvent, GetCodeState>{
     yield GetCodeStateProcess();
 
     try{
-
+      this.event = null;
       if(eventStart.text == "" || eventStart.text.startsWith("0") || eventStart.text.startsWith("60")){
         yield GetCodeStateFail(text: "Please enter correct phone number, do no start with '0' and '60'. ");
 
