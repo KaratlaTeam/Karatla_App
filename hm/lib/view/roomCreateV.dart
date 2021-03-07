@@ -5,108 +5,92 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:hm/logic/houseL.dart';
+import 'package:hm/logic/roomL.dart';
 import 'package:hm/model/houseM.dart';
+import 'package:hm/model/roomM.dart';
+import 'package:hm/plugin/myFunctions.dart';
 
 
 class RoomCreateV extends StatefulWidget {
   @override
   _RoomCreateVState createState() => _RoomCreateVState();
 }
-class _RoomCreateVState extends State<RoomCreateV>{
+class _RoomCreateVState extends State<RoomCreateV> {
 
-  Map<int,String> _map = Map<int,String>();
-  String _type = "";
-  String _level = "";
-  String _number = "";
-  String _mark = "";
+  final HouseM _houseM = Get
+      .find<HouseL>()
+      .houseState
+      .housesM
+      .houseList[Get
+      .find<HouseL>()
+      .houseState
+      .houseIndex];
+  int _levelInt = 1;
+  int _roomNumber ;
+
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("添加房间"),
+        title: Text("添加改变"),
       ),
       body: Container(
-        padding: EdgeInsets.all(10),
+
         child: ListView(
+          padding: EdgeInsets.all(20),
           children: [
-            TextField(
-              keyboardType: TextInputType.number,
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+            Row(
+              children: [
+                Text("楼层选择:   "),
+                DropdownButton<int>(
+                  value: _levelInt,
+                  elevation: 16,
+                  onChanged: (int newValue) {
+                    setState(() {
+                      _levelInt = newValue;
+                    });
+                  },
+                  items: levelAmount(),
+                ),
               ],
-              decoration: InputDecoration(
-                labelText: "层",
-              ),
-              onChanged: (String text){
-                this._level = text;
-              },
             ),
-            TextField(
-              keyboardType: TextInputType.number,
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+            Row(
+              children: [
+                TextButton(child: Text("添加"), onPressed: () async{
+                  String back = await Get.find<HouseL>().addRoom(_levelInt, _houseM);
+                  Get.back();
+                  Get.snackbar("提示", "添加$back。",snackPosition: SnackPosition.BOTTOM);
+                },),
+
+                TextButton(child: Text("减少"), onPressed: () async{
+                  String back = await Get.find<HouseL>().deleteRoom(_levelInt, _houseM);
+                  if(back == '成功'){
+                    Get.back();
+                  }else{
+
+                  }
+                  Get.snackbar("提示", "减少$back。",snackPosition: SnackPosition.BOTTOM);
+
+                },),
               ],
-              decoration: InputDecoration(
-                labelText: "号",
-              ),
-              onChanged: (String text){
-                this._number = text;
-              },
             ),
-
-            TextField(
-              decoration: InputDecoration(
-                labelText: "备注",
-              ),
-              onChanged: (String text){
-                this._mark = text;
-              },
-            ),
-            Divider(),
-            Text("设置金额"),
-            Column(
-              children: feeTypeGroup(),
-            ),
-
-            TextButton(child: Text("创建"),onPressed: (){
-
-              //if(_level != "" && _level != null && _number != "" && _number != null){
-              //  HouseM house = HouseM()..initialize(this._level, this.feeTypeList, this._mark);
-              //  //context.read<HouseList>().addNewHouse(house);
-              //  Navigator.pop(context);
-              //}
-
-
-            }, )
           ],
         ),
       ),
     );
   }
 
-  List<Widget> feeTypeGroup(){
-    List<Widget> list = [];
-    int houseIndex = Get.find<HouseL>().houseState.houseIndex;
-    List<String> b = Get.find<HouseL>().houseState.housesM.houseList[houseIndex].feeTypeList;
-
-    for(int a = 0; a < b.length; a++){
-      Widget widget = TextField(
-        keyboardType: TextInputType.number,
-        inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp("[0-9.]")),
-        ],
-        decoration: InputDecoration(
-          labelText: b[a],
-        ),
-        onChanged: (String text){
-          this._map[a] = text;
-        },
-      );
-      list.add(widget);
+  List<DropdownMenuItem<int>> levelAmount(){
+    List<DropdownMenuItem<int>> l = [];
+    int a = MyFunctions().getHouseHighestLevels(_houseM);
+    for(int i = 1; i < a+1; i++){
+      l.add(DropdownMenuItem<int>(
+        value: i,
+        child: Text(i.toString()),
+      ));
     }
-    return list;
+    return l;
   }
-
 }

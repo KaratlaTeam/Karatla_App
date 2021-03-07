@@ -24,6 +24,6 @@ class HouseBinding implements Bindings{
 class RoomBinding implements Bindings{
   @override
   void dependencies() {
-    Get.put(() => RoomL());
+    Get.put(RoomL());
   }
 }

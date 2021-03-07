@@ -1,18 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hm/logic/houseL.dart';
+import 'package:hm/logic/roomL.dart';
 import 'package:hm/model/houseM.dart';
+import 'package:hm/model/roomM.dart';
 
 class RoomDetailV extends StatelessWidget{
 
-  //final HouseM _houseM = Get.arguments;
+  final RoomM _roomM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex].roomList[Get.find<RoomL>().roomS.roomIndex];
+  //final HouseM _houseM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex];
+  //final RoomL _roomL = Get.find<RoomL>();
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("房屋详情"),
+        title: Text("${_roomM.roomLevel}0${_roomM.roomNumber}详情"),
       ),
       body: Container(
         child: ListView(

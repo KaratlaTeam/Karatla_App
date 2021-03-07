@@ -84,7 +84,7 @@ class _HouseHolderCreateState extends State<HouseHolderCreate>{
             ),
             TextButton(child: Text("扫描"),onPressed: (){
               if(_name != "" && _name != null && feeTypeList.length > 0){
-                HouseM house = HouseM()..initialize(this._name, this.feeTypeList, this._mark);
+                //HouseM house = HouseM()..initialize(this._name, this.feeTypeList, this._mark);
                 //context.read<HouseList>().addNewHouse(house);
                 Navigator.pop(context);
               }
@@ -94,7 +94,7 @@ class _HouseHolderCreateState extends State<HouseHolderCreate>{
 
             TextButton(child: Text("添加"),onPressed: (){
               if(_name != "" && _name != null && feeTypeList.length > 0){
-                HouseM house = HouseM()..initialize(this._name, this.feeTypeList, this._mark);
+                //HouseM house = HouseM()..initialize(this._name, this.feeTypeList, this._mark);
                 //context.read<HouseList>().addNewHouse(house);
                 Navigator.pop(context);
               }

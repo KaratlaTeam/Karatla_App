@@ -41,11 +41,11 @@ class HouseM {
   List<String> feeTypeList;
   List<RoomM> roomList ;
 
-  initialize(String name, List<String> feeTypeList, [String mark]){
+  initialize(String name, List<String> feeTypeList, List<RoomM> roomList, [String mark]){
     this.houseName = name;
     this.feeTypeList = feeTypeList;
     mark != null ? this.mark = mark : this.mark = "";
-    this.roomList = List<RoomM>();
+    this.roomList = roomList;
   }
 
   factory HouseM.fromJson(Map<String, dynamic> json){

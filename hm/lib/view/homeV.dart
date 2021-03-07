@@ -1,8 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hm/logic/houseL.dart';
 import 'package:hm/main.dart';
-import 'package:hm/view/customerPage.dart';
-import 'package:hm/view/houseV.dart';
+import 'package:flutter/services.dart';
 
 class HomeV extends StatefulWidget {
 
@@ -33,6 +35,23 @@ class _HomeVState extends State<HomeV> {
                 child: Text("房客"),
                 onPressed: (){
                   Get.toNamed(RN.customer);
+                },
+              ),
+            ),
+            Container(
+              child: TextButton(
+                child: Text("备份"),
+                onPressed: (){
+                  try{
+                    String backup = json.encode(Get.find<HouseL>().houseState.housesM.toJson());
+                    Clipboard.setData(ClipboardData(text: backup));
+                    Get.snackbar("提示", "成功备份数据到剪贴版", snackPosition: SnackPosition.BOTTOM);
+                    printInfo(info: backup);
+                    //TODO backup roomState null!!!!!
+                  }catch (e){
+                    printError(info: e);
+                    Get.snackbar("提示", "备份失败", snackPosition: SnackPosition.BOTTOM);
+                  }
                 },
               ),
             ),

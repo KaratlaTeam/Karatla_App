@@ -23,19 +23,20 @@ class RoomV extends StatelessWidget{
         )],
         title: Text(_houseM.houseName+"管理"),
       ),
-      body: ListView.builder(
-        itemCount: _houseM.roomList.length,
-        itemBuilder: (context, index){
-          return ListTile(
-            title: Text(_houseM.roomList[index].roomNumber.toString()),//Text(context.watch<HouseList>().houseList[index].houseName),
-            onTap: (){
-              Get.find<RoomL>().setRoomIndex(index);
-              Get.toNamed(RN.roomDetail);
-            },
-          );
-
-        },
-
+      body: GetBuilder<HouseL>(
+        builder: (_) => ListView.builder(
+          itemCount: _houseM.roomList.length,
+          itemBuilder: (context, index){
+            _houseM.roomList.sort((a, b) => a.roomLevel.compareTo(b.roomLevel));
+            return ListTile(
+              title: Text(_houseM.roomList[index].roomLevel.toString()+"0"+_houseM.roomList[index].roomNumber.toString()),//Text(context.watch<HouseList>().houseList[index].houseName),
+              onTap: (){
+                Get.find<RoomL>().setRoomIndex(index);
+                Get.toNamed(RN.roomDetail);
+              },
+            );
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),

@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:hm/logic/houseL.dart';
 import 'package:hm/main.dart';
 import 'package:hm/model/houseM.dart';
+import 'package:hm/model/roomM.dart';
+import 'package:hm/plugin/myFunctions.dart';
 
 class HouseDetailV extends StatelessWidget{
 
@@ -16,12 +18,13 @@ class HouseDetailV extends StatelessWidget{
       appBar: AppBar(
         title: Text("房屋详情"),
       ),
-      body: Container(
+      body: Center(
         child: ListView(
           padding: EdgeInsets.all(50),
           children: [
             Container(child: Text("房屋名称:  ${_houseM.houseName}"),alignment: Alignment.centerLeft,),
             Container(child: Row(children: showFeeTypeList()),alignment: Alignment.centerLeft,),
+            Container(child: Text("房屋层数:  ${MyFunctions().getHouseHighestLevels(_houseM)}"),alignment: Alignment.centerLeft,),
             Container(child: Text("房间数量:  ${_houseM.roomList.length}"),alignment: Alignment.centerLeft,),
             Container(child: Text("房屋备注:  ${_houseM.mark}"),alignment: Alignment.centerLeft,),
           ],
@@ -66,4 +69,5 @@ class HouseDetailV extends StatelessWidget{
     }
     return feeTypeList;
   }
+
 }

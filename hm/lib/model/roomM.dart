@@ -47,9 +47,7 @@ class RoomM {
     this.roomState,
     this.roomNumber,
     this.roomLevel,
-    this.id,
 });
-  int id;
   int roomLevel;
   int roomNumber;
   RoomState roomState;
@@ -61,28 +59,24 @@ class RoomM {
   List<CheckTimeM> checkTime;
 
   initialize(
-      int id,
       int roomLevel,
       int roomNumber,
       List<String> feeTypeList,
-      List<HouseholderM> householderList,
-      [String mark]
+      [List<HouseholderM> householderList,String mark]
       ){
-    this.id = id;
     this.roomLevel = roomLevel;
     this.roomNumber = roomNumber;
     this.roomState = RoomState.OFF;
     this.feeTypeList = feeTypeList;
-    this.householderList = List<HouseholderM>();
-    this.rentalFee = List<RentalFeeM>();
-    this.checkTime = List<CheckTimeM>();
+    this.householderList = [];
+    this.rentalFee = [];
+    this.checkTime = [];
     mark != null ? this.mark = mark : this.mark = "";
   }
 
   factory RoomM.fromJson(Map<String, dynamic> json){
     return RoomM(
       mark: json['mark'],
-      id: json['id'],
       roomLevel: json['roomLevel'],
       roomNumber: json['roomNumber'],
       roomState: json['roomState'],
@@ -99,7 +93,6 @@ class RoomM {
     Map<String, dynamic> room = Map<String, dynamic>();
 
     room["mark"] = this.mark;
-    room["id"] = this.id;
     room["roomLevel"] = this.roomLevel;
     room["roomNumber"] = this.roomNumber;
     room["roomState"] = this.roomState;
