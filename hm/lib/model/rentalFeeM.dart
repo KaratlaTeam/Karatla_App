@@ -1,42 +1,34 @@
 
 import 'package:hm/model/myTimeM.dart';
+import 'package:hm/model/roomM.dart';
 
 
 class FeeM{
   FeeM({
-    this.feeType,
-    this.mark,
     this.payedFee,
-    this.shouldPayFee,
+    this.feeTypeCost,
 });
-  String mark;
-  int shouldPayFee;
-  int payedFee;
-  String feeType;
+  double payedFee;
+  FeeTypeCost feeTypeCost;
 
-  initialize(int shouldPayFee, String feeType, [String mark, int payedFee]){
-    this.shouldPayFee = shouldPayFee;
-    this.feeType = feeType;
+  initialize(FeeTypeCost feeTypeCost, double payedFee){
+    this.feeTypeCost = feeTypeCost;
     payedFee != null ? this.payedFee = payedFee : this.payedFee = 0;
-    mark != null ? this.mark = mark : this.mark = "";
   }
 
   factory FeeM.fromJson(Map<String, dynamic> json){
     return FeeM(
-      feeType: json['feeType'],
-      mark: json['mark'],
       payedFee: json['payedFee'],
-      shouldPayFee: json['shouldPayFee'],
-
+      feeTypeCost: json['feeTypeCost'] != null ? FeeTypeCost.fromJson(json['feeTypeCost']) : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> fee = Map<String, dynamic>();
-    fee["feeType"] = this.feeType;
-    fee["mark"] = this.mark;
     fee["payedFee"] = this.payedFee;
-    fee["shouldPayFee"] = this.shouldPayFee;
+    if (this.feeTypeCost != null) {
+      fee['payedTime'] = this.feeTypeCost.toJson();
+    }
     return fee;
   }
 }
@@ -55,10 +47,10 @@ class RentalFeeM{
 
   String mark;
 
-  initialize(List<FeeM> rentalFee,  MyTimeM shouldPayTime, [MyTimeM payedTime, String mark]){
-    this.rentalFee = rentalFee;
+  initialize(MyTimeM shouldPayTime, [MyTimeM payedTime, List<FeeM> rentalFee, String mark]){
     this.shouldPayTime = shouldPayTime;
     payedTime != null ? this.payedTime = payedTime : this.payedTime = null;
+    rentalFee != null ? this.rentalFee = rentalFee : this.rentalFee = [];
     mark != null ? this.mark = mark : this.mark = "";
   }
 
@@ -78,7 +70,7 @@ class RentalFeeM{
     }
     rentalFee["mark"] = this.mark;
     if (this.shouldPayTime != null) {
-      rentalFee['shouldPayTime'] = this.payedTime.toJson();
+      rentalFee['shouldPayTime'] = this.shouldPayTime.toJson();
     }
     if (this.payedTime != null) {
       rentalFee['payedTime'] = this.payedTime.toJson();

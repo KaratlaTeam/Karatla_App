@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,12 +5,11 @@ import 'package:hm/logic/houseL.dart';
 import 'package:hm/model/houseM.dart';
 import 'package:hm/model/roomM.dart';
 
-class HouseCreateV extends StatefulWidget {
+class AddHouseHolderV extends StatefulWidget{
   @override
-  _HouseCreateVState createState() => _HouseCreateVState();
+  _AddHouseHolderVState createState() => _AddHouseHolderVState();
 }
-class _HouseCreateVState extends State<HouseCreateV>{
-  List<FeeTypeCost> _feeTypeCostList = [];
+class _AddHouseHolderVState extends State<AddHouseHolderV>{
   List<String> _feeTypeList = [];
   String _type = "";
   String _name = "";
@@ -62,7 +60,7 @@ class _HouseCreateVState extends State<HouseCreateV>{
                       _levels--;
                     });
                   }else{
-                    Get.snackbar("提示", "楼房层数不能少于一层。",snackPosition: SnackPosition.BOTTOM);
+                    //Get.snackbar("提示", "楼房层数不能少于一层。",snackPosition: SnackPosition.BOTTOM);
                   }
 
                 })
@@ -88,7 +86,6 @@ class _HouseCreateVState extends State<HouseCreateV>{
                   setState(() {
                     if(_type != ""){
                       _feeTypeList.add(_type);
-                      _feeTypeCostList.add(FeeTypeCost()..initialize(_type, 0.0));
                       _type = "";
                     }
 
@@ -106,17 +103,16 @@ class _HouseCreateVState extends State<HouseCreateV>{
                   crossAxisSpacing: 0.0,
                   mainAxisSpacing: 0.0,
                 ),
-                itemCount: _feeTypeCostList.length,
+                itemCount: _feeTypeList.length,
                 itemBuilder: (context,index){
                   return Container(
                     //color: Colors.red,
                     child: Chip(
-                      label: Text(_feeTypeCostList[index].type),
+                      label: Text(_feeTypeList[index]),
                       deleteIcon: Icon(Icons.delete,size: 20,),
                       deleteIconColor: Colors.red,
                       onDeleted: (){
                         setState(() {
-                          _feeTypeCostList.removeAt(index);
                           _feeTypeList.removeAt(index);
                         });
                       },
@@ -126,30 +122,30 @@ class _HouseCreateVState extends State<HouseCreateV>{
               ),
             ),
             ElevatedButton(child: Text("创建"),onPressed: ()async{
-              if(_name != "" && _name != null && _feeTypeCostList.length > 0){
-                List<RoomM> rooms = [];
-                for(int i = 1; i < _levels+1; i++){
-                  for(int a = 1; a < _levelAndNumber[i]+1; a++){
-                    RoomM room = RoomM()..initialize(i,a, _feeTypeCostList);
-                    rooms.add(room);
-                  }
-                }
-                HouseM house = HouseM()..initialize(this._name, this._feeTypeList, rooms, this._mark);
-                HouseL houseL = Get.find<HouseL>();
-                //print("11");
-                await houseL.addNewHouse(house);
-                Get.back();
-                Get.snackbar("提示", "创建成功。",snackPosition: SnackPosition.BOTTOM);
-              }else{
-                Get.snackbar("提示", "设置不完整。",snackPosition: SnackPosition.BOTTOM);
-              }
+              //if(_name != "" && _name != null && _feeTypeList.length > 0){
+              //  List<RoomM> rooms = [];
+              //  for(int i = 1; i < _levels+1; i++){
+              //    for(int a = 1; a < _levelAndNumber[i]+1; a++){
+              //      RoomM room = RoomM()..initialize(i,a, _feeTypeList);
+              //      rooms.add(room);
+              //    }
+              //  }
+              //  HouseM house = HouseM()..initialize(this._name, this._feeTypeList, rooms, this._mark);
+              //  HouseL houseL = Get.find<HouseL>();
+              //  //print("11");
+              //  await houseL.addNewHouse(house);
+              //  Get.back();
+              //  Get.snackbar("提示", "创建成功。",snackPosition: SnackPosition.BOTTOM);
+              //}else{
+              //  Get.snackbar("提示", "设置不完整。",snackPosition: SnackPosition.BOTTOM);
+              //}
             }, )
           ],
         ),
       ),
     );
   }
-  
+
   List<Widget> _showRooms(){
     List<Widget> rooms = [];
     for(int i = 1; i<_levels+1; i++){
@@ -179,5 +175,4 @@ class _HouseCreateVState extends State<HouseCreateV>{
 
     return rooms;
   }
-
 }

@@ -7,17 +7,20 @@ class RoomL extends GetxController{
   @override
   void onInit() {
     super.onInit();
+    printInfo(info: 'onInit');
     this.roomS = RoomS();
   }
 
   @override
   void onClose() {
     super.onClose();
+    printInfo(info: 'onClose');
     this.roomS = null;
   }
 
   @override
   void onReady() {
+    printInfo(info: 'onReady');
     super.onReady();
   }
 
@@ -25,5 +28,6 @@ class RoomL extends GetxController{
     this.roomS.roomIndex = index;
     update();
   }
+
 
 }

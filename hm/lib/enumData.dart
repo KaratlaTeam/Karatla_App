@@ -1,0 +1,2 @@
+enum RoomState{IN,OUT,OFF,ERROR}
+enum ActionState{START,PROCESS,COMPLETE,SUCCESS,FAIL}

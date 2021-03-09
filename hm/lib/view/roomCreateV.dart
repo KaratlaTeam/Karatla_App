@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:hm/enumData.dart';
 import 'package:hm/logic/houseL.dart';
 import 'package:hm/logic/roomL.dart';
 import 'package:hm/model/houseM.dart';
@@ -34,49 +35,55 @@ class _RoomCreateVState extends State<RoomCreateV> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("添加改变"),
+        title: Text("房间数量修改"),
       ),
       body: Container(
-
-        child: ListView(
-          padding: EdgeInsets.all(20),
-          children: [
-            Row(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("楼层选择:   "),
-                DropdownButton<int>(
-                  value: _levelInt,
-                  elevation: 16,
-                  onChanged: (int newValue) {
-                    setState(() {
-                      _levelInt = newValue;
-                    });
-                  },
-                  items: levelAmount(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("楼层选择:   "),
+                    DropdownButton<int>(
+                      value: _levelInt,
+                      elevation: 16,
+                      onChanged: (int newValue) {
+                        setState(() {
+                          _levelInt = newValue;
+                        });
+                      },
+                      items: levelAmount(),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    ElevatedButton(child: Text("添加"), onPressed: () async{
+                      ActionState backState = await Get.find<HouseL>().addRoom(_levelInt, _houseM);
+                      if(backState == ActionState.SUCCESS) {
+                        Get.back();
+                        Get.snackbar("提示", "添加成功。",snackPosition: SnackPosition.BOTTOM);
+                      }
+
+                    },),
+
+                    ElevatedButton(child: Text("减少"), onPressed: () async{
+                      ActionState backState = await Get.find<HouseL>().deleteRoom(_levelInt, _houseM);
+                      if(backState == ActionState.SUCCESS){
+                        Get.back();
+                        Get.snackbar("提示", "添加成功。",snackPosition: SnackPosition.BOTTOM);
+                      }else{
+                        Get.snackbar("提示", "减少失败。",snackPosition: SnackPosition.BOTTOM);
+                      }
+
+
+                    },),
+                  ],
                 ),
               ],
             ),
-            Row(
-              children: [
-                TextButton(child: Text("添加"), onPressed: () async{
-                  String back = await Get.find<HouseL>().addRoom(_levelInt, _houseM);
-                  Get.back();
-                  Get.snackbar("提示", "添加$back。",snackPosition: SnackPosition.BOTTOM);
-                },),
-
-                TextButton(child: Text("减少"), onPressed: () async{
-                  String back = await Get.find<HouseL>().deleteRoom(_levelInt, _houseM);
-                  if(back == '成功'){
-                    Get.back();
-                  }else{
-
-                  }
-                  Get.snackbar("提示", "减少$back。",snackPosition: SnackPosition.BOTTOM);
-
-                },),
-              ],
-            ),
-          ],
         ),
       ),
     );

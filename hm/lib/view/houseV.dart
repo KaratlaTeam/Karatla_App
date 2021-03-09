@@ -30,48 +30,46 @@ class _HouseVState extends State<HouseV>{
           itemCount: _.houseState.housesM.houseList.length,
           itemBuilder: (context, index){
             return Container(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child:  ListTile(
-                //leading: Icon(Icons.house,color: Colors.black,),
-                title: Text(_.houseState.housesM.houseList[index].houseName),
-                //subtitle: ListTile(
-                //  title: Row(
-                //    children: [
-                //      Flexible(
-                //        fit: FlexFit.tight,
-                //        flex: 1,
-                //        child: Row(children: [
-                //          Icon(Icons.house,size: 20,),Text('2122222222222222222222222'),
-                //        ],),
-                //      ),
-                //      Flexible(
-                //        fit: FlexFit.tight,
-                //        flex: 1,
-                //        child: Row(children: [
-                //          Icon(CupertinoIcons.wand_rays, size: 20,),Text('21'),
-                //        ],),
-                //      ),
-                //      Flexible(
-                //        fit: FlexFit.tight,
-                //        flex: 1,
-                //        child: Row(children: [
-                //          Icon(Icons.house,size: 20,),Text('21'),
-                //        ],),
-                //      ),
-                //      Flexible(
-                //        fit: FlexFit.tight,
-                //        flex: 1,
-                //        child: Row(children: [
-                //          Icon(Icons.house,size: 20,),Text('21'),
-                //        ],),
-                //      ),
-                //    ],
-                //  ),
-                //),
-                onTap: (){
-                  _.setHouseIndex(index);
-                  Get.toNamed(RN.room);
-                },
+              child: Card(
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(4.0))),
+                margin: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                //elevation: 0,
+                child: InkWell(
+                  child: Container(
+                    //height: 300,
+                    padding: EdgeInsets.all(5),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: Text(_.houseState.housesM.houseList[index].houseName),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Row(children: [
+                              Icon(Icons.house),
+                              Text("${_.houseState.housesM.houseList[index].roomList.length}"),
+                            ],),
+                            Row(children: [
+                              Icon(Icons.people),
+                              Text("10"),
+                            ],),
+                            Row(children: [
+                              Icon(CupertinoIcons.money_yen),
+                              Text("50000"),
+                            ],),
+
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  onTap: (){
+                    _.setHouseIndex(index);
+                    Get.toNamed(RN.room);
+                  },
+                ),
               ),
             );
 

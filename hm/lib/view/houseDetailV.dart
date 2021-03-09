@@ -19,14 +19,14 @@ class HouseDetailV extends StatelessWidget{
         title: Text("房屋详情"),
       ),
       body: Center(
-        child: ListView(
-          padding: EdgeInsets.all(50),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(child: Text("房屋名称:  ${_houseM.houseName}"),alignment: Alignment.centerLeft,),
-            Container(child: Row(children: showFeeTypeList()),alignment: Alignment.centerLeft,),
-            Container(child: Text("房屋层数:  ${MyFunctions().getHouseHighestLevels(_houseM)}"),alignment: Alignment.centerLeft,),
-            Container(child: Text("房间数量:  ${_houseM.roomList.length}"),alignment: Alignment.centerLeft,),
-            Container(child: Text("房屋备注:  ${_houseM.mark}"),alignment: Alignment.centerLeft,),
+            Container(child: Text("房屋名称:  ${_houseM.houseName}"),),
+            Container(child: Row(children: showFeeTypeList(),mainAxisAlignment: MainAxisAlignment.center,),),
+            Container(child: Text("房屋层数:  ${MyFunctions().getHouseHighestLevels(_houseM)}"),),
+            Container(child: Text("房间数量:  ${_houseM.roomList.length}"),),
+            Container(child: Text("房屋备注:  ${_houseM.mark}"),),
           ],
         ),
       ),
@@ -34,8 +34,7 @@ class HouseDetailV extends StatelessWidget{
         child: Icon(Icons.delete),
         onPressed: (){
           Get.defaultDialog(
-            title: "警告！",
-            middleText: "是否要删除",
+            middleText: "是否要删除?",
             //onConfirm: (){
             //  Get.find<HouseL>().deleteHouse(Get.find<HouseL>().houseState.houseIndex);
             //  Get.back();
@@ -43,14 +42,14 @@ class HouseDetailV extends StatelessWidget{
             //onCancel: (){
             //  Get.back();
             //}
-            confirm: TextButton(
+            confirm: ElevatedButton(
               child: Text("确认"),
               onPressed: (){
                 Get.find<HouseL>().deleteHouse(Get.find<HouseL>().houseState.houseIndex);
                 Get.offAllNamed(RN.home);
               },
             ),
-            cancel: TextButton(
+            cancel: ElevatedButton(
               child: Text("取消"),
               onPressed: (){
                 Get.back();

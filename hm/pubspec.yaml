@@ -31,6 +31,7 @@ dependencies:
   flutter_tencent_ocr: ^0.1.2
   get: ^3.26.0
   shared_preferences: ^2.0.3
+  #get_storage: ^1.4.0
 
 dev_dependencies:
   flutter_test:

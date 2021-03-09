@@ -6,10 +6,8 @@ import 'package:hm/main.dart';
 class HomeBinding implements Bindings{
   @override
   void dependencies() {
-    Get.putAsync(()async{
-      HouseL houseLogic = HouseL();
-      return houseLogic;
-    });
+    printInfo(info: 'HomeBinding called');
+    Get.put(HouseL());
   }
 
 }
@@ -17,6 +15,7 @@ class HomeBinding implements Bindings{
 class HouseBinding implements Bindings{
   @override
   void dependencies() {
+    printInfo(info: 'HouseBinding called');
     // TODO: implement dependencies
   }
 }
@@ -24,6 +23,7 @@ class HouseBinding implements Bindings{
 class RoomBinding implements Bindings{
   @override
   void dependencies() {
+    printInfo(info: 'RoomBinding called');
     Get.put(RoomL());
   }
 }

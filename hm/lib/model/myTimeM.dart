@@ -43,4 +43,10 @@ class MyTimeM {
     return myTime;
   }
 
+  @override
+  String toString() {
+    // TODO: implement toString
+    return '$year-$month-$day $hour:$minute:$second';
+  }
+
 }
