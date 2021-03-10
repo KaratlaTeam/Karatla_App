@@ -155,7 +155,8 @@ class HouseL extends GetxController{
     update();
   }
 
-  updateFeeTypeCostList(List<FeeTypeCost> feeTypeCostList, int roomIndex)async{
+  updateFeeTypeCostList(List<FeeTypeCost> feeTypeCostList, int roomIndex, String mark)async{
+    getRoom(roomIndex).mark = mark;
     getRoom(roomIndex).feeTypeCostList = feeTypeCostList;
     await setSharedPHouseList();
     update();
@@ -166,7 +167,9 @@ class HouseL extends GetxController{
       var room = getRoom(index);
       CheckTimeM checkTimeM = CheckTimeM()..initialize(roomState, myTimeM, mark ?? '');
       room.roomState = roomState;
+      room.checkTime = room.checkTime.reversed.toList();
       room.checkTime.add(checkTimeM);
+      room.checkTime = room.checkTime.reversed.toList();
       await setSharedPHouseList();
       update();
       return 'ok';
@@ -174,19 +177,27 @@ class HouseL extends GetxController{
       printError(info: e.toString());
       return 'no';
     }
-
   }
 
-  addRentalFee(int index, MyTimeM shouldPay)async{
-    RentalFeeM rentalFeeM = RentalFeeM()..initialize(shouldPay);
-    getRoom(index).rentalFee.add(rentalFeeM);
+  addRentalFee(int index, MyTimeM shouldPay, MyTimeM payedTime, List<FeeM> listFeeM, String mark)async{
+    RentalFeeM rentalFeeM = RentalFeeM()..initialize(shouldPay, payedTime, listFeeM, mark);
+    var room = getRoom(index);
+    room.rentalFee = room.rentalFee.reversed.toList();
+    room.rentalFee.add(rentalFeeM);
+    room.rentalFee = room.rentalFee.reversed.toList();
     await setSharedPHouseList();
     update();
   }
 
-  rentalFeeEdit(int roomIndex, int rentalFeeIndex, List<FeeM> feeMList, MyTimeM shouldPay, MyTimeM payedTime, String mark)async{
-    RentalFeeM rentalFeeM = RentalFeeM()..initialize(shouldPay, payedTime, feeMList, mark??'');
-    getRoom(roomIndex).rentalFee[rentalFeeIndex] = rentalFeeM;
+  updateRentalFee(int indexOfChange,int index, MyTimeM shouldPay, MyTimeM payedTime, List<FeeM> listFeeM, String mark)async{
+    RentalFeeM rentalFeeM = RentalFeeM()..initialize(shouldPay, payedTime, listFeeM, mark);
+    getRoom(index).rentalFee[indexOfChange] = rentalFeeM;
+    await setSharedPHouseList();
+    update();
+  }
+
+  deleteRentalFee(int roomIndex, int deleteIndex)async{
+    getRoom(roomIndex).rentalFee.removeAt(deleteIndex);
     await setSharedPHouseList();
     update();
   }

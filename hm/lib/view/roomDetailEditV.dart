@@ -16,8 +16,8 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
    HouseM _houseM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex];
    List<FeeTypeCost> _feeTypeCostList = [];
 
-  String _type = "";
-  String _mark = "";
+   String _mark = "";
+   String _type = "";
 
 
   @override
@@ -40,12 +40,12 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
         title: Text('${_roomM.roomLevel}0${_roomM.roomNumber}编辑',style: TextStyle(color: Colors.white),),
       ),
       body: Container(
-        padding: EdgeInsets.all(10),
         child: ListView(
+          padding: EdgeInsets.all(10),
           children: [
             TextField(
               decoration: InputDecoration(
-                labelText: "房子备注",
+                labelText: "房间备注",
               ),
               onChanged: (String text){
                 this._mark = text;
@@ -76,64 +76,12 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
                 }),
               ],
             ),
-            Container(
-              height: 250,
-              //padding: EdgeInsets.all(5),
-              child: ListView.builder(
-                itemCount: _feeTypeCostList.length,
-                itemBuilder: (context,index){
-                  return Container(
-                    child: Row(
-                      children: [
-                        Container(
-                          child: Expanded(
-                            child: TextField(
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(RegExp('[0-9.]'))
-                              ],
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: _feeTypeCostList[index].type+': '+_feeTypeCostList[index].cost.toString()+' 元',
-                              ),
-                              onChanged: (String text){
-                                if(text != '' || text != null ){
-                                  int i = 0;
-                                  var b = text;
-                                  for(var a in b.characters){
-                                    a == '.' ? i++ : i=i;
-                                  }
-                                  if(i > 1 || text == '.'){
-                                    Get.snackbar('提示', '格式错误', snackPosition: SnackPosition.BOTTOM);
-                                  }else{
-                                    try{
-                                      var a = double.parse(text);
-                                      _feeTypeCostList[index].cost = a;
-                                    }catch(e){
-                                      printError(info: e.toString());
-                                      _feeTypeCostList[index].cost = 0.0;
-                                    }
-
-                                  }
-                                  i = 0;
-                                }
-                              },
-                            ),
-                          ),
-                        ),
-                        ElevatedButton(child: Text("删除"),onPressed: (){
-                          setState(() {
-                            _feeTypeCostList.removeAt(index);
-                          });
-                        }),
-                      ],
-                    ),
-                  );
-                },
-              ),
+            Column(
+              children: _showPayTextFiled(),
             ),
             ElevatedButton(child: Text("更新"),onPressed: ()async{
               if(_feeTypeCostList.length > 0){
-                Get.find<HouseL>().updateFeeTypeCostList(_feeTypeCostList, Get.find<RoomL>().roomS.roomIndex);
+                Get.find<HouseL>().updateFeeTypeCostList(_feeTypeCostList, Get.find<RoomL>().roomS.roomIndex, _mark);
                 Get.back();
                 Get.snackbar("提示", "更新成功！", snackPosition: SnackPosition.BOTTOM);
               }
@@ -144,5 +92,60 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
       ),
     );
   }
+
+   List<Widget> _showPayTextFiled(){
+     List<Widget> widgets = [];
+     for(int index = 0; index < _feeTypeCostList.length; index++){
+       Widget widget = Container(
+         child: Row(
+           children: [
+             Container(
+               child: Expanded(
+                 child: TextField(
+                   inputFormatters: [
+                     FilteringTextInputFormatter.allow(RegExp('[0-9.]'))
+                   ],
+                   keyboardType: TextInputType.number,
+                   decoration: InputDecoration(
+                     labelText: _feeTypeCostList[index].type+': '+_feeTypeCostList[index].cost.toString()+' 元',
+                   ),
+                   onChanged: (String text){
+                     if(text != '' || text != null ){
+                       int i = 0;
+                       var b = text;
+                       for(var a in b.characters){
+                         a == '.' ? i++ : i=i;
+                       }
+                       if(i > 1 || text == '.'){
+                         Get.snackbar('提示', '格式错误', snackPosition: SnackPosition.BOTTOM);
+                       }else{
+                         try{
+                           var a = double.parse(text);
+                           _feeTypeCostList[index].cost = a;
+                         }catch(e){
+                           printError(info: e.toString());
+                           _feeTypeCostList[index].cost = 0.0;
+                         }
+
+                       }
+                       i = 0;
+                     }
+                   },
+                 ),
+               ),
+             ),
+             ElevatedButton(child: Text("删除"),onPressed: (){
+               setState(() {
+                 _feeTypeCostList.removeAt(index);
+               });
+             }),
+           ],
+         ),
+       );
+       widgets.add(widget);
+     }
+
+     return widgets;
+   }
 
 }

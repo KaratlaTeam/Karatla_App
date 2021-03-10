@@ -95,7 +95,7 @@ class MyApp extends StatelessWidget {
       GetPage(name: RN.addHouseHolder, page: () => AddHouseHolderV(),),
       GetPage(name: RN.addRentalFee, page: () => AddRentalFeeV(),),
 
-      GetPage(name: RN.addRentalFee, page: () => RentalFeeEditV(),),
+      GetPage(name: RN.rentalFeeEdit, page: () => RentalFeeEditV(),),
     ];
     return _pageList;
   }

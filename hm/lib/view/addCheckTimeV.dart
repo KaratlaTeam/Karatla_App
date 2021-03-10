@@ -25,12 +25,12 @@ class _AddCheckTimeVState extends State<AddCheckTimeV>{
         title: Text("状态记录"),
       ),
       body: Container(
-        padding: EdgeInsets.all(10),
         child: ListView(
+          padding: EdgeInsets.all(10),
           children: [
             TextField(
               decoration: InputDecoration(
-                labelText: "备注",
+                labelText: "状态备注",
               ),
               onChanged: (String text){
                 this._mark = text;

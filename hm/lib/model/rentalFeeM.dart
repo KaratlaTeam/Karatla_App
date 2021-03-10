@@ -7,18 +7,22 @@ class FeeM{
   FeeM({
     this.payedFee,
     this.feeTypeCost,
+    this.amount,
 });
   double payedFee;
   FeeTypeCost feeTypeCost;
+  int amount;
 
-  initialize(FeeTypeCost feeTypeCost, double payedFee){
+  initialize(FeeTypeCost feeTypeCost, double payedFee, int amount){
     this.feeTypeCost = feeTypeCost;
+    amount == null ? this.amount = 1 : this.amount = amount;
     payedFee != null ? this.payedFee = payedFee : this.payedFee = 0;
   }
 
   factory FeeM.fromJson(Map<String, dynamic> json){
     return FeeM(
       payedFee: json['payedFee'],
+      amount: json['amount'],
       feeTypeCost: json['feeTypeCost'] != null ? FeeTypeCost.fromJson(json['feeTypeCost']) : null,
     );
   }
@@ -26,8 +30,9 @@ class FeeM{
   Map<String, dynamic> toJson() {
     Map<String, dynamic> fee = Map<String, dynamic>();
     fee["payedFee"] = this.payedFee;
+    fee['amount'] = this.amount;
     if (this.feeTypeCost != null) {
-      fee['payedTime'] = this.feeTypeCost.toJson();
+      fee['feeTypeCost'] = this.feeTypeCost.toJson();
     }
     return fee;
   }

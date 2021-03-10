@@ -79,10 +79,8 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
         controller: _tabController,
         children: <Widget>[
           ListView.builder(
-            //padding: EdgeInsets.all(20),
             itemCount: _roomM.rentalFee.length,
             itemBuilder: (BuildContext context, int index){
-
               return Container(
                 margin: EdgeInsets.only(bottom: 10),
                 child: Card(
@@ -96,7 +94,7 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
                       });
                     },
                     onLongPress: (){
-
+                      Get.toNamed(RN.rentalFeeEdit, arguments: index);
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 5),
@@ -105,13 +103,13 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
                           ListTile(
                             horizontalTitleGap: 0,
                             leading: Icon(CupertinoIcons.money_yen,color: _getColor(index)),
-                            title: Text(_roomM.rentalFee[index].payedTime.toString()),
+                            title: Text(_roomM.rentalFee[index].payedTime == null ? '未付款' : _roomM.rentalFee[index].payedTime.toString()),
                             subtitle: Text(_roomM.rentalFee[index].shouldPayTime.toString()),
                             trailing: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(_getPayedAmount(index).toString()),
-                                Text(_getShouldPayAmount().toString(),style: TextStyle(fontSize: 13, color: Colors.grey),),
+                                Text(_getShouldPayAmount(index).toString(),style: TextStyle(fontSize: 13, color: Colors.grey),),
                               ],
                             ),
                           ),
@@ -200,7 +198,7 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(a.payedFee.toString()),
-            Text(a.feeTypeCost.cost.toString(),style: TextStyle(fontSize: 13, color: Colors.grey),),
+            Text((a.feeTypeCost.cost*a.amount).toString(),style: TextStyle(fontSize: 13, color: Colors.grey),),
           ],
         ),
       );
@@ -209,8 +207,8 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
     ListTile listTileLast = ListTile(
       dense: true,
       minVerticalPadding: 0,
-      trailing: Text("${_getPayedAmount(index)-_getShouldPayAmount()}",style: TextStyle(color: _getColor(index)),),
-      title: Text("结算"),
+      trailing: Text("${_getPayedAmount(index)-_getShouldPayAmount(index)}",style: TextStyle(color: _getColor(index)),),
+      title: Text("结算(元)"),
       leading: Icon(Icons.add,color: Colors.transparent,),
     );
     widgets.add(listTileLast);
@@ -222,10 +220,10 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
     return widgets;
   }
 
-  double _getShouldPayAmount(){
+  double _getShouldPayAmount(int index){
     double amount = 0;
-    for(var a in _roomM.feeTypeCostList){
-      amount+=a.cost;
+    for(var a in _roomM.rentalFee[index].rentalFee){
+      amount+=(a.amount*a.feeTypeCost.cost);
     }
     return amount;
   }
@@ -238,7 +236,7 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
   }
   Color _getColor(int index){
     Color color ;
-    _getPayedAmount(index) < _getShouldPayAmount() ? color = Colors.green : color = Colors.red;
+    _getPayedAmount(index) < _getShouldPayAmount(index) ? color = Colors.red : color = Colors.green;
 
     return color;
   }

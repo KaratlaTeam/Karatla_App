@@ -6,10 +6,12 @@ import 'package:hm/logic/houseL.dart';
 import 'package:hm/logic/roomL.dart';
 import 'package:hm/main.dart';
 import 'package:hm/model/houseM.dart';
+import 'package:hm/model/roomM.dart';
 
 class RoomV extends StatelessWidget{
 
   final HouseM _houseM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex];
+
 
   @override
   Widget build(BuildContext context) {
