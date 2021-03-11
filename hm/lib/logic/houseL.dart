@@ -210,8 +210,8 @@ class HouseL extends GetxController{
     update();
   }
 
-  addHouseHolder(int roomIndex, MyTimeM checkInDate, String name, String idNum, String sex, MyTimeM checkOutDate, String nation, String address, String mark)async{
-    HouseholderM householderM = HouseholderM()..initialize(checkInDate, name, idNum, sex, checkOutDate, nation, address, mark);
+  addHouseHolder(int roomIndex, MyTimeM checkInDate, String name, String idNum, String sex, MyTimeM checkOutDate, String nation, String birth, String address, String mark)async{
+    HouseholderM householderM = HouseholderM()..initialize(checkInDate, name, idNum, sex, checkOutDate, nation, birth, address, mark);
     var room = getRoom(roomIndex);
     room.householderList = room.householderList.reversed.toList();
     room.householderList.add(householderM);

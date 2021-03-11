@@ -161,7 +161,7 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
                 : Image.file(_image),
             ElevatedButton(child: Text("创建"),onPressed: ()async{
               if(_checkInDate != null && _name != null && _idNum != null && _sex != null ){
-                Get.find<HouseL>().addHouseHolder(Get.find<RoomL>().roomS.roomIndex, _checkInDate, _name, _idNum, _sex, _checkOutDate, _nation, _address, _mark);
+                Get.find<HouseL>().addHouseHolder(Get.find<RoomL>().roomS.roomIndex, _checkInDate, _name, _idNum, _sex, _checkOutDate, _nation, _birth, _address, _mark);
                 Get.back();
                 Get.snackbar("提示", "添加成功。",snackPosition: SnackPosition.BOTTOM);
               }else{
@@ -239,18 +239,23 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
           //imageBase64: base64Encode(imageBytes.buffer.asUint8List())),
           imageBase64: base64Encode(uint8list),),
     ).then((onValue) {
-      setState(() {
-        _name = onValue.name;
-        _sex = onValue.sex;
-        _nation = onValue.nation;
-        _address = onValue.address;
-        _birth = onValue.birth;
-        _idNum = onValue.idNum;
+      if(onValue.error != null){
+        Get.snackbar('提示', '扫描失败', snackPosition: SnackPosition.BOTTOM);
+      }else{
+        setState(() {
+          _name = onValue.name;
+          _sex = onValue.sex;
+          _nation = onValue.nation;
+          _address = onValue.address;
+          _birth = onValue.birth;
+          _idNum = onValue.idNum;
 
-        _scanMessage = onValue.toString();
-        print(_scanMessage);
-        Get.snackbar('提示', '扫描成功', snackPosition: SnackPosition.BOTTOM);
-      });
+          _scanMessage = onValue.toString();
+          print(_scanMessage);
+          Get.snackbar('提示', '扫描成功', snackPosition: SnackPosition.BOTTOM);
+        });
+      }
+
     }).catchError(
           (error) {
         setState(() {
