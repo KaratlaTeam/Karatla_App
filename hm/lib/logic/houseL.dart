@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hm/enumData.dart';
 import 'package:hm/model/houseM.dart';
+import 'package:hm/model/householderM.dart';
 import 'package:hm/model/myTimeM.dart';
 import 'package:hm/model/rentalFeeM.dart';
 import 'package:hm/model/roomM.dart';
@@ -62,31 +64,6 @@ class HouseL extends GetxController{
     update();
   }
 
-  Future<ActionState> addRoom(int level, HouseM houseM)async{
-    Map<int, int> m = MyFunctions().getRoomsPerLevelMap(houseM);
-    int roomNumber = m[level]+1;
-    getHouse().roomList.add(RoomM(roomLevel: level, roomNumber: roomNumber));
-    await setSharedPHouseList();
-    update();
-    return ActionState.SUCCESS;
-  }
-
-  Future<ActionState> deleteRoom(int level, HouseM houseM)async{
-    Map<int, int> m = MyFunctions().getRoomsPerLevelMap(houseM);
-    int roomNumber = 0;
-    for(int i = 1; i < level+1; i++){
-      print(m[i]);
-      roomNumber = m[i] + roomNumber;
-    }
-    if(m[level] > 1){
-      getHouse().roomList.removeAt(roomNumber-1);
-      await setSharedPHouseList();
-      update();
-      return ActionState.SUCCESS;
-    }else{
-      return ActionState.FAIL;
-    }
-  }
 
   changeActionState(){
     if(this.houseState.actionState == null){
@@ -100,6 +77,7 @@ class HouseL extends GetxController{
     }
     update();
   }
+
 
   backupData()async{
     try{
@@ -134,6 +112,36 @@ class HouseL extends GetxController{
     }
     changeActionState();
     update();
+  }
+
+  Future<ActionState> addRoom(int level, HouseM houseM)async{
+    List<FeeTypeCost> listFeeTypeCost = [];
+    for(var a in houseM.feeTypeList){
+      listFeeTypeCost.add(FeeTypeCost()..initialize(a, 0.0));
+    }
+    Map<int, int> m = MyFunctions().getRoomsPerLevelMap(houseM);
+    int roomNumber = m[level]+1;
+    getHouse().roomList.add(RoomM()..initialize(level, roomNumber, listFeeTypeCost));
+    await setSharedPHouseList();
+    update();
+    return ActionState.SUCCESS;
+  }
+
+  Future<ActionState> deleteRoom(int level, HouseM houseM)async{
+    Map<int, int> m = MyFunctions().getRoomsPerLevelMap(houseM);
+    int roomNumber = 0;
+    for(int i = 1; i < level+1; i++){
+      print(m[i]);
+      roomNumber = m[i] + roomNumber;
+    }
+    if(m[level] > 1){
+      getHouse().roomList.removeAt(roomNumber-1);
+      await setSharedPHouseList();
+      update();
+      return ActionState.SUCCESS;
+    }else{
+      return ActionState.FAIL;
+    }
   }
 
 
@@ -198,6 +206,26 @@ class HouseL extends GetxController{
 
   deleteRentalFee(int roomIndex, int deleteIndex)async{
     getRoom(roomIndex).rentalFee.removeAt(deleteIndex);
+    await setSharedPHouseList();
+    update();
+  }
+
+  addHouseHolder(int roomIndex, MyTimeM checkInDate, String name, String idNum, String sex, MyTimeM checkOutDate, String nation, String address, String mark)async{
+    HouseholderM householderM = HouseholderM()..initialize(checkInDate, name, idNum, sex, checkOutDate, nation, address, mark);
+    var room = getRoom(roomIndex);
+    room.householderList = room.householderList.reversed.toList();
+    room.householderList.add(householderM);
+    room.householderList = room.householderList.reversed.toList();
+    await setSharedPHouseList();
+    update();
+  }
+
+  deleteHouseHolder()async{
+    await setSharedPHouseList();
+    update();
+  }
+
+  updateHouseHolder()async{
     await setSharedPHouseList();
     update();
   }

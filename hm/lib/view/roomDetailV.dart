@@ -153,7 +153,7 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
           ),
           ListView.builder(
             //padding: EdgeInsets.all(20),
-            itemCount: 5,
+            itemCount: _roomM.householderList.length,
             itemBuilder: (BuildContext context, int index){
               return Container(
                 //margin: EdgeInsets.only(bottom: 10),
@@ -161,10 +161,9 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
                   elevation: 0,
                   child: ListTile(
                     horizontalTitleGap: 0,
-                    leading: Icon(Icons.person, color: Colors.green,),
-                    title: Text('大花'),
-                    subtitle: Text('男'),
-                    trailing: Text("65010219900215105"),
+                    leading: Icon(Icons.person, color: _roomM.householderList[index].checkOutDate == null ? Colors.green : Colors.grey),
+                    title: Text(_roomM.householderList[index].name),
+                    trailing: Text(_roomM.householderList[index].idNum),
                     onTap: (){
 
                     },

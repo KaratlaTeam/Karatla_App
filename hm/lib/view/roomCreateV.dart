@@ -69,14 +69,25 @@ class _RoomCreateVState extends State<RoomCreateV> {
 
                     },),
 
-                    ElevatedButton(child: Text("减少"), onPressed: () async{
-                      ActionState backState = await Get.find<HouseL>().deleteRoom(_levelInt, _houseM);
-                      if(backState == ActionState.SUCCESS){
-                        Get.back();
-                        Get.snackbar("提示", "添加成功。",snackPosition: SnackPosition.BOTTOM);
-                      }else{
-                        Get.snackbar("提示", "减少失败。",snackPosition: SnackPosition.BOTTOM);
-                      }
+                    ElevatedButton(child: Text("减少"), onPressed: () {
+                      Get.defaultDialog(
+                        middleText: '减少将会删除当前楼层最后一间房的所有数据并且无法恢复，建议提前备份，确认要减少吗？',
+                        onConfirm: ()async{
+                          ActionState backState = await Get.find<HouseL>().deleteRoom(_levelInt, _houseM);
+                          if(backState == ActionState.SUCCESS){
+                            Get.back();
+                            Get.back();
+                            Get.snackbar("提示", "减少成功。",snackPosition: SnackPosition.BOTTOM);
+                          }else{
+                            Get.back();
+                            Get.snackbar("提示", "减少失败。",snackPosition: SnackPosition.BOTTOM);
+                          }
+                        },
+                        onCancel: (){
+
+                        },
+
+                      );
 
 
                     },),

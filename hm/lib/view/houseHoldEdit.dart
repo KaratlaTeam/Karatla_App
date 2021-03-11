@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,16 +9,12 @@ import 'package:get/get.dart';
 import 'package:hm/logic/houseL.dart';
 import 'package:hm/logic/roomL.dart';
 import 'package:hm/model/myTimeM.dart';
-import 'package:image_picker/image_picker.dart';
 
-class AddHouseHolderV extends StatefulWidget{
+class EditHouseHolderV extends StatefulWidget{
   @override
-  _AddHouseHolderVState createState() => _AddHouseHolderVState();
+  _EditHouseHolderVState createState() => _EditHouseHolderVState();
 }
-class _AddHouseHolderVState extends State<AddHouseHolderV>{
-
-  File _image;
-  final picker = ImagePicker();
+class _EditHouseHolderVState extends State<EditHouseHolderV>{
 
   String _scanMessage = '';
   String _name ;
@@ -46,7 +40,6 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
           padding: EdgeInsets.all(10),
           children: [
             TextField(
-              controller: TextEditingController(text: _name ?? ''),
               decoration: InputDecoration(
                 labelText: "*姓名",
               ),
@@ -55,7 +48,6 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
               },
             ),
             TextField(
-              controller: TextEditingController(text: _sex ?? ''),
               decoration: InputDecoration(
                 labelText: "*性别",
               ),
@@ -63,8 +55,8 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
                 this._sex = text;
               },
             ),
+
             TextField(
-              controller: TextEditingController(text: _idNum ?? ''),
               decoration: InputDecoration(
                 labelText: "*身份证号",
               ),
@@ -73,7 +65,6 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
               },
             ),
             TextField(
-              controller: TextEditingController(text: _nation ?? ''),
               decoration: InputDecoration(
                 labelText: "族别",
               ),
@@ -82,7 +73,6 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
               },
             ),
             TextField(
-              controller: TextEditingController(text: _birth ?? ''),
               decoration: InputDecoration(
                 labelText: "出生日期",
               ),
@@ -91,7 +81,6 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
               },
             ),
             TextField(
-              controller: TextEditingController(text: _address ?? ''),
               decoration: InputDecoration(
                 labelText: "住址",
               ),
@@ -156,9 +145,6 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
                 child: Text("添加"),
               ),
             ),
-            _image == null
-                ? Text('未扫描身份证')
-                : Image.file(_image),
             ElevatedButton(child: Text("创建"),onPressed: ()async{
               if(_checkInDate != null && _name != null && _idNum != null && _sex != null ){
                 Get.find<HouseL>().addHouseHolder(Get.find<RoomL>().roomS.roomIndex, _checkInDate, _name, _idNum, _sex, _checkOutDate, _nation, _address, _mark);
@@ -169,32 +155,8 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
               }
             },
             ),
-            ElevatedButton(child: Text("扫描身份证"),onPressed: ()async{
-              Get.bottomSheet(
-                Container(
-                  child: Wrap(
-                    children: <Widget>[
-                      ListTile(
-                        leading: Icon(Icons.camera_alt, color: Colors.blue,),
-                        title: Text('相机'),
-                        onTap: () async{
-                          Get.back();
-                          await _getImageByOpenCamera();
-                        },
-                      ),
-                      ListTile(
-                          leading: Icon(CupertinoIcons.folder_fill,color: Colors.blue,),
-                          title: Text('文件'),
-                          onTap: () async{
-                            Get.back();
-                            await _getImageByOpenFile();
-                          }
-                      ),
-                    ],
-                  ),
-                ),
-                backgroundColor: Colors.white,
-              );
+            ElevatedButton(child: Text("扫描身份证"),onPressed: (){
+
             },),
           ],
         ),
@@ -202,60 +164,26 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
     );
   }
 
-  Future _getImageByOpenCamera() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
-    if (pickedFile != null) {
-      _image = File(pickedFile.path);
-      Uint8List uint8list = await _image.readAsBytes();
-      await _idCardOCR(uint8list);
-    } else {
-      print('No image selected.');
-    }
-    setState(() {});
-  }
-
-  Future _getImageByOpenFile() async {
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      _image = File(pickedFile.path);
-      Uint8List uint8list = await _image.readAsBytes();
-      await _idCardOCR(uint8list);
-    } else {
-      print('No image selected.');
-    }
-    setState(() {});
-  }
-
-  Future _idCardOCR(Uint8List uint8list) async {
+  Future idCardOCR() async {
     const String secretId = "AKIDsXt8brSb9RUFjzviBkFUTBra2E9xqb3E";
     const String secretKey = "81dy1wa4HI4crpZ2FBRRAcoHwOZaL5ao";
-    //final ByteData imageBytes = await rootBundle.load(path);
+    final ByteData imageBytes = await rootBundle.load('assets/images/test.jpeg');
 
     FlutterTencentOcr.iDCardOCR(
       secretId,
       secretKey,
       IDCardOCRRequest.fromParams(
           config: IDCardOCRConfig.fromParams(reshootWarn: true),
-          //imageBase64: base64Encode(imageBytes.buffer.asUint8List())),
-          imageBase64: base64Encode(uint8list),),
+          imageBase64: base64Encode(imageBytes.buffer.asUint8List())),
     ).then((onValue) {
       setState(() {
-        _name = onValue.name;
-        _sex = onValue.sex;
-        _nation = onValue.nation;
-        _address = onValue.address;
-        _birth = onValue.birth;
-        _idNum = onValue.idNum;
-
         _scanMessage = onValue.toString();
         print(_scanMessage);
-        Get.snackbar('提示', '扫描成功', snackPosition: SnackPosition.BOTTOM);
       });
     }).catchError(
           (error) {
         setState(() {
           _scanMessage = error;
-          Get.snackbar('提示', '扫描失败', snackPosition: SnackPosition.BOTTOM);
         });
       },
     );

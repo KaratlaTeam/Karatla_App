@@ -1,3 +1,5 @@
+import 'package:hm/model/myTimeM.dart';
+
 class HouseholderM{
   HouseholderM({
     this.mark,
@@ -7,21 +9,29 @@ class HouseholderM{
     this.birth,
     this.nation,
     this.name,
+    this.checkOutDate,
+    this.checkInDate,
 });
   String name, sex, nation, birth, address, idNum, mark;
+  MyTimeM checkInDate;
+  MyTimeM checkOutDate;
 
-  initialize(String name, [String sex, String nation, String birth, String address, String idNum, String mark]){
+  initialize(MyTimeM checkInDate,  String name, String idNum, String sex, [ MyTimeM checkOutDate, String nation, String birth, String address, String mark]){
     this.name = name;
-    sex != null ? this.sex = sex : this.sex = "";
+    this.sex = sex ;
+    this.idNum = idNum;
+    this.checkInDate = checkInDate;
+    this.checkOutDate = checkOutDate;
     nation != null ? this.nation = nation : this.nation = "";
     birth != null ? this.birth = birth : this.birth = "";
     address != null ? this.address = address : this.address = "";
-    idNum != null ? this.idNum = idNum : this.idNum = "";
     mark != null ? this.mark = mark : this.mark = "";
   }
 
   factory HouseholderM.fromJson(Map<String, dynamic> json){
     return HouseholderM(
+      checkInDate: json['checkInDate'] != null ? MyTimeM.fromJson(json['checkInDate']) : null,
+      checkOutDate: json['checkOutDate'] != null ? MyTimeM.fromJson(json['checkOutDate']) : null,
       sex: json['sex'],
       mark: json['mark'],
       idNum: json['idNum'],
@@ -34,6 +44,12 @@ class HouseholderM{
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> householder = Map<String, dynamic>();
+    if (this.checkInDate != null) {
+      householder['checkInDate'] = this.checkInDate.toJson();
+    }
+    if (this.checkOutDate != null) {
+      householder['checkOutDate'] = this.checkOutDate.toJson();
+    }
     householder["sex"] = this.sex;
     householder["mark"] = this.mark;
     householder["idNum"] = this.idNum;
