@@ -18,12 +18,12 @@ class RoomV extends StatelessWidget{
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        actions: [IconButton(
-          icon: Icon(Icons.info),
-          onPressed: (){
-            Get.toNamed(RN.houseDetail);
-          },
-        )],
+        //actions: [IconButton(
+        //  icon: Icon(Icons.info),
+        //  onPressed: (){
+        //    Get.toNamed(RN.houseDetail);
+        //  },
+        //)],
         title: Text(_houseM.houseName+"管理"),
       ),
       body: GetBuilder<HouseL>(

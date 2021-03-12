@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -166,6 +168,9 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
                     trailing: Text(_roomM.householderList[index].idNum),
                     onTap: (){
 
+                    },
+                    onLongPress: (){
+                      Get.toNamed(RN.houseHoldEdit, arguments: index);
                     },
                   ),
                 ),

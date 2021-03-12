@@ -12,6 +12,7 @@ import 'package:hm/view/firstPageV.dart';
 import 'package:hm/view/homeV.dart';
 import 'package:hm/view/houseCreateV.dart';
 import 'package:hm/view/houseDetailV.dart';
+import 'package:hm/view/houseHoldEdit.dart';
 import 'package:hm/view/houseV.dart';
 import 'package:hm/view/rentalFeeEditV.dart';
 import 'package:hm/view/roomCreateV.dart';
@@ -96,6 +97,7 @@ class MyApp extends StatelessWidget {
       GetPage(name: RN.addRentalFee, page: () => AddRentalFeeV(),),
 
       GetPage(name: RN.rentalFeeEdit, page: () => RentalFeeEditV(),),
+      GetPage(name: RN.houseHoldEdit, page: () => EditHouseHolderV(),),
     ];
     return _pageList;
   }
@@ -141,4 +143,5 @@ class RN{
   static const String addHouseHolder = '/addHouseHolder';
 
   static const String rentalFeeEdit = '/rentalFeeEdit';
+  static const String houseHoldEdit = '/houseHoldEdit';
 }

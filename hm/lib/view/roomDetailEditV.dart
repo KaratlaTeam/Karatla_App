@@ -15,6 +15,7 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
    RoomM _roomM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex].roomList[Get.find<RoomL>().roomS.roomIndex];
    HouseM _houseM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex];
    List<FeeTypeCost> _feeTypeCostList = [];
+   String _typeHold = '';
 
    String _mark = "";
    String _type = "";
@@ -56,6 +57,7 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
                 Container(
                   child: Expanded(
                     child: TextField(
+                      controller: TextEditingController(text: _typeHold??''),
                       decoration: InputDecoration(
                         labelText: "缴费类型",
                       ),
@@ -70,6 +72,7 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
                     if(_type != ""){
                       _feeTypeCostList.add(FeeTypeCost()..initialize(_type, 0.0));
                       _type = "";
+                      _typeHold = '';
                     }
 
                   });

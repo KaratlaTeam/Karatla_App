@@ -23,6 +23,7 @@ class HomeV extends StatelessWidget{
                   child: Text("房屋出租管理",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),),
                 ),
                 Container(
+                  margin: EdgeInsets.only(bottom: 10),
                   child: ElevatedButton.icon(
                     icon: Icon(Icons.house),
                     label: Text("房屋"),
@@ -31,16 +32,17 @@ class HomeV extends StatelessWidget{
                     },
                   ),
                 ),
+                //Container(
+                //  child: ElevatedButton.icon(
+                //    icon: Icon(Icons.people),
+                //    label: Text("房客"),
+                //    onPressed: (){
+                //      Get.toNamed(RN.customer);
+                //    },
+                //  ),
+                //),
                 Container(
-                  child: ElevatedButton.icon(
-                    icon: Icon(Icons.people),
-                    label: Text("房客"),
-                    onPressed: (){
-                      Get.toNamed(RN.customer);
-                    },
-                  ),
-                ),
-                Container(
+                  margin: EdgeInsets.only(bottom: 10),
                   child: ElevatedButton.icon(
                     icon: Icon(Icons.backup),
                     label: Text("备份"),

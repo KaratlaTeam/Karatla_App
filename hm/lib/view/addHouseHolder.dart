@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:hm/logic/houseL.dart';
 import 'package:hm/logic/roomL.dart';
 import 'package:hm/model/myTimeM.dart';
+import 'package:hm/model/roomM.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddHouseHolderV extends StatefulWidget{
@@ -19,6 +20,7 @@ class AddHouseHolderV extends StatefulWidget{
 }
 class _AddHouseHolderVState extends State<AddHouseHolderV>{
 
+  final RoomM _roomM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex].roomList[Get.find<RoomL>().roomS.roomIndex];
   File _image;
   final picker = ImagePicker();
 
@@ -32,6 +34,7 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
   String _mark = "";
   MyTimeM _checkInDate;
   MyTimeM _checkOutDate;
+  String _photoPath;
 
   @override
   Widget build(BuildContext context) {
@@ -157,11 +160,13 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
               ),
             ),
             _image == null
+                ? _photoPath == null
                 ? Text('未扫描身份证')
+                : Image.file(File(_photoPath))
                 : Image.file(_image),
             ElevatedButton(child: Text("创建"),onPressed: ()async{
               if(_checkInDate != null && _name != null && _idNum != null && _sex != null ){
-                Get.find<HouseL>().addHouseHolder(Get.find<RoomL>().roomS.roomIndex, _checkInDate, _name, _idNum, _sex, _checkOutDate, _nation, _birth, _address, _mark);
+                Get.find<HouseL>().addHouseHolder(Get.find<RoomL>().roomS.roomIndex, _checkInDate, _name, _idNum, _sex, _roomM.roomLevel, _roomM.roomNumber, _checkOutDate, _nation, _birth, _address, _mark, _photoPath);
                 Get.back();
                 Get.snackbar("提示", "添加成功。",snackPosition: SnackPosition.BOTTOM);
               }else{
@@ -205,6 +210,7 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
   Future _getImageByOpenCamera() async {
     final pickedFile = await picker.getImage(source: ImageSource.camera);
     if (pickedFile != null) {
+      this._photoPath = pickedFile.path;
       _image = File(pickedFile.path);
       Uint8List uint8list = await _image.readAsBytes();
       await _idCardOCR(uint8list);
@@ -217,6 +223,7 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
   Future _getImageByOpenFile() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     if (pickedFile != null) {
+      this._photoPath = pickedFile.path;
       _image = File(pickedFile.path);
       Uint8List uint8list = await _image.readAsBytes();
       await _idCardOCR(uint8list);

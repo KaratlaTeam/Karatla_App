@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +10,24 @@ import 'package:flutter_tencent_ocr/flutter_tencent_ocr.dart';
 import 'package:get/get.dart';
 import 'package:hm/logic/houseL.dart';
 import 'package:hm/logic/roomL.dart';
+import 'package:hm/model/houseM.dart';
+import 'package:hm/model/householderM.dart';
 import 'package:hm/model/myTimeM.dart';
+import 'package:hm/model/roomM.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditHouseHolderV extends StatefulWidget{
   @override
   _EditHouseHolderVState createState() => _EditHouseHolderVState();
 }
 class _EditHouseHolderVState extends State<EditHouseHolderV>{
+
+  final RoomM _roomM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex].roomList[Get.find<RoomL>().roomS.roomIndex];
+  int _houseHoldIndex;
+
+
+  File _image;
+  final picker = ImagePicker();
 
   String _scanMessage = '';
   String _name ;
@@ -26,13 +39,34 @@ class _EditHouseHolderVState extends State<EditHouseHolderV>{
   String _mark = "";
   MyTimeM _checkInDate;
   MyTimeM _checkOutDate;
+  String _photoPath;
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    this._houseHoldIndex = Get.arguments;
+
+    this._name = _roomM.householderList[this._houseHoldIndex].name;
+    this._sex = _roomM.householderList[this._houseHoldIndex].sex;
+    this._idNum = _roomM.householderList[this._houseHoldIndex].idNum;
+    this._nation = _roomM.householderList[this._houseHoldIndex].nation;
+    this._birth = _roomM.householderList[this._houseHoldIndex].birth;
+    this._address = _roomM.householderList[this._houseHoldIndex].address;
+    this._mark = _roomM.householderList[this._houseHoldIndex].mark;
+    this._checkInDate = _roomM.householderList[this._houseHoldIndex].checkInDate;
+    this._checkOutDate = _roomM.householderList[this._houseHoldIndex].checkOutDate;
+    this._photoPath = _roomM.householderList[this._houseHoldIndex].photoPath;
+
+  }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("添加住户"),
+        title: Text("更新住户"),
       ),
       body: Container(
 
@@ -40,6 +74,7 @@ class _EditHouseHolderVState extends State<EditHouseHolderV>{
           padding: EdgeInsets.all(10),
           children: [
             TextField(
+              controller: TextEditingController(text: _name ?? ''),
               decoration: InputDecoration(
                 labelText: "*姓名",
               ),
@@ -48,6 +83,7 @@ class _EditHouseHolderVState extends State<EditHouseHolderV>{
               },
             ),
             TextField(
+              controller: TextEditingController(text: _sex ?? ''),
               decoration: InputDecoration(
                 labelText: "*性别",
               ),
@@ -55,8 +91,8 @@ class _EditHouseHolderVState extends State<EditHouseHolderV>{
                 this._sex = text;
               },
             ),
-
             TextField(
+              controller: TextEditingController(text: _idNum ?? ''),
               decoration: InputDecoration(
                 labelText: "*身份证号",
               ),
@@ -65,6 +101,7 @@ class _EditHouseHolderVState extends State<EditHouseHolderV>{
               },
             ),
             TextField(
+              controller: TextEditingController(text: _nation ?? ''),
               decoration: InputDecoration(
                 labelText: "族别",
               ),
@@ -73,6 +110,7 @@ class _EditHouseHolderVState extends State<EditHouseHolderV>{
               },
             ),
             TextField(
+              controller: TextEditingController(text: _birth ?? ''),
               decoration: InputDecoration(
                 labelText: "出生日期",
               ),
@@ -81,6 +119,7 @@ class _EditHouseHolderVState extends State<EditHouseHolderV>{
               },
             ),
             TextField(
+              controller: TextEditingController(text: _address ?? ''),
               decoration: InputDecoration(
                 labelText: "住址",
               ),
@@ -89,6 +128,7 @@ class _EditHouseHolderVState extends State<EditHouseHolderV>{
               },
             ),
             TextField(
+              controller: TextEditingController(text: _mark ?? ''),
               decoration: InputDecoration(
                 labelText: "备注",
               ),
@@ -145,45 +185,133 @@ class _EditHouseHolderVState extends State<EditHouseHolderV>{
                 child: Text("添加"),
               ),
             ),
-            ElevatedButton(child: Text("创建"),onPressed: ()async{
+            _image == null
+                ? _photoPath == null
+                ? Text('未扫描身份证')
+                : Image.file(File(_photoPath))
+                : Image.file(_image),
+            ElevatedButton(child: Text("更新"),onPressed: ()async{
               if(_checkInDate != null && _name != null && _idNum != null && _sex != null ){
-                Get.find<HouseL>().addHouseHolder(Get.find<RoomL>().roomS.roomIndex, _checkInDate, _name, _idNum, _sex, _checkOutDate, _nation, _address, _mark);
+                Get.find<HouseL>().updateHouseHolder(this._houseHoldIndex, Get.find<RoomL>().roomS.roomIndex, _checkInDate, _name, _idNum, _sex, _checkOutDate, _nation, _birth, _address, _mark, _photoPath);
                 Get.back();
-                Get.snackbar("提示", "添加成功。",snackPosition: SnackPosition.BOTTOM);
+                Get.snackbar("提示", "更新成功。",snackPosition: SnackPosition.BOTTOM);
               }else{
-                Get.snackbar("提示", "信息不完整，添加失败。* 为必填项",snackPosition: SnackPosition.BOTTOM);
+                Get.snackbar("提示", "信息不完整，更新失败。* 为必填项",snackPosition: SnackPosition.BOTTOM);
               }
             },
             ),
-            ElevatedButton(child: Text("扫描身份证"),onPressed: (){
-
+            ElevatedButton(child: Text("扫描身份证"),onPressed: ()async{
+              Get.bottomSheet(
+                Container(
+                  child: Wrap(
+                    children: <Widget>[
+                      ListTile(
+                        leading: Icon(Icons.camera_alt, color: Colors.blue,),
+                        title: Text('相机'),
+                        onTap: () async{
+                          Get.back();
+                          await _getImageByOpenCamera();
+                        },
+                      ),
+                      ListTile(
+                          leading: Icon(CupertinoIcons.folder_fill,color: Colors.blue,),
+                          title: Text('文件'),
+                          onTap: () async{
+                            Get.back();
+                            await _getImageByOpenFile();
+                          }
+                      ),
+                    ],
+                  ),
+                ),
+                backgroundColor: Colors.white,
+              );
             },),
+            ElevatedButton(child: Text("删除"),onPressed: ()async{
+              Get.defaultDialog(
+                middleText: '删除当前住户的所有数据并且无法恢复，建议提前备份，确认要删除吗？',
+                onConfirm: ()async{
+                  //File(_photoPath).delete();///TODO No image file delete action.
+                  Get.find<HouseL>().deleteHouseHolder(this._houseHoldIndex, Get.find<RoomL>().roomS.roomIndex);
+                  Get.back();
+                  Get.back();
+                  Get.snackbar("提示", "删除成功。",snackPosition: SnackPosition.BOTTOM);
+                },
+                onCancel: (){
+
+                },
+
+              );
+
+            },
+            ),
           ],
         ),
       ),
     );
   }
 
-  Future idCardOCR() async {
+  Future _getImageByOpenCamera() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    if (pickedFile != null) {
+      this._photoPath = pickedFile.path;
+      _image = File(pickedFile.path);
+      Uint8List uint8list = await _image.readAsBytes();
+      await _idCardOCR(uint8list);
+    } else {
+      print('No image selected.');
+    }
+    setState(() {});
+  }
+
+  Future _getImageByOpenFile() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      this._photoPath = pickedFile.path;
+      _image = File(pickedFile.path);
+      Uint8List uint8list = await _image.readAsBytes();
+      await _idCardOCR(uint8list);
+    } else {
+      print('No image selected.');
+    }
+    setState(() {});
+  }
+
+  Future _idCardOCR(Uint8List uint8list) async {
     const String secretId = "AKIDsXt8brSb9RUFjzviBkFUTBra2E9xqb3E";
     const String secretKey = "81dy1wa4HI4crpZ2FBRRAcoHwOZaL5ao";
-    final ByteData imageBytes = await rootBundle.load('assets/images/test.jpeg');
+    //final ByteData imageBytes = await rootBundle.load(path);
 
     FlutterTencentOcr.iDCardOCR(
       secretId,
       secretKey,
       IDCardOCRRequest.fromParams(
-          config: IDCardOCRConfig.fromParams(reshootWarn: true),
-          imageBase64: base64Encode(imageBytes.buffer.asUint8List())),
+        config: IDCardOCRConfig.fromParams(reshootWarn: true),
+        //imageBase64: base64Encode(imageBytes.buffer.asUint8List())),
+        imageBase64: base64Encode(uint8list),),
     ).then((onValue) {
-      setState(() {
-        _scanMessage = onValue.toString();
-        print(_scanMessage);
-      });
+      if(onValue.error != null){
+        Get.snackbar('提示', '扫描失败', snackPosition: SnackPosition.BOTTOM);
+      }else{
+        setState(() {
+          _name = onValue.name;
+          _sex = onValue.sex;
+          _nation = onValue.nation;
+          _address = onValue.address;
+          _birth = onValue.birth;
+          _idNum = onValue.idNum;
+
+          _scanMessage = onValue.toString();
+          print(_scanMessage);
+          Get.snackbar('提示', '扫描成功', snackPosition: SnackPosition.BOTTOM);
+        });
+      }
+
     }).catchError(
           (error) {
         setState(() {
           _scanMessage = error;
+          Get.snackbar('提示', '扫描失败', snackPosition: SnackPosition.BOTTOM);
         });
       },
     );

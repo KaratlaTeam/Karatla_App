@@ -18,6 +18,7 @@ class _HouseCreateVState extends State<HouseCreateV>{
   String _mark = "";
   int _levels = 1;
   Map<int, int> _levelAndNumber = Map<int, int>()..[1]=1;
+  String _typeHold = '';
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +28,8 @@ class _HouseCreateVState extends State<HouseCreateV>{
         title: Text("创建房子"),
       ),
       body: Container(
-        padding: EdgeInsets.all(10),
         child: ListView(
+          padding: EdgeInsets.all(10),
           children: [
             TextField(
               decoration: InputDecoration(
@@ -47,25 +48,29 @@ class _HouseCreateVState extends State<HouseCreateV>{
               },
             ),
             Row(
-              //mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("楼房层数:  $_levels"),
-                IconButton(icon: Icon(CupertinoIcons.add), onPressed: (){
-                  setState(() {
-                    _levels++;
-                    _levelAndNumber[_levels] = 1;
-                  });
-                }),
-                IconButton(icon: Icon(CupertinoIcons.minus), onPressed: (){
-                  if(_levels > 1){
-                    setState(() {
-                      _levels--;
-                    });
-                  }else{
-                    Get.snackbar("提示", "楼房层数不能少于一层。",snackPosition: SnackPosition.BOTTOM);
-                  }
+                Row(
+                  children: [
+                    IconButton(icon: Icon(CupertinoIcons.add), onPressed: (){
+                      setState(() {
+                        _levels++;
+                        _levelAndNumber[_levels] = 1;
+                      });
+                    }),
+                    IconButton(icon: Icon(CupertinoIcons.minus), onPressed: (){
+                      if(_levels > 1){
+                        setState(() {
+                          _levels--;
+                        });
+                      }else{
+                        Get.snackbar("提示", "楼房层数不能少于一层。",snackPosition: SnackPosition.BOTTOM);
+                      }
 
-                })
+                    }),
+                  ],
+                ),
               ],
             ),
             Column(
@@ -73,9 +78,10 @@ class _HouseCreateVState extends State<HouseCreateV>{
             ),
             Row(
               children: [
-                Container(
-                  width: 250,
+                Expanded(
+                  //width: 250,
                   child: TextField(
+                    controller: TextEditingController(text: _typeHold??''),
                     decoration: InputDecoration(
                       labelText: "缴费类型",
                     ),
@@ -90,40 +96,15 @@ class _HouseCreateVState extends State<HouseCreateV>{
                       _feeTypeList.add(_type);
                       _feeTypeCostList.add(FeeTypeCost()..initialize(_type, 0.0));
                       _type = "";
+                      _typeHold = '';
                     }
 
                   });
                 }),
               ],
             ),
-            Container(
-              height: 150,
-              padding: EdgeInsets.all(5),
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 1.5,
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 0.0,
-                  mainAxisSpacing: 0.0,
-                ),
-                itemCount: _feeTypeCostList.length,
-                itemBuilder: (context,index){
-                  return Container(
-                    //color: Colors.red,
-                    child: Chip(
-                      label: Text(_feeTypeCostList[index].type),
-                      deleteIcon: Icon(Icons.delete,size: 20,),
-                      deleteIconColor: Colors.red,
-                      onDeleted: (){
-                        setState(() {
-                          _feeTypeCostList.removeAt(index);
-                          _feeTypeList.removeAt(index);
-                        });
-                      },
-                    ),
-                  );
-                },
-              ),
+            Wrap(
+              children: _showTypes(),
             ),
             ElevatedButton(child: Text("创建"),onPressed: ()async{
               if(_name != "" && _name != null && _feeTypeCostList.length > 0){
@@ -154,30 +135,56 @@ class _HouseCreateVState extends State<HouseCreateV>{
     List<Widget> rooms = [];
     for(int i = 1; i<_levels+1; i++){
       Widget widget = Row(
-        //mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text("第 $i 层房间数：${_levelAndNumber[i]}"),
-          IconButton(icon: Icon(CupertinoIcons.add), onPressed: (){
-            setState(() {
-              _levelAndNumber[i]++;
-            });
-          }),
-          IconButton(icon: Icon(CupertinoIcons.minus), onPressed: (){
-            if(_levelAndNumber[i] > 1){
-              setState(() {
-                _levelAndNumber[i]--;
-              });
-            }else{
-              Get.snackbar("提示", "每层至少一个房间。",snackPosition: SnackPosition.BOTTOM);
-            }
+          Row(
+            children: [
+              IconButton(icon: Icon(CupertinoIcons.add), onPressed: (){
+                setState(() {
+                  _levelAndNumber[i]++;
+                });
+              }),
+              IconButton(icon: Icon(CupertinoIcons.minus), onPressed: (){
+                if(_levelAndNumber[i] > 1){
+                  setState(() {
+                    _levelAndNumber[i]--;
+                  });
+                }else{
+                  Get.snackbar("提示", "每层至少一个房间。",snackPosition: SnackPosition.BOTTOM);
+                }
 
-          })
+              }),
+            ],
+          ),
         ],
       );
       rooms.add(widget);
     }
 
     return rooms;
+  }
+
+  List<Widget> _showTypes(){
+    List<Widget> widgets = [];
+    for(int index = 0; index < _feeTypeCostList.length; index++){
+      widgets.add(Container(
+        //color: Colors.red,
+        child: Chip(
+          backgroundColor: Colors.grey.shade200,
+          label: Text(_feeTypeCostList[index].type),
+          deleteIcon: Icon(Icons.delete,size: 20,),
+          deleteIconColor: Colors.red,
+          onDeleted: (){
+            setState(() {
+              _feeTypeCostList.removeAt(index);
+              _feeTypeList.removeAt(index);
+            });
+          },
+        ),
+      ),);
+    }
+    return widgets;
   }
 
 }

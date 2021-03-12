@@ -11,17 +11,24 @@ class HouseholderM{
     this.name,
     this.checkOutDate,
     this.checkInDate,
+    this.photoPath,
+    this.level,
+    this.number,
 });
-  String name, sex, nation, birth, address, idNum, mark;
+  String name, sex, nation, birth, address, idNum, mark, photoPath;
+  int level, number;
   MyTimeM checkInDate;
   MyTimeM checkOutDate;
 
-  initialize(MyTimeM checkInDate,  String name, String idNum, String sex, [ MyTimeM checkOutDate, String nation, String birth, String address, String mark]){
+  initialize(MyTimeM checkInDate,  String name, String idNum, String sex, int level, int number, [ MyTimeM checkOutDate, String nation, String birth, String address, String mark, String photoPath]){
     this.name = name;
     this.sex = sex ;
     this.idNum = idNum;
     this.checkInDate = checkInDate;
     this.checkOutDate = checkOutDate;
+    this.photoPath = photoPath;
+    this.level = level;
+    this.number = number;
     nation != null ? this.nation = nation : this.nation = "";
     birth != null ? this.birth = birth : this.birth = "";
     address != null ? this.address = address : this.address = "";
@@ -39,6 +46,9 @@ class HouseholderM{
       birth: json['birth'],
       nation: json['nation'],
       name: json['name'],
+      photoPath: json['photoPath'],
+      level: json['level'],
+      number: json['number'],
     );
   }
 
@@ -57,6 +67,9 @@ class HouseholderM{
     householder["birth"] = this.birth;
     householder["nation"] = this.nation;
     householder["name"] = this.name;
+    householder['photoPath'] = this.photoPath;
+    householder['level'] = this.level;
+    householder['number'] = this.number;
     return householder;
   }
 

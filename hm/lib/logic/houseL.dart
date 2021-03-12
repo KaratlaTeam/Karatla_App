@@ -146,7 +146,9 @@ class HouseL extends GetxController{
 
 
   addNewHouse(HouseM houseM)async{
+    this.houseState.housesM.houseList = this.houseState.housesM.houseList.reversed.toList();
     this.houseState.housesM.houseList.add(houseM);
+    this.houseState.housesM.houseList = this.houseState.housesM.houseList.reversed.toList();
     await setSharedPHouseList();
     update();
   }
@@ -210,8 +212,8 @@ class HouseL extends GetxController{
     update();
   }
 
-  addHouseHolder(int roomIndex, MyTimeM checkInDate, String name, String idNum, String sex, MyTimeM checkOutDate, String nation, String birth, String address, String mark)async{
-    HouseholderM householderM = HouseholderM()..initialize(checkInDate, name, idNum, sex, checkOutDate, nation, birth, address, mark);
+  addHouseHolder(int roomIndex, MyTimeM checkInDate, String name, String idNum, String sex, int level, int number,  MyTimeM checkOutDate, String nation, String birth, String address, String mark, String photoPath)async{
+    HouseholderM householderM = HouseholderM()..initialize(checkInDate, name, idNum, sex, level, number, checkOutDate, nation, birth, address, mark, photoPath);
     var room = getRoom(roomIndex);
     room.householderList = room.householderList.reversed.toList();
     room.householderList.add(householderM);
@@ -220,12 +222,18 @@ class HouseL extends GetxController{
     update();
   }
 
-  deleteHouseHolder()async{
+  deleteHouseHolder(int houseHoldIndex, int roomIndex)async{
+    getRoom(roomIndex).householderList.removeAt(houseHoldIndex);
     await setSharedPHouseList();
     update();
   }
 
-  updateHouseHolder()async{
+  updateHouseHolder(int houseHoldIndex, int roomIndex, MyTimeM checkInDate, String name, String idNum, String sex, MyTimeM checkOutDate, String nation, String birth, String address, String mark, String photoPath)async{
+    var room = getRoom(roomIndex);
+    int oLevel = room.householderList[houseHoldIndex].level;
+    int oNumber = room.householderList[houseHoldIndex].number;
+    HouseholderM householderM = HouseholderM()..initialize(checkInDate, name, idNum, sex,oLevel, oNumber, checkOutDate, nation, birth, address, mark, photoPath);
+    room.householderList[houseHoldIndex] = householderM;
     await setSharedPHouseList();
     update();
   }
