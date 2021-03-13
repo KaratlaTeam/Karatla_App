@@ -6,7 +6,9 @@ import 'package:hm/logic/houseL.dart';
 import 'package:hm/logic/roomL.dart';
 import 'package:hm/main.dart';
 import 'package:hm/model/houseM.dart';
+import 'package:hm/model/myTimeM.dart';
 import 'package:hm/model/roomM.dart';
+import 'package:hm/plugin/myFunctions.dart';
 
 class RoomV extends StatelessWidget{
 
@@ -49,11 +51,19 @@ class RoomV extends StatelessWidget{
                   child: Stack(
                     children: [
                       Icon(Icons.house,size: 15,color: _houseM.roomList[index].roomState == RoomState.OFF ? Colors.grey : _houseM.roomList[index].roomState == RoomState.IN ? Colors.green : _houseM.roomList[index].roomState == RoomState.OUT ? Colors.black : Colors.red),
+                      Container(
+                        alignment: Alignment.topRight,
+                        child:
+                        MyFunctions().getExpiredLeft(_houseM.roomList[index])!=null?
+                        Text(
+                          MyFunctions().getExpiredLeft(_houseM.roomList[index]).toString(),
+                        ) : Container(),
+                      ),
                       Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(_houseM.roomList[index].roomLevel.toString()+"0"+_houseM.roomList[index].roomNumber.toString(),style: TextStyle(color: Colors.black),),
+                            Text(_houseM.roomList[index].roomLevel.toString()+"0"+_houseM.roomList[index].roomNumber.toString(),style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,),),
                           ],
                         ),
                       ),
@@ -74,4 +84,5 @@ class RoomV extends StatelessWidget{
       ),
     );
   }
+
 }

@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hm/enumData.dart';
+import 'package:hm/main.dart';
 import 'package:hm/model/houseM.dart';
 import 'package:hm/model/householderM.dart';
 import 'package:hm/model/myTimeM.dart';
@@ -12,6 +14,8 @@ import 'package:hm/model/rentalFeeM.dart';
 import 'package:hm/model/roomM.dart';
 import 'package:hm/plugin/myFunctions.dart';
 import 'package:hm/state/houseS.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HouseL extends GetxController{
@@ -24,7 +28,9 @@ class HouseL extends GetxController{
     super.onInit();
     HousesM houseList = HousesM()..initialize();
     this.houseState = HouseS(housesM: houseList);
+    await this.getAppDirectory();
     await getSharedPHouseList();
+    //await getSharedPBackupList();
   }
 
   @override
@@ -40,6 +46,78 @@ class HouseL extends GetxController{
 
     this.houseState = null;
   }
+
+  changeActionState(){
+    if(this.houseState.actionState == null){
+      this.houseState.actionState = ActionState.COMPLETE;
+      changeActionState();
+    }else{
+      this.houseState.actionState == ActionState.PROCESS ?
+      this.houseState.actionState = ActionState.COMPLETE :
+      this.houseState.actionState = ActionState.PROCESS;
+      printInfo(info: this.houseState.actionState.toString());
+    }
+    update();
+  }
+
+  Future getAppDirectory()async{
+    Directory tempDir = await getTemporaryDirectory();
+    String tempPath = tempDir.path;
+    this.houseState.tempPath = tempPath;
+    printInfo(info: 'tempPath: $tempPath');
+
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    String appDocPath = appDocDir.path;
+    this.houseState.appDocPath = appDocPath;
+    var ad = Directory('${appDocDir.path}${RN.backUpDirectoryName}');
+    var ex1 = await ad.exists();
+    if(!ex1){
+      await ad.create();
+    }
+    printInfo(info: 'appDocBackPath: ${ad.path}');
+    printInfo(info: 'appDocPath: $appDocPath');
+
+    if(Platform.isAndroid){
+      Directory appStoDir = await getExternalStorageDirectory();
+      String appStoPath = appStoDir.path;
+      this.houseState.appStoPath = appStoPath;
+      var sd = Directory('${appStoDir.path}${RN.backUpDirectoryName}');
+      var ex = await sd.exists();
+      if(!ex){
+        await sd.create();
+      }
+      printInfo(info: 'appStoBackPath: ${sd.path}');
+      printInfo(info: 'appStoPath: $appStoPath');
+    }
+
+  }
+
+  //Future setSharedPBackUpList()async{
+  //  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //  try{
+  //    await sharedPreferences.setStringList('backUpList', this.houseState.backUp.backUpList);
+  //  }catch (e){
+  //    printError(info: e);
+  //  }
+  //}
+
+  //Future getSharedPBackupList()async{
+  //  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //  try{
+  //    this.houseState.backUp.backUpList = sharedPreferences.getStringList('backUpList');
+  //    if(this.houseState.backUp.backUpList == null){
+  //      this.houseState.backUp.backUpList = [];
+  //    }else{
+  //      for(var a in this.houseState.backUp.backUpList){
+  //        printInfo(info: 'backup list: $a');
+  //      }
+  //    }
+//
+  //  }catch (e){
+  //    printError(info: e);
+  //  }
+  //  update();
+  //}
 
   Future setSharedPHouseList() async{
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -65,53 +143,60 @@ class HouseL extends GetxController{
   }
 
 
-  changeActionState(){
-    if(this.houseState.actionState == null){
-      this.houseState.actionState = ActionState.COMPLETE;
-      changeActionState();
-    }else{
-      this.houseState.actionState == ActionState.PROCESS ?
-      this.houseState.actionState = ActionState.COMPLETE :
-      this.houseState.actionState = ActionState.PROCESS;
-      printInfo(info: this.houseState.actionState.toString());
-    }
-    update();
-  }
-
-
   backupData()async{
     try{
-      changeActionState();
-      //await Future.delayed(Duration(seconds: 2));
+      var a = DateTime.now();
+      String backupPath;
+      Platform.isAndroid ? backupPath = this.houseState.appStoPath : backupPath = this.houseState.appDocPath;
+      String dateTime = '${a.year}_${a.month}_${a.day}_${a.hour}:${a.minute}:${a.second}';
+      var directory = Directory('$backupPath${RN.backUpDirectoryName}');
       String backup = json.encode(houseState.housesM.toJson());
-      await Clipboard.setData(ClipboardData(text: backup));
-      printInfo(info: backup);
-      Get.snackbar("提示", "成功备份数据到剪贴版", snackPosition: SnackPosition.BOTTOM);
+      File file = File('${directory.path}/$dateTime.hm');
+      await file.writeAsString(backup);
+      //this.houseState.backUp.backUpList.add(dateTime);
+      //await setSharedPBackUpList();
+      Get.snackbar("提示", "$dateTime 备份成功", snackPosition: SnackPosition.BOTTOM);
     }catch (e){
-      printError(info: e);
+      printError(info: e.toString());
       Get.snackbar("提示", "备份失败", snackPosition: SnackPosition.BOTTOM);
     }
-    changeActionState();
     update();
   }
 
-  restoreData()async{
+  restoreData(FileSystemEntity fileSystemEntity)async{
     try{
-      changeActionState();
-      //await Future.delayed(Duration(seconds: 2));
-      ClipboardData data = await Clipboard.getData('text/plain');
-      String restore = data.text;
+      //String backupPath;
+      //Platform.isAndroid ? backupPath = this.houseState.appStoPath : backupPath = this.houseState.appDocPath;
+      File file = File(fileSystemEntity.path);
+      String restore = await file.readAsString();
       HousesM housesM = HousesM.fromJson(json.decode(restore));
       this.houseState.housesM = housesM;
       await setSharedPHouseList();
-      printInfo(info: restore);
-      Get.snackbar("提示", "成功恢复数据从剪贴版", snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar("提示", "数据恢复成功", snackPosition: SnackPosition.BOTTOM);
     }catch (e){
       printError(info: e.toString());
       Get.snackbar("提示", "数据恢复失败", snackPosition: SnackPosition.BOTTOM);
     }
-    changeActionState();
     update();
+  }
+
+  List<FileSystemEntity> getRestoreDataList(){
+    List<FileSystemEntity> files = [];
+    String backupPath;
+    Platform.isAndroid ? backupPath = this.houseState.appStoPath : backupPath = this.houseState.appDocPath;
+    try{
+    var directory = Directory('$backupPath${RN.backUpDirectoryName}');
+      for(var f in directory.listSync()){
+        if(f.path.endsWith('hm')){
+          files.add(f);
+          printInfo(info: f.path);
+        }
+      }
+    }catch(e){
+      printError(info: e.toString());
+
+    }
+    return files;
   }
 
   Future<ActionState> addRoom(int level, HouseM houseM)async{
@@ -212,8 +297,8 @@ class HouseL extends GetxController{
     update();
   }
 
-  addHouseHolder(int roomIndex, MyTimeM checkInDate, String name, String idNum, String sex, int level, int number,  MyTimeM checkOutDate, String nation, String birth, String address, String mark, String photoPath)async{
-    HouseholderM householderM = HouseholderM()..initialize(checkInDate, name, idNum, sex, level, number, checkOutDate, nation, birth, address, mark, photoPath);
+  addHouseHolder(int roomIndex, MyTimeM checkInDate, MyTimeM temporaryIdStart, MyTimeM temporaryIdEnd, String name, String idNum, String sex, int level, int number,  MyTimeM checkOutDate, String nation, String birth, String address, String mark, String photoPath, String temporaryIdPhotoPath)async{
+    HouseholderM householderM = HouseholderM()..initialize(checkInDate, temporaryIdStart, temporaryIdEnd, name, idNum, sex, level, number, checkOutDate, nation, birth, address, mark, photoPath, temporaryIdPhotoPath);
     var room = getRoom(roomIndex);
     room.householderList = room.householderList.reversed.toList();
     room.householderList.add(householderM);
@@ -228,11 +313,11 @@ class HouseL extends GetxController{
     update();
   }
 
-  updateHouseHolder(int houseHoldIndex, int roomIndex, MyTimeM checkInDate, String name, String idNum, String sex, MyTimeM checkOutDate, String nation, String birth, String address, String mark, String photoPath)async{
+  updateHouseHolder(int houseHoldIndex, int roomIndex, MyTimeM checkInDate, MyTimeM temporaryIdStart, MyTimeM temporaryIdEnd, String name, String idNum, String sex, MyTimeM checkOutDate, String nation, String birth, String address, String mark, String photoPath, String temporaryIdPhotoPath)async{
     var room = getRoom(roomIndex);
     int oLevel = room.householderList[houseHoldIndex].level;
     int oNumber = room.householderList[houseHoldIndex].number;
-    HouseholderM householderM = HouseholderM()..initialize(checkInDate, name, idNum, sex,oLevel, oNumber, checkOutDate, nation, birth, address, mark, photoPath);
+    HouseholderM householderM = HouseholderM()..initialize(checkInDate, temporaryIdStart, temporaryIdEnd, name, idNum, sex,oLevel, oNumber, checkOutDate, nation, birth, address, mark, photoPath, temporaryIdPhotoPath);
     room.householderList[houseHoldIndex] = householderM;
     await setSharedPHouseList();
     update();

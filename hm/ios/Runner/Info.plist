@@ -9,6 +9,11 @@
     <key>NSPhotoLibraryUsageDescription</key>
     <string>Example usage description</string>
 
+    <key>LSSupportsOpeningDocumentsInPlace</key>
+    <true/>
+    <key>UIFileSharingEnabled</key>
+    <true/>
+
 
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>

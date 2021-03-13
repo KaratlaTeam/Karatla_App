@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:hm/enumData.dart';
 import 'package:hm/logic/houseL.dart';
 import 'package:hm/main.dart';
+import 'package:share/share.dart';
 
 
 class HomeV extends StatelessWidget{
@@ -65,22 +66,17 @@ class HomeV extends StatelessWidget{
                     icon: Icon(Icons.restore),
                     label: Text("恢复"),
                     onPressed: (){
-                      Get.defaultDialog(
-                        middleText: '确认要恢复？现有数据将丢失。',
-                        onConfirm: ()async{
-                          Get.back();
-                          await Get.find<HouseL>().restoreData();
-                        },
-                        onCancel: (){
-                          Get.back();
-                        },
-                      );
+                      Get.toNamed(RN.backupList);
                     },
                   ),
                 ),
               ],
             ),
           ),
+          //floatingActionButton: FloatingActionButton(onPressed: (){
+          //  //Share.share("text");
+          //  Share.shareFiles(['${Get.find<HouseL>().houseState.appStoPath}/1.txt']);
+          //},),
         ),
         GetBuilder<HouseL>(
           builder: (_) => _.houseState.actionState == ActionState.PROCESS ?

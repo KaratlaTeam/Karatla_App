@@ -1,5 +1,9 @@
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:get/get.dart';
 import 'package:hm/model/houseM.dart';
 import 'package:hm/binding.dart';
@@ -7,6 +11,7 @@ import 'package:hm/model/roomM.dart';
 import 'package:hm/view/addCheckTimeV.dart';
 import 'package:hm/view/addHouseHolder.dart';
 import 'package:hm/view/addRentalFeeV.dart';
+import 'package:hm/view/backupList.dart';
 import 'package:hm/view/customerPage.dart';
 import 'package:hm/view/firstPageV.dart';
 import 'package:hm/view/homeV.dart';
@@ -21,6 +26,7 @@ import 'package:hm/view/roomDetailV.dart';
 import 'package:hm/view/roomV.dart';
 
 void main() async{
+
   //WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -36,6 +42,7 @@ void main() async{
 
     ///Only honored in Android versions O and greater.
   ));
+
 
   runApp(
     MyApp(),
@@ -64,6 +71,13 @@ class MyApp extends StatelessWidget {
       theme: _themeData,
       onInit: (){
         printInfo(info: "onInit");
+        if (Platform.isAndroid) {
+          FlutterDisplayMode.current.then((displayMode) {
+            FlutterDisplayMode.setMode(displayMode);
+            FlutterDisplayMode.setDeviceDefault();
+            print(displayMode);
+          });
+        }
       },
       onReady: (){
         printInfo(info: "onReady");
@@ -80,6 +94,7 @@ class MyApp extends StatelessWidget {
       GetPage(name: RN.firstPage, page: () => FirstPageView(),),
 
       GetPage(name: RN.home, page: () => HomeV(), binding: HomeBinding(),),
+      GetPage(name: RN.backupList, page: () => BackupListV()),
 
       GetPage(name: RN.house, page: () => HouseV(), binding: HouseBinding(),),
       GetPage(name: RN.houseDetail, page: () => HouseDetailV(),),
@@ -123,9 +138,15 @@ class MyApp extends StatelessWidget {
 }
 
 class RN{
+  static const String backUpDirectoryName = '/backup';
+
+
+/// ////////////
+
   static const String firstPage = '/';
 
   static const String home = '/home';
+  static const String backupList = '/backupList';
 
   static const String house = '/house';
   static const String houseDetail = '/houseDetail';

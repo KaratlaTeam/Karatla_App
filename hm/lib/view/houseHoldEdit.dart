@@ -27,6 +27,7 @@ class _EditHouseHolderVState extends State<EditHouseHolderV>{
 
 
   File _image;
+  File _temporaryIdPhoto;
   final picker = ImagePicker();
 
   String _scanMessage = '';
@@ -40,6 +41,10 @@ class _EditHouseHolderVState extends State<EditHouseHolderV>{
   MyTimeM _checkInDate;
   MyTimeM _checkOutDate;
   String _photoPath;
+
+  MyTimeM _temporaryIdStart;
+  MyTimeM _temporaryIdEnd;
+  String _temporaryIdPhotoPath;
 
 
   @override
@@ -58,6 +63,10 @@ class _EditHouseHolderVState extends State<EditHouseHolderV>{
     this._checkInDate = _roomM.householderList[this._houseHoldIndex].checkInDate;
     this._checkOutDate = _roomM.householderList[this._houseHoldIndex].checkOutDate;
     this._photoPath = _roomM.householderList[this._houseHoldIndex].photoPath;
+
+    this._temporaryIdStart = _roomM.householderList[this._houseHoldIndex].temporaryIdStart;
+    this._temporaryIdEnd = _roomM.householderList[this._houseHoldIndex].temporaryIdEnd;
+    this._temporaryIdPhotoPath = _roomM.householderList[this._houseHoldIndex].temporaryIdPhotoPath;
 
   }
 
@@ -185,14 +194,72 @@ class _EditHouseHolderVState extends State<EditHouseHolderV>{
                 child: Text("添加"),
               ),
             ),
+            ListTile(
+              leading: Text("*暂住证签发日"),
+              title: Text(_temporaryIdStart == null ? '' : _temporaryIdStart.toString()),
+              trailing: ElevatedButton(
+                onPressed: ()async{
+                  var date = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(DateTime.now().year - 1),
+                    lastDate: DateTime(DateTime.now().year + 2),
+                  );
+                  var time = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.now(),
+                    helpText: "SELECT START TIME",
+                  );
+                  if(time != null && date!=null){
+                    _temporaryIdStart = MyTimeM()..initialize(date.year, date.month, date.day, time.hour, time.minute, 0);
+                    setState(() {});
+                  }
+
+                },
+                child: Text("添加"),
+              ),
+            ),
+            ListTile(
+              leading: Text("*暂住证到期日"),
+              title: Text(_temporaryIdEnd == null ? '' : _temporaryIdEnd.toString()),
+              trailing: ElevatedButton(
+                onPressed: ()async{
+                  var date = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(DateTime.now().year - 1),
+                    lastDate: DateTime(DateTime.now().year + 2),
+                  );
+                  var time = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.now(),
+                    helpText: "SELECT START TIME",
+                  );
+                  if(time != null && date!=null){
+                    _temporaryIdEnd = MyTimeM()..initialize(date.year, date.month, date.day, time.hour, time.minute, 0);
+                    setState(() {});
+                  }
+
+                },
+                child: Text("添加"),
+              ),
+            ),
+
             _image == null
                 ? _photoPath == null
                 ? Text('未扫描身份证')
                 : Image.file(File(_photoPath))
                 : Image.file(_image),
+
+            _temporaryIdPhoto == null
+                ? _temporaryIdPhotoPath == null
+                ? Text('未扫描暂住证')
+                : Image.file(File(_temporaryIdPhotoPath))
+                : Image.file(_temporaryIdPhoto),
+
             ElevatedButton(child: Text("更新"),onPressed: ()async{
-              if(_checkInDate != null && _name != null && _idNum != null && _sex != null ){
-                Get.find<HouseL>().updateHouseHolder(this._houseHoldIndex, Get.find<RoomL>().roomS.roomIndex, _checkInDate, _name, _idNum, _sex, _checkOutDate, _nation, _birth, _address, _mark, _photoPath);
+              if(_checkInDate != null && _temporaryIdStart != null && _temporaryIdEnd != null && _name != null && _idNum != null && _sex != null ){
+                Get.find<HouseL>().updateHouseHolder(this._houseHoldIndex, Get.find<RoomL>().roomS.roomIndex, _checkInDate, _temporaryIdStart, _temporaryIdEnd, _name, _idNum, _sex, _checkOutDate, _nation, _birth, _address, _mark, _photoPath, _temporaryIdPhotoPath);
                 Get.back();
                 Get.snackbar("提示", "更新成功。",snackPosition: SnackPosition.BOTTOM);
               }else{
@@ -219,6 +286,47 @@ class _EditHouseHolderVState extends State<EditHouseHolderV>{
                           onTap: () async{
                             Get.back();
                             await _getImageByOpenFile();
+                          }
+                      ),
+                    ],
+                  ),
+                ),
+                backgroundColor: Colors.white,
+              );
+            },),
+            ElevatedButton(child: Text("扫描暂住证"),onPressed: ()async{
+              Get.bottomSheet(
+                Container(
+                  child: Wrap(
+                    children: <Widget>[
+                      ListTile(
+                        leading: Icon(Icons.camera_alt, color: Colors.blue,),
+                        title: Text('相机'),
+                        onTap: () async{
+                          Get.back();
+                          final pickedFile = await picker.getImage(source: ImageSource.camera);
+                          if (pickedFile != null) {
+                            this._temporaryIdPhotoPath = pickedFile.path;
+                            this._temporaryIdPhoto = File(pickedFile.path);
+                          } else {
+                            print('No image selected.');
+                          }
+                          setState(() {});
+                        },
+                      ),
+                      ListTile(
+                          leading: Icon(CupertinoIcons.folder_fill,color: Colors.blue,),
+                          title: Text('文件'),
+                          onTap: () async{
+                            Get.back();
+                            final pickedFile = await picker.getImage(source: ImageSource.gallery);
+                            if (pickedFile != null) {
+                              this._temporaryIdPhotoPath = pickedFile.path;
+                              this._temporaryIdPhoto = File(pickedFile.path);
+                            } else {
+                              print('No image selected.');
+                            }
+                            setState(() {});
                           }
                       ),
                     ],

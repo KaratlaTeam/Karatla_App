@@ -36,7 +36,7 @@ class _HouseVState extends State<HouseV>{
                 child: InkWell(
                   onLongPress: (){
                     Get.defaultDialog(
-                      middleText: "是否要删除此房所有数据? 删除后无法恢复，建议提前备份。",
+                      middleText: "是否要删除 '${_.houseState.housesM.houseList[index].houseName}' 房所有数据? 删除后无法恢复，建议提前备份。",
                       onConfirm: (){
                         Get.back();
                         Get.find<HouseL>().deleteHouse(index);
