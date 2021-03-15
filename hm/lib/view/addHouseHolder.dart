@@ -20,7 +20,7 @@ class AddHouseHolderV extends StatefulWidget{
 }
 class _AddHouseHolderVState extends State<AddHouseHolderV>{
 
-  final RoomM _roomM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex].roomList[Get.find<RoomL>().roomS.roomIndex];
+  final RoomM _roomM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex].levelList[Get.find<RoomL>().roomS.roomLevel].roomList[Get.find<RoomL>().roomS.roomIndex];
   File _image;
   File _temporaryIdPhoto;
   final picker = ImagePicker();
@@ -165,7 +165,7 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
               ),
             ),
             ListTile(
-              leading: Text("*暂住证签发日"),
+              leading: Text("暂住证签发日"),
               title: Text(_temporaryIdStart == null ? '' : _temporaryIdStart.toString()),
               trailing: ElevatedButton(
                 onPressed: ()async{
@@ -190,7 +190,7 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
               ),
             ),
             ListTile(
-              leading: Text("*暂住证到期日"),
+              leading: Text("暂住证到期日"),
               title: Text(_temporaryIdEnd == null ? '' : _temporaryIdEnd.toString()),
               trailing: ElevatedButton(
                 onPressed: ()async{
@@ -228,8 +228,8 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
                 : Image.file(_temporaryIdPhoto),
             
             ElevatedButton(child: Text("创建"),onPressed: ()async{
-              if(_checkInDate != null && _temporaryIdStart != null && _temporaryIdEnd != null && _name != null && _idNum != null && _sex != null ){
-                Get.find<HouseL>().addHouseHolder(Get.find<RoomL>().roomS.roomIndex, _checkInDate, _temporaryIdStart, _temporaryIdEnd, _name, _idNum, _sex, _roomM.roomLevel, _roomM.roomNumber, _checkOutDate, _nation, _birth, _address, _mark, _photoPath, _temporaryIdPhotoPath);
+              if(_checkInDate != null && _name != null && _idNum != null && _sex != null ){
+                Get.find<HouseL>().addHouseHolder(Get.find<RoomL>().roomS.roomLevel,Get.find<RoomL>().roomS.roomIndex, _checkInDate, _temporaryIdStart, _temporaryIdEnd, _name, _idNum, _sex, _roomM.roomLevel, _roomM.roomNumber, _checkOutDate, _nation, _birth, _address, _mark, _photoPath, _temporaryIdPhotoPath);
                 Get.back();
                 Get.snackbar("提示", "添加成功。",snackPosition: SnackPosition.BOTTOM);
               }else{

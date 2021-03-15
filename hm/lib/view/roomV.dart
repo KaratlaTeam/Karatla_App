@@ -14,72 +14,89 @@ class RoomV extends StatelessWidget{
 
   final HouseM _houseM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex];
 
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        //actions: [IconButton(
-        //  icon: Icon(Icons.info),
-        //  onPressed: (){
-        //    Get.toNamed(RN.houseDetail);
-        //  },
-        //)],
         title: Text(_houseM.houseName+"管理"),
       ),
       body: GetBuilder<HouseL>(
-        builder: (_) => GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            mainAxisSpacing: 5,
-            crossAxisSpacing: 5,
-            crossAxisCount: 4,
-            childAspectRatio: 1,
-          ),
-          itemCount: _houseM.roomList.length,
-          itemBuilder: (context, index){
-            _houseM.roomList.sort((a, b) => a.roomLevel.compareTo(b.roomLevel));
-            return Card(
-              //elevation: 0,
-              child: InkWell(
-                onTap: (){
-                  Get.find<RoomL>().setRoomIndex(index);
-                  Get.toNamed(RN.roomDetail);
+        builder: (_) {
+          return SingleChildScrollView(
+            child: Container(
+              child: ExpansionPanelList(
+                dividerColor: Colors.white,
+                elevation: 0,
+                expansionCallback: (int index, bool isExpanded) {
+                  _.upDateItemIsExpanded(index, isExpanded);
                 },
-                child: Container(
-                  padding: EdgeInsets.all(2),
-                  child: Stack(
-                    children: [
-                      Icon(Icons.house,size: 15,color: _houseM.roomList[index].roomState == RoomState.OFF ? Colors.grey : _houseM.roomList[index].roomState == RoomState.IN ? Colors.green : _houseM.roomList[index].roomState == RoomState.OUT ? Colors.black : Colors.red),
-                      Container(
-                        alignment: Alignment.topRight,
-                        child:
-                        MyFunctions().getExpiredLeft(_houseM.roomList[index])!=null?
-                        Text(
-                          MyFunctions().getExpiredLeft(_houseM.roomList[index]).toString(),
-                        ) : Container(),
-                      ),
-                      Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(_houseM.roomList[index].roomLevel.toString()+"0"+_houseM.roomList[index].roomNumber.toString(),style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,),),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                children: _.houseState.itemList.map<ExpansionPanel>((Item item) {
+                  return ExpansionPanel(
+                    isExpanded: item.isExpanded,
+                    headerBuilder: (BuildContext context, bool isExpanded) {
+                      return ListTile(
+                        title: Text(item.houseLevel.name),
+                      );
+                    },
+                    body: Wrap(
+                      children: item.houseLevel.roomList.map<Widget>((RoomM roomM) {
+                        return Container(
+                          alignment: Alignment.centerLeft,
+                          width: 80,
+                          height: 80,
+                          child: Card(
+                            color: Colors.white,
+                            elevation: 0,
+                            child: InkWell(
+                              onTap: (){
+                                Get.find<RoomL>().setLevelIndex(item.levelIndex);
+                                Get.find<RoomL>().setRoomIndex(roomM.roomNumber-1);
+                                Get.toNamed(RN.roomDetail);
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(2),
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Icon(Icons.house,size: 15,color: roomM.roomState == RoomState.OFF ? Colors.grey : roomM.roomState == RoomState.IN ? Colors.green : roomM.roomState == RoomState.OUT ? Colors.black : Colors.red),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.topRight,
+                                      child:
+                                      MyFunctions().getExpiredLeft(roomM)!=null?
+                                      Text(
+                                        MyFunctions().getExpiredLeft(roomM).toString(),
+                                      ) : Container(),
+                                    ),
+                                    Center(
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text("0"+roomM.roomNumber.toString(),style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,),),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  );
+                }).toList(),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: Icon(Icons.edit),
         onPressed: (){
-          //print(context.read<HouseList>().houseList.length);
-          Get.toNamed(RN.roomCreate);
+          Get.toNamed(RN.houseEdit);
         },
       ),
     );

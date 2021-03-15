@@ -15,7 +15,7 @@ class AddRentalFeeV extends StatefulWidget{
 }
 class _AddRentalFeeVState extends State<AddRentalFeeV>{
 
-  final RoomM _roomM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex].roomList[Get.find<RoomL>().roomS.roomIndex];
+  final RoomM _roomM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex].levelList[Get.find<RoomL>().roomS.roomLevel].roomList[Get.find<RoomL>().roomS.roomIndex];
   MyTimeM _shouldPayTime;
   MyTimeM _payedTime;
   List<FeeM> _listFeeM ;
@@ -113,7 +113,7 @@ class _AddRentalFeeVState extends State<AddRentalFeeV>{
               if(_shouldPayTime == null){
                 Get.snackbar("提示", '必须设置到期时间', snackPosition: SnackPosition.BOTTOM);
               }else{
-                Get.find<HouseL>().addRentalFee(Get.find<RoomL>().roomS.roomIndex,  _shouldPayTime, _payedTime, _listFeeM, _mark);
+                Get.find<HouseL>().addRentalFee(Get.find<RoomL>().roomS.roomLevel, Get.find<RoomL>().roomS.roomIndex,  _shouldPayTime, _payedTime, _listFeeM, _mark);
                 Get.back();
                 Get.snackbar("提示", '添加成功', snackPosition: SnackPosition.BOTTOM);
               }

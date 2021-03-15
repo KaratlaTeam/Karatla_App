@@ -12,13 +12,11 @@ class RoomDetailEditV extends StatefulWidget {
   _RoomDetailEditVState createState() => _RoomDetailEditVState();
 }
 class _RoomDetailEditVState extends State<RoomDetailEditV>{
-   RoomM _roomM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex].roomList[Get.find<RoomL>().roomS.roomIndex];
+   RoomM _roomM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex].levelList[Get.find<RoomL>().roomS.roomLevel].roomList[Get.find<RoomL>().roomS.roomIndex];
    HouseM _houseM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex];
    List<FeeTypeCost> _feeTypeCostList = [];
    String _typeHold = '';
-
-   String _mark = "";
-   String _type = "";
+   String _mark ;
 
 
   @override
@@ -29,6 +27,7 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
       FeeTypeCost feeTypeCost = FeeTypeCost()..initialize(a.type, a.cost);
       _feeTypeCostList.add(feeTypeCost);
     }
+    this._mark = _roomM.mark;
 
   }
 
@@ -38,13 +37,14 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
     return Scaffold(
       //resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text('${_roomM.roomLevel}0${_roomM.roomNumber}编辑',style: TextStyle(color: Colors.white),),
+        title: Text('0${_roomM.roomNumber}编辑',style: TextStyle(color: Colors.white),),
       ),
       body: Container(
         child: ListView(
           padding: EdgeInsets.all(10),
           children: [
             TextField(
+              controller: TextEditingController(text: this._mark??''),
               decoration: InputDecoration(
                 labelText: "房间备注",
               ),
@@ -62,16 +62,15 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
                         labelText: "缴费类型",
                       ),
                       onChanged: (String text){
-                        this._type = text;
+                        this._typeHold = text;
                       },
                     ),
                   ),
                 ),
                 ElevatedButton(child: Text("添加"),onPressed: (){
                   setState(() {
-                    if(_type != ""){
-                      _feeTypeCostList.add(FeeTypeCost()..initialize(_type, 0.0));
-                      _type = "";
+                    if(_typeHold != ""){
+                      _feeTypeCostList.add(FeeTypeCost()..initialize(_typeHold, 0.0));
                       _typeHold = '';
                     }
 
@@ -84,7 +83,7 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
             ),
             ElevatedButton(child: Text("更新"),onPressed: ()async{
               if(_feeTypeCostList.length > 0){
-                Get.find<HouseL>().updateFeeTypeCostList(_feeTypeCostList, Get.find<RoomL>().roomS.roomIndex, _mark);
+                Get.find<HouseL>().updateFeeTypeCostList(Get.find<RoomL>().roomS.roomLevel,_feeTypeCostList, Get.find<RoomL>().roomS.roomIndex, _mark);
                 Get.back();
                 Get.snackbar("提示", "更新成功！", snackPosition: SnackPosition.BOTTOM);
               }

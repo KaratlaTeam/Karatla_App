@@ -15,7 +15,8 @@ class RoomDetailV extends StatefulWidget{
 }
 class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin{
 
-  final RoomM _roomM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex].roomList[Get.find<RoomL>().roomS.roomIndex];
+  final RoomM _roomM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex].levelList[Get.find<RoomL>().roomS.roomLevel].roomList[Get.find<RoomL>().roomS.roomIndex];
+
   final HouseM _houseM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex];
   TabController _tabController;
   int _pIndex = 0;
@@ -59,7 +60,7 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
           }),
         ],
         title: ListTile(
-          title: Text('${_roomM.roomLevel}0${_roomM.roomNumber}详情',style: TextStyle(color: Colors.white),),
+          title: Text('${_houseM.levelList[Get.find<RoomL>().roomS.roomLevel].name} - 0${_roomM.roomNumber}',style: TextStyle(color: Colors.white),),
           subtitle: Text("备注:  ${_roomM.mark}",style: TextStyle(color: Colors.white),),
         ),
         bottom: TabBar(

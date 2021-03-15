@@ -1,36 +1,71 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:hm/enumData.dart';
 import 'package:hm/logic/houseL.dart';
+import 'package:hm/logic/roomL.dart';
 import 'package:hm/model/houseM.dart';
 import 'package:hm/model/roomM.dart';
+import 'package:hm/plugin/myFunctions.dart';
 
-class HouseCreateV extends StatefulWidget {
+
+class HouseEditV extends StatefulWidget {
   @override
-  _HouseCreateVState createState() => _HouseCreateVState();
+  _HouseEditVState createState() => _HouseEditVState();
 }
-class _HouseCreateVState extends State<HouseCreateV>{
-  List<FeeTypeCost> _feeTypeCostList = [];
+class _HouseEditVState extends State<HouseEditV> {
+
+  final HouseM _houseM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex];
+
+  List<FeeTypeCost> _feeTypeCostList = [] ;
   List<String> _feeTypeList = [];
-  String _type = "";
-  String _name = "";
-  String _mark = "";
+  String _type ;
+  String _name ;
+  String _mark ;
 
   List<HouseLevel> _levelList = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    for(var a in _houseM.levelList){
+      _levelList.add(HouseLevel.fromJson(a.toJson()));
+    }
+    for(var a in _houseM.feeTypeList){
+      _feeTypeList.add(a);
+      _feeTypeCostList.add(FeeTypeCost()..initialize(a, 0.0));
+    }
+    this._mark = _houseM.mark;
+    this._name = _houseM.houseName;
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _levelList = null;
+    _feeTypeCostList = null ;
+    _feeTypeList = null;
+  }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("创建房子"),
+        title: Text("更新房子"),
       ),
       body: Container(
         child: ListView(
           padding: EdgeInsets.all(10),
           children: [
             TextField(
+              controller: TextEditingController(text: _name??''),
               decoration: InputDecoration(
                 labelText: "房子名称",
               ),
@@ -39,6 +74,7 @@ class _HouseCreateVState extends State<HouseCreateV>{
               },
             ),
             TextField(
+              controller: TextEditingController(text: _mark??''),
               decoration: InputDecoration(
                 labelText: "房子备注",
               ),
@@ -105,15 +141,15 @@ class _HouseCreateVState extends State<HouseCreateV>{
             Wrap(
               children: _showTypes(),
             ),
-            ElevatedButton(child: Text("创建"),onPressed: ()async{
+            ElevatedButton(child: Text("更新"),onPressed: ()async{
               if(_name != "" && _name != null && _feeTypeCostList.length > 0 && this._levelList.length > 0){
 
                 HouseM house = HouseM()..initialize(this._levelList, this._name, this._feeTypeList, this._mark);
                 HouseL houseL = Get.find<HouseL>();
-                //print("11");
-                await houseL.addNewHouse(house);
+                await houseL.updateHouse(house, Get.find<HouseL>().houseState.houseIndex);
+                houseL.setItemList(houseL.houseState.houseIndex);
                 Get.back();
-                Get.snackbar("提示", "创建成功。",snackPosition: SnackPosition.BOTTOM);
+                Get.snackbar("提示", "更新成功。",snackPosition: SnackPosition.BOTTOM);
               }else{
                 Get.snackbar("提示", "设置不完整。",snackPosition: SnackPosition.BOTTOM);
               }
@@ -123,7 +159,7 @@ class _HouseCreateVState extends State<HouseCreateV>{
       ),
     );
   }
-  
+
   List<Widget> _showRooms(){
     List<Widget> rooms = [];
     for(int i = 0; i<this._levelList.length; i++){
@@ -151,13 +187,22 @@ class _HouseCreateVState extends State<HouseCreateV>{
                 });
               }),
               IconButton(icon: Icon(CupertinoIcons.minus), onPressed: (){
-                if(this._levelList[i].roomList.length > 1){
-                  setState(() {
-                    this._levelList[i].roomList.removeLast();
-                  });
-                }else{
-                  Get.snackbar("提示", "每层至少一个房间。",snackPosition: SnackPosition.BOTTOM);
-                }
+                Get.defaultDialog(
+                  onCancel: (){
+
+                  },
+                  onConfirm: (){
+                    Get.back();
+                    if(this._levelList[i].roomList.length > 1){
+                      setState(() {
+                        this._levelList[i].roomList.removeLast();
+                      });
+                    }else{
+                      Get.snackbar("提示", "每层至少一个房间。",snackPosition: SnackPosition.BOTTOM);
+                    }
+                  },
+                  middleText: '此操作会删除最后一个房间的所有数据，是否删除？',
+                );
 
               }),
             ],
@@ -191,5 +236,4 @@ class _HouseCreateVState extends State<HouseCreateV>{
     }
     return widgets;
   }
-
 }

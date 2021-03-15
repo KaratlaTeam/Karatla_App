@@ -22,7 +22,7 @@ class EditHouseHolderV extends StatefulWidget{
 }
 class _EditHouseHolderVState extends State<EditHouseHolderV>{
 
-  final RoomM _roomM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex].roomList[Get.find<RoomL>().roomS.roomIndex];
+  final RoomM _roomM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex].levelList[Get.find<RoomL>().roomS.roomLevel].roomList[Get.find<RoomL>().roomS.roomIndex];
   int _houseHoldIndex;
 
 
@@ -195,7 +195,7 @@ class _EditHouseHolderVState extends State<EditHouseHolderV>{
               ),
             ),
             ListTile(
-              leading: Text("*暂住证签发日"),
+              leading: Text("暂住证签发日"),
               title: Text(_temporaryIdStart == null ? '' : _temporaryIdStart.toString()),
               trailing: ElevatedButton(
                 onPressed: ()async{
@@ -220,7 +220,7 @@ class _EditHouseHolderVState extends State<EditHouseHolderV>{
               ),
             ),
             ListTile(
-              leading: Text("*暂住证到期日"),
+              leading: Text("暂住证到期日"),
               title: Text(_temporaryIdEnd == null ? '' : _temporaryIdEnd.toString()),
               trailing: ElevatedButton(
                 onPressed: ()async{
@@ -258,8 +258,8 @@ class _EditHouseHolderVState extends State<EditHouseHolderV>{
                 : Image.file(_temporaryIdPhoto),
 
             ElevatedButton(child: Text("更新"),onPressed: ()async{
-              if(_checkInDate != null && _temporaryIdStart != null && _temporaryIdEnd != null && _name != null && _idNum != null && _sex != null ){
-                Get.find<HouseL>().updateHouseHolder(this._houseHoldIndex, Get.find<RoomL>().roomS.roomIndex, _checkInDate, _temporaryIdStart, _temporaryIdEnd, _name, _idNum, _sex, _checkOutDate, _nation, _birth, _address, _mark, _photoPath, _temporaryIdPhotoPath);
+              if(_checkInDate != null  && _name != null && _idNum != null && _sex != null ){
+                Get.find<HouseL>().updateHouseHolder(Get.find<RoomL>().roomS.roomLevel, this._houseHoldIndex, Get.find<RoomL>().roomS.roomIndex, _checkInDate, _temporaryIdStart, _temporaryIdEnd, _name, _idNum, _sex, _checkOutDate, _nation, _birth, _address, _mark, _photoPath, _temporaryIdPhotoPath);
                 Get.back();
                 Get.snackbar("提示", "更新成功。",snackPosition: SnackPosition.BOTTOM);
               }else{
@@ -340,7 +340,7 @@ class _EditHouseHolderVState extends State<EditHouseHolderV>{
                 middleText: '删除当前住户的所有数据并且无法恢复，建议提前备份，确认要删除吗？',
                 onConfirm: ()async{
                   //File(_photoPath).delete();///TODO No image file delete action.
-                  Get.find<HouseL>().deleteHouseHolder(this._houseHoldIndex, Get.find<RoomL>().roomS.roomIndex);
+                  Get.find<HouseL>().deleteHouseHolder(Get.find<RoomL>().roomS.roomLevel, this._houseHoldIndex, Get.find<RoomL>().roomS.roomIndex);
                   Get.back();
                   Get.back();
                   Get.snackbar("提示", "删除成功。",snackPosition: SnackPosition.BOTTOM);

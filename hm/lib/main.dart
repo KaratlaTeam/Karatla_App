@@ -16,11 +16,10 @@ import 'package:hm/view/customerPage.dart';
 import 'package:hm/view/firstPageV.dart';
 import 'package:hm/view/homeV.dart';
 import 'package:hm/view/houseCreateV.dart';
-import 'package:hm/view/houseDetailV.dart';
-import 'package:hm/view/houseHoldEdit.dart';
+import 'package:hm/view/houseHoldEditV.dart';
 import 'package:hm/view/houseV.dart';
 import 'package:hm/view/rentalFeeEditV.dart';
-import 'package:hm/view/roomCreateV.dart';
+import 'package:hm/view/houseEditV.dart';
 import 'package:hm/view/roomDetailEditV.dart';
 import 'package:hm/view/roomDetailV.dart';
 import 'package:hm/view/roomV.dart';
@@ -55,6 +54,12 @@ class MyApp extends StatelessWidget {
   final ThemeData _themeData = ThemeData(
     primarySwatch: Colors.blue,
     visualDensity: VisualDensity.adaptivePlatformDensity,
+    appBarTheme: AppBarTheme(
+      elevation: 0,
+      //backgroundColor: Colors.white,
+      //iconTheme: IconThemeData(color: Colors.black),
+      //textTheme: TextTheme(headline6: TextStyle(color: Colors.black)),
+    )
   );
 
   @override
@@ -97,13 +102,14 @@ class MyApp extends StatelessWidget {
       GetPage(name: RN.backupList, page: () => BackupListV()),
 
       GetPage(name: RN.house, page: () => HouseV(), binding: HouseBinding(),),
-      GetPage(name: RN.houseDetail, page: () => HouseDetailV(),),
+      //GetPage(name: RN.houseDetail, page: () => HouseDetailV(),),
       GetPage(name: RN.houseCreate, page: () => HouseCreateV(),),
+      GetPage(name: RN.houseEdit, page: () => HouseEditV(),),
 
       GetPage(name: RN.room, page: () => RoomV(), binding: RoomBinding(),),
       GetPage(name: RN.roomDetail, page: () => RoomDetailV(),),
       GetPage(name: RN.roomDetailEdit, page: () => RoomDetailEditV(),),
-      GetPage(name: RN.roomCreate, page: () => RoomCreateV(),),
+
 
       GetPage(name: RN.customer, page: () => CustomerPage(),),
 
@@ -125,7 +131,7 @@ class MyApp extends StatelessWidget {
       }else if(routing.current == RN.house){
         //printInfo(info: "/housePage");
 
-      }else if(routing.current == RN.houseCreate){
+      }else if(routing.current == RN.houseEdit){
         //printInfo(info: "/customerPage");
 
       }else if(routing.current == RN.customer){
@@ -149,13 +155,13 @@ class RN{
   static const String backupList = '/backupList';
 
   static const String house = '/house';
-  static const String houseDetail = '/houseDetail';
+  //static const String houseDetail = '/houseDetail';
   static const String houseCreate = '/houseCreate';
+  static const String houseEdit = '/houseEdit';
 
   static const String room = '/room';
   static const String roomDetail = '/roomDetail';
   static const String roomDetailEdit = '/roomDetailEdit';
-  static const String roomCreate = '/roomCreate';
 
   static const String customer = '/customer';
   

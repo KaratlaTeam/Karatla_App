@@ -87,7 +87,7 @@ class _HouseVState extends State<HouseV>{
                           children: [
                             Row(children: [
                               Icon(Icons.house),
-                              Text("${_.houseState.housesM.houseList[index].roomList.length}"),
+                              Text("${_showRoomAmount(_.houseState.housesM.houseList[index])}"),
                             ],),
                             Row(children: [
                               Icon(Icons.people),
@@ -105,6 +105,7 @@ class _HouseVState extends State<HouseV>{
                   ),
                   onTap: (){
                     _.setHouseIndex(index);
+                    _.setItemList(index);
                     Get.toNamed(RN.room);
                   },
                 ),
@@ -133,44 +134,34 @@ class _HouseVState extends State<HouseV>{
     return feeTypeList;
   }
 
-  //Widget _showRoomPayOverride(HouseM houseM){
-  //  List<Widget> widgets = [];
-  //  var time = DateTime.now();
-  //  for(var a in houseM.roomList){
-  //    var l = a.roomLevel;
-  //    var n = a.roomNumber;
-  //    int amount = 0;
-  //    print('$l $n');
-  //    if(_getShouldPayAmount(a))
-  //  }
-  //  Widget widget = Container();
-  //  return widget;
-  //}
-
-  //_showRoomPayWill(HouseM houseM){
-  //  List<Widget> feeTypeList = [];
-  //  feeTypeList.add(Text("缴费模板:  "),);
-  //  for(String a in houseM.feeTypeList){
-  //    feeTypeList.add(Text(a+"  "));
-  //  }
-  //  return feeTypeList;
-  //}
+  int _showRoomAmount(HouseM houseM){
+    int amount = 0;
+    for(var a in houseM.levelList){
+      amount+=a.roomList.length;
+    }
+    return amount;
+  }
 
   int _houseHoldAmount(HouseM houseM){
     int amount = 0;
-    for(var a in houseM.roomList){
-      amount += a.householderList.length;
+    for(var b in houseM.levelList){
+      for(var a in b.roomList){
+        amount += a.householderList.length;
+      }
     }
     return amount;
   }
 
   _houseIncomeAmount(HouseM houseM){
     double amount = 0;
-    for(var a in houseM.roomList){
-      for(var b in a.feeTypeCostList){
-        amount += b.cost;
+    for(var b in houseM.levelList){
+      for(var a in b.roomList){
+        for(var b in a.feeTypeCostList){
+          amount += b.cost;
+        }
       }
     }
+
     return amount;
   }
 
@@ -189,5 +180,5 @@ class _HouseVState extends State<HouseV>{
     return payed;
   }
 
-}
 
+}

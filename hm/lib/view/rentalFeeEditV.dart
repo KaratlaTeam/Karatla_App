@@ -15,7 +15,7 @@ class RentalFeeEditV extends StatefulWidget{
 }
 class _RentalFeeEditVState extends State<RentalFeeEditV>{
 
-  final RoomM _roomM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex].roomList[Get.find<RoomL>().roomS.roomIndex];
+  final RoomM _roomM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex].levelList[Get.find<RoomL>().roomS.roomLevel].roomList[Get.find<RoomL>().roomS.roomIndex];
   double _amount = 0;
   int _argument = Get.arguments;
   RentalFeeM _rentalFeeMO;
@@ -23,7 +23,7 @@ class _RentalFeeEditVState extends State<RentalFeeEditV>{
   MyTimeM _shouldPayTime;
   MyTimeM _payedTime;
   List<FeeM> _listFeeM ;
-  String _mark = '';
+  String _mark ;
 
 
 
@@ -58,7 +58,7 @@ class _RentalFeeEditVState extends State<RentalFeeEditV>{
           padding: EdgeInsets.all(10),
           children: [
             TextField(
-              controller: TextEditingController(text: _mark),
+              controller: TextEditingController(text: _mark??''),
               decoration: InputDecoration(
                 labelText: "缴费备注",
               ),
@@ -123,7 +123,7 @@ class _RentalFeeEditVState extends State<RentalFeeEditV>{
               ),
             ),
             ElevatedButton(child: Text("更新"),onPressed: (){
-              Get.find<HouseL>().updateRentalFee(_argument,Get.find<RoomL>().roomS.roomIndex,  _shouldPayTime, _payedTime, _listFeeM, _mark);
+              Get.find<HouseL>().updateRentalFee(Get.find<RoomL>().roomS.roomLevel, _argument,Get.find<RoomL>().roomS.roomIndex,  _shouldPayTime, _payedTime, _listFeeM, _mark);
               Get.back();
               Get.snackbar("提示", '更新成功', snackPosition: SnackPosition.BOTTOM);
             },
@@ -135,7 +135,7 @@ class _RentalFeeEditVState extends State<RentalFeeEditV>{
 
                   },
                   onConfirm: (){
-                    Get.find<HouseL>().deleteRentalFee(Get.find<RoomL>().roomS.roomIndex, _argument);
+                    Get.find<HouseL>().deleteRentalFee(Get.find<RoomL>().roomS.roomLevel, Get.find<RoomL>().roomS.roomIndex, _argument);
                     Get.back();
                     Get.back();
                     Get.snackbar("提示", '删除成功', snackPosition: SnackPosition.BOTTOM);

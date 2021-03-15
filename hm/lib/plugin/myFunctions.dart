@@ -3,22 +3,22 @@ import 'package:hm/model/roomM.dart';
 
 class MyFunctions{
 
-  int getHouseHighestLevels(HouseM houseM){
-    int highest = 1;
+  //int getHouseHighestLevels(HouseM houseM){
+  //  int highest = 1;
+//
+   // for(var room in houseM.levelList){
+   //   room.roomLevel > highest ? highest = room.roomLevel : highest = highest;
+   // }
+   // return highest;
+ // }
 
-    for(RoomM room in houseM.roomList){
-      room.roomLevel > highest ? highest = room.roomLevel : highest = highest;
-    }
-    return highest;
-  }
-
-  Map<int, int> getRoomsPerLevelMap(HouseM houseM){
-    Map<int,int> a = Map<int, int>();
-    for(RoomM room in houseM.roomList){
-     a[room.roomLevel] == null ? a[room.roomLevel] = 1 : a[room.roomLevel]++;
-    }
-    return a;
-  }
+  //Map<int, int> getRoomsPerLevelMap(HouseM houseM){
+  //  Map<int,int> a = Map<int, int>();
+  //  for(RoomM room in houseM.roomList){
+  //   a[room.roomLevel] == null ? a[room.roomLevel] = 1 : a[room.roomLevel]++;
+  //  }
+   // return a;
+ // }
 
    getExpiredLeft(RoomM roomM){
     if(roomM.rentalFee.length>0){
@@ -33,4 +33,16 @@ class MyFunctions{
     }
 
   }
+}
+
+class Item {
+  Item({
+    this.houseLevel,
+    this.isExpanded = false,
+    this.levelIndex,
+  });
+
+  int levelIndex;
+  HouseLevel houseLevel;
+  bool isExpanded;
 }

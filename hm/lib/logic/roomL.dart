@@ -29,5 +29,9 @@ class RoomL extends GetxController{
     update();
   }
 
+  setLevelIndex(int index){
+    this.roomS.roomLevel = index;
+    update();
+  }
 
 }

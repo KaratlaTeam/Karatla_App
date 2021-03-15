@@ -100,7 +100,7 @@ class _AddCheckTimeVState extends State<AddCheckTimeV>{
 
             ElevatedButton(child: Text("记录"),onPressed: ()async{
               if(_myTimeM != null){
-                var a = await Get.find<HouseL>().addCheckTime(Get.find<RoomL>().roomS.roomIndex, _roomState, _myTimeM);
+                var a = await Get.find<HouseL>().addCheckTime(Get.find<RoomL>().roomS.roomLevel, Get.find<RoomL>().roomS.roomIndex, _roomState, _myTimeM, _mark);
                 if(a == 'ok'){
                   Get.back();
                   Get.snackbar("提示", "记录成功", snackPosition: SnackPosition.BOTTOM);
