@@ -25,7 +25,7 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
     _stage = _offStageController();
   }
 
@@ -43,15 +43,19 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
     return  Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(icon: Icon(Icons.add), onPressed: (){
+          IconButton(icon: Icon(Icons.add_circle), onPressed: (){
             if(_tabController.index == 0){
               Get.toNamed(RN.addRentalFee);
 
             }else if(_tabController.index == 1){
-              Get.toNamed(RN.addCheckTime);
+              Get.toNamed(RN.addHouseHolder);
 
             }else if(_tabController.index == 2){
-              Get.toNamed(RN.addHouseHolder);
+              Get.toNamed(RN.addDeposit);
+
+            }else if(_tabController.index == 3){
+              Get.toNamed(RN.addCheckTime);
+
 
             }
           }),
@@ -60,20 +64,27 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
           }),
         ],
         title: ListTile(
-          title: Text('${_houseM.levelList[Get.find<RoomL>().roomS.roomLevel].name} - 0${_roomM.roomNumber}',style: TextStyle(color: Colors.white),),
+          title: Text('${_houseM.levelList[Get.find<RoomL>().roomS.roomLevel].name} - 0${_roomM.roomNumber}(${_roomM.checkTime.length > 0 ? Get.find<HouseL>().roomStateToString(_roomM.checkTime[0].checkState) : '空房'})',style: TextStyle(color: Colors.white),),
           subtitle: Text("备注:  ${_roomM.mark}",style: TextStyle(color: Colors.white),),
         ),
         bottom: TabBar(
           controller: _tabController,
           tabs: <Widget>[
             Tab(
-              icon: Icon(Icons.money),
+              //icon: Icon(Icons.money),
+              text: '租金',
             ),
             Tab(
-              icon: Icon(Icons.sensor_door_sharp),
+              //icon: Icon(Icons.people),
+              text: '住户',
             ),
             Tab(
-              icon: Icon(Icons.people),
+              //icon: Icon(Icons.money_rounded),
+              text: '押金',
+            ),
+            Tab(
+              //icon: Icon(Icons.sensor_door_sharp),
+              text: '状态',
             ),
           ],
         ),
@@ -133,27 +144,7 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
               );
             },
           ),
-          ListView.builder(
-            //padding: EdgeInsets.all(20),
-            itemCount: _roomM.checkTime.length,
-            itemBuilder: (BuildContext context, int index){
-              return Container(
-                //margin: EdgeInsets.only(bottom: 10),
-                child: Card(
-                  elevation: 0,
-                  child: ListTile(
-                    onLongPress: (){
 
-                    },
-                    horizontalTitleGap: 0,
-                    title: Text(_roomM.checkTime[index].checkTime.toString()),
-                    subtitle: Text("备注：${_roomM.checkTime[index].mark}"),
-                    trailing: Text(Get.find<HouseL>().roomStateToString(_roomM.checkTime[index].checkState)),
-                  ),
-                ),
-              );
-            },
-          ),
           ListView.builder(
             //padding: EdgeInsets.all(20),
             itemCount: _roomM.householderList.length,
@@ -173,6 +164,49 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
                     onLongPress: (){
                       Get.toNamed(RN.houseHoldEdit, arguments: index);
                     },
+                  ),
+                ),
+              );
+            },
+          ),
+          ListView.builder(
+            //padding: EdgeInsets.all(20),
+            itemCount: _roomM.depositList.length,
+            itemBuilder: (BuildContext context, int index){
+              return Container(
+                //margin: EdgeInsets.only(bottom: 10),
+                child: Card(
+                  elevation: 0,
+                  child: ListTile(
+                    onLongPress: (){
+                      Get.toNamed(RN.depositEdit, arguments: index);
+                    },
+                    horizontalTitleGap: 15,
+                    leading: Text(_roomM.depositList[index].refundTime == null ? '未退' : '已退', style: TextStyle(color: _roomM.depositList[index].refundTime == null ? Colors.red : Colors.green, fontWeight: FontWeight.bold),),
+                    title: Text(_roomM.depositList[index].refundTime == null ? _roomM.depositList[index].payedTime.toString() : _roomM.depositList[index].refundTime.toString()),
+                    subtitle: Text("备注：${_roomM.depositList[index].mark??''}"),
+                    trailing: Text(_roomM.depositList[index].amount.toString()),
+                  ),
+                ),
+              );
+            },
+          ),
+          ListView.builder(
+            //padding: EdgeInsets.all(20),
+            itemCount: _roomM.checkTime.length,
+            itemBuilder: (BuildContext context, int index){
+              return Container(
+                //margin: EdgeInsets.only(bottom: 10),
+                child: Card(
+                  elevation: 0,
+                  child: ListTile(
+                    onLongPress: (){
+                      Get.toNamed(RN.checkTimeEdit, arguments: index);
+                    },
+                    horizontalTitleGap: 0,
+                    title: Text(_roomM.checkTime[index].checkTime.toString()),
+                    subtitle: Text("备注：${_roomM.checkTime[index].mark}"),
+                    trailing: Text(Get.find<HouseL>().roomStateToString(_roomM.checkTime[index].checkState)),
                   ),
                 ),
               );

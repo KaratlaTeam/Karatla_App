@@ -4,43 +4,36 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:hm/Internationalization.dart';
 import 'package:hm/model/houseM.dart';
 import 'package:hm/binding.dart';
 import 'package:hm/model/roomM.dart';
-import 'package:hm/view/addCheckTimeV.dart';
-import 'package:hm/view/addHouseHolder.dart';
-import 'package:hm/view/addRentalFeeV.dart';
-import 'package:hm/view/backupList.dart';
-import 'package:hm/view/customerPage.dart';
-import 'package:hm/view/firstPageV.dart';
-import 'package:hm/view/homeV.dart';
-import 'package:hm/view/houseCreateV.dart';
-import 'package:hm/view/houseHoldEditV.dart';
-import 'package:hm/view/houseV.dart';
-import 'package:hm/view/rentalFeeEditV.dart';
-import 'package:hm/view/houseEditV.dart';
-import 'package:hm/view/roomDetailEditV.dart';
-import 'package:hm/view/roomDetailV.dart';
-import 'package:hm/view/roomV.dart';
+import 'package:hm/view/checkTime/addCheckTimeV.dart';
+import 'package:hm/view/checkTime/editCheckTimeV.dart';
+import 'package:hm/view/deposit/addDepositV.dart';
+import 'package:hm/view/deposit/editDepositV.dart';
+import 'package:hm/view/house/EditHouseExpenseV.dart';
+import 'package:hm/view/house/addHouseExpenseV.dart';
+import 'package:hm/view/houseHolder/addHouseHolder.dart';
+import 'package:hm/view/rental/addRentalFeeV.dart';
+import 'package:hm/view/home/backupList.dart';
+import 'package:hm/view/customer/customerPage.dart';
+import 'package:hm/view/leading/firstPageV.dart';
+import 'package:hm/view/home/homeV.dart';
+import 'package:hm/view/house/houseCreateV.dart';
+import 'package:hm/view/houseHolder/houseHoldEditV.dart';
+import 'package:hm/view/house/houseV.dart';
+import 'package:hm/view/rental/rentalFeeEditV.dart';
+import 'package:hm/view/house/houseEditV.dart';
+import 'package:hm/view/room/roomDetailEditV.dart';
+import 'package:hm/view/room/roomDetailV.dart';
+import 'package:hm/view/room/roomV.dart';
 
 void main() async{
 
   //WidgetsFlutterBinding.ensureInitialized();
-
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    systemNavigationBarColor: Colors.white,
-    statusBarBrightness: Brightness.light,
-
-    /// Only honored in iOS.
-    statusBarIconBrightness: Brightness.dark,
-
-    ///Only honored in Android version M and greater.
-    systemNavigationBarIconBrightness: Brightness.dark,
-
-    ///Only honored in Android versions O and greater.
-  ));
 
 
   runApp(
@@ -74,8 +67,21 @@ class MyApp extends StatelessWidget {
       unknownRoute: GetPage(name: RN.home, page: () => HomeV()),
       routingCallback: _routingCallback(),
       theme: _themeData,
+        translations: Messages(),
+        locale: Get.deviceLocale,
+        fallbackLocale: Locale('en', 'UK'),
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: [
+          const Locale('en', ''), // English, no country code
+          const Locale.fromSubtags(languageCode: 'zh')
+        ],
       onInit: (){
         printInfo(info: "onInit");
+        //print(Get.deviceLocale);
         if (Platform.isAndroid) {
           FlutterDisplayMode.current.then((displayMode) {
             FlutterDisplayMode.setMode(displayMode);
@@ -83,6 +89,20 @@ class MyApp extends StatelessWidget {
             print(displayMode);
           });
         }
+
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          systemNavigationBarColor: Colors.white,
+          statusBarBrightness: Brightness.light,
+
+          /// Only honored in iOS.
+          statusBarIconBrightness: Brightness.dark,
+
+          ///Only honored in Android version M and greater.
+          systemNavigationBarIconBrightness: Brightness.dark,
+
+          ///Only honored in Android versions O and greater.
+        ));
       },
       onReady: (){
         printInfo(info: "onReady");
@@ -116,9 +136,14 @@ class MyApp extends StatelessWidget {
       GetPage(name: RN.addCheckTime, page: () => AddCheckTimeV(),),
       GetPage(name: RN.addHouseHolder, page: () => AddHouseHolderV(),),
       GetPage(name: RN.addRentalFee, page: () => AddRentalFeeV(),),
+      GetPage(name: RN.addDeposit, page: () => AddDepositV(),),
+      GetPage(name: RN.addExpense, page: () => AddHouseExpenseV(),),
 
       GetPage(name: RN.rentalFeeEdit, page: () => RentalFeeEditV(),),
       GetPage(name: RN.houseHoldEdit, page: () => EditHouseHolderV(),),
+      GetPage(name: RN.depositEdit, page: () => EditDepositV(),),
+      GetPage(name: RN.checkTimeEdit, page: () => EditCheckTimeV(),),
+      GetPage(name: RN.expenseEdit, page: () => EditHouseExpenseV(),),
     ];
     return _pageList;
   }
@@ -168,7 +193,12 @@ class RN{
   static const String addCheckTime = '/addCheckTime';
   static const String addRentalFee = '/addRentalFee';
   static const String addHouseHolder = '/addHouseHolder';
+  static const String addDeposit = '/addDeposit';
+  static const String addExpense = '/addExpense';
 
   static const String rentalFeeEdit = '/rentalFeeEdit';
   static const String houseHoldEdit = '/houseHoldEdit';
+  static const String depositEdit = '/depositEdit';
+  static const String checkTimeEdit = '/checkTimeEdit';
+  static const String expenseEdit = '/expenseEdit';
 }

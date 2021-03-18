@@ -94,7 +94,7 @@ class _HouseCreateVState extends State<HouseCreateV>{
                   setState(() {
                     if(_type != "" && _type!=null){
                       _feeTypeList.add(_type);
-                      _feeTypeCostList.add(FeeTypeCost()..initialize(_type, 0.0));
+                      _feeTypeCostList.add(FeeTypeCost()..initialize(_type, 0.0, false));
                       _type = "";
                     }
 
@@ -175,11 +175,11 @@ class _HouseCreateVState extends State<HouseCreateV>{
     for(int index = 0; index < _feeTypeCostList.length; index++){
       widgets.add(Container(
         //color: Colors.red,
-        child: Chip(
-          backgroundColor: Colors.grey.shade200,
-          label: Text(_feeTypeCostList[index].type),
-          deleteIcon: Icon(Icons.delete,size: 20,),
+        child: InputChip(
+          //deleteIcon: Icon(Icons.delete,size: 20,),
           deleteIconColor: Colors.red,
+          label: Text(_feeTypeCostList[index].type),
+          //backgroundColor: Colors.blue.shade100,
           onDeleted: (){
             setState(() {
               _feeTypeCostList.removeAt(index);

@@ -17,8 +17,9 @@ class HouseholderM{
     this.temporaryIdPhotoPath,
     this.temporaryIdStart,
     this.temporaryIdEnd,
+    this.phoneNumber,
 });
-  String name, sex, nation, birth, address, idNum, mark, photoPath, temporaryIdPhotoPath;
+  String name, sex, nation, birth, address, idNum, mark, photoPath, temporaryIdPhotoPath, phoneNumber;
   int level, number;
   MyTimeM checkInDate;
   MyTimeM checkOutDate;
@@ -27,7 +28,25 @@ class HouseholderM{
   MyTimeM temporaryIdEnd;
 
 
-  initialize(MyTimeM checkInDate, MyTimeM temporaryIdStart, MyTimeM temporaryIdEnd, String name, String idNum, String sex, int level, int number, [ MyTimeM checkOutDate, String nation, String birth, String address, String mark, String photoPath, String temporaryIdPhotoPath]){
+  initialize(
+      MyTimeM checkInDate,
+      MyTimeM temporaryIdStart,
+      MyTimeM temporaryIdEnd,
+      String name,
+      String idNum,
+      String sex,
+      int level,
+      int number,
+      [ MyTimeM checkOutDate,
+        String nation,
+        String birth,
+        String address,
+        String mark,
+        String photoPath,
+        String temporaryIdPhotoPath,
+        String phoneNumber,
+      ]
+      ){
     this.name = name;
     this.sex = sex ;
     this.idNum = idNum;
@@ -43,6 +62,7 @@ class HouseholderM{
     birth != null ? this.birth = birth : this.birth = "";
     address != null ? this.address = address : this.address = "";
     mark != null ? this.mark = mark : this.mark = "";
+    phoneNumber != null ? this.phoneNumber = phoneNumber : this.phoneNumber = "";
   }
 
   factory HouseholderM.fromJson(Map<String, dynamic> json){
@@ -62,6 +82,7 @@ class HouseholderM{
       temporaryIdPhotoPath: json['temporaryIdPhotoPath'],
       level: json['level'],
       number: json['number'],
+      phoneNumber: json['phoneNumber'],
     );
   }
 
@@ -90,6 +111,7 @@ class HouseholderM{
     householder['temporaryIdPhotoPath'] = this.temporaryIdPhotoPath;
     householder['level'] = this.level;
     householder['number'] = this.number;
+    householder['phoneNumber'] = this.phoneNumber;
     return householder;
   }
 

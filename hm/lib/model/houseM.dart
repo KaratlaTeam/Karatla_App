@@ -1,4 +1,5 @@
 
+import 'package:hm/model/houseExpensesM.dart';
 import 'package:hm/model/roomM.dart';
 
 
@@ -35,14 +36,14 @@ class HouseM {
     this.mark,
     this.houseName,
 
-    //this.roomList,
+    this.houseExpensesList,
     this.levelList,
 });
   String houseName ;
   String mark;
   List<String> feeTypeList;
 
-  //List<RoomM> roomList ;
+  List<HouseExpensesM> houseExpensesList ;
   List<HouseLevel> levelList;
 
   initialize(List<HouseLevel> levelList, String name, List<String> feeTypeList, [String mark]){
@@ -50,7 +51,7 @@ class HouseM {
     this.feeTypeList = feeTypeList;
     mark != null ? this.mark = mark : this.mark = "";
 
-    //this.roomList = roomList;
+    this.houseExpensesList = [];
     this.levelList = levelList;
   }
 
@@ -59,10 +60,10 @@ class HouseM {
       houseName: json['houseName'],
       mark: json['mark'],
 
-      feeTypeList: json['feeTypeList'] != null ? new List<String>.from(json['feeTypeList']) : null,
+      feeTypeList: json['feeTypeList'] != null ? new List<String>.from(json['feeTypeList']) : [],
 
-      //roomList: json['roomList'] != null ? (json['roomList'] as List).map((i) => RoomM.fromJson(i)).toList() : null,
-      levelList: json['levelList'] != null ? (json['levelList'] as List).map((i) => HouseLevel.fromJson(i)).toList() : null,
+      houseExpensesList: json['houseExpensesList'] != null ? (json['houseExpensesList'] as List).map((i) => HouseExpensesM.fromJson(i)).toList() : [],
+      levelList: json['levelList'] != null ? (json['levelList'] as List).map((i) => HouseLevel.fromJson(i)).toList() : [],
     );
   }
 
@@ -76,9 +77,9 @@ class HouseM {
       house['feeTypeList'] = this.feeTypeList;
     }
 
-    //if (this.roomList != null) {
-    //  house['roomList'] = this.roomList.map((v) => v.toJson()).toList();
-    //}
+    if (this.houseExpensesList != null) {
+      house['houseExpensesList'] = this.houseExpensesList.map((v) => v.toJson()).toList();
+    }
     if (this.levelList != null) {
       house['levelList'] = this.levelList.map((v) => v.toJson()).toList();
     }

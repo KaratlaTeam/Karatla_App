@@ -1,5 +1,6 @@
 
 import 'package:hm/enumData.dart';
+import 'package:hm/model/depositM.dart';
 import 'package:hm/model/householderM.dart';
 import 'package:hm/model/myTimeM.dart';
 import 'package:hm/model/rentalFeeM.dart';
@@ -11,14 +12,17 @@ class CheckTimeM{
    this.checkTime,
    this.checkState,
     this.mark,
+    this.photoPathList,
 });
   RoomState checkState;
   MyTimeM checkTime;
   String mark;
+  List<String> photoPathList;
 
-  initialize(RoomState checkState, MyTimeM checkTime,[String mark]){
+  initialize(RoomState checkState, MyTimeM checkTime,List<String> photoPathList, [String mark]){
     this.checkState = checkState;
     this.checkTime = checkTime;
+    this.photoPathList = photoPathList;
     mark != null ? this.mark = mark : this.mark = "";
   }
 
@@ -27,6 +31,7 @@ class CheckTimeM{
       checkTime: json['checkTime'] != null ? MyTimeM.fromJson(json['checkTime']) : null,
       checkState:  json['checkState'] != null ? RoomState.values.firstWhere((element) => element.toString() == json['checkState']) : RoomState.ERROR,
       mark: json['mark'],
+      photoPathList: json['photoPathList'] != null ? new List<String>.from(json['photoPathList']) : [],
     );
   }
 
@@ -37,6 +42,9 @@ class CheckTimeM{
     }
     checkTime["checkState"] = this.checkState.toString();
     checkTime["mark"] = this.mark;
+    if (this.photoPathList != null) {
+      checkTime['photoPathList'] = this.photoPathList;
+    }
     return checkTime;
   }
 }
@@ -45,20 +53,24 @@ class FeeTypeCost{
   FeeTypeCost({
     this.cost,
     this.type,
+    this.rangeAvailable,
 });
   String type;
   double cost;
+  bool rangeAvailable;
 
-  initialize(String type, double cost, ){
+
+  initialize(String type, double cost, bool rangeAvailable){
     this.type = type;
     this.cost = cost;
-    
+    this.rangeAvailable = rangeAvailable;
   }
 
   factory FeeTypeCost.fromJson(Map<String, dynamic> json){
     return FeeTypeCost(
       type: json['type'],
       cost: json['cost'],
+      rangeAvailable: json['rangeAvailable'],
     );
   }
 
@@ -66,6 +78,7 @@ class FeeTypeCost{
     Map<String, dynamic> feeTypeCost = Map<String, dynamic>();
     feeTypeCost["type"] = this.type;
     feeTypeCost["cost"] = this.cost;
+    feeTypeCost['rangeAvailable'] = this.rangeAvailable;
     return feeTypeCost;
   }
 }
@@ -80,6 +93,7 @@ class RoomM {
     this.roomNumber,
     this.roomLevel,
     this.feeTypeCostList,
+    this.depositList,
 });
   int roomLevel;
   int roomNumber;
@@ -90,10 +104,11 @@ class RoomM {
   List<HouseholderM> householderList ;
   List<RentalFeeM> rentalFee;
   List<CheckTimeM> checkTime;
+  List<DepositM> depositList;
 
   initialize(
-      int roomLevel,
-      int roomNumber,
+      int roomLevel, ///from 0
+      int roomNumber, /// from 1
       List<FeeTypeCost> feeTypeCostList,
       [List<HouseholderM> householderList,String mark]
       ){
@@ -104,19 +119,21 @@ class RoomM {
     this.householderList = [];
     this.rentalFee = [];
     this.checkTime = [];
+    this.depositList = [];
     mark != null ? this.mark = mark : this.mark = "";
   }
 
   factory RoomM.fromJson(Map<String, dynamic> json){
     return RoomM(
-      feeTypeCostList: json['feeTypeCostList'] != null ? (json['feeTypeCostList'] as List).map((i) => FeeTypeCost.fromJson(i)).toList() : null,
+      feeTypeCostList: json['feeTypeCostList'] != null ? (json['feeTypeCostList'] as List).map((i) => FeeTypeCost.fromJson(i)).toList() : [],
       mark: json['mark'],
       roomLevel: json['roomLevel'],
       roomNumber: json['roomNumber'],
       roomState: json['roomState'] != null ? RoomState.values.firstWhere((element) => element.toString() == json['roomState']) : RoomState.ERROR,
-      householderList: json['householderList'] != null ? (json['householderList'] as List).map((i) => HouseholderM.fromJson(i)).toList() : null,
-      checkTime: json['checkTime'] != null ? (json['checkTime'] as List).map((i) => CheckTimeM.fromJson(i)).toList() : null,
-      rentalFee: json['rentalFee'] != null ? (json['rentalFee'] as List).map((i) => RentalFeeM.fromJson(i)).toList() : null,
+      householderList: json['householderList'] != null ? (json['householderList'] as List).map((i) => HouseholderM.fromJson(i)).toList() : [],
+      checkTime: json['checkTime'] != null ? (json['checkTime'] as List).map((i) => CheckTimeM.fromJson(i)).toList() : [],
+      rentalFee: json['rentalFee'] != null ? (json['rentalFee'] as List).map((i) => RentalFeeM.fromJson(i)).toList() : [],
+      depositList: json['depositList'] != null ? (json['depositList'] as List).map((i) => DepositM.fromJson(i)).toList() : [],
     );
   }
 
@@ -138,6 +155,9 @@ class RoomM {
     }
     if (this.rentalFee != null) {
       room['rentalFee'] = this.rentalFee.map((v) => v.toJson()).toList();
+    }
+    if (this.depositList != null) {
+      room['depositList'] = this.depositList.map((v) => v.toJson()).toList();
     }
 
     return room;

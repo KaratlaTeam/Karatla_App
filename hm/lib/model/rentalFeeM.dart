@@ -8,13 +8,16 @@ class FeeM{
     this.payedFee,
     this.feeTypeCost,
     this.amount,
+    this.usageStartNumber,
 });
   double payedFee;
   FeeTypeCost feeTypeCost;
   int amount;
+  double usageStartNumber;
 
-  initialize(FeeTypeCost feeTypeCost, double payedFee, int amount){
+  initialize(FeeTypeCost feeTypeCost, double payedFee, int amount, double usageStartNumber){
     this.feeTypeCost = feeTypeCost;
+    this.usageStartNumber = usageStartNumber;
     amount == null ? this.amount = 1 : this.amount = amount;
     payedFee != null ? this.payedFee = payedFee : this.payedFee = 0;
   }
@@ -24,6 +27,7 @@ class FeeM{
       payedFee: json['payedFee'],
       amount: json['amount'],
       feeTypeCost: json['feeTypeCost'] != null ? FeeTypeCost.fromJson(json['feeTypeCost']) : null,
+      usageStartNumber: json['usageStartNumber'] ,
     );
   }
 
@@ -31,6 +35,7 @@ class FeeM{
     Map<String, dynamic> fee = Map<String, dynamic>();
     fee["payedFee"] = this.payedFee;
     fee['amount'] = this.amount;
+    fee['usageStartNumber'] = this.usageStartNumber;
     if (this.feeTypeCost != null) {
       fee['feeTypeCost'] = this.feeTypeCost.toJson();
     }

@@ -55,7 +55,7 @@ class _HouseVState extends State<HouseV>{
                           title: Text(_.houseState.housesM.houseList[index].houseName, style: TextStyle(fontWeight: FontWeight.bold),),
                           subtitle: Column(
                             children: [
-                              Row(children: _showFeeTypeList(_.houseState.housesM.houseList[index]),),
+                              //Row(children: _showFeeTypeList(_.houseState.housesM.houseList[index]),),
                               Row(children: [Text('备注: '+_.houseState.housesM.houseList[index].mark,style: TextStyle(color: Colors.grey),),],),
                             ],
                           ),
@@ -92,10 +92,6 @@ class _HouseVState extends State<HouseV>{
                             Row(children: [
                               Icon(Icons.people),
                               Text(_houseHoldAmount(_.houseState.housesM.houseList[index]).toString()),
-                            ],),
-                            Row(children: [
-                              Icon(CupertinoIcons.money_yen),
-                              Text(_houseIncomeAmount(_.houseState.housesM.houseList[index]).toString()),
                             ],),
 
                           ],

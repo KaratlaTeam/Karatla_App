@@ -24,7 +24,7 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
     // TODO: implement initState
     super.initState();
     for(FeeTypeCost a in _roomM.feeTypeCostList){
-      FeeTypeCost feeTypeCost = FeeTypeCost()..initialize(a.type, a.cost);
+      FeeTypeCost feeTypeCost = FeeTypeCost()..initialize(a.type, a.cost, a.rangeAvailable);
       _feeTypeCostList.add(feeTypeCost);
     }
     this._mark = _roomM.mark;
@@ -70,7 +70,7 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
                 ElevatedButton(child: Text("添加"),onPressed: (){
                   setState(() {
                     if(_typeHold != ""){
-                      _feeTypeCostList.add(FeeTypeCost()..initialize(_typeHold, 0.0));
+                      _feeTypeCostList.add(FeeTypeCost()..initialize(_typeHold, 0.0, false));
                       _typeHold = '';
                     }
 
@@ -135,6 +135,13 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
                    },
                  ),
                ),
+             ),
+             Switch(
+               value: _feeTypeCostList[index].rangeAvailable,
+               onChanged: (available){
+                 _feeTypeCostList[index].rangeAvailable = available;
+                 setState(() {});
+             },
              ),
              ElevatedButton(child: Text("删除"),onPressed: (){
                setState(() {

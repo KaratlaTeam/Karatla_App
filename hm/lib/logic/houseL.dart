@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hm/enumData.dart';
 import 'package:hm/main.dart';
+import 'package:hm/model/depositM.dart';
+import 'package:hm/model/houseExpensesM.dart';
 import 'package:hm/model/houseM.dart';
 import 'package:hm/model/householderM.dart';
 import 'package:hm/model/myTimeM.dart';
@@ -151,6 +153,7 @@ class HouseL extends GetxController{
       String dateTime = '${a.year}_${a.month}_${a.day}_${a.hour}:${a.minute}:${a.second}';
       var directory = Directory('$backupPath${RN.backUpDirectoryName}');
       String backup = json.encode(houseState.housesM.toJson());
+      ///Clipboard.setData(ClipboardData(text: backup));///
       File file = File('${directory.path}/$dateTime.hm');
       await file.writeAsString(backup);
       //this.houseState.backUp.backUpList.add(dateTime);
@@ -234,10 +237,10 @@ class HouseL extends GetxController{
     update();
   }
 
-  addCheckTime(int levelIndex, int index, RoomState roomState, MyTimeM myTimeM,[String mark])async{
+  addCheckTime(int levelIndex, int index, RoomState roomState, MyTimeM myTimeM,List<String> photoPathList,[String mark])async{
     try{
       var room = getRoom(index, levelIndex);
-      CheckTimeM checkTimeM = CheckTimeM()..initialize(roomState, myTimeM, mark ?? '');
+      CheckTimeM checkTimeM = CheckTimeM()..initialize(roomState, myTimeM, photoPathList, mark ?? '');
       room.roomState = roomState;
       room.checkTime = room.checkTime.reversed.toList();
       room.checkTime.add(checkTimeM);
@@ -249,6 +252,35 @@ class HouseL extends GetxController{
       printError(info: e.toString());
       return 'no';
     }
+  }
+
+  updateCheckTime(int levelIndex, int index,int checkTimeIndex, RoomState roomState, MyTimeM myTimeM,List<String> photoPathList, [String mark])async{
+    try{
+      var room = getRoom(index, levelIndex);
+      CheckTimeM checkTimeM = CheckTimeM()..initialize(roomState, myTimeM,photoPathList, mark ?? '');
+      if(checkTimeIndex == 0){
+        room.roomState = roomState;
+      }
+      room.checkTime[checkTimeIndex] = checkTimeM;
+      await setSharedPHouseList();
+      update();
+      return 'ok';
+    }catch (e){
+      printError(info: e.toString());
+      return 'no';
+    }
+  }
+
+  deleteCheckTime(int levelIndex, int index, int deleteIndex)async{
+    var room = getRoom(index, levelIndex);
+    room.checkTime.removeAt(deleteIndex);
+    if(room.checkTime.length > 0){
+      room.roomState = room.checkTime[0].checkState;
+    }else{
+      room.roomState = RoomState.OFF;
+    }
+    await setSharedPHouseList();
+    update();
   }
 
   addRentalFee(int levelIndex, int index, MyTimeM shouldPay, MyTimeM payedTime, List<FeeM> listFeeM, String mark)async{
@@ -274,8 +306,8 @@ class HouseL extends GetxController{
     update();
   }
 
-  addHouseHolder(int levelIndex, int roomIndex, MyTimeM checkInDate, MyTimeM temporaryIdStart, MyTimeM temporaryIdEnd, String name, String idNum, String sex, int level, int number,  MyTimeM checkOutDate, String nation, String birth, String address, String mark, String photoPath, String temporaryIdPhotoPath)async{
-    HouseholderM householderM = HouseholderM()..initialize(checkInDate, temporaryIdStart, temporaryIdEnd, name, idNum, sex, level, number, checkOutDate, nation, birth, address, mark, photoPath, temporaryIdPhotoPath);
+  addHouseHolder(String phoneNumber, int levelIndex, int roomIndex, MyTimeM checkInDate, MyTimeM temporaryIdStart, MyTimeM temporaryIdEnd, String name, String idNum, String sex, int level, int number,  MyTimeM checkOutDate, String nation, String birth, String address, String mark, String photoPath, String temporaryIdPhotoPath)async{
+    HouseholderM householderM = HouseholderM()..initialize(checkInDate, temporaryIdStart, temporaryIdEnd, name, idNum, sex, level, number, checkOutDate, nation, birth, address, mark, photoPath, temporaryIdPhotoPath, phoneNumber);
     var room = getRoom(roomIndex, levelIndex);
     room.householderList = room.householderList.reversed.toList();
     room.householderList.add(householderM);
@@ -290,12 +322,62 @@ class HouseL extends GetxController{
     update();
   }
 
-  updateHouseHolder(int levelIndex,int houseHoldIndex, int roomIndex, MyTimeM checkInDate, MyTimeM temporaryIdStart, MyTimeM temporaryIdEnd, String name, String idNum, String sex, MyTimeM checkOutDate, String nation, String birth, String address, String mark, String photoPath, String temporaryIdPhotoPath)async{
+  updateHouseHolder(String phoneNumber, int levelIndex,int houseHoldIndex, int roomIndex, MyTimeM checkInDate, MyTimeM temporaryIdStart, MyTimeM temporaryIdEnd, String name, String idNum, String sex, MyTimeM checkOutDate, String nation, String birth, String address, String mark, String photoPath, String temporaryIdPhotoPath)async{
     var room = getRoom(roomIndex, levelIndex);
     int oLevel = room.householderList[houseHoldIndex].level;
     int oNumber = room.householderList[houseHoldIndex].number;
-    HouseholderM householderM = HouseholderM()..initialize(checkInDate, temporaryIdStart, temporaryIdEnd, name, idNum, sex,oLevel, oNumber, checkOutDate, nation, birth, address, mark, photoPath, temporaryIdPhotoPath);
+    HouseholderM householderM = HouseholderM()..initialize(checkInDate, temporaryIdStart, temporaryIdEnd, name, idNum, sex,oLevel, oNumber, checkOutDate, nation, birth, address, mark, photoPath, temporaryIdPhotoPath, phoneNumber);
     room.householderList[houseHoldIndex] = householderM;
+    await setSharedPHouseList();
+    update();
+  }
+
+  addDepositM (int levelIndex, int roomIndex,String mark, double amount, MyTimeM payedTime, MyTimeM refundTime, ) async{
+    var room = getRoom(roomIndex, levelIndex);
+    DepositM deposit = DepositM()..initialize(mark, amount, payedTime, refundTime);
+    room.depositList = room.depositList.reversed.toList();
+    room.depositList.add(deposit);
+    room.depositList = room.depositList.reversed.toList();
+    await setSharedPHouseList();
+    update();
+  }
+
+  updateDepositM (int levelIndex, int roomIndex,int depositIndex, String mark, double amount, MyTimeM payedTime, MyTimeM refundTime,) async{
+    var room = getRoom(roomIndex, levelIndex);
+    DepositM deposit = DepositM()..initialize(mark, amount, payedTime, refundTime);
+    room.depositList[depositIndex] = deposit;
+    await setSharedPHouseList();
+    update();
+  }
+
+  deleteDepositM (int levelIndex, int roomIndex,int depositIndex) async{
+    var room = getRoom(roomIndex, levelIndex);
+    room.depositList.removeAt(depositIndex);
+    await setSharedPHouseList();
+    update();
+  }
+
+  addHouseExpense(String mark, FeeTypeCost expense, MyTimeM expenseDate)async{
+    var house = getHouse();
+    HouseExpensesM houseExpense = HouseExpensesM()..initialize(mark, expense, expenseDate);
+    house.houseExpensesList = house.houseExpensesList.reversed.toList();
+    house.houseExpensesList.add(houseExpense);
+    house.houseExpensesList = house.houseExpensesList.reversed.toList();
+    await setSharedPHouseList();
+    update();
+  }
+
+  updateHouseExpense(String mark, FeeTypeCost expense, MyTimeM expenseDate, int expenseListIndex)async{
+    var house = getHouse();
+    HouseExpensesM houseExpense = HouseExpensesM()..initialize(mark, expense, expenseDate);
+    house.houseExpensesList[expenseListIndex] = houseExpense;
+    await setSharedPHouseList();
+    update();
+  }
+
+  deleteHouseExpense(int expenseListIndex)async{
+    var house = getHouse();
+    house.houseExpensesList.removeAt(expenseListIndex);
     await setSharedPHouseList();
     update();
   }

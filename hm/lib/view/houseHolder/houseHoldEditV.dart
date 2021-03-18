@@ -10,17 +10,22 @@ import 'package:flutter_tencent_ocr/flutter_tencent_ocr.dart';
 import 'package:get/get.dart';
 import 'package:hm/logic/houseL.dart';
 import 'package:hm/logic/roomL.dart';
+import 'package:hm/model/houseM.dart';
+import 'package:hm/model/householderM.dart';
 import 'package:hm/model/myTimeM.dart';
 import 'package:hm/model/roomM.dart';
 import 'package:image_picker/image_picker.dart';
 
-class AddHouseHolderV extends StatefulWidget{
+class EditHouseHolderV extends StatefulWidget{
   @override
-  _AddHouseHolderVState createState() => _AddHouseHolderVState();
+  _EditHouseHolderVState createState() => _EditHouseHolderVState();
 }
-class _AddHouseHolderVState extends State<AddHouseHolderV>{
+class _EditHouseHolderVState extends State<EditHouseHolderV>{
 
   final RoomM _roomM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex].levelList[Get.find<RoomL>().roomS.roomLevel].roomList[Get.find<RoomL>().roomS.roomIndex];
+  int _houseHoldIndex;
+
+
   File _image;
   File _temporaryIdPhoto;
   final picker = ImagePicker();
@@ -35,18 +40,49 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
   String _mark = "";
   MyTimeM _checkInDate;
   MyTimeM _checkOutDate;
-  String _photoPath;
+  //String _photoPath;
+  String _phoneNumber;
 
   MyTimeM _temporaryIdStart;
   MyTimeM _temporaryIdEnd;
-  String _temporaryIdPhotoPath;
+  //String _temporaryIdPhotoPath;
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    this._houseHoldIndex = Get.arguments;
+
+    this._name = _roomM.householderList[this._houseHoldIndex].name;
+    this._sex = _roomM.householderList[this._houseHoldIndex].sex;
+    this._idNum = _roomM.householderList[this._houseHoldIndex].idNum;
+    this._nation = _roomM.householderList[this._houseHoldIndex].nation;
+    this._birth = _roomM.householderList[this._houseHoldIndex].birth;
+    this._address = _roomM.householderList[this._houseHoldIndex].address;
+    this._mark = _roomM.householderList[this._houseHoldIndex].mark;
+    this._checkInDate = _roomM.householderList[this._houseHoldIndex].checkInDate;
+    this._checkOutDate = _roomM.householderList[this._houseHoldIndex].checkOutDate;
+    if(_roomM.householderList[this._houseHoldIndex].photoPath != null){
+      this._image = File(_roomM.householderList[this._houseHoldIndex].photoPath);
+    }
+    this._phoneNumber = _roomM.householderList[this._houseHoldIndex].phoneNumber;
+
+    this._temporaryIdStart = _roomM.householderList[this._houseHoldIndex].temporaryIdStart;
+    this._temporaryIdEnd = _roomM.householderList[this._houseHoldIndex].temporaryIdEnd;
+    if(_roomM.householderList[this._houseHoldIndex].temporaryIdPhotoPath != null){
+      this._temporaryIdPhoto = File(_roomM.householderList[this._houseHoldIndex].temporaryIdPhotoPath);
+    }
+
+
+  }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("添加住户"),
+        title: Text("更新住户"),
       ),
       body: Container(
 
@@ -108,6 +144,17 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
               },
             ),
             TextField(
+              controller: TextEditingController(text: _phoneNumber ?? ''),
+              decoration: InputDecoration(
+                labelText: "手机号",
+              ),
+              keyboardType: TextInputType.number,
+              onChanged: (String text){
+                this._phoneNumber = text;
+              },
+            ),
+            TextField(
+              controller: TextEditingController(text: _mark ?? ''),
               decoration: InputDecoration(
                 labelText: "备注",
               ),
@@ -214,26 +261,60 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
                 child: Text("添加"),
               ),
             ),
-            
-            _image == null
-                ? _photoPath == null
-                ? Text('未扫描身份证')
-                : Image.file(File(_photoPath))
-                : Image.file(_image),
-            
-            _temporaryIdPhoto == null
-                ? _temporaryIdPhotoPath == null
-                ? Text('未扫描暂住证')
-                : Image.file(File(_temporaryIdPhotoPath))
-                : Image.file(_temporaryIdPhoto),
-            
-            ElevatedButton(child: Text("创建"),onPressed: ()async{
-              if(_checkInDate != null && _name != null && _idNum != null && _sex != null ){
-                Get.find<HouseL>().addHouseHolder(Get.find<RoomL>().roomS.roomLevel,Get.find<RoomL>().roomS.roomIndex, _checkInDate, _temporaryIdStart, _temporaryIdEnd, _name, _idNum, _sex, _roomM.roomLevel, _roomM.roomNumber, _checkOutDate, _nation, _birth, _address, _mark, _photoPath, _temporaryIdPhotoPath);
+
+            Wrap(
+              alignment: WrapAlignment.center,
+              runSpacing: 10,
+              spacing: 10,
+              children: [
+                _image == null
+                    ? Text('')
+                    : InkWell(
+                  onTap: (){
+                    Get.to(()=>Scaffold(
+                      backgroundColor: Colors.black,
+                      appBar: AppBar(backgroundColor: Colors.black,),
+                      body: Container(
+                        child: Center(
+                          child: Image.file(_image),
+                        ),
+                      ),
+                    ));
+                  },
+                  child: Container(
+                    child: Image.file(_image, height: 120,width: 190,fit: BoxFit.cover,),
+                  ),
+                ),
+
+                _temporaryIdPhoto == null
+                    ? Text('')
+                    : InkWell(
+                  onTap: (){
+                    Get.to(()=>Scaffold(
+                      backgroundColor: Colors.black,
+                      appBar: AppBar(backgroundColor: Colors.black,),
+                      body: Container(
+                        child: Center(
+                          child: Image.file(_image),
+                        ),
+                      ),
+                    ));
+                  },
+                  child: Container(
+                    child: Image.file(_temporaryIdPhoto, height: 120,width: 190,fit: BoxFit.cover,),
+                  ),
+                ),
+
+              ],
+            ),
+
+            ElevatedButton(child: Text("更新"),onPressed: ()async{
+              if(_checkInDate != null  && _name != null && _idNum != null && _sex != null ){
+                Get.find<HouseL>().updateHouseHolder(this._phoneNumber, Get.find<RoomL>().roomS.roomLevel, this._houseHoldIndex, Get.find<RoomL>().roomS.roomIndex, _checkInDate, _temporaryIdStart, _temporaryIdEnd, _name, _idNum, _sex, _checkOutDate, _nation, _birth, _address, _mark, _image == null ? null : _image.path, _temporaryIdPhoto == null ? null : _temporaryIdPhoto.path);
                 Get.back();
-                Get.snackbar("提示", "添加成功。",snackPosition: SnackPosition.BOTTOM);
+                Get.snackbar("提示", "更新成功。",snackPosition: SnackPosition.BOTTOM);
               }else{
-                Get.snackbar("提示", "信息不完整，添加失败。* 为必填项",snackPosition: SnackPosition.BOTTOM);
+                Get.snackbar("提示", "信息不完整，更新失败。* 为必填项",snackPosition: SnackPosition.BOTTOM);
               }
             },
             ),
@@ -276,7 +357,6 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
                           Get.back();
                           final pickedFile = await picker.getImage(source: ImageSource.camera);
                           if (pickedFile != null) {
-                            this._temporaryIdPhotoPath = pickedFile.path;
                             this._temporaryIdPhoto = File(pickedFile.path);
                           } else {
                             print('No image selected.');
@@ -291,7 +371,6 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
                             Get.back();
                             final pickedFile = await picker.getImage(source: ImageSource.gallery);
                             if (pickedFile != null) {
-                              this._temporaryIdPhotoPath = pickedFile.path;
                               this._temporaryIdPhoto = File(pickedFile.path);
                             } else {
                               print('No image selected.');
@@ -305,6 +384,24 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
                 backgroundColor: Colors.white,
               );
             },),
+            ElevatedButton(child: Text("删除"),onPressed: ()async{
+              Get.defaultDialog(
+                middleText: '删除当前住户的所有数据并且无法恢复，建议提前备份，确认要删除吗？',
+                onConfirm: ()async{
+                  //File(_photoPath).delete();///TODO No image file delete action.
+                  Get.find<HouseL>().deleteHouseHolder(Get.find<RoomL>().roomS.roomLevel, this._houseHoldIndex, Get.find<RoomL>().roomS.roomIndex);
+                  Get.back();
+                  Get.back();
+                  Get.snackbar("提示", "删除成功。",snackPosition: SnackPosition.BOTTOM);
+                },
+                onCancel: (){
+
+                },
+
+              );
+
+            },
+            ),
           ],
         ),
       ),
@@ -314,7 +411,6 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
   Future _getImageByOpenCamera() async {
     final pickedFile = await picker.getImage(source: ImageSource.camera);
     if (pickedFile != null) {
-      this._photoPath = pickedFile.path;
       _image = File(pickedFile.path);
       Uint8List uint8list = await _image.readAsBytes();
       await _idCardOCR(uint8list);
@@ -327,7 +423,6 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
   Future _getImageByOpenFile() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      this._photoPath = pickedFile.path;
       _image = File(pickedFile.path);
       Uint8List uint8list = await _image.readAsBytes();
       await _idCardOCR(uint8list);
@@ -346,9 +441,9 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
       secretId,
       secretKey,
       IDCardOCRRequest.fromParams(
-          config: IDCardOCRConfig.fromParams(reshootWarn: true),
-          //imageBase64: base64Encode(imageBytes.buffer.asUint8List())),
-          imageBase64: base64Encode(uint8list),),
+        config: IDCardOCRConfig.fromParams(reshootWarn: true),
+        //imageBase64: base64Encode(imageBytes.buffer.asUint8List())),
+        imageBase64: base64Encode(uint8list),),
     ).then((onValue) {
       if(onValue.error != null){
         Get.snackbar('提示', '扫描失败', snackPosition: SnackPosition.BOTTOM);

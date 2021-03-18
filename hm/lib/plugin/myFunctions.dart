@@ -27,7 +27,11 @@ class MyFunctions{
       var sTime = roomM.rentalFee[0].shouldPayTime;
       var timeShould = DateTime(sTime.year,sTime.month,sTime.day,sTime.hour,sTime.minute,sTime.second);
       leftDays = -timeNow.difference(timeShould).inDays;
-      return leftDays;
+      if(leftDays >= -10 && leftDays <= 10){
+        return leftDays;
+      }else{
+        return null;
+      }
     }else{
       return null;
     }

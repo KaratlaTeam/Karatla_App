@@ -9,28 +9,40 @@ import 'package:hm/model/myTimeM.dart';
 import 'package:hm/model/rentalFeeM.dart';
 import 'package:hm/model/roomM.dart';
 
-class AddRentalFeeV extends StatefulWidget{
+class RentalFeeEditV extends StatefulWidget{
   @override
-  _AddRentalFeeVState createState() => _AddRentalFeeVState();
+  _RentalFeeEditVState createState() => _RentalFeeEditVState();
 }
-class _AddRentalFeeVState extends State<AddRentalFeeV>{
+class _RentalFeeEditVState extends State<RentalFeeEditV>{
 
   final RoomM _roomM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex].levelList[Get.find<RoomL>().roomS.roomLevel].roomList[Get.find<RoomL>().roomS.roomIndex];
+  double _amount = 0;
+  int _argument = Get.arguments;
+  RentalFeeM _rentalFeeMO;
+
   MyTimeM _shouldPayTime;
   MyTimeM _payedTime;
   List<FeeM> _listFeeM ;
-  double _amount = 0;
-  String _mark = "";
+  String _mark ;
+
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     this._listFeeM = [];
-    for(var a in _roomM.feeTypeCostList){
-      FeeM feeM = FeeM()..initialize(a, 0.0, 1);
+    for(var a in _roomM.rentalFee[_argument].rentalFee){
+      FeeM feeM = FeeM()..initialize(a.feeTypeCost, a.payedFee, a.amount, a.usageStartNumber);
       _listFeeM.add(feeM);
     }
+    _rentalFeeMO = _roomM.rentalFee[_argument];
+    _mark = _rentalFeeMO.mark;
+    _shouldPayTime = MyTimeM()..initialize(_rentalFeeMO.shouldPayTime.year, _rentalFeeMO.shouldPayTime.month, _rentalFeeMO.shouldPayTime.day, _rentalFeeMO.shouldPayTime.hour, _rentalFeeMO.shouldPayTime.minute, _rentalFeeMO.shouldPayTime.second);
+    if(_rentalFeeMO.payedTime != null){
+      _payedTime = MyTimeM()..initialize(_rentalFeeMO.payedTime.year, _rentalFeeMO.payedTime.month, _rentalFeeMO.payedTime.day, _rentalFeeMO.payedTime.hour, _rentalFeeMO.payedTime.minute, _rentalFeeMO.payedTime.second);
+    }
+
   }
 
 
@@ -39,13 +51,14 @@ class _AddRentalFeeVState extends State<AddRentalFeeV>{
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("添加缴费" ),
+        title: Text("更新缴费"),
       ),
       body: Container(
         child: ListView(
           padding: EdgeInsets.all(10),
           children: [
             TextField(
+              controller: TextEditingController(text: _mark??''),
               decoration: InputDecoration(
                 labelText: "缴费备注",
               ),
@@ -86,7 +99,7 @@ class _AddRentalFeeVState extends State<AddRentalFeeV>{
             ),
             ListTile(
               leading: Text("缴费时间"),
-              title: Text(_payedTime == null ? '' : _payedTime.toString()),
+              title: Text(_payedTime == null ? "" : _payedTime.toString()),
               trailing: ElevatedButton(
                 onPressed: ()async{
                   var date = await showDatePicker(
@@ -109,15 +122,30 @@ class _AddRentalFeeVState extends State<AddRentalFeeV>{
                 child: Text("添加"),
               ),
             ),
-            ElevatedButton(child: Text("创建"),onPressed: (){
-              if(_shouldPayTime == null){
-                Get.snackbar("提示", '必须设置到期时间', snackPosition: SnackPosition.BOTTOM);
-              }else{
-                Get.find<HouseL>().addRentalFee(Get.find<RoomL>().roomS.roomLevel, Get.find<RoomL>().roomS.roomIndex,  _shouldPayTime, _payedTime, _listFeeM, _mark);
-                Get.back();
-                Get.snackbar("提示", '添加成功', snackPosition: SnackPosition.BOTTOM);
-              }
-            }, )
+            ElevatedButton(child: Text("更新"),onPressed: (){
+              Get.find<HouseL>().updateRentalFee(Get.find<RoomL>().roomS.roomLevel, _argument,Get.find<RoomL>().roomS.roomIndex,  _shouldPayTime, _payedTime, _listFeeM, _mark);
+              Get.back();
+              Get.snackbar("提示", '更新成功', snackPosition: SnackPosition.BOTTOM);
+            },
+            ),
+            ElevatedButton(
+              onPressed: (){
+                Get.defaultDialog(
+                  onCancel: (){
+
+                  },
+                  onConfirm: (){
+                    Get.find<HouseL>().deleteRentalFee(Get.find<RoomL>().roomS.roomLevel, Get.find<RoomL>().roomS.roomIndex, _argument);
+                    Get.back();
+                    Get.back();
+                    Get.snackbar("提示", '删除成功', snackPosition: SnackPosition.BOTTOM);
+                  },
+                  middleText: "是否要删除该条记录？删除后无法恢复。",
+                );
+
+            },
+              child: Text("删除"),
+            ),
           ],
         ),
       ),
@@ -126,10 +154,84 @@ class _AddRentalFeeVState extends State<AddRentalFeeV>{
 
   List<Widget> _showFeeAmount(){
     List<Widget> widgets = [];
-    for(int i = 0; i < _listFeeM.length; i++){
+    for(int i = 0; i < _rentalFeeMO.rentalFee.length; i++){
       Widget widget = ListTile(
+        horizontalTitleGap: 24,
         leading: Text("${_listFeeM[i].feeTypeCost.type}"),
         title: Text("${_listFeeM[i].feeTypeCost.cost} * ${_listFeeM[i].amount} = ${_listFeeM[i].feeTypeCost.cost * _listFeeM[i].amount}"),
+        subtitle: _listFeeM[i].feeTypeCost.rangeAvailable
+            ? SizedBox(
+          width: 40,height: 30,
+          child: TextButton(
+            style: TextButton.styleFrom(padding: EdgeInsets.all(0),),
+            onPressed: (){
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    double usageStartNumber;
+                    return SimpleDialog(
+                      //titlePadding: EdgeInsets.only(left: 60, top: 15),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 30),
+                      title: Text('${_listFeeM[i].feeTypeCost.type} 起始值'),
+                      children: <Widget>[
+                        TextField(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp('[0-9.]'))
+                          ],
+                          keyboardType: TextInputType.number,
+                          onChanged: (String text){
+
+                            if(text != '' || text != null ){
+                              int i = 0;
+                              var b = text;
+                              for(var a in b.characters){
+                                a == '.' ? i++ : i=i;
+                              }
+                              if(i > 1 || text == '.'){
+                                Get.snackbar('提示', '格式错误', snackPosition: SnackPosition.BOTTOM);
+                              }else{
+                                try{
+                                  usageStartNumber = double.parse(text);
+
+                                }catch (e){
+                                  printError(info: e.toString());
+                                  usageStartNumber = 0.0;
+                                }
+                              }
+                            }
+                          },
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.symmetric(vertical: 20),
+                              child: TextButton(onPressed: (){
+                                Get.back();
+                              }, child: Text('取消')),
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(vertical: 20),
+                              child: TextButton(onPressed: (){
+                                print(usageStartNumber);
+                                _listFeeM[i].usageStartNumber = usageStartNumber;
+                                setState(() {});
+                                Get.back();
+                              }, child: Text('确认')),
+                            ),
+                          ],
+                        ),
+
+                      ],
+                    );
+                  }
+              );
+            },
+            child: Text('${_listFeeM[i].usageStartNumber} ~ ${_listFeeM[i].amount+_listFeeM[i].usageStartNumber}'),
+          ),
+        )
+            : Container(),
         trailing: Container(
           width: 100,
           child: Row(
@@ -151,7 +253,7 @@ class _AddRentalFeeVState extends State<AddRentalFeeV>{
             ],
           ),
         ),
-    );
+      );
       widgets.add(widget);
     }
     _amount = 0;
@@ -172,12 +274,13 @@ class _AddRentalFeeVState extends State<AddRentalFeeV>{
     for(int index = 0; index < _listFeeM.length; index++){
       Widget widget = Container(
         child: TextField(
+          controller: TextEditingController(text: _listFeeM[index].payedFee.toString()),
           inputFormatters: [
             FilteringTextInputFormatter.allow(RegExp('[0-9.]'))
           ],
           keyboardType: TextInputType.number,
           decoration: InputDecoration(
-            labelText: _listFeeM[index].feeTypeCost.type+': '+(_listFeeM[index].feeTypeCost.cost*_listFeeM[index].amount).toString()+' 元',
+            labelText: _roomM.feeTypeCostList[index].type+': '+(_roomM.feeTypeCostList[index].cost*_listFeeM[index].amount).toString()+' 元',
           ),
           onChanged: (String text){
             double feePayed;
@@ -210,5 +313,4 @@ class _AddRentalFeeVState extends State<AddRentalFeeV>{
 
     return widgets;
   }
-
 }

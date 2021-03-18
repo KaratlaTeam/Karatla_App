@@ -1,3 +1,6 @@
+
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +10,7 @@ import 'package:hm/logic/roomL.dart';
 import 'package:hm/model/houseM.dart';
 import 'package:hm/model/myTimeM.dart';
 import 'package:hm/model/roomM.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddCheckTimeV extends StatefulWidget{
   @override
@@ -16,6 +20,10 @@ class _AddCheckTimeVState extends State<AddCheckTimeV>{
   String _mark = "";
   RoomState _roomState = RoomState.OFF;
   MyTimeM _myTimeM ;
+
+  List<File> _checkTimePhotoList = [];
+  final picker = ImagePicker();
+  List<String> _photoPathList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -97,10 +105,42 @@ class _AddCheckTimeVState extends State<AddCheckTimeV>{
                 child: Text("添加"),
               ),
             ),
+            _checkTimePhotoList == null || _checkTimePhotoList.length < 1
+                ? Text('')
+                : Wrap(
+              spacing: 5,
+              runSpacing: 5,
+              children: _checkTimePhotoList.asMap().map((i, e) => MapEntry(i,InkWell(
+                onTap: (){
+                  Get.to(()=>Scaffold(
+                    backgroundColor: Colors.black,
+                    appBar: AppBar(backgroundColor: Colors.black,title: Text('图片${i+1}'),),
+                    body: Container(
+                      child: Center(
+                        child: Image.file(e),
+                      ),
+                    ),
+                  ));
+                },
+                onLongPress: (){
+                  _checkTimePhotoList.removeAt(i);
+                  setState(() {});
+                },
+                child: Container(
+                  color: Colors.grey,
+                  child: Image.file(e,width: 92, height: 92,fit: BoxFit.cover,),
+                ),
+              ),)).values.toList(),
+            ),
 
             ElevatedButton(child: Text("记录"),onPressed: ()async{
               if(_myTimeM != null){
-                var a = await Get.find<HouseL>().addCheckTime(Get.find<RoomL>().roomS.roomLevel, Get.find<RoomL>().roomS.roomIndex, _roomState, _myTimeM, _mark);
+                if(_checkTimePhotoList.length>0){
+                  for(var a in _checkTimePhotoList){
+                    _photoPathList.add(a.path);
+                  }
+                }
+                var a = await Get.find<HouseL>().addCheckTime(Get.find<RoomL>().roomS.roomLevel, Get.find<RoomL>().roomS.roomIndex, _roomState, _myTimeM,_photoPathList, _mark);
                 if(a == 'ok'){
                   Get.back();
                   Get.snackbar("提示", "记录成功", snackPosition: SnackPosition.BOTTOM);
@@ -112,6 +152,45 @@ class _AddCheckTimeVState extends State<AddCheckTimeV>{
               }
               },
             ),
+            ElevatedButton(child: Text("添加照片"),onPressed: ()async{
+              Get.bottomSheet(
+                Container(
+                  child: Wrap(
+                    children: <Widget>[
+                      ListTile(
+                        leading: Icon(Icons.camera_alt, color: Colors.blue,),
+                        title: Text('相机'),
+                        onTap: () async{
+                          Get.back();
+                          final pickedFile = await picker.getImage(source: ImageSource.camera);
+                          if (pickedFile != null) {
+                            this._checkTimePhotoList.add(File(pickedFile.path));
+                          } else {
+                            print('No image selected.');
+                          }
+                          setState(() {});
+                        },
+                      ),
+                      ListTile(
+                          leading: Icon(CupertinoIcons.folder_fill,color: Colors.blue,),
+                          title: Text('文件'),
+                          onTap: () async{
+                            Get.back();
+                            final pickedFile = await picker.getImage(source: ImageSource.gallery);
+                            if (pickedFile != null) {
+                              this._checkTimePhotoList.add(File(pickedFile.path));
+                            } else {
+                              print('No image selected.');
+                            }
+                            setState(() {});
+                          }
+                      ),
+                    ],
+                  ),
+                ),
+                backgroundColor: Colors.white,
+              );
+            },),
           ],
         ),
       ),

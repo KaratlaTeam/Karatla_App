@@ -38,7 +38,7 @@ class _HouseEditVState extends State<HouseEditV> {
     }
     for(var a in _houseM.feeTypeList){
       _feeTypeList.add(a);
-      _feeTypeCostList.add(FeeTypeCost()..initialize(a, 0.0));
+      _feeTypeCostList.add(FeeTypeCost()..initialize(a, 0.0, false));
     }
     this._mark = _houseM.mark;
     this._name = _houseM.houseName;
@@ -130,7 +130,7 @@ class _HouseEditVState extends State<HouseEditV> {
                   setState(() {
                     if(_type != "" && _type!=null){
                       _feeTypeList.add(_type);
-                      _feeTypeCostList.add(FeeTypeCost()..initialize(_type, 0.0));
+                      _feeTypeCostList.add(FeeTypeCost()..initialize(_type, 0.0, false));
                       _type = "";
                     }
 
@@ -220,11 +220,11 @@ class _HouseEditVState extends State<HouseEditV> {
     for(int index = 0; index < _feeTypeCostList.length; index++){
       widgets.add(Container(
         //color: Colors.red,
-        child: Chip(
-          backgroundColor: Colors.grey.shade200,
-          label: Text(_feeTypeCostList[index].type),
-          deleteIcon: Icon(Icons.delete,size: 20,),
+        child: InputChip(
+          //side: BorderSide(width: 1, color: Colors.grey),
           deleteIconColor: Colors.red,
+          label: Text(_feeTypeCostList[index].type),
+          //backgroundColor: Colors.grey,
           onDeleted: (){
             setState(() {
               _feeTypeCostList.removeAt(index);
