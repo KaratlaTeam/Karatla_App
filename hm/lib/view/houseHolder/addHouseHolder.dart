@@ -378,8 +378,8 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
   }
 
   Future _idCardOCR(Uint8List uint8list) async {
-    const String secretId = "AKIDsXt8brSb9RUFjzviBkFUTBra2E9xqb3E";
-    const String secretKey = "81dy1wa4HI4crpZ2FBRRAcoHwOZaL5ao";
+    const String secretId = "AKIDVlNk25HAMI0lGVvFn58xqTqyrfDUIeU3";///AKIDsXt8brSb9RUFjzviBkFUTBra2E9xqb3E
+    const String secretKey = "TindGf3C6sY6PSSP7ZlzC4g2T58wT80C";///81dy1wa4HI4crpZ2FBRRAcoHwOZaL5ao
     //final ByteData imageBytes = await rootBundle.load(path);
 
     FlutterTencentOcr.iDCardOCR(
@@ -390,6 +390,7 @@ class _AddHouseHolderVState extends State<AddHouseHolderV>{
           //imageBase64: base64Encode(imageBytes.buffer.asUint8List())),
           imageBase64: base64Encode(uint8list),),
     ).then((onValue) {
+      print(onValue);
       if(onValue.error != null){
         Get.snackbar('提示', '扫描失败', snackPosition: SnackPosition.BOTTOM);
       }else{
