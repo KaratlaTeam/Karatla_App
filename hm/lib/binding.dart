@@ -7,7 +7,7 @@ class HomeBinding implements Bindings{
   @override
   void dependencies() {
     printInfo(info: 'HomeBinding called');
-    Get.put(HouseL());
+    //Get.put(HouseL());
   }
 
 }
@@ -16,7 +16,7 @@ class HouseBinding implements Bindings{
   @override
   void dependencies() {
     printInfo(info: 'HouseBinding called');
-    // TODO: implement dependencies
+    Get.put(HouseL());
   }
 }
 

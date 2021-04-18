@@ -1,89 +1,47 @@
-
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:hm/enumData.dart';
-import 'package:hm/logic/houseL.dart';
-import 'package:hm/main.dart';
-import 'package:share/share.dart';
+import 'package:hm/view/customer/customerPage.dart';
+import 'package:hm/view/house/houseV.dart';
+import 'package:hm/view/setting/settingV.dart';
+import 'package:hm/view/statistics/statisticsV.dart';
 
 
-class HomeV extends StatelessWidget{
+class HomeV extends StatefulWidget {
+  @override
+  _HomeVState createState() => _HomeVState();
+}
+
+class _HomeVState extends State<HomeV>{
+
+  int index = 0;
 
   @override
   Widget build(BuildContext context) {
 
-    return Stack(
-      children: [
-        Scaffold(
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 50),
-                  child: Text("房屋出租管理",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),),
-                ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 10),
-                  child: ElevatedButton.icon(
-                    icon: Icon(Icons.house),
-                    label: Text("房屋"),
-                    onPressed: (){
-                      Get.toNamed(RN.house);
-                    },
-                  ),
-                ),
-                //Container(
-                //  child: ElevatedButton.icon(
-                //    icon: Icon(Icons.people),
-                //    label: Text("房客"),
-                //    onPressed: (){
-                //      Get.toNamed(RN.customer);
-                //    },
-                //  ),
-                //),
-                Container(
-                  margin: EdgeInsets.only(bottom: 10),
-                  child: ElevatedButton.icon(
-                    icon: Icon(Icons.backup),
-                    label: Text("备份"),
-                    onPressed: (){
-                      Get.defaultDialog(
-                        middleText: '确认要备份？',
-                        onConfirm: ()async{
-                          Get.back();
-                          await Get.find<HouseL>().backupData();
-                        },
-                        onCancel: (){
-                          Get.back();
-                        }
-                      );
-                    },
-                  ),
-                ),
-                Container(
-                  child: ElevatedButton.icon(
-                    icon: Icon(Icons.restore),
-                    label: Text("恢复"),
-                    onPressed: (){
-                      Get.toNamed(RN.backupList);
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-          //floatingActionButton: FloatingActionButton(onPressed: (){
-          //  //Share.share("text");
-          //  Share.shareFiles(['${Get.find<HouseL>().houseState.appStoPath}/1.txt']);
-          //},),
-        ),
-        GetBuilder<HouseL>(
-          builder: (_) => _.houseState.actionState == ActionState.PROCESS ?
-          Scaffold(body: Center(child: Text("Loading..."),),) :
-          Container(),
-        ),
-      ],
+    return Scaffold(
+      body: IndexedStack(
+        index: this.index,
+        children: [
+          HouseV(),
+          StatisticsV(),
+          CustomerPage(),
+          SettingV(),
+        ],
+      ),
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Colors.blue,
+        height: 50,
+        items: [
+          Icon(Icons.house),
+          Icon(Icons.stacked_bar_chart),
+          Icon(Icons.search),
+          Icon(Icons.settings),
+        ],
+        onTap: (index){
+          this.index = index;
+          setState(() {});
+        },
+      ),
     );
   }
 }

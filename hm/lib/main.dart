@@ -30,6 +30,8 @@ import 'package:hm/view/house/houseEditV.dart';
 import 'package:hm/view/room/roomDetailEditV.dart';
 import 'package:hm/view/room/roomDetailV.dart';
 import 'package:hm/view/room/roomV.dart';
+import 'package:hm/view/setting/settingV.dart';
+import 'package:hm/view/statistics/statisticsV.dart';
 
 void main() async{
 
@@ -118,10 +120,12 @@ class MyApp extends StatelessWidget {
     final List<GetPage> _pageList = [
       GetPage(name: RN.firstPage, page: () => FirstPageView(),),
 
-      GetPage(name: RN.home, page: () => HomeV(), binding: HomeBinding(),),
+      GetPage(name: RN.home, page: () => HomeV(),binding: HouseBinding(), ),
+      GetPage(name: RN.setting, page: () => SettingV(), ),
+      GetPage(name: RN.statistics, page: () => StatisticsV(), ),
       GetPage(name: RN.backupList, page: () => BackupListV()),
 
-      GetPage(name: RN.house, page: () => HouseV(), binding: HouseBinding(),),
+      GetPage(name: RN.house, page: () => HouseV()),
       //GetPage(name: RN.houseDetail, page: () => HouseDetailV(),),
       GetPage(name: RN.houseCreate, page: () => HouseCreateV(),),
       GetPage(name: RN.houseEdit, page: () => HouseEditV(),),
@@ -178,6 +182,10 @@ class RN{
 
   static const String home = '/home';
   static const String backupList = '/backupList';
+
+  static const String setting = '/setting';
+
+  static const String statistics = '/statistics';
 
   static const String house = '/house';
   //static const String houseDetail = '/houseDetail';

@@ -1,9 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hm/enumData.dart';
 import 'package:hm/main.dart';
@@ -17,22 +13,22 @@ import 'package:hm/model/roomM.dart';
 import 'package:hm/plugin/myFunctions.dart';
 import 'package:hm/state/houseS.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HouseL extends GetxController{
+class HouseL extends GetxController with StateMixin<HouseS>{
   HouseS houseState;
-
 
   @override
   void onInit() async{
     printInfo(info: 'onInit');
-    super.onInit();
+    change(houseState, status: RxStatus.loading());
     HousesM houseList = HousesM()..initialize();
     this.houseState = HouseS(housesM: houseList);
     await this.getAppDirectory();
     await getSharedPHouseList();
     //await getSharedPBackupList();
+    change(houseState, status: RxStatus.success());
+    super.onInit();
   }
 
   @override
@@ -47,19 +43,6 @@ class HouseL extends GetxController{
     super.onClose();
 
     this.houseState = null;
-  }
-
-  changeActionState(){
-    if(this.houseState.actionState == null){
-      this.houseState.actionState = ActionState.COMPLETE;
-      changeActionState();
-    }else{
-      this.houseState.actionState == ActionState.PROCESS ?
-      this.houseState.actionState = ActionState.COMPLETE :
-      this.houseState.actionState = ActionState.PROCESS;
-      printInfo(info: this.houseState.actionState.toString());
-    }
-    update();
   }
 
   Future getAppDirectory()async{
@@ -433,6 +416,13 @@ class HouseL extends GetxController{
   upDateItemIsExpanded(int index, bool isExpanded){
     this.houseState.itemList[index].isExpanded = !isExpanded;
     update();
+  }
+
+  /// line chart part
+  getLineChartRentalTypeData(){
+    List rentalType = [];
+    var houseList = houseState.housesM.houseList;
+
   }
 
 }

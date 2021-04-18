@@ -19,93 +19,90 @@ class _HouseVState extends State<HouseV>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text("房屋管理"),
-      ),
+
       body: GetBuilder<HouseL>(
         builder: (_) => ListView.builder(
+          padding: EdgeInsets.only(left: 10, right: 10, top: 40, bottom: 20),
           itemCount: _.houseState.housesM.houseList.length,
           itemBuilder: (context, index){
-            return Container(
-              child: Card(
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(4.0))),
-                margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                //elevation: 0,
-                child: InkWell(
-                  onLongPress: (){
-                    Get.defaultDialog(
-                      middleText: "是否要删除 '${_.houseState.housesM.houseList[index].houseName}' 房所有数据? 删除后无法恢复，建议提前备份。",
-                      onConfirm: (){
-                        Get.back();
-                        Get.find<HouseL>().deleteHouse(index);
-                      },
-                      onCancel: (){
+            return Column(
+              children: [
+                index == 0
+                    ? Container(
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.only(bottom: 20),
+                  child: Text('房屋管理' , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),) ,
+                )
+                    : Container(),
+                Container(
+                  width: 380,
+                  child: Card(
+                    //color: Colors.red,
+                    elevation: 0,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                    margin: EdgeInsets.symmetric(vertical: 10,),
+                    child: InkWell(
 
-                      }
-                    );
-                  },
-                  child: Container(
-                    //height: 300,
-                    padding: EdgeInsets.all(5),
-                    child: Column(
-                      children: [
-                        ListTile(
-                          title: Text(_.houseState.housesM.houseList[index].houseName, style: TextStyle(fontWeight: FontWeight.bold),),
-                          subtitle: Column(
-                            children: [
-                              //Row(children: _showFeeTypeList(_.houseState.housesM.houseList[index]),),
-                              Row(children: [Text('备注: '+_.houseState.housesM.houseList[index].mark,style: TextStyle(color: Colors.grey),),],),
-                            ],
-                          ),
-                        ),
-                        //ListTile(
-                        //  //title: Text('将到期: '),
-                        //  subtitle: Column(
-                        //    children: [
-                        //      Row(
-                        //        children: [
-                        //        Expanded(
-                        //          child: _showRoomPayOverride(_.houseState.housesM.houseList[index]),
-                        //        ),
-                        //      ],
-                        //      ),
-                        //      Row(
-                        //        children: [
-                        //          Expanded(
-                        //            child: Text('已到期: '),
-                        //          ),
-                        //        ],
-                        //      ),
-                        //    ],
-                        //  ),
-                        //),
-                        ListTile(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      child: Container(
+                        //height: 300,
+                        //padding: EdgeInsets.all(5),
+                        child: Column(
                           children: [
-                            Row(children: [
-                              Icon(Icons.house),
-                              Text("${_showRoomAmount(_.houseState.housesM.houseList[index])}"),
-                            ],),
-                            Row(children: [
-                              Icon(Icons.people),
-                              Text(_houseHoldAmount(_.houseState.housesM.houseList[index]).toString()),
-                            ],),
+                            ClipRRect(
+                              borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+                              child: Image.asset('assets/images/house.jpg',fit: BoxFit.cover,width: 380,height: 200,),
+                            ),
 
+                            ListTile(
+                              title: Text(_.houseState.housesM.houseList[index].houseName, style: TextStyle(fontWeight: FontWeight.bold),),
+                              subtitle: Column(
+                                children: [
+                                  //Row(children: _showFeeTypeList(_.houseState.housesM.houseList[index]),),
+                                  Row(children: [Text('备注: '+_.houseState.housesM.houseList[index].mark,style: TextStyle(color: Colors.grey),),],),
+                                ],
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Row(children: [
+                                  Icon(Icons.house),
+                                  Text("${_showRoomAmount(_.houseState.housesM.houseList[index])}"),
+                                ],),
+                                Row(children: [
+                                  Icon(Icons.people),
+                                  Text(_houseHoldAmount(_.houseState.housesM.houseList[index]).toString()),
+                                ],),
+
+                              ],
+                            ),
                           ],
                         ),
-                      ],
+                      ),
+                      onLongPress: (){
+                        Get.defaultDialog(
+                            middleText: "是否要删除 '${_.houseState.housesM.houseList[index].houseName}' 房所有数据? 删除后无法恢复，建议提前备份。",
+                            onConfirm: (){
+                              Get.back();
+                              Get.find<HouseL>().deleteHouse(index);
+                            },
+                            onCancel: (){
+
+                            }
+                        );
+                      },
+                      onTap: (){
+                        _.setHouseIndex(index);
+                        _.setItemList(index);
+                        Get.toNamed(RN.room);
+                      },
                     ),
                   ),
-                  onTap: (){
-                    _.setHouseIndex(index);
-                    _.setItemList(index);
-                    Get.toNamed(RN.room);
-                  },
                 ),
-              ),
+              ],
             );
 
           },

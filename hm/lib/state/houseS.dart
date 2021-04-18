@@ -8,7 +8,6 @@ import 'package:hm/view/room/roomV.dart';
 class HouseS{
   HousesM housesM ;
   int houseIndex;
-  ActionState actionState;
   String tempPath, appDocPath, appStoPath;
   BackUp backUp;
   List<Item> itemList ;
@@ -16,7 +15,6 @@ class HouseS{
   HouseS({
    this.housesM,
     this.houseIndex,
-    this.actionState,
     this.appDocPath,
     this.appStoPath,
     this.tempPath,

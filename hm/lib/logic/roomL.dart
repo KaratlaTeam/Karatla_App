@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:hm/state/roomS.dart';
 
-class RoomL extends GetxController{
+class RoomL extends GetxController with StateMixin<RoomS>{
   RoomS roomS ;
 
   @override
