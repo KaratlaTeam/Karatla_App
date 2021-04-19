@@ -143,13 +143,16 @@ class _HouseEditVState extends State<HouseEditV> {
             ),
             ElevatedButton(child: Text("更新"),onPressed: ()async{
               if(_name != "" && _name != null && _feeTypeCostList.length > 0 && this._levelList.length > 0){
-
-                HouseM house = HouseM()..initialize(this._levelList, this._name, this._feeTypeList, this._mark);
-                HouseL houseL = Get.find<HouseL>();
-                await houseL.updateHouse(house, Get.find<HouseL>().houseState.houseIndex);
-                houseL.setItemList(houseL.houseState.houseIndex);
-                Get.back();
-                Get.snackbar("提示", "更新成功。",snackPosition: SnackPosition.BOTTOM);
+                if(_checkHouseName(_name)){
+                  HouseM house = HouseM()..initialize(this._levelList, this._name, this._feeTypeList, this._mark);
+                  HouseL houseL = Get.find<HouseL>();
+                  await houseL.updateHouse(house, Get.find<HouseL>().houseState.houseIndex);
+                  houseL.setItemList(houseL.houseState.houseIndex);
+                  Get.back();
+                  Get.snackbar("提示", "更新成功。",snackPosition: SnackPosition.BOTTOM);
+                }else{
+                  Get.snackbar("提示", "房子名称已存在!",snackPosition: SnackPosition.BOTTOM);
+                }
               }else{
                 Get.snackbar("提示", "设置不完整。",snackPosition: SnackPosition.BOTTOM);
               }
@@ -158,6 +161,20 @@ class _HouseEditVState extends State<HouseEditV> {
         ),
       ),
     );
+  }
+
+  bool _checkHouseName(String name){
+    HouseL houseL = Get.find<HouseL>();
+    if(houseL.houseState.housesM.houseList.length != 0){
+      for(HouseM houseM in houseL.houseState.housesM.houseList){
+        if(houseM.houseName == name ){
+          if(houseM.houseName != this._houseM.houseName){
+            return false;
+          }
+        }
+      }
+    }
+    return true;
   }
 
   List<Widget> _showRooms(){

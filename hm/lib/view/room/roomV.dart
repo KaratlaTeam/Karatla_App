@@ -16,7 +16,7 @@ class RoomV extends StatefulWidget{
 }
 class _RoomVState extends State<RoomV> with TickerProviderStateMixin{
 
-  final HouseM _houseM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex];
+  //final HouseM _houseM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex];
 
   TabController _tabController;
 
@@ -37,43 +37,43 @@ class _RoomVState extends State<RoomV> with TickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(_houseM.houseName),
-        actions: [
-          _tabController.index == 0
-              ? IconButton(icon: Icon(Icons.edit), onPressed: (){
+    return GetBuilder<HouseL>(
+      builder: (_) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(_.houseState.housesM.houseList[_.houseState.houseIndex].houseName),
+            actions: [
+              _tabController.index == 0
+                  ? IconButton(icon: Icon(Icons.edit), onPressed: (){
                 Get.toNamed(RN.houseEdit);
               })
-              : _tabController.index == 1
-              ? IconButton(icon: Icon(Icons.add_circle), onPressed: (){
+                  : _tabController.index == 1
+                  ? IconButton(icon: Icon(Icons.add_circle), onPressed: (){
                 Get.toNamed(RN.addExpense);
               })
-              : Container(),
-        ],
-        bottom: TabBar(
-          onTap: (int i){
-            setState(() {});
-          },
-          controller: _tabController,
-          tabs: <Widget>[
-            Tab(
-              //icon: Icon(Icons.money),
-              text: '房间',
+                  : Container(),
+            ],
+            bottom: TabBar(
+              onTap: (int i){
+                setState(() {});
+              },
+              controller: _tabController,
+              tabs: <Widget>[
+                Tab(
+                  //icon: Icon(Icons.money),
+                  text: '房间',
+                ),
+                Tab(
+                  //icon: Icon(Icons.people),
+                  text: '花费',
+                ),
+              ],
             ),
-            Tab(
-              //icon: Icon(Icons.people),
-              text: '花费',
-            ),
-          ],
-        ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          GetBuilder<HouseL>(
-            builder: (_) {
-              return SingleChildScrollView(
+          ),
+          body: TabBarView(
+            controller: _tabController,
+            children: [
+              SingleChildScrollView(
                 child: Container(
                   child: ExpansionPanelList(
                     dividerColor: Colors.white,
@@ -135,24 +135,24 @@ class _RoomVState extends State<RoomV> with TickerProviderStateMixin{
                     }).toList(),
                   ),
                 ),
-              );
-            },
-          ),
-          ListView.builder(
-            itemCount: _houseM.houseExpensesList.length,
-            itemBuilder: (BuildContext context, int index){
-              return ListTile(
-                onLongPress: (){
-                  Get.toNamed(RN.expenseEdit, arguments: index);
+              ),
+              ListView.builder(
+                itemCount: _.houseState.housesM.houseList[_.houseState.houseIndex].houseExpensesList.length,
+                itemBuilder: (BuildContext context, int index){
+                  return ListTile(
+                    onLongPress: (){
+                      Get.toNamed(RN.expenseEdit, arguments: index);
+                    },
+                    title: Text(_.houseState.housesM.houseList[_.houseState.houseIndex].houseExpensesList[index].expense.type),
+                    subtitle: Text(_.houseState.housesM.houseList[_.houseState.houseIndex].houseExpensesList[index].expenseDate.toString()),
+                    trailing: Text(_.houseState.housesM.houseList[_.houseState.houseIndex].houseExpensesList[index].expense.cost.toString()),
+                  );
                 },
-                title: Text(_houseM.houseExpensesList[index].expense.type),
-                subtitle: Text(_houseM.houseExpensesList[index].expenseDate.toString()),
-                trailing: Text(_houseM.houseExpensesList[index].expense.cost.toString()),
-              );
-            },
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
