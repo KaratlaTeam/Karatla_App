@@ -28,7 +28,7 @@ class _AddHouseExpenseVState extends State<AddHouseExpenseV>{
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("花费添加"),
+        title: Text("支出添加"),
       ),
       body: Container(
         child: ListView(

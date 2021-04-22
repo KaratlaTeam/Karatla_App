@@ -419,10 +419,40 @@ class HouseL extends GetxController with StateMixin<HouseS>{
   }
 
   /// line chart part
-  getLineChartRentalTypeData(){
-    List rentalType = [];
+  List<RentalFeeM> getLineChartAllRentalFeeData(int houseIndex){
+    List<RentalFeeM> rentalFeeList = [];
     var houseList = houseState.housesM.houseList;
+    for(var houseLevel in houseList[houseIndex].levelList){
+      for(var roomM in houseLevel.roomList){
+        for(var rentalFeeM in roomM.rentalFee){
+          rentalFeeList.add(rentalFeeM);
+        }
+      }
+    }
+    return rentalFeeList;
+  }
 
+  List<Map> getLineChartFeeDataMap(int houseIndex){
+    List<Map> feeDataMapList = [];
+    for(RentalFeeM rentalFeeM in getLineChartAllRentalFeeData(houseIndex)){
+      Map feeDataMap = Map();
+      List<Map> feeMList = [];
+      feeDataMap['shouldPayTime'] = {'year': rentalFeeM.shouldPayTime.year, 'month': rentalFeeM.shouldPayTime.month};
+      feeDataMap['payedTime'] = rentalFeeM.payedTime == null ? null : {'year':rentalFeeM.payedTime.year, 'month': rentalFeeM.payedTime.month};
+      for(int i = 0 ; i < rentalFeeM.rentalFee.length; i++){
+        FeeM feeM = rentalFeeM.rentalFee[i];
+        feeMList.add({
+          'type': feeM.feeTypeCost.type,
+          'cost': feeM.feeTypeCost.cost,
+          'amount': feeM.amount,
+          'payedFee': feeM.payedFee,
+        });
+      }
+      feeDataMap['feeM'] = feeMList;
+      feeDataMapList.add(feeDataMap);
+    }
+    ///printInfo(info: feeDataMapList.toString());
+    return feeDataMapList;
   }
 
 }

@@ -129,8 +129,12 @@ class _HouseEditVState extends State<HouseEditV> {
                 ElevatedButton(child: Text("添加"),onPressed: (){
                   setState(() {
                     if(_type != "" && _type!=null){
-                      _feeTypeList.add(_type);
-                      _feeTypeCostList.add(FeeTypeCost()..initialize(_type, 0.0, false));
+                      if(_feeTypeList.contains(_type)){
+                        Get.snackbar("提示", "缴费类型已存在！",snackPosition: SnackPosition.BOTTOM);
+                      }else{
+                        _feeTypeList.add(_type);
+                        _feeTypeCostList.add(FeeTypeCost()..initialize(_type, 0.0, false));
+                      }
                       _type = "";
                     }
 

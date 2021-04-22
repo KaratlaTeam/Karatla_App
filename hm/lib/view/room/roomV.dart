@@ -65,7 +65,7 @@ class _RoomVState extends State<RoomV> with TickerProviderStateMixin{
                 ),
                 Tab(
                   //icon: Icon(Icons.people),
-                  text: '花费',
+                  text: '支出',
                 ),
               ],
             ),

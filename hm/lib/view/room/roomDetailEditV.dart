@@ -70,7 +70,11 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
                 ElevatedButton(child: Text("添加"),onPressed: (){
                   setState(() {
                     if(_typeHold != ""){
-                      _feeTypeCostList.add(FeeTypeCost()..initialize(_typeHold, 0.0, false));
+                      if(_feeTypeCostList.where((element) => element.type == _typeHold).length > 0){
+                        Get.snackbar("提示", "缴费类型已存在！",snackPosition: SnackPosition.BOTTOM);
+                      }else{
+                        _feeTypeCostList.add(FeeTypeCost()..initialize(_typeHold, 0.0, false));
+                      }
                       _typeHold = '';
                     }
 

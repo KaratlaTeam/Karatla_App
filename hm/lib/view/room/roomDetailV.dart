@@ -117,7 +117,7 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
                           ListTile(
                             horizontalTitleGap: 0,
                             leading: Icon(CupertinoIcons.money_yen,color: _getColor(index)),
-                            title: Text(_roomM.rentalFee[index].payedTime == null ? '未付款' : _roomM.rentalFee[index].payedTime.toString()),
+                            title: Text(_getPayedAmount(index) > 0 ? _roomM.rentalFee[index].payedTime == null ? '未设置付款时间' : _roomM.rentalFee[index].payedTime.toString() : '未付款'),
                             subtitle: Text(_roomM.rentalFee[index].shouldPayTime.toString()),
                             trailing: Column(
                               mainAxisAlignment: MainAxisAlignment.center,

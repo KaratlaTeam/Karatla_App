@@ -41,7 +41,7 @@ class _EditHouseExpenseVState extends State<EditHouseExpenseV>{
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("花费添加"),
+        title: Text("支出添加"),
       ),
       body: Container(
         child: ListView(
