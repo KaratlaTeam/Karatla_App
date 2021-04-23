@@ -250,7 +250,7 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
   }
 
   String getLineTooltipItemText(LineBarSpot barSpot){
-    return '实: ${this.bottomDataCost[barSpot.spotIndex]}';
+    return '支出: ${this.bottomDataCost[barSpot.spotIndex]}';
   }
 
   LineChartData mainData() {
