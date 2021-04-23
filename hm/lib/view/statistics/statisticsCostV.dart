@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hm/logic/houseL.dart';
+import 'package:hm/model/houseExpensesM.dart';
 import 'package:hm/model/houseM.dart';
 
 class StatisticsCostV extends StatefulWidget{
@@ -14,29 +15,19 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
   HouseL houseL = Get.find<HouseL>();
   int yearNow ;
   double bottomAmount = 11;
-  List<String> rentalType = [];
-  List<Map> feeDataMapList = [];
+  List<HouseExpensesM> houseExpensesMList = [];
+  Map bottomDataCostMap = Map();
   List<int> yearList = [];
-  List bottomDataPayed = [];
-  List bottomDataShouldPay = [];
-  Map shouldPayMap = Map();
-  Map payedMap = Map();
-
+  List bottomDataCost = [];
   double maxNumber;
 
   List<Color> gradientColors = [
-    const Color(0xff23b6e6),
-    const Color(0xff02d39a),
-  ];
-
-  List<Color> gradientColors2 = [
-    const Color(0xffecd0de),
-    const Color(0xffe7c1bf),
+    const Color(0xffba5ee0),
+    const Color(0xffe05a5a),
   ];
 
   String dropdownValueHouse ;
   String dropdownValueDateType ;
-  String dropdownValueFeeType ;
   List<String> dropDownDateTypeValueList = [];
 
 
@@ -98,18 +89,8 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
                       padding: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-                      child: Text("实收"),
+                      child: Text("支出"),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: gradientColors2[1].withOpacity(0.5),
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
-                      ),
-                      margin: EdgeInsets.only(left: 5),
-                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-                      child: Text("应收"),
-                    ),
-
                   ],
                 ),
               ),
@@ -133,7 +114,7 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 1.0, left: 1.0, top: 5, bottom: 2),
                     child: LineChart(
-                      houseL.houseState.housesM.houseList.length != 0 && (dropdownValueDateType != null && dropdownValueHouse != null && dropdownValueFeeType != null)
+                      houseL.houseState.housesM.houseList.length != 0 && (dropdownValueDateType != null && dropdownValueHouse != null)
                           ? mainData()
                           : avgData(),
                     ),
@@ -166,8 +147,8 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
           onChanged: (String newValue) {
             dropdownValueHouse = newValue;
             int houseIndex = houseL.houseState.housesM.houseList.indexWhere((element) => element.houseName == newValue);
-            this.feeDataMapList = houseL.getLineChartFeeDataMap(houseIndex);
-            divideFeeTypeData();
+            this.houseExpensesMList = houseL.getLineChartAllCostData(houseIndex);
+            divideData();
             setState(() {});
           },
           items: houseL.houseState.housesM.houseList.map< DropdownMenuItem<String>>((HouseM value) {
@@ -207,210 +188,64 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
             );
           }).toList(),
         ),
-        DropdownButton<String>(
-          hint: Text("类型"),
-          value: dropdownValueFeeType,
-          elevation: 16,
-          underline: Container(
-            height: 0,
-            color: Colors.black,
-          ),
-          style: TextStyle(
-              color: Colors.black
-          ),
-          onChanged: (String newValue) {
-            setState(() {
-              dropdownValueFeeType = newValue;
-              calculateData();
-            });
-          },
-          items: this.rentalType.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-        ),
       ],
     );
   }
 
-  divideFeeTypeData(){
-    this.dropdownValueFeeType = null;
-    this.rentalType = [];
+  divideData(){
     this.yearList = [];
     this.yearNow = null;
     this.dropdownValueDateType = null;
-    this.shouldPayMap = Map();
     this.dropDownDateTypeValueList = [];
-    this.payedMap = Map();
+    this.bottomDataCostMap = Map();
 
-    if(this.feeDataMapList.length > 0){
-      for(var feeDataMap in this.feeDataMapList){
-        /// get date
-        getYears(feeDataMap);
+    if(this.houseExpensesMList.length > 0){
+      for(var expensesM in this.houseExpensesMList){
+        /// get years
+        getYears(expensesM);
 
-        /// get type
-        getTypes(feeDataMap);
-
-        /// get should Data amount
-        getShouldPayData(feeDataMap);
-
-        /// get Payed data
-        getPayedData(feeDataMap);
+        /// organize data
+        organizeData(expensesM);
       }
       this.yearList.sort();
       this.yearNow = this.yearList[this.yearList.length-1];
       this.dropDownDateTypeValueList = ['年', '季', '月',];
-      ///printInfo(info: shouldPayMap.toString());
-      ///printInfo(info: payedMap.toString());
     }
   }
 
-  getPayedData(var feeDataMap){
-    if(feeDataMap['payedTime'] != null){
-      int yearP = feeDataMap['payedTime']['year'];
-      int monthP = feeDataMap['payedTime']['month'];
-      List<Map> typeP = feeDataMap['feeM'];
-      ///print(yearP);
-      if(payedMap[yearP] != null){
-        if(payedMap[yearP][monthP] != null){
-          for(int i = 0; i < typeP.length; i++){
-            //int payedLength = payedMap[yearP][monthP].length;
-            for(int a = 0; a < payedMap[yearP][monthP].length; a++){
-              ///print('i = $i --- ${typeP[i]['type']}');
-              ///print('a = $a --- ${payedMap[yearP][monthP][a]['type']}');
-              if(payedMap[yearP][monthP][a]['type'] == typeP[i]['type']){
-                ///print(1);
-                ///print('${typeP[i]['payedFee']}');
-                payedMap[yearP][monthP][a]['payedFee'] += typeP[i]['payedFee'];
-                break;
-              }else if(a == payedMap[yearP][monthP].length-1){
-                ///print(2);
-                ///print('${typeP[i]['payedFee']}');
-                Map m = Map();
-                m['type'] = typeP[i]['type'];
-                m['payedFee'] = typeP[i]['payedFee'];
-                payedMap[yearP][monthP].add(m);
-                break;
-              }
-            }
-            ///print("--");
-          }
-        }else{
-          List p = [];
-          ///print('no month');
-          for(var a in feeDataMap['feeM']){
-            ///print('${a['type']} -- ${a['payedFee']} ');
-            Map m = Map();
-            m['type'] = a['type'];
-            m['payedFee'] = a['payedFee'];
-            p.add(m);
-          }
-          payedMap[yearP][monthP] = p;
-        }
-      }else{
-        List p = [];
-        ///print('no year');
-        for(var a in feeDataMap['feeM']){
-          ///print('${a['type']} -- ${a['payedFee']} ');
-          Map m = Map();
-          m['type'] = a['type'];
-          m['payedFee'] = a['payedFee'];
-          p.add(m);
-        }
-        payedMap[yearP] = {
-          monthP: p
-        };
-      }
+  getYears(HouseExpensesM expensesM){
+    if(!this.yearList.contains(expensesM.expenseDate.year)){
+      this.yearList.add(expensesM.expenseDate.year);
     }
-
   }
 
-  getShouldPayData(var feeDataMap){
-    int yearP = feeDataMap['shouldPayTime']['year'];
-    int monthP = feeDataMap['shouldPayTime']['month'];
-    List<Map> typeP = feeDataMap['feeM'];
-    ///print(yearP);
-    if(shouldPayMap[yearP] != null){
-      if(shouldPayMap[yearP][monthP] != null){
-        for(int i = 0; i < typeP.length; i++){
-          //int shouldLength = shouldPayMap[yearP][monthP].length;
-          for(int a = 0; a < shouldPayMap[yearP][monthP].length; a++){
-            ///print('i = $i --- ${typeP[i]['type']}');
-            ///print('a = $a --- ${shouldPayMap[yearP][monthP][a]['type']}');
-            if(shouldPayMap[yearP][monthP][a]['type'] == typeP[i]['type']){
-              ///print(1);
-              ///print('${typeP[i]['cost']}-${typeP[i]['amount']}');
-              shouldPayMap[yearP][monthP][a]['cost'] += typeP[i]['cost']*typeP[i]['amount'];
-              break;
-            }else if(a == shouldPayMap[yearP][monthP].length-1){
-              ///print(2);
-              ///print('${typeP[i]['cost']}-${typeP[i]['amount']}');
-              Map m = Map();
-              m['type'] = typeP[i]['type'];
-              m['cost'] = typeP[i]['cost']*typeP[i]['amount'];
-              shouldPayMap[yearP][monthP].add(m);
+  organizeData(HouseExpensesM expensesM){
+    int month = expensesM.expenseDate.month;
+    int year = expensesM.expenseDate.year;
+    String typeM = expensesM.expense.type;
+    double cost = expensesM.expense.cost;
+    if(this.bottomDataCostMap[year] != null){
+      if(this.bottomDataCostMap[year][month] != null){
+        for(int i = 0; i < this.bottomDataCostMap[year][month].length; i++){
+          if(this.bottomDataCostMap[year][month][i]['type'] == typeM ){
+            this.bottomDataCostMap[year][month][i]['cost'] += cost;
+          }else{
+            if(i == this.bottomDataCostMap[year][month].length - 1){
+              this.bottomDataCostMap[year][month].add({'type': typeM, 'cost': cost});
               break;
             }
           }
-          ///print("--");
         }
       }else{
-        List p = [];
-        ///print('no month');
-        for(var a in feeDataMap['feeM']){
-          ///print('${a['type']} -- ${a['cost']} -- ${a['amount']}');
-          Map m = Map();
-          m['type'] = a['type'];
-          m['cost'] = a['cost']*a['amount'];
-          p.add(m);
-        }
-        shouldPayMap[yearP][monthP] = p;
+        this.bottomDataCostMap[year][month] = [{'type': typeM, 'cost': cost}];
       }
     }else{
-      List p = [];
-      ///print('no year');
-      for(var a in feeDataMap['feeM']){
-        ///print('${a['type']} -- ${a['cost']} -- ${a['amount']}');
-        Map m = Map();
-        m['type'] = a['type'];
-        m['cost'] = a['cost']*a['amount'];
-        p.add(m);
-      }
-      shouldPayMap[yearP] = {
-        monthP: p
-      };
-    }
-  }
-
-  getYears(var feeDataMap){
-    if(feeDataMap['payedTime'] != null && !this.yearList.contains(feeDataMap['payedTime']['year'])){
-      this.yearList.add(feeDataMap['payedTime']['year']);
-    }
-    if(feeDataMap['shouldPayTime'] != null && !this.yearList.contains(feeDataMap['shouldPayTime']['year'])){
-      this.yearList.add(feeDataMap['shouldPayTime']['year']);
-    }
-  }
-
-  getTypes(var feeDataMap){
-    if(!this.rentalType.contains('全部')){
-      this.rentalType.add('全部');
-    }
-    for(var a in feeDataMap['feeM']){
-      if(!this.rentalType.contains(a['type'])){
-        this.rentalType.add(a['type']);
-      }
+      this.bottomDataCostMap[year] = {month: [{'type': typeM, 'cost': cost}]};
     }
   }
 
   String getLineTooltipItemText(LineBarSpot barSpot){
-    if(barSpot.barIndex == 0){
-      return '实: ${this.bottomDataPayed[barSpot.spotIndex]}';
-    }else if(barSpot.barIndex == 1){
-      return '应: ${this.bottomDataShouldPay[barSpot.spotIndex]}';
-    }
-    return '';
+    return '实: ${this.bottomDataCost[barSpot.spotIndex]}';
   }
 
   LineChartData mainData() {
@@ -428,21 +263,6 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
         belowBarData: BarAreaData(
           show: true,
           colors: gradientColors.map((color) => color.withOpacity(0.3)).toList(),
-        ),
-      ),
-      LineChartBarData(
-        //showingIndicators: showIndexes,
-        spots: _getBottomFlSpotsData2(),
-        isCurved: true,
-        colors: gradientColors2,
-        barWidth: 5,
-        isStrokeCapRound: true,
-        dotData: FlDotData(
-          show: true,
-        ),
-        belowBarData: BarAreaData(
-          show: true,
-          colors: gradientColors2.map((color) => color.withOpacity(0.2)).toList(),
         ),
       ),
     ];
@@ -497,91 +317,45 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
 
     if(this.dropdownValueDateType == '年'){
       data = [
-        FlSpot(1, this.bottomDataPayed[0]),
-        FlSpot(4, this.bottomDataPayed[1]),
-        FlSpot(7, this.bottomDataPayed[2]),
-        FlSpot(10, this.bottomDataPayed[3]),
+        FlSpot(1, this.bottomDataCost[0]),
+        FlSpot(4, this.bottomDataCost[1]),
+        FlSpot(7, this.bottomDataCost[2]),
+        FlSpot(10, this.bottomDataCost[3]),
       ];
     }else if(this.dropdownValueDateType == '季'){
       data = [
-        FlSpot(1, this.bottomDataPayed[0]),
-        FlSpot(4, this.bottomDataPayed[1]),
-        FlSpot(7, this.bottomDataPayed[2]),
-        FlSpot(10, this.bottomDataPayed[3]),
+        FlSpot(1, this.bottomDataCost[0]),
+        FlSpot(4, this.bottomDataCost[1]),
+        FlSpot(7, this.bottomDataCost[2]),
+        FlSpot(10, this.bottomDataCost[3]),
       ];
     }else if(this.dropdownValueDateType == '月'){
       data = [
-        FlSpot(0, this.bottomDataPayed[0]),
-        FlSpot(1, this.bottomDataPayed[1]),
-        FlSpot(2, this.bottomDataPayed[2]),
-        FlSpot(3, this.bottomDataPayed[3]),
-        FlSpot(4, this.bottomDataPayed[4]),
-        FlSpot(5, this.bottomDataPayed[5]),
-        FlSpot(6, this.bottomDataPayed[6]),
-        FlSpot(7, this.bottomDataPayed[7]),
-        FlSpot(8, this.bottomDataPayed[8]),
-        FlSpot(9, this.bottomDataPayed[9]),
-        FlSpot(10, this.bottomDataPayed[10]),
-        FlSpot(11, this.bottomDataPayed[11]),
-      ];
-    }
-    return data;
-  }
-
-  List<FlSpot> _getBottomFlSpotsData2(){
-    List<FlSpot> data = [];
-
-    if(this.dropdownValueDateType == '年'){
-      data = [
-        FlSpot(1, this.bottomDataShouldPay[0]),
-        FlSpot(4, this.bottomDataShouldPay[1]),
-        FlSpot(7, this.bottomDataShouldPay[2]),
-        FlSpot(10, this.bottomDataShouldPay[3]),
-      ];
-    }else if(this.dropdownValueDateType == '季'){
-      data = [
-        FlSpot(1, this.bottomDataShouldPay[0]),
-        FlSpot(4, this.bottomDataShouldPay[1]),
-        FlSpot(7, this.bottomDataShouldPay[2]),
-        FlSpot(10, this.bottomDataShouldPay[3]),
-      ];
-    }else if(this.dropdownValueDateType == '月'){
-      data = [
-        FlSpot(0, this.bottomDataShouldPay[0]),
-        FlSpot(1, this.bottomDataShouldPay[1]),
-        FlSpot(2, this.bottomDataShouldPay[2]),
-        FlSpot(3, this.bottomDataShouldPay[3]),
-        FlSpot(4, this.bottomDataShouldPay[4]),
-        FlSpot(5, this.bottomDataShouldPay[5]),
-        FlSpot(6, this.bottomDataShouldPay[6]),
-        FlSpot(7, this.bottomDataShouldPay[7]),
-        FlSpot(8, this.bottomDataShouldPay[8]),
-        FlSpot(9, this.bottomDataShouldPay[9]),
-        FlSpot(10, this.bottomDataShouldPay[10]),
-        FlSpot(11, this.bottomDataShouldPay[11]),
+        FlSpot(0, this.bottomDataCost[0]),
+        FlSpot(1, this.bottomDataCost[1]),
+        FlSpot(2, this.bottomDataCost[2]),
+        FlSpot(3, this.bottomDataCost[3]),
+        FlSpot(4, this.bottomDataCost[4]),
+        FlSpot(5, this.bottomDataCost[5]),
+        FlSpot(6, this.bottomDataCost[6]),
+        FlSpot(7, this.bottomDataCost[7]),
+        FlSpot(8, this.bottomDataCost[8]),
+        FlSpot(9, this.bottomDataCost[9]),
+        FlSpot(10, this.bottomDataCost[10]),
+        FlSpot(11, this.bottomDataCost[11]),
       ];
     }
     return data;
   }
 
   getMaxNumber(){
-    double max1 = 0;
     double max2 = 0;
-    for(var i in this.bottomDataShouldPay){
-      if(i > max1){
-        max1 = i;
-      }
-    }
-    for(var i in this.bottomDataPayed){
+    for(var i in this.bottomDataCost){
       if(i > max2){
         max2 = i;
       }
     }
-    if(max1 > max2){
-      this.maxNumber = max1;
-    }else{
-      this.maxNumber = max2;
-    }
+    this.maxNumber = max2;
   }
 
   calculateData(){
@@ -597,94 +371,50 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
 
   calculateYearData(){
     List a = [0.0, 0.0, 0.0, 0.0];
-    List b = [0.0, 0.0, 0.0, 0.0];
     for(int i = 0; i < 4; i++){
       calculateMonthData(this.yearNow-(3-i));
-      for(int j = 0; j < this.bottomDataShouldPay.length; j++){
-        a[i] += this.bottomDataShouldPay[j];
-      }
-      for(int k = 0; k < this.bottomDataPayed.length; k++){
-        b[i] += this.bottomDataPayed[k];
+      for(int j = 0; j < this.bottomDataCost.length; j++){
+        a[i] += this.bottomDataCost[j];
       }
     }
-    this.bottomDataShouldPay = a;
-    this.bottomDataPayed = b;
+    this.bottomDataCost = a;
 
-    ///printInfo(info: 'bottomDataShouldPay ${this.yearNow}: Year: ${this.bottomDataShouldPay}');
-    ///printInfo(info: 'bottomDataPayed ${this.yearNow}: Year: ${this.bottomDataPayed}');
+    ///printInfo(info: 'bottomDataCost ${this.yearNow}: Year: ${this.bottomDataCost}');
   }
 
   calculateSeasonData(){
     calculateMonthData(this.yearNow);
 
-    List a = [0.0, 0.0, 0.0, 0.0];
-    for(int i = 0; i < this.bottomDataShouldPay.length; i++){
-      if(i < 3){
-        a[0] += this.bottomDataShouldPay[i];
-      }else if(i >= 3 && i < 6){
-        a[1] += this.bottomDataShouldPay[i];
-      }if(i >= 6 && i < 9){
-        a[2] += this.bottomDataShouldPay[i];
-      }else if(i >= 9 ){
-        a[3] += this.bottomDataShouldPay[i];
-      }
-    }
-    this.bottomDataShouldPay = a;
-    ///printInfo(info: 'bottomDataShouldPay ${this.yearNow}: Season: ${this.bottomDataShouldPay}');
-
     List b = [0.0, 0.0, 0.0, 0.0];
-    for(int i = 0; i < this.bottomDataPayed.length; i++){
+    for(int i = 0; i < this.bottomDataCost.length; i++){
       if(i < 3){
-        b[0] += this.bottomDataPayed[i];
+        b[0] += this.bottomDataCost[i];
       }else if(i >= 3 && i < 6){
-        b[1] += this.bottomDataPayed[i];
+        b[1] += this.bottomDataCost[i];
       }if(i >= 6 && i < 9){
-        b[2] += this.bottomDataPayed[i];
+        b[2] += this.bottomDataCost[i];
       }else if(i >= 9 ){
-        b[3] += this.bottomDataPayed[i];
+        b[3] += this.bottomDataCost[i];
       }
     }
-    this.bottomDataPayed = b;
-    ///printInfo(info: 'bottomDataPayed ${this.yearNow}: Season: ${this.bottomDataPayed}');
+    this.bottomDataCost = b;
+    ///printInfo(info: 'bottomDataCost ${this.yearNow}: Season: ${this.bottomDataCost}');
   }
 
   calculateMonthData(int year){
-    this.bottomDataShouldPay = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,];
-    Map yearMap = this.shouldPayMap[year];
-    if(yearMap != null){
-      yearMap.forEach((month, allFee) {
-        double amount = 0;
-        for(var b in allFee){
-          if(this.dropdownValueFeeType == "全部"){
-            amount += b['cost'];
-          }else{
-            if(b['type'] == this.dropdownValueFeeType){
-              amount += b['cost'];
-            }
-          }
 
-        }
-        this.bottomDataShouldPay[month-1] = amount;
-      });
-    }
-    ///printInfo(info: 'bottomDataShouldPay $year: Month: ${this.bottomDataShouldPay}');
-
-    this.bottomDataPayed = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,];
-    Map yearMap2 = this.payedMap[year];
+    this.bottomDataCost = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,];
+    Map yearMap2 = this.bottomDataCostMap[year];
     if(yearMap2 != null){
       yearMap2.forEach((month, allFee) {
         double amount = 0;
-        for(var b in allFee){
-          if(this.dropdownValueFeeType == "全部"){
-            amount += b['payedFee'];
-          }else if(b['type'] == this.dropdownValueFeeType){
-            amount += b['payedFee'];
-          }
+        for(var fee in allFee){
+          amount += fee['cost'];
         }
-        this.bottomDataPayed[month-1] = amount;
+        this.bottomDataCost[month-1] = amount;
       });
     }
-    ///printInfo(info: 'bottomDataPayed $year: Month: ${this.bottomDataPayed}');
+    ///printInfo(info: 'bottomDataCost $year: Month: ${this.bottomDataCost}');
   }
 
   _getBottomTitles(double value){

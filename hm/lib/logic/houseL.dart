@@ -419,6 +419,7 @@ class HouseL extends GetxController with StateMixin<HouseS>{
   }
 
   /// line chart part
+  /// for income line chart
   List<RentalFeeM> getLineChartAllRentalFeeData(int houseIndex){
     List<RentalFeeM> rentalFeeList = [];
     var houseList = houseState.housesM.houseList;
@@ -432,6 +433,7 @@ class HouseL extends GetxController with StateMixin<HouseS>{
     return rentalFeeList;
   }
 
+  /// for income line chart
   List<Map> getLineChartFeeDataMap(int houseIndex){
     List<Map> feeDataMapList = [];
     for(RentalFeeM rentalFeeM in getLineChartAllRentalFeeData(houseIndex)){
@@ -453,6 +455,14 @@ class HouseL extends GetxController with StateMixin<HouseS>{
     }
     ///printInfo(info: feeDataMapList.toString());
     return feeDataMapList;
+  }
+
+  /// for cost line chart
+  List<HouseExpensesM> getLineChartAllCostData(int houseIndex){
+    List<HouseExpensesM> houseExpensesList = [];
+    var houseList = houseState.housesM.houseList;
+    houseExpensesList = houseList[houseIndex].houseExpensesList;
+    return houseExpensesList;
   }
 
 }
