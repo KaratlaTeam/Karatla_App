@@ -86,6 +86,12 @@ class _StatisticsIncomeVState extends State<StatisticsIncomeV> {
                       setState(() {});
                     },
                   ),
+                  ///IconButton(icon: Icon(Icons.refresh), onPressed: (){
+                  ///  getDataMapList(this.dropdownValueHouse);
+                  ///  divideFeeTypeData();
+                  ///  calculateData();
+                  ///  setState(() {});
+                  ///}),
                 ],
               ),
               Expanded(
@@ -105,7 +111,7 @@ class _StatisticsIncomeVState extends State<StatisticsIncomeV> {
                         color: gradientColors2[1].withOpacity(0.5),
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
-                      margin: EdgeInsets.only(left: 5),
+                      margin: EdgeInsets.only(left: 5,right: 10),
                       padding: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
                       child: Text("应收"),
                     ),
@@ -164,9 +170,7 @@ class _StatisticsIncomeVState extends State<StatisticsIncomeV> {
               color: Colors.black
           ),
           onChanged: (String newValue) {
-            dropdownValueHouse = newValue;
-            int houseIndex = houseL.houseState.housesM.houseList.indexWhere((element) => element.houseName == newValue);
-            this.feeDataMapList = houseL.getLineChartFeeDataMap(houseIndex);
+            getDataMapList(newValue);
             divideFeeTypeData();
             setState(() {});
           },
@@ -233,6 +237,12 @@ class _StatisticsIncomeVState extends State<StatisticsIncomeV> {
         ),
       ],
     );
+  }
+  
+  getDataMapList(String newValue){
+    dropdownValueHouse = newValue;
+    int houseIndex = houseL.houseState.housesM.houseList.indexWhere((element) => element.houseName == newValue);
+    this.feeDataMapList = houseL.getLineChartFeeDataMap(houseIndex);
   }
 
   divideFeeTypeData(){

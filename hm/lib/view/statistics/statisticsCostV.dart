@@ -89,6 +89,7 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
                       padding: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                      margin: EdgeInsets.only(right: 10),
                       child: Text("支出"),
                     ),
                   ],
@@ -145,9 +146,7 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
               color: Colors.black
           ),
           onChanged: (String newValue) {
-            dropdownValueHouse = newValue;
-            int houseIndex = houseL.houseState.housesM.houseList.indexWhere((element) => element.houseName == newValue);
-            this.houseExpensesMList = houseL.getLineChartAllCostData(houseIndex);
+            getDataMapList(newValue);
             divideData();
             setState(() {});
           },
@@ -190,6 +189,12 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
         ),
       ],
     );
+  }
+
+  getDataMapList(newValue){
+    dropdownValueHouse = newValue;
+    int houseIndex = houseL.houseState.housesM.houseList.indexWhere((element) => element.houseName == newValue);
+    this.houseExpensesMList = houseL.getLineChartAllCostData(houseIndex);
   }
 
   divideData(){

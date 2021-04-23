@@ -24,6 +24,9 @@ class _StatisticsVState extends State<StatisticsV> {
               top: context.mediaQuery.padding.top, left: 10, right: 10),
           children: <Widget>[
             StatisticsIncomeV(),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+            ),
             StatisticsCostV(),
           ],
         ),
