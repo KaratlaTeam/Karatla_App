@@ -15,7 +15,7 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
    RoomM _roomM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex].levelList[Get.find<RoomL>().roomS.roomLevel].roomList[Get.find<RoomL>().roomS.roomIndex];
    HouseM _houseM = Get.find<HouseL>().houseState.housesM.houseList[Get.find<HouseL>().houseState.houseIndex];
    List<FeeTypeCost> _feeTypeCostList = [];
-   String _typeHold = '';
+   String _typeHold ;
    String _mark ;
 
 
@@ -53,18 +53,41 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
               },
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  child: Expanded(
-                    child: TextField(
-                      controller: TextEditingController(text: _typeHold??''),
-                      decoration: InputDecoration(
-                        labelText: "缴费类型",
-                      ),
-                      onChanged: (String text){
-                        this._typeHold = text;
-                      },
+                  width: 100,
+                  child: DropdownButton<String>(
+                    hint: Text("类型"),
+                    value: checkFeeType() ? this._typeHold : null,
+                    elevation: 16,
+                    underline: Container(
+                      height: 0,
+                      color: Colors.black,
                     ),
+                    style: TextStyle(
+                        color: Colors.black
+                    ),
+                    onChanged: (String newValue) {
+                      this._typeHold = newValue;
+                      setState(() {});
+                    },
+                    items: Get
+                        .find<HouseL>()
+                        .houseState
+                        .housesM
+                        .feeTypeList
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Container(
+                          width: 50,
+                          //constraints: BoxConstraints(maxWidth: 100),
+                          child: Text(value, maxLines: 1,
+                            overflow: TextOverflow.ellipsis,),
+                        ),
+                      );
+                    }).toList(),
                   ),
                 ),
                 ElevatedButton(child: Text("添加"),onPressed: (){
@@ -159,6 +182,10 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
      }
 
      return widgets;
+   }
+
+   bool checkFeeType(){
+     return Get.find<HouseL>().houseState.housesM.feeTypeList.contains(this._typeHold);
    }
 
 }

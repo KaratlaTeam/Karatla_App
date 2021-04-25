@@ -25,6 +25,7 @@ class _HouseEditVState extends State<HouseEditV> {
   String _type ;
   String _name ;
   String _mark ;
+  String _photoPath;
 
   List<HouseLevel> _levelList = [];
 
@@ -42,6 +43,7 @@ class _HouseEditVState extends State<HouseEditV> {
     }
     this._mark = _houseM.mark;
     this._name = _houseM.houseName;
+    this._photoPath = _houseM.photoPath;
   }
 
   @override
@@ -96,14 +98,22 @@ class _HouseEditVState extends State<HouseEditV> {
                       });
                     }),
                     IconButton(icon: Icon(CupertinoIcons.minus), onPressed: (){
-                      if(this._levelList.length > 1){
-                        setState(() {
-                          this._levelList.removeLast();
-                        });
-                      }else{
-                        Get.snackbar("提示", "楼房层数不能少于一层。",snackPosition: SnackPosition.BOTTOM);
-                      }
+                      Get.defaultDialog(
+                        onCancel: (){
 
+                        },
+                        onConfirm: (){
+                          Get.back();
+                          if(this._levelList.length > 1){
+                            setState(() {
+                              this._levelList.removeLast();
+                            });
+                          }else{
+                            Get.snackbar("提示", "楼房层数不能少于一层。",snackPosition: SnackPosition.BOTTOM);
+                          }
+                        },
+                        middleText: '此操作会删除最后一层的所有数据，是否删除？',
+                      );
                     }),
                   ],
                 ),
@@ -113,17 +123,41 @@ class _HouseEditVState extends State<HouseEditV> {
               children: _showRooms(),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Expanded(
-                  //width: 250,
-                  child: TextField(
-                    controller: TextEditingController(text: _type??''),
-                    decoration: InputDecoration(
-                      labelText: "缴费类型",
+                Container(
+                  width: 100,
+                  child: DropdownButton<String>(
+                    hint: Text("类型"),
+                    value: checkFeeType() ? this._type : null,
+                    elevation: 16,
+                    underline: Container(
+                      height: 0,
+                      color: Colors.black,
                     ),
-                    onChanged: (String text){
-                      this._type = text;
+                    style: TextStyle(
+                        color: Colors.black
+                    ),
+                    onChanged: (String newValue) {
+                      this._type = newValue;
+                      setState(() {});
                     },
+                    items: Get
+                        .find<HouseL>()
+                        .houseState
+                        .housesM
+                        .feeTypeList
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Container(
+                          width: 50,
+                          //constraints: BoxConstraints(maxWidth: 100),
+                          child: Text(value, maxLines: 1,
+                            overflow: TextOverflow.ellipsis,),
+                        ),
+                      );
+                    }).toList(),
                   ),
                 ),
                 ElevatedButton(child: Text("添加"),onPressed: (){
@@ -143,23 +177,35 @@ class _HouseEditVState extends State<HouseEditV> {
               ],
             ),
             Wrap(
+              spacing: 5,
+              runSpacing: 5,
               children: _showTypes(),
             ),
-            ElevatedButton(child: Text("更新"),onPressed: ()async{
-              if(_name != "" && _name != null && _feeTypeCostList.length > 0 && this._levelList.length > 0){
-                if(_checkHouseName(_name)){
-                  HouseM house = HouseM()..initialize(this._levelList, this._name, this._feeTypeList, this._mark);
-                  HouseL houseL = Get.find<HouseL>();
-                  await houseL.updateHouse(house, Get.find<HouseL>().houseState.houseIndex);
-                  houseL.setItemList(houseL.houseState.houseIndex);
+            ElevatedButton(child: Text("更新"),onPressed: (){
+              Get.defaultDialog(
+                onCancel: (){
+
+                },
+                onConfirm: ()async{
                   Get.back();
-                  Get.snackbar("提示", "更新成功。",snackPosition: SnackPosition.BOTTOM);
-                }else{
-                  Get.snackbar("提示", "房子名称已存在!",snackPosition: SnackPosition.BOTTOM);
-                }
-              }else{
-                Get.snackbar("提示", "设置不完整。",snackPosition: SnackPosition.BOTTOM);
-              }
+                  if(_name != "" && _name != null && _feeTypeCostList.length > 0 && this._levelList.length > 0){
+                    if(_checkHouseName(_name)){
+                      HouseM house = HouseM()..initialize(this._levelList, this._name, this._feeTypeList,this._photoPath,  this._mark);
+                      HouseL houseL = Get.find<HouseL>();
+                      await houseL.updateHouse(house, Get.find<HouseL>().houseState.houseIndex);
+                      houseL.setItemList(houseL.houseState.houseIndex);
+                      Get.back();
+                      Get.snackbar("提示", "更新成功。",snackPosition: SnackPosition.BOTTOM);
+                    }else{
+                      Get.snackbar("提示", "房子名称已存在!",snackPosition: SnackPosition.BOTTOM);
+                    }
+                  }else{
+                    Get.snackbar("提示", "设置不完整。",snackPosition: SnackPosition.BOTTOM);
+                  }
+                },
+                middleText: '数据更改无法恢复，是否继续？',
+              );
+
             }, )
           ],
         ),
@@ -242,10 +288,10 @@ class _HouseEditVState extends State<HouseEditV> {
       widgets.add(Container(
         //color: Colors.red,
         child: InputChip(
-          //side: BorderSide(width: 1, color: Colors.grey),
+          side: BorderSide(color: Colors.grey),
           deleteIconColor: Colors.red,
           label: Text(_feeTypeCostList[index].type),
-          //backgroundColor: Colors.grey,
+          backgroundColor: Colors.white,
           onDeleted: (){
             setState(() {
               _feeTypeCostList.removeAt(index);
@@ -257,4 +303,9 @@ class _HouseEditVState extends State<HouseEditV> {
     }
     return widgets;
   }
+
+  bool checkFeeType(){
+    return Get.find<HouseL>().houseState.housesM.feeTypeList.contains(this._type);
+  }
+
 }

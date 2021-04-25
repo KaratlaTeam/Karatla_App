@@ -21,7 +21,7 @@ class _StatisticsVState extends State<StatisticsV> {
       body: Container(
         child: ListView(
           padding: EdgeInsets.only(
-              top: context.mediaQuery.padding.top, left: 10, right: 10),
+              top: context.mediaQuery.padding.top*1.5, left: 10, right: 10),
           children: <Widget>[
             StatisticsIncomeV(),
             Container(

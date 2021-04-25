@@ -1,10 +1,13 @@
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hm/logic/houseL.dart';
+import 'package:hm/main.dart';
 import 'package:hm/model/houseM.dart';
 import 'package:hm/model/roomM.dart';
+import 'package:image_picker/image_picker.dart';
 
 class HouseCreateV extends StatefulWidget {
   @override
@@ -13,18 +16,28 @@ class HouseCreateV extends StatefulWidget {
 class _HouseCreateVState extends State<HouseCreateV>{
   List<FeeTypeCost> _feeTypeCostList = [];
   List<String> _feeTypeList = [];
-  String _type = "";
+  String _type ;
   String _name = "";
   String _mark = "";
+  bool isFirstTime ;
+  String photoPath = '';
+  File _image;
+  final picker = ImagePicker();
 
   List<HouseLevel> _levelList = [];
+
+  @override
+  void initState() {
+    isFirstTime = Get.arguments;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("创建房子"),
+        title: Text(this.isFirstTime == true ? '我的第一个房子' : "创建房子"),
       ),
       body: Container(
         child: ListView(
@@ -77,17 +90,41 @@ class _HouseCreateVState extends State<HouseCreateV>{
               children: _showRooms(),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Expanded(
-                  //width: 250,
-                  child: TextField(
-                    controller: TextEditingController(text: _type??''),
-                    decoration: InputDecoration(
-                      labelText: "缴费类型",
+                Container(
+                  width: 100,
+                  child: DropdownButton<String>(
+                    hint: Text("类型"),
+                    value: checkFeeType() ? this._type : null,
+                    elevation: 16,
+                    underline: Container(
+                      height: 0,
+                      color: Colors.black,
                     ),
-                    onChanged: (String text){
-                      this._type = text;
+                    style: TextStyle(
+                        color: Colors.black
+                    ),
+                    onChanged: (String newValue) {
+                      this._type = newValue;
+                      setState(() {});
                     },
+                    items: Get
+                        .find<HouseL>()
+                        .houseState
+                        .housesM
+                        .feeTypeList
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Container(
+                          width: 50,
+                          //constraints: BoxConstraints(maxWidth: 100),
+                          child: Text(value, maxLines: 1,
+                            overflow: TextOverflow.ellipsis,),
+                        ),
+                      );
+                    }).toList(),
                   ),
                 ),
                 ElevatedButton(child: Text("添加"),onPressed: (){
@@ -107,16 +144,41 @@ class _HouseCreateVState extends State<HouseCreateV>{
               ],
             ),
             Wrap(
+              spacing: 5,
+              runSpacing: 5,
               children: _showTypes(),
             ),
+            //_image == null
+            //    ? Text('')
+            //    : InkWell(
+            //  onTap: (){
+            //    Get.to(()=>Scaffold(
+            //      backgroundColor: Colors.black,
+            //      appBar: AppBar(backgroundColor: Colors.black,),
+            //      body: Container(
+            //        child: Center(
+            //          child: Image.file(_image),
+            //        ),
+            //      ),
+            //    ));
+            //  },
+            //  child: Container(
+            //    child: Image.file(_image, height: 120,width: 190,fit: BoxFit.cover,),
+            //  ),
+            //),
             ElevatedButton(child: Text("创建"),onPressed: ()async{
               if(_name != "" && _name != null && _feeTypeCostList.length > 0 && this._levelList.length > 0){
                 if(_checkHouseName(_name)){
-                  HouseM house = HouseM()..initialize(this._levelList, this._name, this._feeTypeList, this._mark);
+                  HouseM house = HouseM()..initialize(this._levelList, this._name, this._feeTypeList,this.photoPath,  this._mark);
                   HouseL houseL = Get.find<HouseL>();
                   //print("11");
                   await houseL.addNewHouse(house);
-                  Get.back();
+
+                  if(this.isFirstTime == true){
+                    Get.offNamed(RN.home);
+                  }else{
+                    Get.back();
+                  }
                   Get.snackbar("提示", "创建成功。",snackPosition: SnackPosition.BOTTOM);
                 }else{
                   Get.snackbar("提示", "房子名称已存在!",snackPosition: SnackPosition.BOTTOM);
@@ -125,7 +187,13 @@ class _HouseCreateVState extends State<HouseCreateV>{
               }else{
                 Get.snackbar("提示", "设置不完整。",snackPosition: SnackPosition.BOTTOM);
               }
+            }, ),
+            this.isFirstTime == true
+                ? ElevatedButton(child: Text("从已有数据恢复"),onPressed: (){
+              Get.toNamed(RN.backupList);
             }, )
+                : Container(),
+
           ],
         ),
       ),
@@ -196,10 +264,10 @@ class _HouseCreateVState extends State<HouseCreateV>{
       widgets.add(Container(
         //color: Colors.red,
         child: InputChip(
-          //deleteIcon: Icon(Icons.delete,size: 20,),
+          side: BorderSide(color: Colors.grey),
           deleteIconColor: Colors.red,
           label: Text(_feeTypeCostList[index].type),
-          //backgroundColor: Colors.blue.shade100,
+          backgroundColor: Colors.white,
           onDeleted: (){
             setState(() {
               _feeTypeCostList.removeAt(index);
@@ -210,6 +278,10 @@ class _HouseCreateVState extends State<HouseCreateV>{
       ),);
     }
     return widgets;
+  }
+
+  bool checkFeeType(){
+    return Get.find<HouseL>().houseState.housesM.feeTypeList.contains(this._type);
   }
 
 }

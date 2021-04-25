@@ -10,38 +10,42 @@ class SettingV extends StatelessWidget{
     // TODO: implement build
     return Scaffold(
       body: ListView(
+        padding: EdgeInsets.only(top: context.mediaQueryPadding.top+20, bottom: 10,left: 10, right: 10),
         children: [
-          Container(
-            //margin: EdgeInsets.only(bottom: 10),
-            child: ElevatedButton(
-              style: ButtonStyle(
-                elevation: MaterialStateProperty.all(0),
-              ),
-              child: Icon(Icons.backup),
-              onPressed: (){
-                Get.defaultDialog(
-                    middleText: '确认要备份？',
-                    onConfirm: ()async{
-                      Get.back();
-                      await Get.find<HouseL>().backupData();
-                    },
-                    onCancel: (){
-                      Get.back();
-                    }
-                );
-              },
-            ),
+          ListTile(
+            title: Text('设置',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
           ),
-          Container(
-            child: ElevatedButton(
-              style: ButtonStyle(
-                elevation: MaterialStateProperty.all(0),
-              ),
-              child: Icon(Icons.restore),
-              onPressed: (){
-                Get.toNamed(RN.backupList);
-              },
-            ),
+          ListTile(
+            leading: Text('模版',),
+            onTap: (){
+              Get.toNamed(RN.feeType);
+            },
+          ),
+          ListTile(
+            leading: Text('校正',),
+            onTap: (){
+            },
+          ),
+          ListTile(
+            leading: Text('备份',),
+            onTap: (){
+              Get.defaultDialog(
+                  middleText: '确认要备份？',
+                  onConfirm: ()async{
+                    Get.back();
+                    await Get.find<HouseL>().backupData();
+                  },
+                  onCancel: (){
+                    Get.back();
+                  }
+              );
+            },
+          ),
+          ListTile(
+            leading: Text('恢复',),
+            onTap: (){
+              Get.toNamed(RN.backupList);
+            },
           ),
         ],
       ),

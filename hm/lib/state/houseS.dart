@@ -20,5 +20,6 @@ class HouseS{
     this.tempPath,
     this.backUp,
     this.itemList,
+
 });
 }

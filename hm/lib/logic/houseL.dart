@@ -19,14 +19,13 @@ class HouseL extends GetxController with StateMixin<HouseS>{
   HouseS houseState;
 
   @override
-  void onInit() async{
-    printInfo(info: 'onInit');
+  void onInit() {
     change(houseState, status: RxStatus.loading());
+    printInfo(info: 'onInit');
     HousesM houseList = HousesM()..initialize();
     this.houseState = HouseS(housesM: houseList);
-    await this.getAppDirectory();
-    await getSharedPHouseList();
-    //await getSharedPBackupList();
+    this.getAppDirectory();
+    this.getSharedPHouseList();
     change(houseState, status: RxStatus.success());
     super.onInit();
   }
@@ -107,22 +106,32 @@ class HouseL extends GetxController with StateMixin<HouseS>{
   Future setSharedPHouseList() async{
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     try{
-      await sharedPreferences.setString("houseList",json.encode(this.houseState.housesM.toJson()));
-      printInfo(info: "set houseList.toJson()");
+      //printInfo(info: this.houseState.housesM.toJson().toString());
+      await sharedPreferences.setString("HousesM",json.encode(this.houseState.housesM.toJson()));
+      printInfo(info: "set HousesM.toJson()");
     }catch (e){
       printError(info: e);
     }
   }
 
   Future getSharedPHouseList() async{
+    change(this.houseState, status: RxStatus.loading());
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var jsonBody = sharedPreferences.getString("houseList");
+    var jsonBody = sharedPreferences.getString("HousesM");
     if (jsonBody != null) {
       var decodeJsonBody = await json.decode(jsonBody);
-      this.houseState.housesM.houseList = HousesM.fromJson(decodeJsonBody).houseList;
-      printInfo(info: "get houseList from Json()");
+      this.houseState.housesM = HousesM.fromJson(decodeJsonBody);
+      printInfo(info: "get HousesM from Json()");
+      this.setHouseIndex(0);
+      this.setItemList(0);
+      await Future.delayed(Duration(seconds:  2));
+      change(this.houseState, status: RxStatus.success());
+      this.houseState.housesM.houseList.length == 0
+          ? Get.offNamed(RN.houseCreate, arguments: true)
+          : Get.offNamed(RN.home);
     }else{
-      printError(info: "Fail to get houseList from Json() ");
+      printError(info: "Fail to get HousesM from Json() ");
+      Get.offNamed(RN.houseCreate,arguments: true);
     }
     update();
   }
@@ -151,6 +160,7 @@ class HouseL extends GetxController with StateMixin<HouseS>{
 
   restoreData(FileSystemEntity fileSystemEntity)async{
     try{
+      change(houseState, status: RxStatus.loading());
       //String backupPath;
       //Platform.isAndroid ? backupPath = this.houseState.appStoPath : backupPath = this.houseState.appDocPath;
       File file = File(fileSystemEntity.path);
@@ -158,6 +168,9 @@ class HouseL extends GetxController with StateMixin<HouseS>{
       HousesM housesM = HousesM.fromJson(json.decode(restore));
       this.houseState.housesM = housesM;
       await setSharedPHouseList();
+      ///await Future.delayed(Duration(seconds: 4));
+      change(houseState, status: RxStatus.success());
+      Get.offNamed(RN.home);
       Get.snackbar("提示", "数据恢复成功", snackPosition: SnackPosition.BOTTOM);
     }catch (e){
       printError(info: e.toString());
@@ -203,6 +216,20 @@ class HouseL extends GetxController with StateMixin<HouseS>{
 
   deleteHouse(int index)async{
     this.houseState.housesM.houseList.removeAt(index);
+    if(houseState.housesM.houseList.length > 0){
+      if(index == 0){
+        setHouseIndex(index);
+        setItemList(index);
+      }else{
+        setHouseIndex(index-1);
+        setItemList(index-1);
+      }
+    }else{
+      setHouseIndex(0);
+      setItemList(0);
+      Get.offNamed(RN.houseCreate, arguments: true);
+    }
+
     await setSharedPHouseList();
     update();
   }
@@ -365,6 +392,14 @@ class HouseL extends GetxController with StateMixin<HouseS>{
     update();
   }
 
+  /// new version
+  newUpdateFeeTypeList(List<String> feeTypeList)async{
+    //print(feeTypeList);
+    this.houseState.housesM.feeTypeList = feeTypeList;
+    await setSharedPHouseList();
+    update();
+  }
+
 
   /// /////////////////////// functions
   RoomM getRoom(int index, int levelIndex){
@@ -376,8 +411,11 @@ class HouseL extends GetxController with StateMixin<HouseS>{
   }
 
   setHouseIndex(int index){
-    this.houseState.houseIndex = index;
-    update();
+    if(this.houseState.housesM.houseList.length != 0){
+      this.houseState.houseIndex = index;
+      //printInfo(info: "set house index: $index" );
+      update();
+    }
   }
 
   //changeRoomState(int index, RoomState roomState){
@@ -404,13 +442,17 @@ class HouseL extends GetxController with StateMixin<HouseS>{
   }
 
   setItemList(int houseIndex){
-    this.houseState.itemList =  List<Item>.generate(this.houseState.housesM.houseList[houseIndex].levelList.length, (int index) {
-      return Item(
-        houseLevel: this.houseState.housesM.houseList[houseIndex].levelList[index],
-        levelIndex: index,
-      );
-    });
-    update();
+    if(this.houseState.housesM.houseList.length != 0){
+      this.houseState.itemList =  List<Item>.generate(this.houseState.housesM.houseList[houseIndex].levelList.length, (int index) {
+        return Item(
+          houseLevel: this.houseState.housesM.houseList[houseIndex].levelList[index],
+          levelIndex: index,
+        );
+      });
+      //printInfo(info: "set setItemList");
+      update();
+    }
+
   }
 
   upDateItemIsExpanded(int index, bool isExpanded){
@@ -418,7 +460,7 @@ class HouseL extends GetxController with StateMixin<HouseS>{
     update();
   }
 
-  /// line chart part
+  /// /////////// line chart part
   /// for income line chart
   List<RentalFeeM> getLineChartAllRentalFeeData(int houseIndex){
     List<RentalFeeM> rentalFeeList = [];
@@ -463,6 +505,41 @@ class HouseL extends GetxController with StateMixin<HouseS>{
     var houseList = houseState.housesM.houseList;
     houseExpensesList = houseList[houseIndex].houseExpensesList;
     return houseExpensesList;
+  }
+
+  /// ///////////// get all customers
+   Future getHouseHolderList()async{
+    change(houseState, status: RxStatus.loading());
+    var houseList = houseState.housesM.houseList;
+    List<Map> houseHolderList = [];
+    ///await Future.delayed(Duration(seconds: 1));
+    if(houseList.length > 0){
+      for(int i = 0 ; i < houseList.length; i++){
+        var levels = houseList[i].levelList;
+        for(int j = 0; j<levels.length ; j++ ){
+          var rooms = levels[j].roomList;
+          for(int k = 0; k <rooms.length; k++){
+            var houseHolders = rooms[k].householderList;
+            for(int h = 0; h < houseHolders.length; h++){
+              var houseHold = houseHolders[h];
+              Map ho = {
+                'house': i,
+                'level': j,
+                'room': k,
+                'holders': h,
+                'name':houseHold.name,
+                'sex':houseHold.sex,
+                'nation':houseHold.nation,
+                'idNum':houseHold.idNum,
+              };
+              houseHolderList.add(ho);
+            }
+          }
+        }
+      }
+    }
+    change(houseState, status: RxStatus.success());
+    return houseHolderList;
   }
 
 }

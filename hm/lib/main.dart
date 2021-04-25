@@ -30,6 +30,7 @@ import 'package:hm/view/house/houseEditV.dart';
 import 'package:hm/view/room/roomDetailEditV.dart';
 import 'package:hm/view/room/roomDetailV.dart';
 import 'package:hm/view/room/roomV.dart';
+import 'package:hm/view/setting/feeTypeV.dart';
 import 'package:hm/view/setting/settingV.dart';
 import 'package:hm/view/statistics/statisticsV.dart';
 
@@ -47,13 +48,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
   final ThemeData _themeData = ThemeData(
-    primarySwatch: Colors.blue,
+    primarySwatch: Colors.cyan,
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: TextButton.styleFrom(primary: Colors.white),
+    ),
     visualDensity: VisualDensity.adaptivePlatformDensity,
+    tabBarTheme: TabBarTheme(labelColor: Colors.white),
     appBarTheme: AppBarTheme(
+      iconTheme: IconThemeData(color: Colors.white),
       elevation: 0,
       //backgroundColor: Colors.white,
       //iconTheme: IconThemeData(color: Colors.black),
-      //textTheme: TextTheme(headline6: TextStyle(color: Colors.black)),
+      textTheme: TextTheme(headline6: TextStyle(color: Colors.white)),
     )
   );
 
@@ -63,7 +69,7 @@ class MyApp extends StatelessWidget {
       title: 'Rental Management',
       enableLog: true,
       //logWriterCallback: ,
-      //initialBinding: ,
+      initialBinding: HomeBinding(),
       initialRoute: RN.firstPage,
       getPages: _getPages(),
       unknownRoute: GetPage(name: RN.home, page: () => HomeV()),
@@ -82,7 +88,7 @@ class MyApp extends StatelessWidget {
           const Locale.fromSubtags(languageCode: 'zh')
         ],
       onInit: (){
-        printInfo(info: "onInit");
+        printInfo(info: "onInit-------");
         //print(Get.deviceLocale);
         if (Platform.isAndroid) {
           FlutterDisplayMode.current.then((displayMode) {
@@ -107,8 +113,7 @@ class MyApp extends StatelessWidget {
         ));
       },
       onReady: (){
-        printInfo(info: "onReady");
-        Get.offNamed(RN.home);
+        printInfo(info: "onReady-------");
       },
       onDispose: (){
         printInfo(info: "onDispose");
@@ -120,8 +125,9 @@ class MyApp extends StatelessWidget {
     final List<GetPage> _pageList = [
       GetPage(name: RN.firstPage, page: () => FirstPageView(),),
 
-      GetPage(name: RN.home, page: () => HomeV(),binding: HouseBinding(), ),
+      GetPage(name: RN.home, page: () => HomeV(), ),
       GetPage(name: RN.setting, page: () => SettingV(), ),
+      GetPage(name: RN.feeType, page: () => FeeTypeV(), ),
       GetPage(name: RN.statistics, page: () => StatisticsV(), ),
       GetPage(name: RN.backupList, page: () => BackupListV()),
 
@@ -130,7 +136,7 @@ class MyApp extends StatelessWidget {
       GetPage(name: RN.houseCreate, page: () => HouseCreateV(),),
       GetPage(name: RN.houseEdit, page: () => HouseEditV(),),
 
-      GetPage(name: RN.room, page: () => RoomV(), binding: RoomBinding(),),
+      GetPage(name: RN.room, page: () => RoomV(),),
       GetPage(name: RN.roomDetail, page: () => RoomDetailV(),),
       GetPage(name: RN.roomDetailEdit, page: () => RoomDetailEditV(),),
 
@@ -184,6 +190,7 @@ class RN{
   static const String backupList = '/backupList';
 
   static const String setting = '/setting';
+  static const String feeType = '/feeType';
 
   static const String statistics = '/statistics';
 

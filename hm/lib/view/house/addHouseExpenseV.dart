@@ -18,6 +18,8 @@ class AddHouseExpenseV extends StatefulWidget{
   _AddHouseExpenseVState createState() => _AddHouseExpenseVState();
 }
 class _AddHouseExpenseVState extends State<AddHouseExpenseV>{
+
+  HouseL houseL =  Get.find<HouseL>();
   String _mark = "";
   MyTimeM _myTimeM ;
   FeeTypeCost _expense = FeeTypeCost()..initialize('', 0.0, false);
@@ -34,48 +36,87 @@ class _AddHouseExpenseVState extends State<AddHouseExpenseV>{
         child: ListView(
           padding: EdgeInsets.all(10),
           children: [
-            TextField(
-              controller: TextEditingController(text: _expense.type??''),
-              decoration: InputDecoration(
-                labelText: "*名称",
-              ),
-              onChanged: (String text){
-                this._expense.type = text;
-              },
-            ),
-            TextField(
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp('[0-9.]'))
-              ],
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: '*金额',
-              ),
-              onChanged: (String text){
-                double feePayed;
-                if(text != '' || text != null ){
-                  int i = 0;
-                  var b = text;
-                  for(var a in b.characters){
-                    a == '.' ? i++ : i=i;
-                  }
-                  if(i > 1 || text == '.'){
-                    Get.snackbar('提示', '格式错误', snackPosition: SnackPosition.BOTTOM);
-                  }else{
-                    try{
-                      feePayed = double.parse(text);
+            Row(
+              children: [
+                Container(
+                  width: 250,
+                  child: TextField(
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp('[0-9.]'))
+                    ],
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText: '*金额',
+                    ),
+                    onChanged: (String text){
+                      double feePayed;
+                      if(text != '' || text != null ){
+                        int i = 0;
+                        var b = text;
+                        for(var a in b.characters){
+                          a == '.' ? i++ : i=i;
+                        }
+                        if(i > 1 || text == '.'){
+                          Get.snackbar('提示', '格式错误', snackPosition: SnackPosition.BOTTOM);
+                        }else{
+                          try{
+                            feePayed = double.parse(text);
 
-                    }catch (e){
-                      printError(info: e.toString());
-                      feePayed = 0.0;
-                    }
-                    _expense.cost = feePayed;
-                  }
-                  feePayed = 0;
-                  i = 0;
-                }
-              },
+                          }catch (e){
+                            printError(info: e.toString());
+                            feePayed = 0.0;
+                          }
+                          _expense.cost = feePayed;
+                        }
+                        feePayed = 0;
+                        i = 0;
+                      }
+                    },
+                  ),
+                ),
+                Container(
+                  width: 100,
+                  alignment: Alignment.centerRight,
+                  child: DropdownButton<String>(
+                    hint: Text("类型"),
+                    value: checkFeeType() ? this._expense.type : null,
+                    elevation: 16,
+                    underline: Container(
+                      height: 0,
+                      color: Colors.black,
+                    ),
+                    style: TextStyle(
+                        color: Colors.black
+                    ),
+                    onChanged: (String newValue) {
+                      this._expense.type = newValue;
+                      setState(() {});
+                    },
+                    items: houseL.houseState.housesM.feeTypeList.map< DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Container(
+                          width: 50,
+                          //constraints: BoxConstraints(maxWidth: 100),
+                          child: Text(value,maxLines: 1,overflow: TextOverflow.ellipsis,),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
             ),
+
+            //TextField(
+            //  controller: TextEditingController(text: _expense.type??''),
+            //  decoration: InputDecoration(
+            //    labelText: "*名称",
+            //  ),
+            //  onChanged: (String text){
+            //    this._expense.type = text;
+            //  },
+            //),
+
             TextField(
               controller: TextEditingController(text: _mark??''),
               decoration: InputDecoration(
@@ -112,8 +153,8 @@ class _AddHouseExpenseVState extends State<AddHouseExpenseV>{
             ),
 
             ElevatedButton(child: Text("添加"),onPressed: ()async{
-              if(_myTimeM != null){
-                Get.find<HouseL>().addHouseExpense(_mark,_expense,_myTimeM);
+              if(_myTimeM != null  ){
+                this.houseL.addHouseExpense(_mark,_expense,_myTimeM);
                 Get.back();
                 Get.snackbar("提示", "添加成功", snackPosition: SnackPosition.BOTTOM);
               }else{
@@ -126,5 +167,8 @@ class _AddHouseExpenseVState extends State<AddHouseExpenseV>{
         ),
       ),
     );
+  }
+  bool checkFeeType(){
+    return Get.find<HouseL>().houseState.housesM.feeTypeList.contains(this._expense.type);
   }
 }

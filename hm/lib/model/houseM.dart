@@ -6,16 +6,28 @@ import 'package:hm/model/roomM.dart';
 class HousesM{
   HousesM({
     this.houseList,
+
+    /// new version
+    this.feeTypeList,
 });
   List<HouseM> houseList ;
 
+  /// new version
+  List<String> feeTypeList;
+
   initialize(){
     this.houseList = [];
+
+    /// new version
+    this.feeTypeList = [];
   }
 
   factory HousesM.fromJson(Map<String, dynamic> json){
     return HousesM(
       houseList: json['houseList'] != null ? (json['houseList'] as List).map((i) => HouseM.fromJson(i)).toList() : null,
+
+      /// new version
+      feeTypeList: json['feeTypeList'] != null ? new List<String>.from(json['feeTypeList']) : [],
     );
   }
 
@@ -24,6 +36,11 @@ class HousesM{
 
     if (this.houseList != null) {
       houseMap['houseList'] = this.houseList.map((v) => v.toJson()).toList();
+    }
+
+    /// new version
+    if (this.feeTypeList != null) {
+      houseMap['feeTypeList'] = this.feeTypeList;
     }
     return houseMap;
   }
@@ -38,6 +55,9 @@ class HouseM {
 
     this.houseExpensesList,
     this.levelList,
+
+    /// new version
+    this.photoPath,
 });
   String houseName ;
   String mark;
@@ -46,17 +66,26 @@ class HouseM {
   List<HouseExpensesM> houseExpensesList ;
   List<HouseLevel> levelList;
 
-  initialize(List<HouseLevel> levelList, String name, List<String> feeTypeList, [String mark]){
+  /// new version
+  String photoPath;
+
+  initialize(List<HouseLevel> levelList, String name, List<String> feeTypeList, String photoPath, [String mark]){
     this.houseName = name;
     this.feeTypeList = feeTypeList;
     mark != null ? this.mark = mark : this.mark = "";
 
     this.houseExpensesList = [];
     this.levelList = levelList;
+
+    /// new version
+    this.photoPath = photoPath;
   }
 
   factory HouseM.fromJson(Map<String, dynamic> json){
     return HouseM(
+      /// new version
+      photoPath: json['photoPath'],
+
       houseName: json['houseName'],
       mark: json['mark'],
 
@@ -69,6 +98,9 @@ class HouseM {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> house = Map<String, dynamic>();
+
+    /// new version
+    house["photoPath"] = this.photoPath;
 
     house["mark"] = this.mark;
     house["houseName"] = this.houseName;

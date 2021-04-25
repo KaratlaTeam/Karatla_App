@@ -22,7 +22,7 @@ class _EditHouseExpenseVState extends State<EditHouseExpenseV>{
 
   String _mark = "";
   MyTimeM _myTimeM ;
-  FeeTypeCost _expense = FeeTypeCost()..initialize('', 0.0, false);
+  FeeTypeCost _expense = FeeTypeCost()..initialize(null, 0.0, false);
   int expenseIndex;
 
   @override
@@ -47,55 +47,103 @@ class _EditHouseExpenseVState extends State<EditHouseExpenseV>{
         child: ListView(
           padding: EdgeInsets.all(10),
           children: [
-            TextField(
-              controller: TextEditingController(text: _expense == null ? '' : _expense.type),
-              decoration: InputDecoration(
-                labelText: "*名称",
-              ),
-              onChanged: (String text){
-                this._expense.type = text;
-              },
-            ),
-            TextField(
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp('[0-9.]'))
-              ],
-              controller: TextEditingController(text: _expense == null ? '' : _expense.cost.toString()),
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: '*金额',
-              ),
-              onChanged: (String text){
-                double feePayed;
-                if(text != '' || text != null ){
-                  int i = 0;
-                  var b = text;
-                  for(var a in b.characters){
-                    a == '.' ? i++ : i=i;
-                  }
-                  if(i > 1 || text == '.'){
-                    Get.snackbar('提示', '格式错误', snackPosition: SnackPosition.BOTTOM);
-                  }else{
-                    try{
-                      feePayed = double.parse(text);
+            Row(
+              children: [
+                Container(
+                  width: 250,
+                  child: TextField(
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp('[0-9.]'))
+                    ],
+                    controller: TextEditingController(
+                        text: _expense == null ? '' : _expense.cost.toString()),
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText: '*金额 ${checkFeeType() ? '' : '(当前使用旧版本类型：${this._expense.type})'}',
+                    ),
+                    onChanged: (String text) {
+                      double feePayed;
+                      if (text != '' || text != null) {
+                        int i = 0;
+                        var b = text;
+                        for (var a in b.characters) {
+                          a == '.' ? i++ : i = i;
+                        }
+                        if (i > 1 || text == '.') {
+                          Get.snackbar(
+                              '提示', '格式错误', snackPosition: SnackPosition
+                              .BOTTOM);
+                        } else {
+                          try {
+                            feePayed = double.parse(text);
+                          } catch (e) {
+                            printError(info: e.toString());
+                            feePayed = 0.0;
+                          }
+                          _expense.cost = feePayed;
+                        }
+                        feePayed = 0;
+                        i = 0;
+                      }
+                    },
+                  ),
+                ),
 
-                    }catch (e){
-                      printError(info: e.toString());
-                      feePayed = 0.0;
-                    }
-                    _expense.cost = feePayed;
-                  }
-                  feePayed = 0;
-                  i = 0;
-                }
-              },
+                Container(
+                  width: 100,
+                  alignment: Alignment.centerRight,
+                  child: DropdownButton<String>(
+                    hint: Text("类型"),
+                    value: checkFeeType() ? this._expense.type : null,
+                    elevation: 16,
+                    underline: Container(
+                      height: 0,
+                      color: Colors.black,
+                    ),
+                    style: TextStyle(
+                        color: Colors.black
+                    ),
+                    onChanged: (String newValue) {
+                      this._expense.type = newValue;
+                      setState(() {});
+                    },
+                    items: Get
+                        .find<HouseL>()
+                        .houseState
+                        .housesM
+                        .feeTypeList
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Container(
+                          width: 50,
+                          //constraints: BoxConstraints(maxWidth: 100),
+                          child: Text(value, maxLines: 1,
+                            overflow: TextOverflow.ellipsis,),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
             ),
+
+            ///TextField(
+            ///  controller: TextEditingController(text: _expense == null ? '' : _expense.type),
+            ///  decoration: InputDecoration(
+            ///    labelText: "*名称",
+            ///  ),
+            ///  onChanged: (String text){
+            ///    this._expense.type = text;
+            ///  },
+            ///),
+
             TextField(
-              controller: TextEditingController(text: _mark??''),
+              controller: TextEditingController(text: _mark ?? ''),
               decoration: InputDecoration(
                 labelText: "备注",
               ),
-              onChanged: (String text){
+              onChanged: (String text) {
                 this._mark = text;
               },
             ),
@@ -103,48 +151,56 @@ class _EditHouseExpenseVState extends State<EditHouseExpenseV>{
               leading: Text("*时间"),
               title: Text(_myTimeM == null ? '' : _myTimeM.toString()),
               trailing: ElevatedButton(
-                onPressed: ()async{
+                onPressed: () async {
                   var date = await showDatePicker(
                     context: context,
                     initialDate: DateTime.now(),
-                    firstDate: DateTime(DateTime.now().year - 1),
-                    lastDate: DateTime(DateTime.now().year + 2),
+                    firstDate: DateTime(DateTime
+                        .now()
+                        .year - 1),
+                    lastDate: DateTime(DateTime
+                        .now()
+                        .year + 2),
                   );
                   var time = await showTimePicker(
                     context: context,
                     initialTime: TimeOfDay.now(),
                     helpText: "SELECT START TIME",
                   );
-                  if(time != null && date!=null){
-                    _myTimeM = MyTimeM()..initialize(date.year, date.month, date.day, time.hour, time.minute, 0);
+                  if (time != null && date != null) {
+                    _myTimeM = MyTimeM()
+                      ..initialize(date.year, date.month, date.day, time.hour,
+                          time.minute, 0);
                     setState(() {});
                   }
-
                 },
                 child: Text("添加"),
               ),
             ),
 
-            ElevatedButton(child: Text("更新"),onPressed: ()async{
-              if(_myTimeM != null){
-                Get.find<HouseL>().updateHouseExpense(_mark,_expense,_myTimeM, expenseIndex);
+            ElevatedButton(child: Text("更新"), onPressed: () async {
+              if (_myTimeM != null) {
+                Get.find<HouseL>().updateHouseExpense(
+                    _mark, _expense, _myTimeM, expenseIndex);
                 Get.back();
                 Get.snackbar("提示", "更新成功", snackPosition: SnackPosition.BOTTOM);
-              }else{
-                Get.snackbar("提示", "请添加时间", snackPosition: SnackPosition.BOTTOM);
+              } else {
+                Get.snackbar(
+                    "提示", "请添加时间", snackPosition: SnackPosition.BOTTOM);
               }
             },
             ),
-            ElevatedButton(child: Text("删除"),onPressed: ()async{
+            ElevatedButton(child: Text("删除"), onPressed: () async {
               Get.defaultDialog(
-                onCancel: (){
+                onCancel: () {
 
                 },
-                onConfirm: (){
+                onConfirm: () {
                   Get.find<HouseL>().deleteHouseExpense(expenseIndex);
                   Get.back();
                   Get.back();
-                  Get.snackbar("提示", '删除成功', snackPosition: SnackPosition.BOTTOM);
+                  Get.snackbar(
+                      "提示", '删除成功', snackPosition: SnackPosition.BOTTOM);
                 },
                 middleText: "是否要删除该条记录？删除后无法恢复。",
               );
@@ -156,4 +212,7 @@ class _EditHouseExpenseVState extends State<EditHouseExpenseV>{
       ),
     );
   }
-}
+  bool checkFeeType(){
+    return Get.find<HouseL>().houseState.housesM.feeTypeList.contains(this._expense.type);
+  }
+  }
