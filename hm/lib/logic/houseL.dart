@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:get/get.dart';
 import 'package:hm/enumData.dart';
 import 'package:hm/main.dart';
+import 'package:hm/model/appModel.dart';
 import 'package:hm/model/depositM.dart';
 import 'package:hm/model/houseExpensesM.dart';
 import 'package:hm/model/houseM.dart';
@@ -13,6 +14,7 @@ import 'package:hm/model/rentalFeeM.dart';
 import 'package:hm/model/roomM.dart';
 import 'package:hm/plugin/myFunctions.dart';
 import 'package:hm/state/houseS.dart';
+import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,8 +27,9 @@ class HouseL extends GetxController with StateMixin<HouseS>{
     printInfo(info: 'onInit');
     HousesM houseList = HousesM()..initialize();
     CarouselController carouselController = CarouselController();
-    this.houseState = HouseS(housesM: houseList,carouselController: carouselController);
+    this.houseState = HouseS(housesM: houseList,carouselController: carouselController,);
     this.getAppDirectory();
+    this.getAppModelData();
     this.getSharedPHouseList();
     change(houseState, status: RxStatus.success());
     super.onInit();
@@ -103,6 +106,15 @@ class HouseL extends GetxController with StateMixin<HouseS>{
   //  }
   //  update();
   //}
+
+  getAppModelData(){
+    AppModel appModel = AppModel();
+    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+      appModel.initialize(packageInfo.appName, packageInfo.packageName, packageInfo.version, packageInfo.buildNumber);
+    });
+    this.houseState.appModel = appModel;
+    update();
+  }
 
   Future setSharedPHouseList() async{
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();

@@ -266,8 +266,8 @@ class _HouseVState extends State<HouseV> {
               ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
                 child: _.houseState.housesM.houseList[index].photoPath == null || _.houseState.housesM.houseList[index].photoPath == ''
-                    ? Image.asset('assets/images/house.jpg',fit: BoxFit.cover,height: 200,width: 350,)
-                    : Image.file(File(_.houseState.housesM.houseList[index].photoPath),fit: BoxFit.cover,height: 200,width: 350),
+                    ? Image.asset('assets/images/house.png',fit: BoxFit.contain,height: 200,width: 350,)
+                    : Image.file(File(_.houseState.housesM.houseList[index].photoPath),fit: BoxFit.contain,height: 200,width: 350),
               ),
               Container(
                 margin: EdgeInsets.only(top: 8),

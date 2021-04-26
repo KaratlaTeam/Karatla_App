@@ -200,13 +200,13 @@ class _HouseEditVState extends State<HouseEditV> {
                     appBar: AppBar(backgroundColor: Colors.black,),
                     body: Container(
                       child: Center(
-                        child: this._image == null ? Image.asset('assets/images/house.jpg') : Image.file(_image),
+                        child: this._image == null ? Image.asset('assets/images/house.png', fit: BoxFit.contain) : Image.file(_image),
                       ),
                     ),
                   ));
                 },
                 child: Container(
-                  child: this._image == null ? Image.asset('assets/images/house.jpg', height: 200,width: 190,fit: BoxFit.cover,) : Image.file(_image, height: 200,width: 190,fit: BoxFit.cover,),
+                  child: this._image == null ? Image.asset('assets/images/house.png', height: 200,width: 190,fit: BoxFit.contain,) : Image.file(_image, height: 200,width: 190,fit: BoxFit.cover,),
                 ),
               ),
             ),

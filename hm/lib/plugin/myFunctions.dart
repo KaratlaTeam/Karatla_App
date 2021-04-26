@@ -42,7 +42,7 @@ class MyFunctions{
 class Item {
   Item({
     this.houseLevel,
-    this.isExpanded = false,
+    this.isExpanded = true,
     this.levelIndex,
   });
 

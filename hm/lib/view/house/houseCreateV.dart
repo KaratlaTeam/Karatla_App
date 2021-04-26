@@ -166,7 +166,7 @@ class _HouseCreateVState extends State<HouseCreateV>{
                   ));
                 },
                 child: Container(
-                  child: Image.file(_image, height: 200,width: 190,fit: BoxFit.cover,),
+                  child: Image.file(_image, height: 200,width: 190,fit: BoxFit.contain,),
                 ),
               ),
             ),

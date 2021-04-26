@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hm/logic/houseL.dart';
 import 'package:hm/main.dart';
+import 'package:package_info/package_info.dart';
 
 class SettingV extends StatefulWidget{
   @override
@@ -22,7 +23,6 @@ class _SettingVState extends State<SettingV>{
             ListTile(
               title: Text('设置',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
             ),
-
             ListTile(
               leading: Text('模版',),
               onTap: (){
@@ -60,10 +60,34 @@ class _SettingVState extends State<SettingV>{
             ),
             Divider(),
             ListTile(
-              leading: Text('关于',),
-              onTap: (){
-
-              },
+              leading: Text('关于',style: TextStyle(fontWeight: FontWeight.bold),),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    child: Image.asset('assets/images/icon.jpeg',fit: BoxFit.contain,height: 80,)
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 10),
+              alignment: Alignment.center,
+              child: Text('${Get.find<HouseL>().houseState.appModel.appName}'),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 10),
+              alignment: Alignment.center,
+              child: Text('V${Get.find<HouseL>().houseState.appModel.version}  B${Get.find<HouseL>().houseState.appModel.buildNumber}'),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 10),
+              alignment: Alignment.center,
+              child: Text('Powered by Karatla'),
             ),
           ],
         ),

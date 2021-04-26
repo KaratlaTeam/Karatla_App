@@ -56,7 +56,7 @@ class _RoomVState extends State<RoomV> with TickerProviderStateMixin{
                         width: 65,
                         height: 65,
                         child: Card(
-                          color: roomM.roomState == RoomState.OFF ? Colors.grey : roomM.roomState == RoomState.IN ? Colors.green : roomM.roomState == RoomState.OUT ? Colors.grey.shade800 : Colors.red,
+                          color: _getRoomColor(roomM),
                           elevation: 0,
                           child: InkWell(
                             onTap: (){
@@ -79,7 +79,7 @@ class _RoomVState extends State<RoomV> with TickerProviderStateMixin{
                                   ),
                                   Container(
                                     alignment: Alignment.topRight,
-                                    child: MyFunctions().getExpiredLeft(roomM)!=null
+                                    child: MyFunctions().getExpiredLeft(roomM)!= null
                                         ? Text(MyFunctions().getExpiredLeft(roomM).toString(),style: TextStyle(color: Colors.white),)
                                         : Container(),
                                   ),
@@ -98,6 +98,38 @@ class _RoomVState extends State<RoomV> with TickerProviderStateMixin{
         );
       },
     );
+  }
+
+  Color _getRoomColor(RoomM roomM){
+    if(MyFunctions().getExpiredLeft(roomM)!= null){
+      if(_getPayedAmount(roomM)-_getShouldPayAmount(roomM) < 0){
+        return Colors.red;
+      }
+
+    }
+    if(roomM.roomState == RoomState.OFF){
+      return Colors.grey;
+    }else if(roomM.roomState == RoomState.IN){
+      return Colors.green;
+    }else if(roomM.roomState == RoomState.OUT){
+      return Colors.grey.shade800;
+    }else{
+      return Colors.red;
+    }
+  }
+  double _getShouldPayAmount(RoomM _roomM){
+    double amount = 0;
+    for(var a in _roomM.rentalFee[0].rentalFee){
+      amount+=(a.amount*a.feeTypeCost.cost);
+    }
+    return amount;
+  }
+  double _getPayedAmount(RoomM _roomM){
+    double payed = 0;
+    for(var a in _roomM.rentalFee[0].rentalFee){
+      payed+=a.payedFee;
+    }
+    return payed;
   }
 
 }

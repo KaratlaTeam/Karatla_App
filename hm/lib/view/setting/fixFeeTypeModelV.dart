@@ -89,6 +89,8 @@ class _BuildExpandedVState extends State<BuildExpandedV>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return ExpansionPanelList(
+      dividerColor: Colors.white,
+      elevation: 0,
       expansionCallback: (int index, bool isExpanded) {
         setState(() {
           widget.data[index].isExpanded = !isExpanded;
@@ -98,7 +100,7 @@ class _BuildExpandedVState extends State<BuildExpandedV>{
         return ExpansionPanel(
           headerBuilder: (BuildContext context, bool isExpanded) {
             return ListTile(
-              title: Text(item.headerValue + ' - 匹配到(${item.feeTypeCostList.length})'),
+              title: Text(item.headerValue + ' - (${item.feeTypeCostList.length})'),
             );
           },
           body: Container(
@@ -112,15 +114,19 @@ class _BuildExpandedVState extends State<BuildExpandedV>{
 
                     Get.bottomSheet(
                       Container(
+                        height: 200,
                         child: ListView(
+
                           children: Get.find<HouseL>().houseState.housesM.feeTypeList.map((e) {
-                            return ListTile(
-                              title: Text(e),
-                              onTap: (){
-                                item.type = e;
-                                Get.back();
-                                this.widget.callback();
-                              },
+                            return Container(
+                              child: ListTile(
+                                title: Text(e),
+                                onTap: (){
+                                  item.type = e;
+                                  Get.back();
+                                  this.widget.callback();
+                                },
+                              ),
                             );
                           }).toList(),
                         ),
