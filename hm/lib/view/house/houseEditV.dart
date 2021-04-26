@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +12,7 @@ import 'package:hm/logic/roomL.dart';
 import 'package:hm/model/houseM.dart';
 import 'package:hm/model/roomM.dart';
 import 'package:hm/plugin/myFunctions.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 class HouseEditV extends StatefulWidget {
@@ -25,7 +28,9 @@ class _HouseEditVState extends State<HouseEditV> {
   String _type ;
   String _name ;
   String _mark ;
-  String _photoPath;
+  String _photoPath ;
+  File _image;
+  final picker = ImagePicker();
 
   List<HouseLevel> _levelList = [];
 
@@ -43,7 +48,12 @@ class _HouseEditVState extends State<HouseEditV> {
     }
     this._mark = _houseM.mark;
     this._name = _houseM.houseName;
-    this._photoPath = _houseM.photoPath;
+    if(_houseM.photoPath != null && _houseM.photoPath != ''){
+      this._photoPath = _houseM.photoPath;
+      this._image = File(this._photoPath);
+    }
+
+
   }
 
   @override
@@ -181,6 +191,52 @@ class _HouseEditVState extends State<HouseEditV> {
               runSpacing: 5,
               children: _showTypes(),
             ),
+            Container(
+              margin: EdgeInsets.only(top: 20,bottom: 20),
+              child: InkWell(
+                onTap: (){
+                  Get.to(()=>Scaffold(
+                    backgroundColor: Colors.black,
+                    appBar: AppBar(backgroundColor: Colors.black,),
+                    body: Container(
+                      child: Center(
+                        child: this._image == null ? Image.asset('assets/images/house.jpg') : Image.file(_image),
+                      ),
+                    ),
+                  ));
+                },
+                child: Container(
+                  child: this._image == null ? Image.asset('assets/images/house.jpg', height: 200,width: 190,fit: BoxFit.cover,) : Image.file(_image, height: 200,width: 190,fit: BoxFit.cover,),
+                ),
+              ),
+            ),
+            ElevatedButton(child: Text("更新照片"),onPressed: ()async{
+              Get.bottomSheet(
+                Container(
+                  child: Wrap(
+                    children: <Widget>[
+                      ListTile(
+                        leading: Icon(Icons.camera_alt, color: Colors.cyan),
+                        title: Text('相机'),
+                        onTap: () async{
+                          Get.back();
+                          await _getImageByOpenCamera();
+                        },
+                      ),
+                      ListTile(
+                          leading: Icon(CupertinoIcons.folder_fill,color: Colors.cyan),
+                          title: Text('文件'),
+                          onTap: () async{
+                            Get.back();
+                            await _getImageByOpenFile();
+                          }
+                      ),
+                    ],
+                  ),
+                ),
+                backgroundColor: Colors.white,
+              );
+            },),
             ElevatedButton(child: Text("更新"),onPressed: (){
               Get.defaultDialog(
                 onCancel: (){
@@ -307,5 +363,29 @@ class _HouseEditVState extends State<HouseEditV> {
   bool checkFeeType(){
     return Get.find<HouseL>().houseState.housesM.feeTypeList.contains(this._type);
   }
+
+
+  Future _getImageByOpenCamera() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    if (pickedFile != null) {
+      _image = File(pickedFile.path);
+      this._photoPath = _image.path;
+    } else {
+      print('No image selected.');
+    }
+    setState(() {});
+  }
+
+  Future _getImageByOpenFile() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      _image = File(pickedFile.path);
+      this._photoPath = _image.path;
+    } else {
+      print('No image selected.');
+    }
+    setState(() {});
+  }
+
 
 }

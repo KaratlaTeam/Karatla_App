@@ -31,8 +31,10 @@ class _EditHouseExpenseVState extends State<EditHouseExpenseV>{
     super.initState();
     this.expenseIndex = Get.arguments;
     this._mark = _houseM.houseExpensesList[expenseIndex].mark;
-    this._expense = _houseM.houseExpensesList[expenseIndex].expense;
-    this._myTimeM = _houseM.houseExpensesList[expenseIndex].expenseDate;
+    FeeTypeCost feeTypeCost = FeeTypeCost()..initialize(_houseM.houseExpensesList[expenseIndex].expense.type, _houseM.houseExpensesList[expenseIndex].expense.cost, _houseM.houseExpensesList[expenseIndex].expense.rangeAvailable);
+    this._expense = feeTypeCost;
+    MyTimeM myTimeM = MyTimeM()..initialize(_houseM.houseExpensesList[expenseIndex].expenseDate.year, _houseM.houseExpensesList[expenseIndex].expenseDate.month, _houseM.houseExpensesList[expenseIndex].expenseDate.day, _houseM.houseExpensesList[expenseIndex].expenseDate.hour, _houseM.houseExpensesList[expenseIndex].expenseDate.minute, _houseM.houseExpensesList[expenseIndex].expenseDate.second);
+    this._myTimeM = myTimeM;
   }
 
 
@@ -59,7 +61,7 @@ class _EditHouseExpenseVState extends State<EditHouseExpenseV>{
                         text: _expense == null ? '' : _expense.cost.toString()),
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      labelText: '*金额 ${checkFeeType() ? '' : '(当前使用旧版本类型：${this._expense.type})'}',
+                      labelText: '*金额 ${checkFeeType() ? '' : '(旧类型：${this._expense.type}，建议修改)'}',
                     ),
                     onChanged: (String text) {
                       double feePayed;

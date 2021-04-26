@@ -59,7 +59,7 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
                   width: 100,
                   child: DropdownButton<String>(
                     hint: Text("类型"),
-                    value: checkFeeType() ? this._typeHold : null,
+                    value: this._typeHold,
                     elevation: 16,
                     underline: Container(
                       height: 0,
@@ -92,13 +92,13 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
                 ),
                 ElevatedButton(child: Text("添加"),onPressed: (){
                   setState(() {
-                    if(_typeHold != ""){
+                    if(_typeHold != "" && _typeHold != null){
                       if(_feeTypeCostList.where((element) => element.type == _typeHold).length > 0){
                         Get.snackbar("提示", "缴费类型已存在！",snackPosition: SnackPosition.BOTTOM);
                       }else{
                         _feeTypeCostList.add(FeeTypeCost()..initialize(_typeHold, 0.0, false));
                       }
-                      _typeHold = '';
+                      _typeHold = null;
                     }
 
                   });
@@ -136,7 +136,7 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
                    ],
                    keyboardType: TextInputType.number,
                    decoration: InputDecoration(
-                     labelText: _feeTypeCostList[index].type+': '+_feeTypeCostList[index].cost.toString()+' 元',
+                     labelText: _feeTypeCostList[index].type+': '+_feeTypeCostList[index].cost.toString()+' 元${checkFeeType(index) ? '' : '(建议修改)'}',
                    ),
                    onChanged: (String text){
                      if(text != '' || text != null ){
@@ -184,8 +184,8 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
      return widgets;
    }
 
-   bool checkFeeType(){
-     return Get.find<HouseL>().houseState.housesM.feeTypeList.contains(this._typeHold);
+   bool checkFeeType(int index){
+     return Get.find<HouseL>().houseState.housesM.feeTypeList.contains(this._feeTypeCostList[index].type);
    }
 
 }

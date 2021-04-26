@@ -1,4 +1,5 @@
 
+import 'package:carousel_slider/carousel_controller.dart';
 import 'package:hm/enumData.dart';
 import 'package:hm/model/backUp.dart';
 import 'package:hm/model/houseM.dart';
@@ -11,6 +12,10 @@ class HouseS{
   String tempPath, appDocPath, appStoPath;
   BackUp backUp;
   List<Item> itemList ;
+  List<Map> houseHolderList ;
+  List<Map> houseHolderShowList ;
+  CarouselController carouselController;
+  //Map fixFeeTypeMap ;
 
   HouseS({
    this.housesM,
@@ -20,6 +25,9 @@ class HouseS{
     this.tempPath,
     this.backUp,
     this.itemList,
-
+    this.houseHolderList: const [],
+    this.houseHolderShowList: const [],
+    this.carouselController,
+    //this.fixFeeTypeMap,
 });
 }

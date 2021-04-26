@@ -31,6 +31,7 @@ import 'package:hm/view/room/roomDetailEditV.dart';
 import 'package:hm/view/room/roomDetailV.dart';
 import 'package:hm/view/room/roomV.dart';
 import 'package:hm/view/setting/feeTypeV.dart';
+import 'package:hm/view/setting/fixFeeTypeModelV.dart';
 import 'package:hm/view/setting/settingV.dart';
 import 'package:hm/view/statistics/statisticsV.dart';
 
@@ -126,8 +127,11 @@ class MyApp extends StatelessWidget {
       GetPage(name: RN.firstPage, page: () => FirstPageView(),),
 
       GetPage(name: RN.home, page: () => HomeV(), ),
+
       GetPage(name: RN.setting, page: () => SettingV(), ),
       GetPage(name: RN.feeType, page: () => FeeTypeV(), ),
+      GetPage(name: RN.fixFeeType, page: () => FixFeeTypeModelV(), ),
+
       GetPage(name: RN.statistics, page: () => StatisticsV(), ),
       GetPage(name: RN.backupList, page: () => BackupListV()),
 
@@ -191,6 +195,7 @@ class RN{
 
   static const String setting = '/setting';
   static const String feeType = '/feeType';
+  static const String fixFeeType = '/fixFeeType';
 
   static const String statistics = '/statistics';
 

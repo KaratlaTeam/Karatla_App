@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class _HouseCreateVState extends State<HouseCreateV>{
   String _name = "";
   String _mark = "";
   bool isFirstTime ;
-  String photoPath = '';
+  String photoPath ;
   File _image;
   final picker = ImagePicker();
 
@@ -148,24 +149,54 @@ class _HouseCreateVState extends State<HouseCreateV>{
               runSpacing: 5,
               children: _showTypes(),
             ),
-            //_image == null
-            //    ? Text('')
-            //    : InkWell(
-            //  onTap: (){
-            //    Get.to(()=>Scaffold(
-            //      backgroundColor: Colors.black,
-            //      appBar: AppBar(backgroundColor: Colors.black,),
-            //      body: Container(
-            //        child: Center(
-            //          child: Image.file(_image),
-            //        ),
-            //      ),
-            //    ));
-            //  },
-            //  child: Container(
-            //    child: Image.file(_image, height: 120,width: 190,fit: BoxFit.cover,),
-            //  ),
-            //),
+            _image == null
+                ? Container()
+                : Container(
+              margin: EdgeInsets.only(top: 20,bottom: 20),
+              child: InkWell(
+                onTap: (){
+                  Get.to(()=>Scaffold(
+                    backgroundColor: Colors.black,
+                    appBar: AppBar(backgroundColor: Colors.black,),
+                    body: Container(
+                      child: Center(
+                        child: Image.file(_image),
+                      ),
+                    ),
+                  ));
+                },
+                child: Container(
+                  child: Image.file(_image, height: 200,width: 190,fit: BoxFit.cover,),
+                ),
+              ),
+            ),
+            ElevatedButton(child: Text("添加照片"),onPressed: ()async{
+              Get.bottomSheet(
+                Container(
+                  child: Wrap(
+                    children: <Widget>[
+                      ListTile(
+                        leading: Icon(Icons.camera_alt, color: Colors.cyan),
+                        title: Text('相机'),
+                        onTap: () async{
+                          Get.back();
+                          await _getImageByOpenCamera();
+                        },
+                      ),
+                      ListTile(
+                          leading: Icon(CupertinoIcons.folder_fill,color: Colors.cyan),
+                          title: Text('文件'),
+                          onTap: () async{
+                            Get.back();
+                            await _getImageByOpenFile();
+                          }
+                      ),
+                    ],
+                  ),
+                ),
+                backgroundColor: Colors.white,
+              );
+            },),
             ElevatedButton(child: Text("创建"),onPressed: ()async{
               if(_name != "" && _name != null && _feeTypeCostList.length > 0 && this._levelList.length > 0){
                 if(_checkHouseName(_name)){
@@ -282,6 +313,28 @@ class _HouseCreateVState extends State<HouseCreateV>{
 
   bool checkFeeType(){
     return Get.find<HouseL>().houseState.housesM.feeTypeList.contains(this._type);
+  }
+
+  Future _getImageByOpenCamera() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    if (pickedFile != null) {
+      _image = File(pickedFile.path);
+      this.photoPath = _image.path;
+    } else {
+      print('No image selected.');
+    }
+    setState(() {});
+  }
+
+  Future _getImageByOpenFile() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      _image = File(pickedFile.path);
+      this.photoPath = _image.path;
+    } else {
+      print('No image selected.');
+    }
+    setState(() {});
   }
 
 }

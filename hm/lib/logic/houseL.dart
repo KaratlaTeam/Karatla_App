@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:carousel_slider/carousel_controller.dart';
 import 'package:get/get.dart';
 import 'package:hm/enumData.dart';
 import 'package:hm/main.dart';
@@ -23,7 +24,8 @@ class HouseL extends GetxController with StateMixin<HouseS>{
     change(houseState, status: RxStatus.loading());
     printInfo(info: 'onInit');
     HousesM houseList = HousesM()..initialize();
-    this.houseState = HouseS(housesM: houseList);
+    CarouselController carouselController = CarouselController();
+    this.houseState = HouseS(housesM: houseList,carouselController: carouselController);
     this.getAppDirectory();
     this.getSharedPHouseList();
     change(houseState, status: RxStatus.success());
@@ -39,9 +41,8 @@ class HouseL extends GetxController with StateMixin<HouseS>{
   @override
   void onClose() {
     printInfo(info: 'onClose');
-    super.onClose();
-
     this.houseState = null;
+    super.onClose();
   }
 
   Future getAppDirectory()async{
@@ -204,12 +205,17 @@ class HouseL extends GetxController with StateMixin<HouseS>{
     this.houseState.housesM.houseList = this.houseState.housesM.houseList.reversed.toList();
     this.houseState.housesM.houseList.add(houseM);
     this.houseState.housesM.houseList = this.houseState.housesM.houseList.reversed.toList();
+    setHouseIndex(0);
+    setItemList(0);
+    this.houseState.carouselController.jumpToPage(0);
+    houseHolderListToNull();
     await setSharedPHouseList();
     update();
   }
 
   updateHouse(HouseM houseM, int index)async{
     this.houseState.housesM.houseList[index] = houseM;
+    houseHolderListToNull();
     await setSharedPHouseList();
     update();
   }
@@ -217,19 +223,30 @@ class HouseL extends GetxController with StateMixin<HouseS>{
   deleteHouse(int index)async{
     this.houseState.housesM.houseList.removeAt(index);
     if(houseState.housesM.houseList.length > 0){
-      if(index == 0){
+      if(index == 0 || this.houseState.housesM.houseList.length  == index){
+        /// if first
+        if(index == 0){
+          setHouseIndex(index);
+          setItemList(index);
+          this.houseState.carouselController.jumpToPage(index);
+        }
+        /// if last
+        if(this.houseState.housesM.houseList.length  == index){
+          setHouseIndex(this.houseState.housesM.houseList.length-1);
+          setItemList(this.houseState.housesM.houseList.length-1);
+          this.houseState.carouselController.jumpToPage(this.houseState.housesM.houseList.length-1);
+        }
+      }else{
         setHouseIndex(index);
         setItemList(index);
-      }else{
-        setHouseIndex(index-1);
-        setItemList(index-1);
+        this.houseState.carouselController.jumpToPage(index);
       }
     }else{
       setHouseIndex(0);
       setItemList(0);
       Get.offNamed(RN.houseCreate, arguments: true);
     }
-
+    houseHolderListToNull();
     await setSharedPHouseList();
     update();
   }
@@ -538,8 +555,71 @@ class HouseL extends GetxController with StateMixin<HouseS>{
         }
       }
     }
+    this.houseState.houseHolderList = houseHolderList;
+    this.houseState.houseHolderShowList = houseHolderList;
     change(houseState, status: RxStatus.success());
-    return houseHolderList;
+    update();
+  }
+
+  updateHouseHolderShowList(String query){
+    change(houseState, status: RxStatus.loading());
+    if(query != ''){
+      this.houseState.houseHolderShowList = [];
+      for(Map b in this.houseState.houseHolderList){
+        if(b['name'].contains(query)){
+          this.houseState.houseHolderShowList.add(b);
+        }
+      }
+    }else{
+      this.houseState.houseHolderShowList = this.houseState.houseHolderList;
+    }
+    change(houseState, status: RxStatus.success());
+    update();
+  }
+
+  houseHolderListToNull(){
+    this.houseState.houseHolderList = null;
+    this.houseState.houseHolderShowList = null;
+  }
+
+  /// fix feeType
+  Future<Map> getFixFeeType()async{
+    Map fixFeeTypeMap = Map();
+    List<FeeTypeCost> feeTypeCostListFromPayedH = [];
+    List<FeeTypeCost> feeTypeCostListFromExpendH = [];
+    List<FeeTypeCost> feeTypeCostListFromRoomM = [];
+
+    ///List<HouseM> feeTypeCostListFromHouseM = [];
+
+
+    for(HouseM houseM in this.houseState.housesM.houseList){
+      for(HouseLevel houseLevel in houseM.levelList){
+        for(RoomM roomM in houseLevel.roomList){
+          /// fix rental fee payed history
+          for(RentalFeeM rentalFeeM in roomM.rentalFee){
+            for(var a in rentalFeeM.rentalFee){
+              feeTypeCostListFromPayedH.add(a.feeTypeCost);
+            }
+          }
+          /// fix rental fee model
+          for(FeeTypeCost feeTypeCost in roomM.feeTypeCostList){
+            feeTypeCostListFromRoomM.add(feeTypeCost);
+          }
+        }
+      }
+      /// fix houseExpensesM history
+      for(HouseExpensesM houseExpensesM in houseM.houseExpensesList){
+        feeTypeCostListFromExpendH.add(houseExpensesM.expense);
+      }
+      /// fix house model
+      ///feeTypeCostListFromHouseM.add(houseM);
+    }
+    ///fixFeeTypeMap['houseM'] = feeTypeCostListFromHouseM;
+    fixFeeTypeMap['roomM'] = feeTypeCostListFromRoomM;
+    fixFeeTypeMap['roomH'] = feeTypeCostListFromPayedH;
+    fixFeeTypeMap['expendH'] = feeTypeCostListFromExpendH;
+    ///await Future.delayed(Duration(seconds: 1));
+    return fixFeeTypeMap;
   }
 
 }

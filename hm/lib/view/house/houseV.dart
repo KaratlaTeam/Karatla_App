@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,20 +20,15 @@ class HouseV extends StatefulWidget {
 class _HouseVState extends State<HouseV> {
 
   bool expanded = true;
-  List<Map> houseHolderList = [];
-  List<Map> houseHolderShowList = [];
-  CarouselController _carouselController;
   bool offStateHouseList = false;
 
   @override
   void initState() {
-    this._carouselController = CarouselController();
     super.initState();
   }
 
   @override
   void dispose() {
-    this._carouselController = null;
     super.dispose();
   }
 
@@ -56,26 +53,15 @@ class _HouseVState extends State<HouseV> {
             width: context.orientation == Orientation.portrait  ? 600 : 500,
             debounceDelay: const Duration(milliseconds: 500),
             onQueryChanged: (query) {
-              if(query != ''){
-                this.houseHolderShowList = [];
-                for(Map b in this.houseHolderList){
-                  if(b['name'].contains(query)){
-                    this.houseHolderShowList.add(b);
-                  }
-                }
-              }else{
-                this.houseHolderShowList = this.houseHolderList;
-              }
+              _.updateHouseHolderShowList(query);
               setState(() {});
             },
             onFocusChanged: (boo)async{
               if(boo){
-                this.houseHolderList = [];
-                this.houseHolderList = await _.getHouseHolderList();
-                this.houseHolderShowList = this.houseHolderList;
+                _.getHouseHolderList();
                 setState(() {});
               }
-              print(_.houseState.housesM.houseList.length);
+              //print(_.houseState.housesM.houseList.length);
             },
             onSubmitted: (text){
 
@@ -94,7 +80,7 @@ class _HouseVState extends State<HouseV> {
             ],
             body: _buildHouseList(_),
             builder: (context, transition) {
-              return Container(
+              return _.status.isLoading || _.houseState.houseHolderShowList == null ? Container() : Container(
                 height: context.height/3,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
@@ -102,17 +88,17 @@ class _HouseVState extends State<HouseV> {
                     color: Colors.white,
                     elevation: 4.0,
                     child: ListView.builder(
-                      itemCount: this.houseHolderShowList.length,
+                      itemCount: _.houseState.houseHolderShowList.length,
                       itemBuilder: ((context, index){
                         return Column(
                           children: [
                             ListTile(
-                              title: Text(this.houseHolderShowList[index]['name']),
-                              trailing: Text(this.houseHolderShowList[index]['idNum']),
+                              title: Text(_.houseState.houseHolderShowList[index]['name']),
+                              trailing: Text(_.houseState.houseHolderShowList[index]['idNum']),
                             ),
                             ListTile(
-                              title: Text(_.houseState.housesM.houseList[this.houseHolderShowList[index]['house']].houseName),
-                              trailing: Text(_.houseState.housesM.houseList[this.houseHolderShowList[index]['house']].levelList[this.houseHolderShowList[index]['level']].name+' - '+_.houseState.housesM.houseList[this.houseHolderShowList[index]['house']].levelList[this.houseHolderShowList[index]['level']].roomList[this.houseHolderShowList[index]['room']].roomNumber.toString()),
+                              title: Text(_.houseState.housesM.houseList[_.houseState.houseHolderShowList[index]['house']].houseName),
+                              trailing: Text(_.houseState.housesM.houseList[_.houseState.houseHolderShowList[index]['house']].levelList[_.houseState.houseHolderShowList[index]['level']].name+' - '+_.houseState.housesM.houseList[_.houseState.houseHolderShowList[index]['house']].levelList[_.houseState.houseHolderShowList[index]['level']].roomList[_.houseState.houseHolderShowList[index]['room']].roomNumber.toString()+'号'),
                             ),
                             Divider(color: Colors.grey,),
                           ],
@@ -147,7 +133,7 @@ class _HouseVState extends State<HouseV> {
                   _.setItemList(index);
                 },
               ),
-              carouselController: this._carouselController,
+              carouselController: _.houseState.carouselController,
               itemCount: pageViewCheck(_),
               itemBuilder: (context, index, realIndex){
                 return _.houseState.housesM.houseList.length == 0
@@ -214,7 +200,7 @@ class _HouseVState extends State<HouseV> {
                 onPressed: (){
                   Get.defaultDialog(
                       middleText: "是否要删除 '${_.houseState.housesM.houseList[_.houseState.houseIndex].houseName}' 房所有数据? 删除后无法恢复，建议提前备份。",
-                      onConfirm: (){
+                      onConfirm: ()async{
                         Get.back();
                         Get.find<HouseL>().deleteHouse(_.houseState.houseIndex);
                       },
@@ -246,6 +232,9 @@ class _HouseVState extends State<HouseV> {
         itemBuilder: (BuildContext context, int index){
           return ListTile(
             onLongPress: (){
+
+            },
+            onTap: (){
               Get.toNamed(RN.expenseEdit, arguments: index);
             },
             title: Text(_.houseState.housesM.houseList[_.houseState.houseIndex].houseExpensesList[index].expense.type),
@@ -265,38 +254,42 @@ class _HouseVState extends State<HouseV> {
     }
   }
 
+
   pageBuilder(HouseL _, int index){
     return Container(
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(10.0))),
+      //color: Colors.white,
       margin: EdgeInsets.symmetric(vertical: 10,),
       child: InkWell(
         child: Container(
           child: Column(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-                child: Image.asset('assets/images/house.jpg',fit: BoxFit.cover,height: 200,),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                child: _.houseState.housesM.houseList[index].photoPath == null || _.houseState.housesM.houseList[index].photoPath == ''
+                    ? Image.asset('assets/images/house.jpg',fit: BoxFit.cover,height: 200,width: 350,)
+                    : Image.file(File(_.houseState.housesM.houseList[index].photoPath),fit: BoxFit.cover,height: 200,width: 350),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    //color: Colors.yellow,
-                    width: 100,
-                    child: Text(_.houseState.housesM.houseList[index].houseName, style: TextStyle(fontWeight: FontWeight.bold),maxLines: 1, overflow: TextOverflow.ellipsis,),
-                  ),
-                  Row(children: [
-                    Icon(Icons.house,size: 20,),
-                    Text("${_showRoomAmount(_.houseState.housesM.houseList[index])}"),
-                  ],),
-                  Row(children: [
-                    Icon(Icons.people, size: 20,),
-                    Text(_houseHoldAmount(_.houseState.housesM.houseList[index]).toString()),
-                  ],),
+              Container(
+                margin: EdgeInsets.only(top: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      //color: Colors.yellow,
+                      width: 100,
+                      child: Text(_.houseState.housesM.houseList[index].houseName, style: TextStyle(fontWeight: FontWeight.bold),maxLines: 1, overflow: TextOverflow.ellipsis,),
+                    ),
+                    Row(children: [
+                      Icon(Icons.house,size: 20,),
+                      Text("${_showRoomAmount(_.houseState.housesM.houseList[index])}"),
+                    ],),
+                    Row(children: [
+                      Icon(Icons.people, size: 20,),
+                      Text(_houseHoldAmount(_.houseState.housesM.houseList[index]).toString()),
+                    ],),
 
-                ],
+                  ],
+                ),
               ),
             ],
           ),
@@ -322,34 +315,5 @@ class _HouseVState extends State<HouseV> {
     }
     return amount;
   }
-
-  _houseIncomeAmount(HouseM houseM){
-    double amount = 0;
-    for(var b in houseM.levelList){
-      for(var a in b.roomList){
-        for(var b in a.feeTypeCostList){
-          amount += b.cost;
-        }
-      }
-    }
-
-    return amount;
-  }
-
-  double _getShouldPayAmount(RoomM roomM){
-    double amount = 0;
-    for(var a in roomM.rentalFee[0].rentalFee){
-      amount+=(a.amount*a.feeTypeCost.cost);
-    }
-    return amount;
-  }
-  double _getPayedAmount(RoomM roomM){
-    double payed = 0;
-    for(var a in roomM.rentalFee[0].rentalFee){
-      payed+=a.payedFee;
-    }
-    return payed;
-  }
-
 
 }
