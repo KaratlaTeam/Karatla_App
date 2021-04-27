@@ -182,8 +182,10 @@ class HouseL extends GetxController with StateMixin<HouseS>{
       this.houseState.housesM = housesM;
       await setSharedPHouseList();
       ///await Future.delayed(Duration(seconds: 4));
-      change(houseState, status: RxStatus.success());
+      setHouseIndex(0);
+      setItemList(0);
       Get.offNamed(RN.home);
+      change(houseState, status: RxStatus.success());
       Get.snackbar("提示", "数据恢复成功", snackPosition: SnackPosition.BOTTOM);
     }catch (e){
       printError(info: e.toString());
@@ -233,6 +235,7 @@ class HouseL extends GetxController with StateMixin<HouseS>{
   }
 
   deleteHouse(int index)async{
+    change(this.houseState, status: RxStatus.loading());
     this.houseState.housesM.houseList.removeAt(index);
     if(houseState.housesM.houseList.length > 0){
       if(index == 0 || this.houseState.housesM.houseList.length  == index){
@@ -260,6 +263,7 @@ class HouseL extends GetxController with StateMixin<HouseS>{
     }
     houseHolderListToNull();
     await setSharedPHouseList();
+    change(this.houseState, status: RxStatus.success());
     update();
   }
 
