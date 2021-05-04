@@ -18,14 +18,15 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
   List<HouseExpensesM> houseExpensesMList = [];
   Map bottomDataCostMap = Map();
   List<int> yearList = [];
+  List<String> rentalType = [];
   List bottomDataCost = [];
-  double maxNumber;
 
   List<Color> gradientColors = [
     const Color(0xffba5ee0),
     const Color(0xffe05a5a),
   ];
 
+  String dropdownValueFeeType ;
   String dropdownValueHouse ;
   String dropdownValueDateType ;
   List<String> dropDownDateTypeValueList = [];
@@ -115,7 +116,7 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 1.0, left: 1.0, top: 5, bottom: 2),
                     child: LineChart(
-                      houseL.houseState.housesM.houseList.length != 0 && (dropdownValueDateType != null && dropdownValueHouse != null)
+                      houseL.houseState.housesM.houseList.length != 0 && (dropdownValueDateType != null && dropdownValueHouse != null && dropdownValueFeeType != null)
                           ? mainData()
                           : avgData(),
                     ),
@@ -187,6 +188,31 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
             );
           }).toList(),
         ),
+
+        DropdownButton<String>(
+          hint: Text("类型"),
+          value: dropdownValueFeeType,
+          elevation: 16,
+          underline: Container(
+            height: 0,
+            color: Colors.black,
+          ),
+          style: TextStyle(
+              color: Colors.black
+          ),
+          onChanged: (String newValue) {
+            setState(() {
+              dropdownValueFeeType = newValue;
+              calculateData();
+            });
+          },
+          items: this.rentalType.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+        ),
       ],
     );
   }
@@ -198,7 +224,9 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
   }
 
   divideData(){
+    this.dropdownValueFeeType = null;
     this.yearList = [];
+    this.rentalType = [];
     this.yearNow = null;
     this.dropdownValueDateType = null;
     this.dropDownDateTypeValueList = [];
@@ -209,6 +237,9 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
         /// get years
         getYears(expensesM);
 
+        /// get type
+        getTypes(expensesM);
+
         /// organize data
         organizeData(expensesM);
       }
@@ -217,6 +248,16 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
       this.dropDownDateTypeValueList = ['年', '季', '月',];
     }
   }
+
+  getTypes(HouseExpensesM expensesM){
+    if(!this.rentalType.contains('全部')){
+      this.rentalType.add('全部');
+    }
+    if(!this.rentalType.contains(expensesM.expense.type)){
+      this.rentalType.add(expensesM.expense.type);
+    }
+  }
+
 
   getYears(HouseExpensesM expensesM){
     if(!this.yearList.contains(expensesM.expenseDate.year)){
@@ -304,7 +345,7 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
           showTitles: true,
           reservedSize: 30,
           margin: 12,
-          interval: (this.maxNumber~/8).toDouble(),
+          interval: this.getInterval(),
         ),
       ),
       borderData:
@@ -353,14 +394,18 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
     return data;
   }
 
-  getMaxNumber(){
+  getInterval(){
     double max2 = 0;
     for(var i in this.bottomDataCost){
       if(i > max2){
         max2 = i;
       }
     }
-    this.maxNumber = max2;
+    if(max2 == 0 || max2~/8 == 0){
+      return null;
+    }else {
+      return (max2~/8).toDouble();
+    }
   }
 
   calculateData(){
@@ -371,7 +416,7 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
     }else if(this.dropdownValueDateType == '月'){
       calculateMonthData(this.yearNow);
     }
-    getMaxNumber();
+    getInterval();
   }
 
   calculateYearData(){
@@ -414,7 +459,14 @@ class _StatisticsCostVState extends State<StatisticsCostV> {
       yearMap2.forEach((month, allFee) {
         double amount = 0;
         for(var fee in allFee){
-          amount += fee['cost'];
+          if(this.dropdownValueFeeType == "全部"){
+            amount += fee['cost'];
+          }else{
+            if(fee['type'] == this.dropdownValueFeeType){
+              amount += fee['cost'];
+            }
+          }
+
         }
         this.bottomDataCost[month-1] = amount;
       });

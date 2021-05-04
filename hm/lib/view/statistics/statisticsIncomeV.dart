@@ -22,8 +22,6 @@ class _StatisticsIncomeVState extends State<StatisticsIncomeV> {
   Map shouldPayMap = Map();
   Map payedMap = Map();
 
-  double maxNumber;
-
   List<Color> gradientColors = [
     const Color(0xff23b6e6),
     const Color(0xff02d39a),
@@ -489,7 +487,7 @@ class _StatisticsIncomeVState extends State<StatisticsIncomeV> {
           showTitles: true,
           reservedSize: 30,
           margin: 12,
-          interval: (this.maxNumber~/8).toDouble(),
+          interval: this.getInterval(),
         ),
       ),
       borderData:
@@ -574,9 +572,10 @@ class _StatisticsIncomeVState extends State<StatisticsIncomeV> {
     return data;
   }
 
-  getMaxNumber(){
+  getInterval(){
     double max1 = 0;
     double max2 = 0;
+    double max = 0;
     for(var i in this.bottomDataShouldPay){
       if(i > max1){
         max1 = i;
@@ -588,9 +587,14 @@ class _StatisticsIncomeVState extends State<StatisticsIncomeV> {
       }
     }
     if(max1 > max2){
-      this.maxNumber = max1;
+      max = max1;
     }else{
-      this.maxNumber = max2;
+      max = max2;
+    }
+    if(max == 0 || max~/8 == 0){
+      return null;
+    }else {
+      return (max~/8).toDouble();
     }
   }
 
@@ -602,7 +606,7 @@ class _StatisticsIncomeVState extends State<StatisticsIncomeV> {
     }else if(this.dropdownValueDateType == '月'){
       calculateMonthData(this.yearNow);
     }
-    getMaxNumber();
+    getInterval();
   }
 
   calculateYearData(){

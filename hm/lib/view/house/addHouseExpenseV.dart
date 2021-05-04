@@ -34,7 +34,7 @@ class _AddHouseExpenseVState extends State<AddHouseExpenseV>{
       ),
       body: Container(
         child: ListView(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(20),
           children: [
             Row(
               children: [

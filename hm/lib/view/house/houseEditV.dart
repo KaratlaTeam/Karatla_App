@@ -74,7 +74,7 @@ class _HouseEditVState extends State<HouseEditV> {
       ),
       body: Container(
         child: ListView(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(20),
           children: [
             TextField(
               controller: TextEditingController(text: _name??''),
@@ -85,49 +85,55 @@ class _HouseEditVState extends State<HouseEditV> {
                 this._name = text;
               },
             ),
-            TextField(
-              controller: TextEditingController(text: _mark??''),
-              decoration: InputDecoration(
-                labelText: "房子备注",
-              ),
-              onChanged: (String text){
-                this._mark = text;
-              },
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("楼房层数:  ${this._levelList.length}"),
-                Row(
-                  children: [
-                    IconButton(icon: Icon(CupertinoIcons.add), onPressed: (){
-                      setState(() {
-                        int l = this._levelList.length+1;
-                        var r = RoomM()..initialize(l-1, 1, _feeTypeCostList);
-                        this._levelList.add(HouseLevel()..initialize([r], '$l 层'));
-                      });
-                    }),
-                    IconButton(icon: Icon(CupertinoIcons.minus), onPressed: (){
-                      Get.defaultDialog(
-                        onCancel: (){
-
-                        },
-                        onConfirm: (){
-                          Get.back();
-                          if(this._levelList.length > 1){
-                            setState(() {
-                              this._levelList.removeLast();
-                            });
-                          }else{
-                            Get.snackbar("提示", "楼房层数不能少于一层。",snackPosition: SnackPosition.BOTTOM);
-                          }
-                        },
-                        middleText: '此操作会删除最后一层的所有数据，是否删除？',
-                      );
-                    }),
-                  ],
+            Container(
+              margin: EdgeInsets.only(top: 30),
+              child: TextField(
+                controller: TextEditingController(text: _mark??''),
+                decoration: InputDecoration(
+                  labelText: "房子备注",
                 ),
-              ],
+                onChanged: (String text){
+                  this._mark = text;
+                },
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("楼房层数:  ${this._levelList.length}"),
+                  Row(
+                    children: [
+                      IconButton(icon: Icon(Icons.add), onPressed: (){
+                        setState(() {
+                          int l = this._levelList.length+1;
+                          var r = RoomM()..initialize(l-1, 1, _feeTypeCostList);
+                          this._levelList.add(HouseLevel()..initialize([r], '$l 层'));
+                        });
+                      }),
+                      IconButton(icon: Icon(Icons.remove), onPressed: (){
+                        Get.defaultDialog(
+                          onCancel: (){
+
+                          },
+                          onConfirm: (){
+                            Get.back();
+                            if(this._levelList.length > 1){
+                              setState(() {
+                                this._levelList.removeLast();
+                              });
+                            }else{
+                              Get.snackbar("提示", "楼房层数不能少于一层。",snackPosition: SnackPosition.BOTTOM);
+                            }
+                          },
+                          middleText: '此操作会删除最后一层的所有数据，是否删除？',
+                        );
+                      }),
+                    ],
+                  ),
+                ],
+              ),
             ),
             Column(
               children: _showRooms(),
@@ -136,9 +142,9 @@ class _HouseEditVState extends State<HouseEditV> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  width: 100,
+                  width: 85,
                   child: DropdownButton<String>(
-                    hint: Text("类型"),
+                    hint: Text("费用类型"),
                     value: checkFeeType() ? this._type : null,
                     elevation: 16,
                     underline: Container(
@@ -170,7 +176,7 @@ class _HouseEditVState extends State<HouseEditV> {
                     }).toList(),
                   ),
                 ),
-                ElevatedButton(child: Text("添加"),onPressed: (){
+                IconButton(icon: Icon(Icons.add),onPressed: (){
                   setState(() {
                     if(_type != "" && _type!=null){
                       if(_feeTypeList.contains(_type)){
@@ -289,46 +295,62 @@ class _HouseEditVState extends State<HouseEditV> {
       Widget widget = Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            child: TextField(
-              controller: TextEditingController(text: this._levelList[i].name),
-              decoration: InputDecoration(
-                labelText: "楼层名称",
-              ),
-              onChanged: (String text){
-                this._levelList[i].name = text;
-              },
-            ),
-          ),
-          Text("房间数：${this._levelList[i].roomList.length}"),
           Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              IconButton(icon: Icon(CupertinoIcons.add), onPressed: (){
-                setState(() {
-                  int n = this._levelList[i].roomList.length+1;
-                  this._levelList[i].roomList.add(RoomM()..initialize(i, n, _feeTypeCostList));
-                });
-              }),
-              IconButton(icon: Icon(CupertinoIcons.minus), onPressed: (){
-                Get.defaultDialog(
-                  onCancel: (){
-
+              Container(
+                width: 150,
+                child: TextField(
+                  controller: TextEditingController(text: this._levelList[i].name),
+                  decoration: InputDecoration(
+                    labelText: "楼层名称",
+                  ),
+                  onChanged: (String text){
+                    this._levelList[i].name = text;
                   },
-                  onConfirm: (){
-                    Get.back();
-                    if(this._levelList[i].roomList.length > 1){
-                      setState(() {
-                        this._levelList[i].roomList.removeLast();
-                      });
-                    }else{
-                      Get.snackbar("提示", "每层至少一个房间。",snackPosition: SnackPosition.BOTTOM);
-                    }
-                  },
-                  middleText: '此操作会删除最后一个房间的所有数据，是否删除？',
-                );
-
-              }),
+                ),
+              ),
             ],
+          ),
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.only(top: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text("房间数：${this._levelList[i].roomList.length}"),
+                  Row(
+                    children: [
+                      IconButton(icon: Icon(CupertinoIcons.add), onPressed: (){
+                        setState(() {
+                          int n = this._levelList[i].roomList.length+1;
+                          this._levelList[i].roomList.add(RoomM()..initialize(i, n, _feeTypeCostList));
+                        });
+                      }),
+                      IconButton(icon: Icon(CupertinoIcons.minus), onPressed: (){
+                        Get.defaultDialog(
+                          onCancel: (){
+
+                          },
+                          onConfirm: (){
+                            Get.back();
+                            if(this._levelList[i].roomList.length > 1){
+                              setState(() {
+                                this._levelList[i].roomList.removeLast();
+                              });
+                            }else{
+                              Get.snackbar("提示", "每层至少一个房间。",snackPosition: SnackPosition.BOTTOM);
+                            }
+                          },
+                          middleText: '此操作会删除最后一个房间的所有数据，是否删除？',
+                        );
+
+                      }),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       );

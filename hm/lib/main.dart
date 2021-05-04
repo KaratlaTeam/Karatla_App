@@ -1,15 +1,12 @@
 
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:hm/Internationalization.dart';
-import 'package:hm/model/houseM.dart';
 import 'package:hm/binding.dart';
-import 'package:hm/model/roomM.dart';
 import 'package:hm/view/checkTime/addCheckTimeV.dart';
 import 'package:hm/view/checkTime/editCheckTimeV.dart';
 import 'package:hm/view/deposit/addDepositV.dart';
@@ -61,7 +58,10 @@ class MyApp extends StatelessWidget {
       //backgroundColor: Colors.white,
       //iconTheme: IconThemeData(color: Colors.black),
       textTheme: TextTheme(headline6: TextStyle(color: Colors.white)),
-    )
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      contentPadding: EdgeInsets.only(top: 5),
+    ),
   );
 
   @override

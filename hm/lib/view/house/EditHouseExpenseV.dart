@@ -47,7 +47,7 @@ class _EditHouseExpenseVState extends State<EditHouseExpenseV>{
       ),
       body: Container(
         child: ListView(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(20),
           children: [
             Row(
               children: [

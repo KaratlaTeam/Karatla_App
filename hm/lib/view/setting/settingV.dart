@@ -82,7 +82,7 @@ class _SettingVState extends State<SettingV>{
             Container(
               margin: EdgeInsets.only(top: 10),
               alignment: Alignment.center,
-              child: Text('V${Get.find<HouseL>().houseState.appModel.version}  B${Get.find<HouseL>().houseState.appModel.buildNumber}'),
+              child: Text('V${Get.find<HouseL>().houseState.appModel.version}.${Get.find<HouseL>().houseState.appModel.buildNumber}'),
             ),
             Container(
               margin: EdgeInsets.only(top: 10),
