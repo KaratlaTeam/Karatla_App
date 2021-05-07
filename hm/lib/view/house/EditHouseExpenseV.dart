@@ -52,6 +52,7 @@ class _EditHouseExpenseVState extends State<EditHouseExpenseV>{
             Row(
               children: [
                 Container(
+                  margin: EdgeInsets.only(bottom: 30),
                   width: 250,
                   child: TextField(
                     inputFormatters: [
@@ -130,53 +131,49 @@ class _EditHouseExpenseVState extends State<EditHouseExpenseV>{
               ],
             ),
 
-            ///TextField(
-            ///  controller: TextEditingController(text: _expense == null ? '' : _expense.type),
-            ///  decoration: InputDecoration(
-            ///    labelText: "*名称",
-            ///  ),
-            ///  onChanged: (String text){
-            ///    this._expense.type = text;
-            ///  },
-            ///),
-
-            TextField(
-              controller: TextEditingController(text: _mark ?? ''),
-              decoration: InputDecoration(
-                labelText: "备注",
-              ),
-              onChanged: (String text) {
-                this._mark = text;
-              },
-            ),
-            ListTile(
-              leading: Text("*时间"),
-              title: Text(_myTimeM == null ? '' : _myTimeM.toString()),
-              trailing: ElevatedButton(
-                onPressed: () async {
-                  var date = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(DateTime
-                        .now()
-                        .year - 1),
-                    lastDate: DateTime(DateTime
-                        .now()
-                        .year + 2),
-                  );
-                  var time = await showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay.now(),
-                    helpText: "SELECT START TIME",
-                  );
-                  if (time != null && date != null) {
-                    _myTimeM = MyTimeM()
-                      ..initialize(date.year, date.month, date.day, time.hour,
-                          time.minute, 0);
-                    setState(() {});
-                  }
+            Container(
+              margin: EdgeInsets.only(bottom: 30),
+              child: TextField(
+                controller: TextEditingController(text: _mark ?? ''),
+                decoration: InputDecoration(
+                  labelText: "备注",
+                ),
+                onChanged: (String text) {
+                  this._mark = text;
                 },
-                child: Text("添加"),
+              ),
+            ),
+
+            Container(
+              margin: EdgeInsets.only(bottom: 30),
+              child: ListTile(
+                title: Text(_myTimeM == null ? '' : _myTimeM.toString()),
+                trailing: ElevatedButton(
+                  onPressed: () async {
+                    var date = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(DateTime
+                          .now()
+                          .year - 1),
+                      lastDate: DateTime(DateTime
+                          .now()
+                          .year + 2),
+                    );
+                    var time = await showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay.now(),
+                      helpText: "SELECT START TIME",
+                    );
+                    if (time != null && date != null) {
+                      _myTimeM = MyTimeM()
+                        ..initialize(date.year, date.month, date.day, time.hour,
+                            time.minute, 0);
+                      setState(() {});
+                    }
+                  },
+                  child: Text("*时间"),
+                ),
               ),
             ),
 

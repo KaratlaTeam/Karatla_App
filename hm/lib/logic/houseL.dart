@@ -16,6 +16,7 @@ import 'package:hm/plugin/myFunctions.dart';
 import 'package:hm/state/houseS.dart';
 import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HouseL extends GetxController with StateMixin<HouseS>{
@@ -66,7 +67,16 @@ class HouseL extends GetxController with StateMixin<HouseS>{
     printInfo(info: 'appDocPath: $appDocPath');
 
     if(Platform.isAndroid){
+      /// create root path
+      ///var sd2 = Directory('${RN.backUpRootDirectoryName}');
+      ///var ex2 = await sd2.exists();
+      ///if(!ex2){
+      ///  await sd2.create(recursive: true);
+      ///}
+      ///printInfo(info: 'appStoRootBackPath: ${sd2.path}');
+
       Directory appStoDir = await getExternalStorageDirectory();
+      /// get app sd path
       String appStoPath = appStoDir.path;
       this.houseState.appStoPath = appStoPath;
       var sd = Directory('${appStoDir.path}${RN.backUpDirectoryName}');
@@ -157,6 +167,13 @@ class HouseL extends GetxController with StateMixin<HouseS>{
       Platform.isAndroid ? backupPath = this.houseState.appStoPath : backupPath = this.houseState.appDocPath;
       String dateTime = '${a.year}_${a.month}_${a.day}_${a.hour}:${a.minute}:${a.second}';
       var directory = Directory('$backupPath${RN.backUpDirectoryName}');
+
+      ///var status = await Permission.storage.status;
+      ///if (!status.isGranted) {
+      ///  await Permission.storage.request();
+      ///}
+      ///var directory = Directory('${RN.backUpRootDirectoryName}');
+
       String backup = json.encode(houseState.housesM.toJson());
       ///Clipboard.setData(ClipboardData(text: backup));///
       File file = File('${directory.path}/$dateTime.hm');

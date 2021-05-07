@@ -124,7 +124,7 @@ class _StatisticsIncomeVState extends State<StatisticsIncomeV> {
         Container(
           margin: EdgeInsets.only(left: context.width/100, right: context.width/100),
           child: AspectRatio(
-            aspectRatio: 1.9,
+            aspectRatio: 1.7,
             child: Stack(
               children: [
                 Container(
@@ -135,7 +135,7 @@ class _StatisticsIncomeVState extends State<StatisticsIncomeV> {
                     color: Colors.white,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 1.0, left: 1.0, top: 5, bottom: 2),
+                    padding: const EdgeInsets.only(right: 20.0, left: 1.0, top: 20, bottom: 2),
                     child: LineChart(
                       houseL.houseState.housesM.houseList.length != 0 && (dropdownValueDateType != null && dropdownValueHouse != null && dropdownValueFeeType != null)
                           ? mainData()

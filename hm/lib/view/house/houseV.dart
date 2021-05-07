@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/utils.dart';
 import 'package:hm/logic/houseL.dart';
+import 'package:hm/logic/roomL.dart';
 import 'package:hm/main.dart';
 import 'package:get/get.dart';
 import 'package:hm/model/houseM.dart';
-import 'package:hm/model/roomM.dart';
 import 'package:hm/view/room/roomV.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
@@ -90,18 +90,27 @@ class _HouseVState extends State<HouseV> {
                     child: ListView.builder(
                       itemCount: _.houseState.houseHolderShowList.length,
                       itemBuilder: ((context, index){
-                        return Column(
-                          children: [
-                            ListTile(
-                              title: Text(_.houseState.houseHolderShowList[index]['name']),
-                              trailing: Text(_.houseState.houseHolderShowList[index]['idNum']),
-                            ),
-                            ListTile(
-                              title: Text(_.houseState.housesM.houseList[_.houseState.houseHolderShowList[index]['house']].houseName),
-                              trailing: Text(_.houseState.housesM.houseList[_.houseState.houseHolderShowList[index]['house']].levelList[_.houseState.houseHolderShowList[index]['level']].name+' - '+_.houseState.housesM.houseList[_.houseState.houseHolderShowList[index]['house']].levelList[_.houseState.houseHolderShowList[index]['level']].roomList[_.houseState.houseHolderShowList[index]['room']].roomNumber.toString()+'号'),
-                            ),
-                            Divider(color: Colors.grey,),
-                          ],
+                        return InkWell(
+                          onTap: ()async{
+                            _.houseState.carouselController.jumpToPage(_.houseState.houseHolderShowList[index]['house']);
+                            Get.find<RoomL>().setLevelIndex(_.houseState.houseHolderShowList[index]['level']);
+                            Get.find<RoomL>().setRoomIndex(_.houseState.houseHolderShowList[index]['room']);
+                            await Future.delayed(Duration(milliseconds: 300));
+                            Get.toNamed(RN.roomDetail);
+                          },
+                          child: Column(
+                            children: [
+                              ListTile(
+                                title: Text(_.houseState.houseHolderShowList[index]['name']),
+                                trailing: Text(_.houseState.houseHolderShowList[index]['idNum']),
+                              ),
+                              ListTile(
+                                title: Text(_.houseState.housesM.houseList[_.houseState.houseHolderShowList[index]['house']].houseName),
+                                trailing: Text(_.houseState.housesM.houseList[_.houseState.houseHolderShowList[index]['house']].levelList[_.houseState.houseHolderShowList[index]['level']].name+' - '+_.houseState.housesM.houseList[_.houseState.houseHolderShowList[index]['house']].levelList[_.houseState.houseHolderShowList[index]['level']].roomList[_.houseState.houseHolderShowList[index]['room']].roomNumber.toString()+'号'),
+                              ),
+                              Divider(color: Colors.transparent,),
+                            ],
+                          ),
                         );
                       }),
                     ),
@@ -226,20 +235,19 @@ class _HouseVState extends State<HouseV> {
   buildCostListShow(HouseL _){
 
     return Container(
-      color: Colors.white,
       child: ListView.builder(
         itemCount: _.houseState.housesM.houseList[_.houseState.houseIndex].houseExpensesList.length,
         itemBuilder: (BuildContext context, int index){
-          return ListTile(
-            onLongPress: (){
-
-            },
-            onTap: (){
-              Get.toNamed(RN.expenseEdit, arguments: index);
-            },
-            title: Text(_.houseState.housesM.houseList[_.houseState.houseIndex].houseExpensesList[index].expense.type),
-            subtitle: Text(_.houseState.housesM.houseList[_.houseState.houseIndex].houseExpensesList[index].expenseDate.toString()),
-            trailing: Text(_.houseState.housesM.houseList[_.houseState.houseIndex].houseExpensesList[index].expense.cost.toString()),
+          return Ink(
+            color: Colors.white,
+            child: ListTile(
+              onTap: (){
+                Get.toNamed(RN.expenseEdit, arguments: index);
+              },
+              title: Text(_.houseState.housesM.houseList[_.houseState.houseIndex].houseExpensesList[index].expense.type),
+              subtitle: Text(_.houseState.housesM.houseList[_.houseState.houseIndex].houseExpensesList[index].expenseDate.toString()),
+              trailing: Text(_.houseState.housesM.houseList[_.houseState.houseIndex].houseExpensesList[index].expense.cost.toString()),
+            ),
           );
         },
       ),
@@ -260,14 +268,23 @@ class _HouseVState extends State<HouseV> {
       //color: Colors.white,
       margin: EdgeInsets.symmetric(vertical: 10,),
       child: InkWell(
+        //onTap: (){
+        //  Get.to(()=>Scaffold(
+        //    backgroundColor: Colors.black,
+        //    appBar: AppBar(backgroundColor: Colors.black,),
+        //    body: Container(
+        //      child: Center(
+        //        child: _imageShow(_, index),
+        //      ),
+        //    ),
+        //  ));
+        //},
         child: Container(
           child: Column(
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                child: _.houseState.housesM.houseList[index].photoPath == null || _.houseState.housesM.houseList[index].photoPath == ''
-                    ? Image.asset('assets/images/house.png',fit: BoxFit.contain,height: 200,width: 350,)
-                    : Image.file(File(_.houseState.housesM.houseList[index].photoPath),fit: BoxFit.contain,height: 200,width: 350),
+                child: _imageShow(_, index),
               ),
               Container(
                 margin: EdgeInsets.only(top: 8),
@@ -314,6 +331,14 @@ class _HouseVState extends State<HouseV> {
       }
     }
     return amount;
+  }
+
+  _imageShow(HouseL _, int index){
+    if(_.houseState.housesM.houseList[index].photoPath == null || _.houseState.housesM.houseList[index].photoPath == ''){
+      return Image.asset('assets/images/house.png',fit: BoxFit.contain,height: 200,width: 350,);
+    }else{
+      return Image.file(File(_.houseState.housesM.houseList[index].photoPath),fit: BoxFit.contain,height: 200,width: 350);
+    }
   }
 
 }

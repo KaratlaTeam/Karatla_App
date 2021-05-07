@@ -38,7 +38,7 @@ class _HouseCreateVState extends State<HouseCreateV>{
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text(this.isFirstTime == true ? '我的第一个房子' : "创建房子"),
+        title: Text(this.isFirstTime == true ? '我的第一个房子' : "添加房子"),
       ),
       body: Container(
         child: ListView(
@@ -114,6 +114,15 @@ class _HouseCreateVState extends State<HouseCreateV>{
                     ),
                     onChanged: (String newValue) {
                       this._type = newValue;
+                      if(_type != "" && _type!=null){
+                        if(_feeTypeList.contains(_type)){
+                          Get.snackbar("提示", "缴费类型已存在！",snackPosition: SnackPosition.BOTTOM);
+                        }else{
+                          _feeTypeList.add(_type);
+                          _feeTypeCostList.add(FeeTypeCost()..initialize(_type, 0.0, false));
+                        }
+                        _type = "";
+                      }
                       setState(() {});
                     },
                     items: Get
@@ -134,23 +143,6 @@ class _HouseCreateVState extends State<HouseCreateV>{
                     }).toList(),
                   ),
                 ),
-                Container(
-                  child: IconButton(icon: Icon(Icons.add),onPressed: (){
-                    setState(() {
-                      if(_type != "" && _type!=null){
-                        if(_feeTypeList.contains(_type)){
-                          Get.snackbar("提示", "缴费类型已存在！",snackPosition: SnackPosition.BOTTOM);
-                        }else{
-                          _feeTypeList.add(_type);
-                          _feeTypeCostList.add(FeeTypeCost()..initialize(_type, 0.0, false));
-                        }
-                        _type = "";
-                      }
-
-                    });
-                  }),
-                ),
-                //IconButton(icon: Icon(Icons.add,color: Colors.transparent),),
               ],
             ),
             Wrap(

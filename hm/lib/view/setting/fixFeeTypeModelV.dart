@@ -122,9 +122,15 @@ class _BuildExpandedVState extends State<BuildExpandedV>{
                               child: ListTile(
                                 title: Text(e),
                                 onTap: (){
-                                  item.type = e;
-                                  Get.back();
-                                  this.widget.callback();
+                                  Get.defaultDialog(
+                                      middleText: "是否确认替换，建议替换前进行备份。",
+                                      onConfirm: (){
+                                        item.type = e;
+                                        Get.back();
+                                        this.widget.callback();
+                                      },
+                                      onCancel: (){}
+                                  );
                                 },
                               ),
                             );

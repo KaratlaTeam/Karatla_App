@@ -184,6 +184,7 @@ class MyApp extends StatelessWidget {
 
 class RN{
   static const String backUpDirectoryName = '/backup';
+  static const String backUpRootDirectoryName = '/storage/emulated/0/Download';
 
 
 /// ////////////

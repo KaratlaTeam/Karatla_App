@@ -64,8 +64,17 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
           }),
         ],
         title: ListTile(
-          title: Text('${_houseM.levelList[Get.find<RoomL>().roomS.roomLevel].name} - 0${_roomM.roomNumber}(${_roomM.checkTime.length > 0 ? Get.find<HouseL>().roomStateToString(_roomM.checkTime[0].checkState) : '空房'})',style: TextStyle(color: Colors.white),),
-          subtitle: Text("备注:  ${_roomM.mark}",style: TextStyle(color: Colors.white),),
+          title: Text('${_houseM.levelList[Get.find<RoomL>().roomS.roomLevel].name} - 0${_roomM.roomNumber}(${_roomM.checkTime.length > 0 ? Get.find<HouseL>().roomStateToString(_roomM.checkTime[0].checkState) : '空房'})',style: TextStyle(color: Colors.white,),),
+          subtitle: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text("备注:  ${_roomM.mark}",style: TextStyle(color: Colors.white, fontSize: 12),),
+                ],
+              ),
+            ],
+          ),
         ),
         bottom: TabBar(
           controller: _tabController,
@@ -146,22 +155,18 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
           ),
 
           ListView.builder(
-            //padding: EdgeInsets.all(20),
             itemCount: _roomM.householderList.length,
             itemBuilder: (BuildContext context, int index){
               return Container(
                 //margin: EdgeInsets.only(bottom: 10),
-                child: Card(
-                  elevation: 0,
+                child: Ink(
+                  color: Colors.white,
                   child: ListTile(
                     horizontalTitleGap: 0,
                     leading: Icon(Icons.person, color: _roomM.householderList[index].checkOutDate == null ? Colors.green : Colors.grey),
                     title: Text(_roomM.householderList[index].name),
                     trailing: Text(_roomM.householderList[index].idNum),
                     onTap: (){
-
-                    },
-                    onLongPress: (){
                       Get.toNamed(RN.houseHoldEdit, arguments: index);
                     },
                   ),
@@ -170,15 +175,13 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
             },
           ),
           ListView.builder(
-            //padding: EdgeInsets.all(20),
             itemCount: _roomM.depositList.length,
             itemBuilder: (BuildContext context, int index){
               return Container(
-                //margin: EdgeInsets.only(bottom: 10),
-                child: Card(
-                  elevation: 0,
+                child: Ink(
+                  color: Colors.white,
                   child: ListTile(
-                    onLongPress: (){
+                    onTap: (){
                       Get.toNamed(RN.depositEdit, arguments: index);
                     },
                     horizontalTitleGap: 15,
@@ -192,15 +195,13 @@ class _RoomDetailVState extends State<RoomDetailV> with TickerProviderStateMixin
             },
           ),
           ListView.builder(
-            //padding: EdgeInsets.all(20),
             itemCount: _roomM.checkTime.length,
             itemBuilder: (BuildContext context, int index){
               return Container(
-                //margin: EdgeInsets.only(bottom: 10),
-                child: Card(
-                  elevation: 0,
+                child: Ink(
+                  color: Colors.white,
                   child: ListTile(
-                    onLongPress: (){
+                    onTap: (){
                       Get.toNamed(RN.checkTimeEdit, arguments: index);
                     },
                     horizontalTitleGap: 0,

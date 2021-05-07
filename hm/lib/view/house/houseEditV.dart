@@ -156,6 +156,15 @@ class _HouseEditVState extends State<HouseEditV> {
                     ),
                     onChanged: (String newValue) {
                       this._type = newValue;
+                      if(_type != "" && _type!=null){
+                        if(_feeTypeList.contains(_type)){
+                          Get.snackbar("提示", "缴费类型已存在！",snackPosition: SnackPosition.BOTTOM);
+                        }else{
+                          _feeTypeList.add(_type);
+                          _feeTypeCostList.add(FeeTypeCost()..initialize(_type, 0.0, false));
+                        }
+                        _type = "";
+                      }
                       setState(() {});
                     },
                     items: Get
@@ -176,20 +185,6 @@ class _HouseEditVState extends State<HouseEditV> {
                     }).toList(),
                   ),
                 ),
-                IconButton(icon: Icon(Icons.add),onPressed: (){
-                  setState(() {
-                    if(_type != "" && _type!=null){
-                      if(_feeTypeList.contains(_type)){
-                        Get.snackbar("提示", "缴费类型已存在！",snackPosition: SnackPosition.BOTTOM);
-                      }else{
-                        _feeTypeList.add(_type);
-                        _feeTypeCostList.add(FeeTypeCost()..initialize(_type, 0.0, false));
-                      }
-                      _type = "";
-                    }
-
-                  });
-                }),
               ],
             ),
             Wrap(

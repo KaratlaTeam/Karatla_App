@@ -70,6 +70,14 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
                     ),
                     onChanged: (String newValue) {
                       this._typeHold = newValue;
+                      if(_typeHold != "" && _typeHold != null){
+                        if(_feeTypeCostList.where((element) => element.type == _typeHold).length > 0){
+                          Get.snackbar("提示", "缴费类型已存在！",snackPosition: SnackPosition.BOTTOM);
+                        }else{
+                          _feeTypeCostList.add(FeeTypeCost()..initialize(_typeHold, 0.0, false));
+                        }
+                        _typeHold = null;
+                      }
                       setState(() {});
                     },
                     items: Get
@@ -90,19 +98,6 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
                     }).toList(),
                   ),
                 ),
-                ElevatedButton(child: Text("添加"),onPressed: (){
-                  setState(() {
-                    if(_typeHold != "" && _typeHold != null){
-                      if(_feeTypeCostList.where((element) => element.type == _typeHold).length > 0){
-                        Get.snackbar("提示", "缴费类型已存在！",snackPosition: SnackPosition.BOTTOM);
-                      }else{
-                        _feeTypeCostList.add(FeeTypeCost()..initialize(_typeHold, 0.0, false));
-                      }
-                      _typeHold = null;
-                    }
-
-                  });
-                }),
               ],
             ),
             Column(
@@ -126,6 +121,7 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
      List<Widget> widgets = [];
      for(int index = 0; index < _feeTypeCostList.length; index++){
        Widget widget = Container(
+         margin: EdgeInsets.only(bottom: 30),
          child: Row(
            children: [
              Container(
@@ -170,7 +166,7 @@ class _RoomDetailEditVState extends State<RoomDetailEditV>{
                  setState(() {});
              },
              ),
-             ElevatedButton(child: Text("删除"),onPressed: (){
+             IconButton(icon: Icon(Icons.delete, color: Colors.red, size: 18,),onPressed: (){
                setState(() {
                  _feeTypeCostList.removeAt(index);
                });
