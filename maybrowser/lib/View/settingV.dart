@@ -1,0 +1,245 @@
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class SettingV extends StatefulWidget {
+  @override
+  _SettingVState createState() => _SettingVState();
+}
+class _SettingVState extends State<SettingV>{
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Setting"),
+        centerTitle: true,
+      ),
+      body: ListView(
+        children: [
+          ListTile(title: Text("Login"),onTap: (){Get.to(LoginV());},),
+          Divider(),
+          ListTile(title: Text("Search Engine"),subtitle: Text("Google") ,onTap: (){}),
+          Divider(),
+          ListTile(title: Text("History"),onTap: (){Get.to(HistoryV());}),
+          Divider(),
+          ListTile(title: Text("Collect"),onTap: (){Get.to(Collect());}),
+          Divider(),
+          ListTile(title: Text("About"),subtitle: Text("Version 1.2.3")  , onTap: (){Get.to(About());}),
+          Divider(),
+        ],
+      ),
+    );
+  }
+}
+
+class LoginV extends StatefulWidget{
+  @override
+  _LoginVState createState() => _LoginVState();
+}
+class _LoginVState extends State<LoginV>{
+
+  String dropdownValue = 'English';
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(title: Text("Login"),centerTitle: true,),
+
+      body: Center(
+        child: ListView(
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: 100, left: 50,right: 250),
+              child: DropdownButton<String>(
+                value: dropdownValue,
+                //icon: const Icon(Icons.arrow_downward),
+                iconSize: 24,
+                elevation: 16,
+                style: const TextStyle(
+                    color: Colors.black
+                ),
+                underline: Container(
+                  height: 0,
+                  color: Colors.deepPurpleAccent,
+                ),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    dropdownValue = newValue!;
+                  });
+                },
+                items: <String>['English', 'Melayu', 'Chinese']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20,left: 50,right: 50),
+              child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Account"
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20,left: 50,right: 50),
+              child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                    hintText: "Password"
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20,left: 100,right: 100),
+              child: ElevatedButton(
+                child: Text("Login"),
+                onPressed: (){},
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20,left: 100,right: 100),
+              child: ElevatedButton(
+                child: Text("Register"),
+                onPressed: (){
+                  Get.to(RegisterV());
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class RegisterV extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(title: Text("Create Account"),centerTitle: true,),
+
+      body: Center(
+        child: ListView(
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: 150,left: 50,right: 50),
+              child: TextField(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: "Account"
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20,left: 50,right: 50),
+              child: TextField(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: "Password"
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20,left: 50,right: 50),
+              child: TextField(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: "Repeat Password"
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20,left: 100,right: 100),
+              child: ElevatedButton(
+                child: Text("Submit"),
+                onPressed: (){},
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class HistoryV extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(title: Text("History"),centerTitle: true,),
+
+      body: Center(
+        child: ListView(
+          children: [
+            ListTile(title: Text("Flutter package"), subtitle: Text("https://pub.dev/packages/get#reactive-state-manager"),onTap: (){},),
+            Divider(),
+            ListTile(title: Text("Flutter- The error show"),subtitle: Text("https://stackoverflow.com/questions/68265067/the-error-shows-multiple-widgets-used-the-same-globalkey") ,onTap: (){}),
+            Divider(),
+            ListTile(title: Text("GiHub"),subtitle: Text("https://github.com/pichillilorenzo/flutter_browser_app/blob/master/lib/webview_tab.dart")  , onTap: (){}),
+            Divider(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Collect extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(title: Text("Collect"),centerTitle: true,),
+
+      body: Center(
+        child: ListView(
+          children: [
+            ListTile(title: Text("Baidu"), subtitle: Text("https://www.baidu.com"),onTap: (){},),
+            Divider(),
+            ListTile(title: Text("Google"),subtitle: Text("https://www.Google.com") ,onTap: (){}),
+            Divider(),
+            ListTile(title: Text("Flutter"),subtitle: Text("https://www.Flutter.com")  , onTap: (){}),
+            Divider(),
+            ListTile(title: Text("Youtube"),subtitle: Text("https://www.Youtube.com")  , onTap: (){}),
+            Divider(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class About extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(title: Text("About"),centerTitle: true,),
+
+      body: Center(
+        child: Card(
+          elevation: 7,
+          child: Container(
+            margin: EdgeInsets.all(10),
+            height: 200,width: 300,
+            child: Text(
+                "May browser can help users to add multiple different search engines on a page, search results in all search engine tags, switch directly from one tag to another, and view search results for all search engines at the same time. According to different countries, visit people's habits, set the search engine to customize the browser for users.",
+              style: TextStyle(fontSize: 17),
+            ),
+          ),
+        )
+      ),
+    );
+  }
+}
