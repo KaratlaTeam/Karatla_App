@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
@@ -11,11 +12,13 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:maybrowser/View/tabRootV.dart';
 import 'package:maybrowser/binding.dart';
 
-void main() async{
+Future<void> main() async {
   ///If you’re running an application and need to access the binary messenger
   ///before runApp() has been called (for example, during plugin initialization),
   ///then you need to explicitly call the WidgetsFlutterBinding.ensureInitialized() first.
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
 
   runApp(MyApp(),);
 }
@@ -122,7 +125,7 @@ class MyApp extends StatelessWidget {
     final List<GetPage> _pageList = [
       GetPage(name: RN.home, page: () => HomeV(key: key,), ),
 
-      GetPage(name: RN.tabRoot, page: () => TabRootV(key: key,),),
+      GetPage(name: RN.tabRoot, page: () => TabRootV(key: key),),
 
       GetPage(name: RN.setting, page: () => SettingV(), ),
 

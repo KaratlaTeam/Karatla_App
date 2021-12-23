@@ -20,6 +20,7 @@ class _HomeVState extends State<HomeV>{
   String engine = "Google";
   String engineLink = "https://www.google.com/search?q=";
   //List<TabM>? tabMList = Get.find<TabRootL>().tabS!.tabRootM.tabMList;
+  String onChangeText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +89,6 @@ class _HomeVState extends State<HomeV>{
                               child: IconButton(
                                   onPressed: (){
                                     Get.find<TabRootL>().showTabs();
-                                    Get.toNamed(RN.tabRoot);
                                   },
                                   icon: Icon(Icons.content_copy,size: 30,color: Colors.black,),
                               ),
@@ -101,8 +101,21 @@ class _HomeVState extends State<HomeV>{
                             decoration: InputDecoration(
                               //prefixText: "https://",
                               border: InputBorder.none,
-                              icon: Icon(Icons.search_outlined,size: 50,),
+                              icon: IconButton(
+                                icon: Icon(Icons.search_outlined,size: 50,),
+                                onPressed: (){
+                                  String url = this.engineLink+this.onChangeText;
+                                  print(url);
+                                  Get.find<TabRootL>().addTabView(url);
+                                  Get.find<TabRootL>().showWeb();
+                                },
+                              ),
                             ),
+                            onChanged: (String text){
+                              setState(() {
+                                this.onChangeText = text;
+                              });
+                            },
                             onSubmitted: (String text){
                               String url = this.engineLink+text;
                               print(url);

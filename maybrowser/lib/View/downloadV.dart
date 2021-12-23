@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DownloadV extends StatefulWidget{
-  DownloadV({Key? key}) : super(key: key);
+  DownloadV({
+    Key? key,
+    this.showBottom: false,
+  }):super(key: key);
+  final bool showBottom;
+
   @override
   _DownloadVState createState() => _DownloadVState();
 }
@@ -25,7 +30,7 @@ class _DownloadVState extends State<DownloadV>{
               flex: 6,
               child: Column(
                 children: [
-                  Container(
+                  widget.showBottom == true ? Container() : Container(
                     alignment: Alignment.centerLeft,
                     margin: EdgeInsets.only(left: 15,top: Get.mediaQuery.padding.top+10),
                     child: IconButton(onPressed: (){Get.back();}, icon: Icon(Icons.arrow_back_ios, color: Colors.white,)),

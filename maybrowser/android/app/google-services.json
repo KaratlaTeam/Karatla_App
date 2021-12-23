@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "528895301775",
+    "firebase_url": "https://maybrowser-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "maybrowser",
+    "storage_bucket": "maybrowser.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:528895301775:android:2ee25244548340b27278fa",
+        "android_client_info": {
+          "package_name": "com.sirens.maybrowser.maybrowser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "528895301775-rk8qsjbkugp84iifu0fhvdvmv8lacfjq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqncfKovd-XRwZ0NTDexaV8jUYyvs4I1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "528895301775-rk8qsjbkugp84iifu0fhvdvmv8lacfjq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,38 +1,82 @@
 
+import 'dart:math';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:maybrowser/Logic/tabRootL.dart';
+import 'package:maybrowser/Model/userM.dart';
+import 'package:maybrowser/State/userS.dart';
 
 class SettingV extends StatefulWidget {
+
   @override
   _SettingVState createState() => _SettingVState();
 }
 class _SettingVState extends State<SettingV>{
 
+  //int argument = 2;
 
+@override
+void initState() {
+    //Get.arguments == 0 ? argument = 0 : argument = 2;
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Setting"),
-        centerTitle: true,
-      ),
-      body: ListView(
-        children: [
-          ListTile(title: Text("Login"),onTap: (){Get.to(LoginV());},),
-          Divider(),
-          ListTile(title: Text("Search Engine"),subtitle: Text("Google") ,onTap: (){}),
-          Divider(),
-          ListTile(title: Text("History"),onTap: (){Get.to(HistoryV());}),
-          Divider(),
-          ListTile(title: Text("Collect"),onTap: (){Get.to(Collect());}),
-          Divider(),
-          ListTile(title: Text("About"),subtitle: Text("Version 1.2.3")  , onTap: (){Get.to(About());}),
-          Divider(),
-        ],
-      ),
+    return GetBuilder<TabRootL>(
+      builder: (_){
+        return Scaffold(
+          appBar: AppBar(
+            title: Text("Setting"),
+            centerTitle: true,
+          ),
+          body: ListView(
+            children: stateWidget(),
+          ),
+        );
+        },
     );
+  }
+
+  List<Widget> stateWidget(){
+  List<Widget> widgets = [
+    ListTile(title: Text("Search Engine"),subtitle: Text("Google") ,onTap: (){}),
+    Divider(),
+    ListTile(title: Text("History"),onTap: (){Get.to(HistoryV());}),
+    Divider(),
+    ListTile(title: Text("Collect"),onTap: (){Get.to(CollectV());}),
+    Divider(),
+    ListTile(title: Text("About"),subtitle: Text("Version 1.2.3")  , onTap: (){Get.to(About());}),
+    Divider(),
+  ];
+
+  UserM? userM = Get.find<TabRootL>().userS?.userM;
+  if(userM?.state == 'OFF'){
+    widgets.add(TextButton(
+      onPressed: (){
+        Get.to(LoginV());
+      },
+      child: Text('Login'),
+    ));
+  }else{
+    widgets.add(TextButton(
+      onPressed: null,
+      child: Text('${userM?.account}'),
+    ));
+    widgets.add(TextButton(
+      onPressed: (){
+        Get.find<TabRootL>().logOut();
+      },
+      child: Text('LogOut'),
+    ),);
+  }
+  return widgets;
+
   }
 }
 
@@ -43,6 +87,9 @@ class LoginV extends StatefulWidget{
 class _LoginVState extends State<LoginV>{
 
   String dropdownValue = 'English';
+  String password = '';
+  String account =  '';
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -87,22 +134,35 @@ class _LoginVState extends State<LoginV>{
                   border: OutlineInputBorder(),
                   hintText: "Account"
                 ),
+                onChanged: (text){
+                  setState(() {
+                    account = text;
+                  });
+                },
               ),
             ),
             Container(
               margin: EdgeInsets.only(top: 20,left: 50,right: 50),
               child: TextField(
+                obscureText: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                     hintText: "Password"
                 ),
+                onChanged: (text){
+                  setState(() {
+                    password = text;
+                  });
+                },
               ),
             ),
             Container(
               margin: EdgeInsets.only(top: 20,left: 100,right: 100),
               child: ElevatedButton(
                 child: Text("Login"),
-                onPressed: (){},
+                onPressed: ()async{
+                  await Get.find<TabRootL>().loginAccount(account, password);
+                },
               ),
             ),
             Container(
@@ -121,7 +181,17 @@ class _LoginVState extends State<LoginV>{
   }
 }
 
-class RegisterV extends StatelessWidget{
+class RegisterV extends StatefulWidget {
+  @override
+  _RegisterVState createState() => _RegisterVState();
+}
+class _RegisterVState extends State<RegisterV>{
+
+  String account = '';
+  String password = '';
+  String repeatPassword = '';
+  bool showError = true;
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -138,33 +208,75 @@ class RegisterV extends StatelessWidget{
                     border: OutlineInputBorder(),
                     hintText: "Account"
                 ),
+                onChanged: (text){
+                  setState(() {
+                    account = text;
+                  });
+                },
               ),
             ),
             Container(
               margin: EdgeInsets.only(top: 20,left: 50,right: 50),
               child: TextField(
+                obscureText: true,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: "Password"
                 ),
+                onChanged: (text){
+                  password = text;
+                  if(repeatPassword != password){
+                    showError = true;
+                  }else{
+                    showError = false;
+                  }
+                  setState(() {});
+                },
               ),
             ),
             Container(
               margin: EdgeInsets.only(top: 20,left: 50,right: 50),
               child: TextField(
+                obscureText: true,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: "Repeat Password"
+                    hintText: "Repeat Password",
+                    errorText: repeatPassword == '' ? 'Repeat Password empty' : (showError == true ? 'Password different!' : null),
                 ),
+                onChanged: (text){
+                  repeatPassword = text;
+                  if(repeatPassword != password){
+                    showError = true;
+                  }else{
+                    showError = false;
+                  }
+                  setState(() {});
+                },
               ),
             ),
             Container(
               margin: EdgeInsets.only(top: 20,left: 100,right: 100),
               child: ElevatedButton(
                 child: Text("Submit"),
-                onPressed: (){},
+                onPressed: () async {
+                  if(showError == true || password == ''){
+                    Get.showSnackbar(GetSnackBar(title: 'Error', message: "Password different!",duration: Duration(seconds: 1),));
+                  }else{
+                    await Get.find<TabRootL>().createAccount(account, password);
+                  }
+
+                },
               ),
             ),
+            //Container(
+            //  margin: EdgeInsets.only(top: 20,left: 100,right: 100),
+            //  child: ElevatedButton(
+            //    child: Text("Test data"),
+            //    onPressed: () async {
+            //      await Get.find<TabRootL>().loginAccount(account, password);
+            //    },
+            //  ),
+            //),
           ],
         ),
       ),
@@ -195,12 +307,19 @@ class HistoryV extends StatelessWidget{
   }
 }
 
-class Collect extends StatelessWidget{
+class CollectV extends StatelessWidget{
+  CollectV({
+    Key? key,
+    this.showBottom: false,
+  }):super(key: key);
+
+  final bool showBottom;
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(title: Text("Collect"),centerTitle: true,),
+      appBar: showBottom == true ? null : AppBar(title: Text("Collect"),centerTitle: true,),
 
       body: Center(
         child: ListView(

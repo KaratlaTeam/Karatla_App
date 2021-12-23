@@ -1,17 +1,21 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:maybrowser/Logic/tabRootL.dart';
 import 'package:maybrowser/Model/tabRootM.dart';
+import 'package:maybrowser/View/downloadV.dart';
+import 'package:maybrowser/View/settingV.dart';
 import 'package:maybrowser/main.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 
 class TabV extends StatefulWidget {
 
   TabV({
     required this.key,
+    //required Key key,
     required this.tabM
 }): super(key: key);
 
@@ -29,18 +33,30 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
   String? title = '';
   int? windowId = 0;
   InAppWebViewController? _webViewController;
+  bool bottomSheetOpened = false;
 
-  InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
+  final InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
       crossPlatform: InAppWebViewOptions(
+        useOnDownloadStart: true,
+        useOnLoadResource: true,
         useShouldOverrideUrlLoading: true,
-        mediaPlaybackRequiresUserGesture: false,
-        ///useOnDownloadStart: true,
+        javaScriptCanOpenWindowsAutomatically: false,
+        userAgent: "Mozilla/5.0 (Linux; Android 9; LG-H870 Build/PKQ1.190522.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/83.0.4103.106 Mobile Safari/537.36",
+        transparentBackground: true,
       ),
       android: AndroidInAppWebViewOptions(
-        useHybridComposition: true,
+        safeBrowsingEnabled: true,
+        disableDefaultErrorPage: true,
+        supportMultipleWindows: true,
+        useHybridComposition: true,///TODO can not use, screen will flash.
+        verticalScrollbarThumbColor: const Color.fromRGBO(0, 0, 0, 0.5),
+        horizontalScrollbarThumbColor: const Color.fromRGBO(0, 0, 0, 0.5),
       ),
       ios: IOSInAppWebViewOptions(
-        allowsInlineMediaPlayback: true,
+        allowsLinkPreview: false,
+        isFraudulentWebsiteWarningEnabled: true,
+        disableLongPressContextMenuOnLinks: true,
+        ///allowingReadAccessTo: Uri.parse('file://$WEB_ARCHIVE_DIR/'),
       ));
 
   late PullToRefreshController pullToRefreshController;
@@ -130,47 +146,34 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
     return WillPopScope(
       onWillPop: ()async{
         bool? canBack = await _webViewController?.canGoBack();
-        if (isDialOpen) {
-          return false;
-        } else if(canBack!=null&&canBack){
-          _webViewController?.goBack();
-          return false;
-        }else{
+        if(bottomSheetOpened){
           return true;
+        }else{
+          if (isDialOpen) {
+            return false;
+          } else if(canBack!=null&&canBack){
+            _webViewController?.goBack();
+            return false;
+          }else{
+            Get.find<TabRootL>().showHome();
+            return false;
+          }
         }
+
 
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(title.toString()),
-          leading: IconButton(
-            icon: Icon(Icons.home),
-            onPressed: (){
-              Get.back();
-            },
-          ),
-          actions: [
-            IconButton(
-              onPressed: ()async{
-                Get.find<TabRootL>().webScreenShot();
-                Get.find<TabRootL>().showTabs();
-              },
-              icon: Icon(Icons.content_copy),
-            ),
-          ],
-        ),
         body: SafeArea(
             child: Column(children: <Widget>[
               Expanded(
                 child: Stack(
                   children: [
                     InAppWebView(
-                      key: widget.key,
                       ///windowId: this.windowId,
                       initialUrlRequest:
                       URLRequest(url: widget.tabM.url),
                       initialOptions: options,
-                      pullToRefreshController: pullToRefreshController,
+                      pullToRefreshController: pullToRefreshController,/// useHybridComposition not true
                       onWebViewCreated: (controller) async{
                         widget.tabM.webViewController = controller;
                         _webViewController = controller;
@@ -222,7 +225,8 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
                         widget.tabM.favicon = null;
                         widget.tabM.loaded = true;
                         pullToRefreshController.endRefreshing();
-                        this.title = await controller.getTitle();
+                        var title = await controller.getTitle();
+                        Get.find<TabRootL>().updateWebTitle(title!);
                         setState(() {
                           //urlController.text = this.url!;
                         });
@@ -270,12 +274,10 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
                 ),
               ),
             ])),
-        floatingActionButton: SpeedDial(
-          marginEnd: 18,
-          marginBottom: 20,
+        floatingActionButton:
+        SpeedDial(
           icon: Icons.add,
           activeIcon: Icons.remove,
-         buttonSize: 56.0,
           visible: true,
           closeManually: false,
           renderOverlay: false,
@@ -283,11 +285,11 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
           overlayColor: Colors.black,
           overlayOpacity: 0.5,
           onOpen: () {
-            print('OPENING DIAL');
+            ///print('OPENING DIAL');
             this.isDialOpen = true;
           },
           onClose: () {
-            print('DIAL CLOSED');
+            ///print('DIAL CLOSED');
             this.isDialOpen = false;
           },
           tooltip: 'Speed Dial',
@@ -303,9 +305,9 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
               //label: 'First',
               labelStyle: TextStyle(fontSize: 18.0),
               onTap: () {
-                print('FIRST CHILD');
-                ///this.windowId = this.windowId! + 1;
-                ///setState(() {});
+                //Get.find<TabRootL>().showHome();
+                //Get.toNamed(RN.setting);
+                _bottomSheet(CollectV(showBottom: true,));
               },
               onLongPress: () => print('FIRST CHILD LONG PRESS'),
             ),
@@ -314,7 +316,11 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
               backgroundColor: Colors.blue,
               //label: 'Second',
               labelStyle: TextStyle(fontSize: 18.0),
-              onTap: () => print('SECOND CHILD'),
+              onTap: (){
+                //Get.find<TabRootL>().showHome();
+                //Get.toNamed(RN.download,arguments: 0);
+                _bottomSheet(DownloadV(showBottom: true,));
+              },
               onLongPress: () => print('SECOND CHILD LONG PRESS'),
             ),
             SpeedDialChild(
@@ -339,5 +345,18 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
         ),
       ),
     );
+  }
+
+  _bottomSheet(dynamic newOpen)async{
+    bottomSheetOpened = true;
+    final PersistentBottomSheetController bottomSheetController = showBottomSheet<void>(context: context, builder: (context){
+      return Container(
+        height: Get.height*0.85,
+        child: newOpen,
+      );
+    });
+    await bottomSheetController.closed.then((value) {
+      bottomSheetOpened = false;
+    });
   }
 }

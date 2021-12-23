@@ -30,12 +30,15 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
-  get: ^4.1.4
+  get: ^4.6.1
   flutter_inappwebview: ^5.3.2
   flutter_displaymode: ^0.3.2
-  url_launcher: ^6.0.6
+  url_launcher: ^6.0.17
   google_fonts: ^2.1.0
-  flutter_speed_dial: ^3.0.5
+  flutter_speed_dial: ^5.0.0+1
+  firebase_core: ^1.10.6
+  firebase_database: ^9.0.4
+  shared_preferences: ^2.0.11
 
 dev_dependencies:
   flutter_test:
