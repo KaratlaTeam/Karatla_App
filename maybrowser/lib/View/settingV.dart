@@ -17,6 +17,7 @@ class SettingV extends StatefulWidget {
 class _SettingVState extends State<SettingV>{
 
   //int argument = 2;
+  String dropdownValue = Get.find<TabRootL>().tabS?.url[0];
 
 @override
 void initState() {
@@ -36,20 +37,64 @@ void initState() {
             centerTitle: true,
           ),
           body: ListView(
-            children: stateWidget(),
+            padding: EdgeInsets.only(top: 15),
+            children: stateWidget(_),
           ),
         );
         },
     );
   }
 
-  List<Widget> stateWidget(){
+  List<Widget> stateWidget(TabRootL tabRootL){
   List<Widget> widgets = [
-    ListTile(title: Text("Search Engine"),subtitle: Text("Google") ,onTap: (){}),
+    ListTile(
+      title: Text("Default Search Engine"),
+      subtitle: DropdownButton<String>(
+        value: dropdownValue,
+        //icon: const Icon(Icons.arrow_downward),
+        iconSize: 24,
+        elevation: 16,
+        style: const TextStyle(
+            color: Colors.black
+        ),
+        underline: Container(
+          height: 0,
+          color: Colors.deepPurpleAccent,
+        ),
+        onChanged: (String? newValue) {
+          setState(() {
+            dropdownValue = newValue!;
+            tabRootL.changeDefaultEngine(newValue);
+          });
+        },
+        items: <String>[tabRootL.ss?.googleN, tabRootL.ss?.baiN, tabRootL.ss?.bingN, tabRootL.ss?.yaN]
+            .map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+      ),
+      onTap: (){},
+    ),
     Divider(),
-    ListTile(title: Text("History"),onTap: (){Get.to(HistoryV());}),
+    ListTile(
+      title: Text("History"),
+      onTap: (){
+        if(Get.find<TabRootL>().checkLogin()==true){
+          Get.to(HistoryV());
+        }
+        },
+    ),
     Divider(),
-    ListTile(title: Text("Collect"),onTap: (){Get.to(CollectV());}),
+    ListTile(
+      title: Text("Collect"),
+      onTap: (){
+        if(Get.find<TabRootL>().checkLogin()==true){
+          Get.to(CollectV());
+        }
+        },
+    ),
     Divider(),
     ListTile(title: Text("About"),subtitle: Text("Version 1.2.3")  , onTap: (){Get.to(About());}),
     Divider(),
@@ -292,18 +337,32 @@ class HistoryV extends StatelessWidget{
       appBar: AppBar(title: Text("History"),centerTitle: true,),
 
       body: Center(
-        child: ListView(
-          children: [
-            ListTile(title: Text("Flutter package"), subtitle: Text("https://pub.dev/packages/get#reactive-state-manager"),onTap: (){},),
-            Divider(),
-            ListTile(title: Text("Flutter- The error show"),subtitle: Text("https://stackoverflow.com/questions/68265067/the-error-shows-multiple-widgets-used-the-same-globalkey") ,onTap: (){}),
-            Divider(),
-            ListTile(title: Text("GiHub"),subtitle: Text("https://github.com/pichillilorenzo/flutter_browser_app/blob/master/lib/webview_tab.dart")  , onTap: (){}),
-            Divider(),
-          ],
+        child: GetBuilder<TabRootL>(
+          builder: (_){
+            return ListView(
+                children: listWidget(_),
+            );
+          },
         ),
       ),
     );
+  }
+  listWidget(TabRootL _){
+    var his = _.tabS?.history;
+    if(his == null){
+      return [Container()];
+    }else{
+      return his.asMap().map((key, value) {
+        var widget = ListTile(
+          title: Text(value[0]),
+          subtitle: Text(value[1]),
+          onLongPress: (){
+            _.removeHistory(key);
+          },
+        );
+        return MapEntry(key, widget);
+      }).values.toList();
+    }
   }
 }
 
@@ -322,20 +381,34 @@ class CollectV extends StatelessWidget{
       appBar: showBottom == true ? null : AppBar(title: Text("Collect"),centerTitle: true,),
 
       body: Center(
-        child: ListView(
-          children: [
-            ListTile(title: Text("Baidu"), subtitle: Text("https://www.baidu.com"),onTap: (){},),
-            Divider(),
-            ListTile(title: Text("Google"),subtitle: Text("https://www.Google.com") ,onTap: (){}),
-            Divider(),
-            ListTile(title: Text("Flutter"),subtitle: Text("https://www.Flutter.com")  , onTap: (){}),
-            Divider(),
-            ListTile(title: Text("Youtube"),subtitle: Text("https://www.Youtube.com")  , onTap: (){}),
-            Divider(),
-          ],
+        child: GetBuilder<TabRootL>(
+          builder: (_){
+
+            return ListView(
+              children: listWidget(_),
+            );
+          },
         ),
       ),
     );
+  }
+
+  listWidget(TabRootL _){
+    var his = _.tabS?.collect;
+    if(his == null){
+      return [Container()];
+    }else{
+      return his.asMap().map((key, value) {
+        var widget = ListTile(
+          title: Text(value[0]),
+          subtitle: Text(value[1]),
+          onLongPress: (){
+            _.removeCollect(key);
+          },
+        );
+        return MapEntry(key, widget);
+      }).values.toList();
+    }
   }
 }
 

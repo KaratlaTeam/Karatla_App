@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -30,7 +31,8 @@ class TabV extends StatefulWidget {
 class TabVState extends State<TabV> with WidgetsBindingObserver{
 
   var isDialOpen = false;
-  String? title = '';
+  String title = '';
+  String uri = '';
   int? windowId = 0;
   InAppWebViewController? _webViewController;
   bool bottomSheetOpened = false;
@@ -225,8 +227,10 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
                         widget.tabM.favicon = null;
                         widget.tabM.loaded = true;
                         pullToRefreshController.endRefreshing();
-                        var title = await controller.getTitle();
-                        Get.find<TabRootL>().updateWebTitle(title!);
+                        this.title = (await controller.getTitle())!;
+                        this.uri = url.toString();
+                        Get.find<TabRootL>().updateWebTitle(title);
+                        Get.find<TabRootL>().addHistory([title, this.uri]);
                         setState(() {
                           //urlController.text = this.url!;
                         });
@@ -292,8 +296,8 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
             ///print('DIAL CLOSED');
             this.isDialOpen = false;
           },
-          tooltip: 'Speed Dial',
-          heroTag: 'speed-dial-hero-tag',
+          tooltip: 'Speed Dial${DateTime.now().second}.${Get.find<TabRootL>().tabS?.tabRootM.tabVList.length}',
+          heroTag: 'speed-dial-hero-tag${DateTime.now().second}.${Get.find<TabRootL>().tabS?.tabRootM.tabVList.length}',
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
           elevation: 8.0,
@@ -305,9 +309,8 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
               //label: 'First',
               labelStyle: TextStyle(fontSize: 18.0),
               onTap: () {
-                //Get.find<TabRootL>().showHome();
-                //Get.toNamed(RN.setting);
-                _bottomSheet(CollectV(showBottom: true,));
+                Get.find<TabRootL>().addCollect([title,this.uri]);
+                ///_bottomSheet(CollectV(showBottom: true,));
               },
               onLongPress: () => print('FIRST CHILD LONG PRESS'),
             ),

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:get/get.dart';
 import 'package:maybrowser/View/downloadV.dart';
+import 'package:maybrowser/View/firstV.dart';
 import 'package:maybrowser/View/homeV.dart';
 import 'package:maybrowser/View/tabV.dart';
 import 'package:maybrowser/View/settingV.dart';
@@ -74,7 +75,7 @@ class MyApp extends StatelessWidget {
         title: 'May Browser',
         enableLog: true,
         initialBinding: TabRootBinding(),
-        initialRoute: RN.tabRoot,
+        initialRoute: RN.firstV,
         getPages: _getPages(),
         theme: _themeData,
         locale: Get.deviceLocale,
@@ -123,6 +124,8 @@ class MyApp extends StatelessWidget {
   ///页面路径设置
   List<GetPage> _getPages(){
     final List<GetPage> _pageList = [
+      GetPage(name: RN.firstV, page: () => FirstV(key: key,), ),
+
       GetPage(name: RN.home, page: () => HomeV(key: key,), ),
 
       GetPage(name: RN.tabRoot, page: () => TabRootV(key: key),),
@@ -140,10 +143,11 @@ class MyApp extends StatelessWidget {
 
 ///字符串绑定
 class RN{
+  static const String firstV = '/';
 
   static const String tab = '/tab';
 
-  static const String home = '/';
+  static const String home = '/home';
 
   static const String setting = '/setting';
 
