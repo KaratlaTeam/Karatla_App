@@ -352,10 +352,13 @@ class HistoryV extends StatelessWidget{
     if(his == null){
       return [Container()];
     }else{
-      return his.asMap().map((key, value) {
+      return his.reversed.toList().asMap().map((key, value) {
         var widget = ListTile(
-          title: Text(value[0]),
-          subtitle: Text(value[1]),
+          title: Text(value[0],maxLines: 1,),
+          subtitle: Text(value[1],maxLines: 1,),
+          onTap: (){
+            _.getBackAndOpenTab(value[1]);
+          },
           onLongPress: (){
             _.removeHistory(key);
           },
@@ -398,10 +401,13 @@ class CollectV extends StatelessWidget{
     if(his == null){
       return [Container()];
     }else{
-      return his.asMap().map((key, value) {
+      return his.reversed.toList().asMap().map((key, value) {
         var widget = ListTile(
-          title: Text(value[0]),
-          subtitle: Text(value[1]),
+          title: Text(value[0],maxLines: 1,),
+          subtitle: Text(value[1],maxLines: 1,),
+          onTap: (){
+            _.getBackAndOpenTab(value[1]);
+          },
           onLongPress: (){
             _.removeCollect(key);
           },

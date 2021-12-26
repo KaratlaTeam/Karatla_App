@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'dart:isolate';
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
@@ -10,6 +13,7 @@ import 'package:maybrowser/Model/tabRootM.dart';
 import 'package:maybrowser/View/downloadV.dart';
 import 'package:maybrowser/View/settingV.dart';
 import 'package:maybrowser/main.dart';
+import 'package:path_provider/path_provider.dart';
 
 
 class TabV extends StatefulWidget {
@@ -42,7 +46,7 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
         useOnDownloadStart: true,
         useOnLoadResource: true,
         useShouldOverrideUrlLoading: true,
-        javaScriptCanOpenWindowsAutomatically: false,
+        javaScriptCanOpenWindowsAutomatically: true,
         userAgent: "Mozilla/5.0 (Linux; Android 9; LG-H870 Build/PKQ1.190522.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/83.0.4103.106 Mobile Safari/537.36",
         transparentBackground: true,
       ),
@@ -51,8 +55,8 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
         disableDefaultErrorPage: true,
         supportMultipleWindows: true,
         useHybridComposition: true,///TODO can not use, screen will flash.
-        verticalScrollbarThumbColor: const Color.fromRGBO(0, 0, 0, 0.5),
-        horizontalScrollbarThumbColor: const Color.fromRGBO(0, 0, 0, 0.5),
+        //verticalScrollbarThumbColor: const Color.fromRGBO(0, 0, 0, 0.5),
+        //horizontalScrollbarThumbColor: const Color.fromRGBO(0, 0, 0, 0.5),
       ),
       ios: IOSInAppWebViewOptions(
         allowsLinkPreview: false,
@@ -64,6 +68,8 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
   late PullToRefreshController pullToRefreshController;
   double progress = 0;
   final urlController = TextEditingController();
+
+  ReceivePort _port = ReceivePort();
 
   @override
   void initState() {
@@ -82,8 +88,23 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
       },
     );
 
+       IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
+       _port.listen((dynamic data) {
+          String id = data[0];
+          DownloadTaskStatus status = data[1];
+          int progress = data[2];
+          setState((){ });
+       });
+
+       FlutterDownloader.registerCallback(downloadCallback);
+
     super.initState();
   }
+
+   static void downloadCallback(String id, DownloadTaskStatus status, int progress) {
+     final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port');
+     send?.send([id, status, progress]);
+   }
 
   @override
   void dispose() {
@@ -92,6 +113,8 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
 
     //_httpAuthUsernameController.dispose();
     //_httpAuthPasswordController.dispose();
+
+    IsolateNameServer.removePortNameMapping('downloader_send_port');
 
     WidgetsBinding.instance!.removeObserver(this);
 
@@ -200,14 +223,69 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
                           Get.find<TabRootL>().updateWebMode(widget.tabM,);
                         });
                       },
+                      onDownloadStart: (controller, url)async{
+
+                        String dropdownValue = 'File';
+                        Get.defaultDialog(
+                          content: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text('Please choose download Directory'),
+                              StatefulBuilder(
+                                builder: (context, setState){
+                                  return DropdownButton<String>(
+                                    value: dropdownValue,
+                                    //icon: const Icon(Icons.arrow_downward),
+                                    iconSize: 24,
+                                    elevation: 16,
+                                    style: const TextStyle(
+                                        color: Colors.black
+                                    ),
+                                    underline: Container(
+                                      height: 0,
+                                      color: Colors.deepPurpleAccent,
+                                    ),
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        dropdownValue = newValue!;
+                                      });
+                                    },
+                                    items: <String>['File', 'Picture', 'Video', 'Music']
+                                        .map<DropdownMenuItem<String>>((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                            onConfirm: ()async{
+                              print(url.path);
+                              String path = url.path;
+                              String fileName = path.substring(path.lastIndexOf('/') + 1);
+
+                              final taskId = await FlutterDownloader.enqueue(
+                                url: url.toString(),
+                                fileName: fileName,
+                                savedDir: Get.find<TabRootL>().getPath(dropdownValue).toString(),
+                                showNotification: true,
+                                openFileFromNotification: true,
+                              );
+                              Get.back();
+                            }
+                        );
+
+
+                      },
                       androidOnPermissionRequest: (controller, origin, resources) async {
                         return PermissionRequestResponse(
                             resources: resources,
                             action: PermissionRequestResponseAction.GRANT);
                       },
                       shouldOverrideUrlLoading: (controller, navigationAction) async {
-                        var uri = navigationAction.request.url!;
-
                         //if (![ "http", "https", "file", "chrome",
                         //  "data", "javascript", "about"].contains(uri.scheme)) {
                         //  if (await canLaunch(uri.!)) {
@@ -219,8 +297,23 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
                         //    return NavigationActionPolicy.CANCEL;
                         //  }
                         //}
+                        var uri = navigationAction.request;
+                        //////Get.find<TabRootL>().addTabView(uri.toString());
+                        ///if(navigationAction.androidIsRedirect!){
+                          print('new to go: $uri');
+                          controller.loadUrl(urlRequest: uri);
+                          return NavigationActionPolicy.ALLOW;
+                        ///}else{
+                          return NavigationActionPolicy.CANCEL;
+                        ///}
 
-                        return NavigationActionPolicy.ALLOW;
+
+                      },
+                      onCreateWindow: (controller, createWindowRequest)async{
+                        var l = createWindowRequest.request.url;
+                        print('new window: $l');
+                        Get.find<TabRootL>().addTabView(l.toString());
+                        return true;
                       },
                       onLoadStop: (controller, url) async {
                         widget.tabM.url = url;

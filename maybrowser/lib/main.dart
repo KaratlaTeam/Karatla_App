@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:maybrowser/View/downloadV.dart';
 import 'package:maybrowser/View/firstV.dart';
@@ -18,7 +19,7 @@ Future<void> main() async {
   ///before runApp() has been called (for example, during plugin initialization),
   ///then you need to explicitly call the WidgetsFlutterBinding.ensureInitialized() first.
   WidgetsFlutterBinding.ensureInitialized();
-
+  await FlutterDownloader.initialize(debug: false);
   await Firebase.initializeApp();
 
   runApp(MyApp(),);

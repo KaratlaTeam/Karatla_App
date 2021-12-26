@@ -1,5 +1,7 @@
 import 'dart:convert';
-
+import 'package:maybrowser/State/systemS.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -17,12 +19,14 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
   TabRootS? tabS;
   UserS? userS;
   SS? ss;
+  SystemS? systemS;
 
   @override
   Future<void> onInit() async{
     printInfo(info: 'onInit');
     var his = await loadHistory();
     var coll = await loadCollect();
+    await initializePath();
     this.ss = SS();
     this.tabS = TabRootS(
       tabRootM: TabRootM(tabVList: [], showIndex: 0, tabVMod: []),
@@ -32,13 +36,13 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
       collect: coll,
     );
     this.userS = UserS(userM: await getUserM());
+    Get.offNamed(RN.tabRoot);
     super.onInit();
   }
 
   @override
   void onReady() {
     printInfo(info: 'onReady');
-    Get.offNamed(RN.tabRoot);
     super.onReady();
   }
 
@@ -48,6 +52,74 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
 
     super.onClose();
   }
+
+  Future<void> initializePath()async{
+
+    Directory tempDir = await getTemporaryDirectory();
+    String tempPath = tempDir.path;
+    print('tempPath'+tempPath);
+    Directory? appDocDir = await getExternalStorageDirectory();
+    String? appDocPath = appDocDir?.path;
+    print('appDocPath'+appDocPath.toString());
+
+    Directory fileDir = await Directory(appDocPath!+'/File').create();
+    String filePath = fileDir.path;
+    print(filePath);
+
+    Directory pictureDir = await Directory(appDocPath+'/Picture').create();
+    String picturePath = pictureDir.path;
+    print(picturePath);
+
+    Directory videoDir = await Directory(appDocPath+'/Video').create();
+    String videoPath = videoDir.path;
+    print(videoPath);
+
+    Directory musicDir = await Directory(appDocPath+'/Music').create();
+    String musicPath = musicDir.path;
+    print(musicPath);
+
+    this.systemS = SystemS(
+      tempPath: tempPath,
+      appDocPath: appDocPath,
+      filePath: filePath,
+      picturePath: picturePath,
+      videoPath: videoPath,
+      musicPath: musicPath,
+
+      tempDir: tempDir,
+      appDocDir: appDocDir,
+      fileDir: fileDir,
+      pictureDir: pictureDir,
+      videoDir: videoDir,
+      musicDir: musicDir,
+    );
+    print('');
+    appDocDir?.listSync().forEach((element) async{
+      var value = getDirname(element.path);
+      print(value);
+    });
+  }
+
+  String getDirname(String path){
+    int index = path.lastIndexOf('/');
+    return path.substring(index+1);
+  }
+
+  String? getPath(String value){
+    if(value == 'File'){
+      return systemS?.filePath;
+    }else if(value == 'Picture'){
+      return systemS?.picturePath;
+    }else if(value == 'Video'){
+      return systemS?.videoPath;
+    }else if(value == 'Music'){
+      return systemS?.musicPath;
+    }else{
+      return '';
+    }
+  }
+
+
 
   changeDefaultEngine(String engine){
     if(engine == 'Google'){
@@ -64,6 +136,15 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
 
     }
     update();
+  }
+
+  getBackAndOpenTab(String url)async{
+    Get.back();
+    Get.back();
+    Future.delayed(Duration(seconds: 1),(){
+      addTabView(url);
+    });
+
   }
 
   addTabView(String url){
