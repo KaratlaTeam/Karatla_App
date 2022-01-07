@@ -3,6 +3,7 @@ import 'dart:isolate';
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -49,6 +50,9 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
         javaScriptCanOpenWindowsAutomatically: true,
         userAgent: "Mozilla/5.0 (Linux; Android 9; LG-H870 Build/PKQ1.190522.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/83.0.4103.106 Mobile Safari/537.36",
         transparentBackground: true,
+        useShouldInterceptAjaxRequest: true,
+        allowFileAccessFromFileURLs: true,
+        allowUniversalAccessFromFileURLs: true,
       ),
       android: AndroidInAppWebViewOptions(
         safeBrowsingEnabled: true,
@@ -307,12 +311,20 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
                           return NavigationActionPolicy.CANCEL;
                         ///}
 
-
+                      },
+                      onReceivedHttpAuthRequest: (controller,challenge)async{
+                        print('onReceivedHttpAuthRequest');
+                      },
+                      onReceivedClientCertRequest: (controller,challenge)async{
+                        print('onReceivedClientCertRequest');
+                      },
+                      onReceivedServerTrustAuthRequest: (controller,challenge)async{
+                        print('onReceivedServerTrustAuthRequest');
                       },
                       onCreateWindow: (controller, createWindowRequest)async{
                         var l = createWindowRequest.request.url;
                         print('new window: $l');
-                        Get.find<TabRootL>().addTabView(l.toString());
+                        //Get.find<TabRootL>().addTabView(l.toString());
                         return true;
                       },
                       onLoadStop: (controller, url) async {
@@ -353,16 +365,38 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
                       onConsoleMessage: (controller, consoleMessage) {
                         print(consoleMessage);
                       },
-                      ///onDownloadStart: (controller, url){
-                      ///  printInfo(info: 'download start');
-                      ///},
                       onLongPressHitTestResult: (controller, hitResult)async{
                         var lastHit = await controller.requestFocusNodeHref();
+                        print(await controller.getTitle());
                         print(lastHit);
                         print(hitResult.extra);
                         print(hitResult.type);
                         print(hitResult.isBlank);
                       },
+                      onAjaxReadyStateChange: (c,a)async{print('onAjaxReadyStateChange');},
+                      onLoadHttpError: (c,a,l,b){print('onLoadHttpError: $b');},
+                      onLoadResource: (c,resource)async{
+                        if(resource.initiatorType == 'video'){
+                          print('onLoadResource: $resource');
+                          Get.showSnackbar(GetSnackBar(
+                            title: 'Find Video',
+                            messageText: Container(child: Row(children: [
+                              TextButton(onPressed: ()async{
+                                var url = resource.url;
+                                var name = TimeOfDay.now();//await _webViewController?.getTitle();
+                                final d = Dio().downloadUri(url!,'${Get.find<TabRootL>().systemS?.videoPath}/$name.mp4').then((value) {
+                                  print(value.statusMessage);
+                                  if(value.statusMessage == 'OK'){
+                                    Get.showSnackbar(GetSnackBar(title: 'Result', message: 'Download Successful', duration: Duration(seconds: 1),));
+                                  }
+                                });
+                              }, child: Text('Download')),
+                            ],),width: 50,),
+                            duration: Duration(seconds: 5),
+                          ));
+                        }
+                        },
+                      onTitleChanged: (c,a)async{print('onTitleChanged: $a');},
                     ),
                     progress < 1.0
                         ? LinearProgressIndicator(value: progress)

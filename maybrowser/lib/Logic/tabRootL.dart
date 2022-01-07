@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:maybrowser/State/systemS.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
@@ -34,6 +35,8 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
       url: [ss?.googleN, ss?.googleU, ss?.googleS],
       history: his,
       collect: coll,
+      incognito: false,
+      temperature: await getTemperature(),
     );
     this.userS = UserS(userM: await getUserM());
     Get.offNamed(RN.tabRoot);
@@ -349,15 +352,30 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
   }
 
   Future<void> addHistory(List value)async{
-    tabS?.history.add(value);
-    await saveHistory();
-    update();
+    if(this.tabS!.incognito == false){
+      tabS?.history.add(value);
+      await saveHistory();
+      update();
+    }
   }
 
   Future<void> removeHistory(int index)async{
-    tabS?.history.removeAt(index);
+    int? a = tabS?.history.length;
+    tabS?.history.removeAt(a!-1-index);
     await saveHistory();
     Get.showSnackbar(GetSnackBar(title: 'Message', message: "Remove successful",duration: Duration(seconds: 1),));
+    update();
+  }
+
+  void changeIncognito(){
+    if(this.tabS!.incognito == true){
+      this.tabS!.incognito = false;
+      print('incognito false');
+    }else{
+      this.tabS!.incognito = true;
+      print('incognito true');
+    }
+
     update();
   }
 
@@ -395,10 +413,25 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
   }
 
   Future<void> removeCollect(int index)async{
-    tabS?.collect.removeAt(index);
+    int? a = tabS?.history.length;
+    tabS?.collect.removeAt(a!-1-index);
     await saveCollect();
     Get.showSnackbar(GetSnackBar(title: 'Message', message: "Remove successful",duration: Duration(seconds: 1),));
     update();
+  }
+
+
+  Future<String> getTemperature()async{
+    var dio;
+    try{
+      dio = await Dio().get('http://api.weatherstack.com/current?access_key=3f95cff0594a00f62a0bff6eda231c18&query=Kuala%20Lumpur');
+      print('temperature: '+dio.data['current']['temperature'].toString());
+      return dio.data['current']['temperature'].toString();
+    }catch(e){
+      print(e);
+    }
+    print('temperature: '+dio.data['current']['temperature'].toString());
+    return '0';
   }
 
 }

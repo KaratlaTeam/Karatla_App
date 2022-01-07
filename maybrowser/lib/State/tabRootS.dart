@@ -7,11 +7,15 @@ class TabRootS{
     required this.url,
     required this.history,
     required this.collect,
+    required this.incognito,
+    required this.temperature,
 });
   TabRootM tabRootM;
   int rootIndex;
   List url;
   List history;
   List collect;
+  bool incognito;
+  String temperature;
 
 }

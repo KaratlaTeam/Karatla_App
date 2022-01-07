@@ -43,6 +43,7 @@ dependencies:
   flutter_downloader: ^1.7.1
   open_file: ^3.2.1
   share: ^2.0.4
+  dio: ^4.0.4
 
 dev_dependencies:
   flutter_test:

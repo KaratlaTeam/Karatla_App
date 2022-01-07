@@ -169,7 +169,7 @@ class _TabRootVState extends State<TabRootV> with SingleTickerProviderStateMixin
       onHorizontalDragUpdate: (detail){
         moveLeft = (Get.width/2 - detail.localPosition.dx.round()).round();
         if(moveLeft.abs() > Get.width/3){
-          cardColor = Colors.red;
+          cardColor = Colors.grey;
         }else{
           cardColor = Color(0xffb6c0a4);
         }
@@ -177,7 +177,7 @@ class _TabRootVState extends State<TabRootV> with SingleTickerProviderStateMixin
       },
       onHorizontalDragEnd: (detail){
         int index = tabRootL.getShowIndex();
-        if(cardColor == Colors.red){
+        if(cardColor == Colors.grey){
           tabRootL.removeTabView();
           tabRootL.changeShowIndex(index-1);
         }
