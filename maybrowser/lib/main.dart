@@ -15,9 +15,6 @@ import 'package:maybrowser/View/tabRootV.dart';
 import 'package:maybrowser/binding.dart';
 
 Future<void> main() async {
-  ///If you’re running an application and need to access the binary messenger
-  ///before runApp() has been called (for example, during plugin initialization),
-  ///then you need to explicitly call the WidgetsFlutterBinding.ensureInitialized() first.
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(debug: false);
   await Firebase.initializeApp();
@@ -73,7 +70,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        title: 'May Browser',
+        title: 'May',
         enableLog: true,
         initialBinding: TabRootBinding(),
         initialRoute: RN.firstV,

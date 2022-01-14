@@ -10,12 +10,14 @@ class TabRootS{
     required this.incognito,
     required this.temperature,
 });
+
   TabRootM tabRootM;
   int rootIndex;
-  List url;
+  List url;/// []
   List history;
   List collect;
   bool incognito;
   String temperature;
+
 
 }

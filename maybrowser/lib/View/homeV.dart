@@ -298,7 +298,6 @@ class _HomeVState extends State<HomeV>{
                                 ),
                                 GestureDetector(
                                   onTap: (){
-                                    //print(DateTime.now().second);
                                     _.changeDefaultEngine(_.ss?.yaN);
                                   },
                                   child: Card(

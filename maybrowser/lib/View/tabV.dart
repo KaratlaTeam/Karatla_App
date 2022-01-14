@@ -437,7 +437,6 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
               labelStyle: TextStyle(fontSize: 18.0),
               onTap: () {
                 Get.find<TabRootL>().addCollect([title,this.uri]);
-                ///_bottomSheet(CollectV(showBottom: true,));
               },
               onLongPress: () => print('FIRST CHILD LONG PRESS'),
             ),

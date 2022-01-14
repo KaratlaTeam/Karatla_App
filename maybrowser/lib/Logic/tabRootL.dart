@@ -238,8 +238,7 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
   }
 
   Future<void> createAccount(String account, String password)async{
-    ///FirebaseDatabase fireBaseDatabase = FirebaseDatabase.instance;
-    ///await fireBaseDatabase.goOnline();
+
     DatabaseReference ref = FirebaseDatabase.instance.ref("users/$account");
     await ref.set(
       {
@@ -251,13 +250,10 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
     Get.back();
     Get.showSnackbar(GetSnackBar(title: 'Successful', message: "Create Account Successful!",duration: Duration(seconds: 1),));
 
-    ///await fireBaseDatabase.goOffline();
     update();
   }
 
   Future<void> loginAccount(String account, String password)async{
-    ///FirebaseDatabase fireBaseDatabase = FirebaseDatabase.instance;
-    ///await fireBaseDatabase.goOnline();
     DatabaseReference ref = FirebaseDatabase.instance.ref("users/$account");
     DataSnapshot event = await ref.get();
     if(event.value == null){
@@ -282,7 +278,6 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
         Get.showSnackbar(GetSnackBar(title: 'Error', message: "Password different!",duration: Duration(seconds: 1),));
       }
     }
-    ///await fireBaseDatabase.goOffline();
     update();
   }
 
@@ -302,8 +297,6 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
   }
 
   Future<void> logOut()async{
-    ///FirebaseDatabase fireBaseDatabase = FirebaseDatabase.instance;
-    ///await fireBaseDatabase.goOnline();
     DatabaseReference ref = FirebaseDatabase.instance.ref("users/${userS?.userM.account}");
     ref.update({
       "account": userS?.userM.account,
@@ -314,7 +307,6 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
     userS?.userM.state = 'OFF';
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('user', json.encode(userS?.userM.toJson()));
-    ///await fireBaseDatabase.goOffline();
     Get.showSnackbar(GetSnackBar(title: 'Message', message: "Account LogOut!",duration: Duration(seconds: 1),));
     update();
   }
@@ -423,8 +415,9 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
 
   Future<String> getTemperature()async{
     var dio;
+    var api = 'http://api.weatherstack.com/current?access_key=3f95cff0594a00f62a0bff6eda231c18&query=Kuala%20Lumpur';
     try{
-      dio = await Dio().get('http://api.weatherstack.com/current?access_key=3f95cff0594a00f62a0bff6eda231c18&query=Kuala%20Lumpur');
+      dio = await Dio().get(api);
       print('temperature: '+dio.data['current']['temperature'].toString());
       return dio.data['current']['temperature'].toString();
     }catch(e){
