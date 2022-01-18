@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:maybrowser/Model/fileM.dart';
+import 'package:maybrowser/Model/packageInfoM.dart';
 import 'package:maybrowser/State/systemS.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
@@ -27,7 +30,7 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
     printInfo(info: 'onInit');
     var his = await loadHistory();
     var coll = await loadCollect();
-    await initializePath();
+    await initializeSystem();
     this.ss = SS();
     this.tabS = TabRootS(
       tabRootM: TabRootM(tabVList: [], showIndex: 0, tabVMod: []),
@@ -56,14 +59,52 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
     super.onClose();
   }
 
-  Future<void> initializePath()async{
+  List<FileM> getFilesDataList(Directory dir){
+    List<FileM> data = [];
+    dir.listSync().forEach((e) {
+      var name = getDirname(e.path);
+      var value = e.statSync();
+      data.add(FileM(name: name, path: e.path, fileStat: value,));
+    });
+    return data;
+  }
+
+  getAllFilesDataList() {
+    print("update file list");
+    systemS!.fileMList = getFilesDataList(systemS!.fileDir);
+
+    systemS!.pictureMList = getFilesDataList(systemS!.pictureDir);
+
+    systemS!.videoMList = getFilesDataList(systemS!.videoDir);
+
+    systemS!.musicMList = getFilesDataList(systemS!.musicDir);
+
+    update();
+  }
+
+  sortFiles(List<FileM> data){
+    data.sort((a,b){
+      DateTime dateTime = a.fileStat.modified;
+      DateTime dateTime2 = b.fileStat.modified;
+      return dateTime2.compareTo(dateTime);
+    });
+
+  }
+
+  Future<void> initializeSystem()async{
+
+    /// ios only supports save files in NSDocumentDirectory--getApplicationDocumentsDirectory
 
     Directory tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path;
     print('tempPath'+tempPath);
-    Directory? appDocDir = await getExternalStorageDirectory();
+
+    Directory? appDocDir = GetPlatform.isAndroid
+        ? await getExternalStorageDirectory()
+        : await getApplicationDocumentsDirectory();
     String? appDocPath = appDocDir?.path;
     print('appDocPath'+appDocPath.toString());
+
 
     Directory fileDir = await Directory(appDocPath!+'/File').create();
     String filePath = fileDir.path;
@@ -81,6 +122,13 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
     String musicPath = musicDir.path;
     print(musicPath);
 
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    String appName = packageInfo.appName;
+    String packageName = packageInfo.packageName;
+    String version = packageInfo.version;
+    String buildNumber = packageInfo.buildNumber;
+
     this.systemS = SystemS(
       tempPath: tempPath,
       appDocPath: appDocPath,
@@ -95,12 +143,19 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
       pictureDir: pictureDir,
       videoDir: videoDir,
       musicDir: musicDir,
+      packageInfo: MyPackageInfo(
+        appName: appName,
+        packageName: packageName,
+        version: version,
+        buildNumber: buildNumber,
+      ),
+      fileMList: await getFilesDataList(fileDir),
+      pictureMList: await getFilesDataList(pictureDir),
+      videoMList: await getFilesDataList(videoDir),
+      musicMList: await getFilesDataList(musicDir),
     );
-    print('');
-    appDocDir?.listSync().forEach((element) async{
-      var value = getDirname(element.path);
-      print(value);
-    });
+
+    update();
   }
 
   String getDirname(String path){
@@ -136,6 +191,9 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
 
     }else if(engine == 'YaHoo'){
       tabS?.url = [ss?.yaN, ss?.yaU, ss?.yaS];
+
+    }else if(engine == 'Wikipedia'){
+      tabS?.url = [ss?.wikiN, ss?.wikiU, ss?.wikiS];
 
     }
     update();

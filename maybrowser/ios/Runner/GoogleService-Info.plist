@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>528895301775-oivbt50kr5nrf1dhovhdnj2qaq5ef43v.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.528895301775-oivbt50kr5nrf1dhovhdnj2qaq5ef43v</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCT6nsvOpsYJaOlzn37Ct2ffIX-r-UHj3M</string>
+	<key>GCM_SENDER_ID</key>
+	<string>528895301775</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.sirens.maybrowser.maybrowser</string>
+	<key>PROJECT_ID</key>
+	<string>maybrowser</string>
+	<key>STORAGE_BUCKET</key>
+	<string>maybrowser.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:528895301775:ios:6e09914a3caba2487278fa</string>
+	<key>DATABASE_URL</key>
+	<string>https://maybrowser-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+</dict>
+</plist>

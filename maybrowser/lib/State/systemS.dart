@@ -1,5 +1,8 @@
 import 'dart:io';
 
+import 'package:maybrowser/Model/fileM.dart';
+import 'package:maybrowser/Model/packageInfoM.dart';
+
 class SystemS{
   SystemS({
     required this.tempPath,
@@ -15,6 +18,13 @@ class SystemS{
     required this.pictureDir ,
     required this.videoDir,
     required this.musicDir,
+
+    required this.packageInfo,
+
+    required this.fileMList,
+    required this.pictureMList,
+    required this.videoMList,
+    required this.musicMList,
 
 });
   String tempPath ;
@@ -32,4 +42,10 @@ class SystemS{
   Directory pictureDir ;
   Directory videoDir ;
   Directory musicDir ;
+
+  MyPackageInfo packageInfo;
+  List<FileM> fileMList;
+  List<FileM> pictureMList;
+  List<FileM> videoMList;
+  List<FileM> musicMList;
 }

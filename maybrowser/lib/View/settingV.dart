@@ -67,7 +67,7 @@ void initState() {
             tabRootL.changeDefaultEngine(newValue);
           });
         },
-        items: <String>[tabRootL.ss?.googleN, tabRootL.ss?.baiN, tabRootL.ss?.bingN, tabRootL.ss?.yaN]
+        items: <String>[tabRootL.ss?.googleN, tabRootL.ss?.baiN, tabRootL.ss?.bingN, tabRootL.ss?.yaN, tabRootL.ss?.wikiN]
             .map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
@@ -82,7 +82,7 @@ void initState() {
       title: Text("History"),
       onTap: (){
         if(Get.find<TabRootL>().checkLogin()==true){
-          Get.to(HistoryV());
+          Get.to(() => HistoryV());
         }
         },
     ),
@@ -91,12 +91,12 @@ void initState() {
       title: Text("Collect"),
       onTap: (){
         if(Get.find<TabRootL>().checkLogin()==true){
-          Get.to(CollectV());
+          Get.to(() => CollectV());
         }
         },
     ),
     Divider(),
-    ListTile(title: Text("About"),subtitle: Text("Version 0.0.1")  , onTap: (){Get.to(About());}),
+    ListTile(title: Text("About"),subtitle: Text("Version ${tabRootL.systemS!.packageInfo.version}.${tabRootL.systemS!.packageInfo.buildNumber}")  , onTap: (){Get.to(() => About());}),
     Divider(),
   ];
 
@@ -426,17 +426,28 @@ class About extends StatelessWidget{
       appBar: AppBar(title: Text("About"),centerTitle: true,),
 
       body: Center(
-        child: Card(
-          elevation: 7,
-          child: Container(
-            margin: EdgeInsets.all(10),
-            height: 200,width: 300,
-            child: Text(
-                "May browser can help users to add multiple different search engines on a page, search results in all search engine tags, switch directly from one tag to another, and view search results for all search engines at the same time. According to different countries, visit people's habits, set the search engine to customize the browser for users.",
-              style: TextStyle(fontSize: 17),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Card(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              elevation: 7,
+              child: Container(
+                margin: EdgeInsets.all(10),
+                child: Text(
+                  "May browser can help users to add multiple different search engines on a page, search results in all search engine tags, switch directly from one tag to another, and view search results for all search engines at the same time. According to different countries, visit people's habits, set the search engine to customize the browser for users.",
+                  style: TextStyle(fontSize: 17,height: 1.5,),
+                  textAlign: TextAlign.justify,
+                ),
+              ),
             ),
-          ),
-        )
+            Card(
+              elevation: 0,
+              margin: EdgeInsets.only(top: 40,left: 100,right: 100),
+              child: Image.asset("assets/images/May_logo.png"),
+            ),
+          ],
+        ),
       ),
     );
   }

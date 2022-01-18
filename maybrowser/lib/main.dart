@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
       elevation: 0,
       //backgroundColor: Colors.white,
       //iconTheme: IconThemeData(color: Colors.black),
-      textTheme: TextTheme(headline6: TextStyle(color: Colors.white)),
+      titleTextStyle: TextStyle(color: Colors.white),
     ),
     iconTheme: IconThemeData(color: Color(0xff5b604f)),
     inputDecorationTheme: InputDecorationTheme(
@@ -71,6 +71,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
         title: 'May',
+        debugShowCheckedModeBanner: false,
         enableLog: true,
         initialBinding: TabRootBinding(),
         initialRoute: RN.firstV,

@@ -216,10 +216,10 @@ class _HomeVState extends State<HomeV>{
 
                     Expanded(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
-                            margin: EdgeInsets.only(left: 20),
+                            margin: EdgeInsets.only(left: 20,top: 20),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -234,10 +234,11 @@ class _HomeVState extends State<HomeV>{
                             ),
                           ),
                           Container(
-                            height: 250,
-                            margin: EdgeInsets.only(top: 40,bottom: 70),
+                            height: Get.height*0.29,
+                            margin: EdgeInsets.only(top: Get.height*0.1,),
                             child: ListView(
                               scrollDirection: Axis.horizontal,
+                              padding: EdgeInsets.only(bottom: 10),
                               children: [
                                 GestureDetector(
                                   onTap: (){
@@ -310,6 +311,25 @@ class _HomeVState extends State<HomeV>{
                                         children: [
                                           Text("YaHoo",style: GoogleFonts.firaSansCondensed(textStyle: TextStyle(fontSize: 20,color: Colors.black)),),
                                           Image.asset("assets/images/yaHu.jpg",width: 40,),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: (){
+                                    _.changeDefaultEngine(_.ss?.wikiN);
+                                  },
+                                  child: Card(
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                    margin: EdgeInsets.only(left: 10,right: 10),
+                                    child: Container(
+                                      width: 120,
+                                      child:Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text("Wikipedia",style: GoogleFonts.firaSansCondensed(textStyle: TextStyle(fontSize: 20,color: Colors.black)),),
+                                          Image.asset("assets/images/Wikipedia.png",width: 40,),
                                         ],
                                       ),
                                     ),

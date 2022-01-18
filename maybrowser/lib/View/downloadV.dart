@@ -1,9 +1,9 @@
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maybrowser/Logic/tabRootL.dart';
+import 'package:maybrowser/Model/fileM.dart';
+import 'package:maybrowser/stringSources.dart';
 import 'package:open_file/open_file.dart';
 import 'package:share/share.dart';
 
@@ -21,6 +21,14 @@ class _DownloadVState extends State<DownloadV>{
 
   int colorIndex = 0;
   Color tabColor = Color(0xfffde2a0);
+  var _position;
+
+  @override
+  void initState() {
+    print("initState");
+    //Get.find<TabRootL>().getAllFilesDataList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +36,9 @@ class _DownloadVState extends State<DownloadV>{
     return GetBuilder<TabRootL>(
       builder: (_){
         var sys = _.systemS;
-        return sys == null ?  Container() : Scaffold(
+        return sys == null
+            ? Container(child: Center(child: RefreshProgressIndicator(),),)
+            : Scaffold(
           backgroundColor: Color(0xff6a7d6b),
           body: Container(
             child: Row(
@@ -47,10 +57,10 @@ class _DownloadVState extends State<DownloadV>{
                         child: IndexedStack(
                           index: this.colorIndex,
                           children: [
-                            _fileTabV(sys.fileDir, _),
-                            _fileTabV(sys.pictureDir, _),
-                            _fileTabV(sys.videoDir, _),
-                            _fileTabV(sys.musicDir, _),
+                            _fileTabV(_.systemS!.fileMList),
+                            _fileTabV(_.systemS!.pictureMList),
+                            _fileTabV(_.systemS!.videoMList),
+                            _fileTabV(_.systemS!.musicMList),
                           ],
                         ),
                       ),
@@ -147,100 +157,188 @@ class _DownloadVState extends State<DownloadV>{
     );
   }
 
-  Future<List> getData(Directory dir, TabRootL _)async{
-    List data = [];
-    dir.listSync().forEach((e) async{
-      var name = _.getDirname(e.path);
-      var state = await e.stat();
-      var n = state.size/1000;
 
-      String size = n.toString();
-      data.add([name,size, e.path, state]);
-    });
-    return data;
-  }
+  _fileTabV(List<FileM> data){
 
-  _fileTabV(Directory dir, TabRootL _){
+    Get.find<TabRootL>().sortFiles(data);
 
-    return FutureBuilder<List>(
-      future: getData(dir, _),
-      builder: (context,asyncSnapShot){
-        if(!asyncSnapShot.hasData){
-          return CircularProgressIndicator();
-        }
-        List? data = asyncSnapShot.data;
-        if(data == null){
-          return Container();
-        }else{
-          return Container(
-            child: ListView(
-              padding: EdgeInsets.only(top: 20,left: 20,right: 20),
-              children: data.reversed.toList().map((e){
-                return Card(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                  child: Container(
-                    width: 230,
-                    height: 70,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(13)),
-                      color: Colors.white,
-                    ),
-                    child: Container(
-                      margin: EdgeInsets.only(left: 10,right: 5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            //color: Colors.red,
-                            width: 160,
-                            child: ListTile(
-                              title: Text(e[0],style: TextStyle(fontSize: 12),maxLines: 1,),
-                              subtitle: Text(e[1]+' Kb',style: TextStyle(fontSize: 10),),
-                            ),
+    return GetBuilder<TabRootL>(
+      builder: (_){
+        return Container(
+          child: ListView(
+            padding: EdgeInsets.only(top: 20,left: 20,right: 20),
+            children: data.map((e){
+              //GlobalKey _key = GlobalKey();
+              final RenderBox overlay = Overlay.of(context)?.context.findRenderObject() as RenderBox;
+              return Card(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                child: Container(
+                  child: InkWell(
+                    onTapDown: (details){
+                      setState(() {
+                        this._position = details.globalPosition;
+                      });
+                    },
+                    onTap: (){
+                      print('Open file: ${e.name}');
+                      OpenFile.open(e.path);
+                    },
+                    onLongPress: (){
+                      showMenu(
+                        context: context,
+                        position: RelativeRect.fromRect(_position & const Size(40, 40), Offset.zero & overlay.semanticBounds.size),
+                        items: <PopupMenuEntry>[
+                          PopupMenuItem(
+                            child: Text("Open"),
+                            onTap: (){
+                              print('Open ${e.name}');
+                              OpenFile.open(e.path);
+                            },
                           ),
-                          DropdownButton<String>(
-                            icon: const Icon(Icons.more_horiz),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: const TextStyle(
-                                color: Colors.black
-                            ),
-                            underline: Container(
-                              height: 0,
-                              color: Colors.deepPurpleAccent,
-                            ),
-                            onChanged: (String? newValue) {
-                              if(newValue == 'Open'){
-                                print('Open file');
-                                OpenFile.open(e[2]);
+                          PopupMenuItem(
+                            child: Text("Share"),
+                            onTap: (){
+                              print('Share ${e.name}');
+                              Share.shareFiles([e.path]);
+                            },
+                          ),
+                          PopupMenuItem(
+                            child: Text("Rename"),
+                            onTap: ()async{
+                              print('Rename ${e.name}');
+                              File file = File(e.path);
+                              String newName = e.name;
+                              Get.back();
+                              Get.defaultDialog(
+                                title: '${e.name}',
+                                content: Center(
+                                  child: TextFormField(
+                                    initialValue: e.name,
+                                    onChanged: (text){
+                                      newName = text;
+                                    },
+                                    onFieldSubmitted: (text){
+                                      newName = text;
+                                    },
+                                  ),
+                                ),
+                                onConfirm: ()async{
+                                  int lastIndex = e.path.lastIndexOf('/');
+                                  //int lastIndex2 = e.path.lastIndexOf('.');
+                                  print("New name: "+newName);
+                                  var newPath = e.path.replaceRange(lastIndex+1, e.path.length, newName);
+                                  File f = File(newPath);
+                                  if(f.existsSync()){
+                                    Get.showSnackbar(GetSnackBar(title: 'WARNING',message: 'Please change name',));
+                                  }else{
+                                    file.renameSync(newPath);
+                                    await Get.find<TabRootL>().getAllFilesDataList();
+                                    Get.back();
+                                  }
+                                },
+                              );
+                              Get.defaultDialog();
+                            },
+                          ),
+                          PopupMenuItem(
+                            child: Text("Copy"),
+                            onTap: ()async{
+                              print('Copy ${e.name}');
+                              File file = File(e.path);
+                              Get.back();
+                              SingleChoice? valueG = SingleChoice.File;
+                              Get.defaultDialog(
+                                title: 'Copy file',
+                                content: StatefulBuilder(
+                                  builder: (context, setState){
+                                    return Center(
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          RadioListTile<SingleChoice>(
+                                              title: Text('Files'),
+                                              value: SingleChoice.File,
+                                              groupValue: valueG,
+                                              onChanged: (SingleChoice? value){
+                                                valueG = value;
+                                                setState(() {});
+                                              }
+                                          ),
+                                          RadioListTile<SingleChoice>(
+                                              title: Text('Pictures'),
+                                              value: SingleChoice.Picture,
+                                              groupValue: valueG,
+                                              onChanged: (SingleChoice? value){
+                                                valueG = value;
+                                                setState(() {});
+                                              }
+                                          ),
+                                          RadioListTile<SingleChoice>(
+                                              title: Text('Videos'),
+                                              value: SingleChoice.Video,
+                                              groupValue: valueG,
+                                              onChanged: (SingleChoice? value){
+                                                valueG = value;
+                                                setState(() {});
+                                              }
+                                          ),
+                                          RadioListTile<SingleChoice>(
+                                              title: Text('Musics'),
+                                              value: SingleChoice.Music,
+                                              groupValue: valueG,
+                                              onChanged: (SingleChoice? value){
+                                                valueG = value;
+                                                setState(() {});
+                                              }
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }
+                                ),
+                                onConfirm: ()async{
+                                  if(valueG == SingleChoice.File){
+                                    checkPath(_.systemS!.filePath, e.name, file);
 
-                              }else if(newValue == 'Delete'){
-                                print('Delete file');
-                                File file = File(e[2]);
-                                file.deleteSync();
+                                  }else if(valueG == SingleChoice.Picture){
+                                    checkPath(_.systemS!.picturePath, e.name, file);
 
-                              }else if(newValue == 'Share'){
-                                print('Share');
-                                Share.shareFiles([e[2]]);
+                                  }else if(valueG == SingleChoice.Video){
+                                    checkPath(_.systemS!.videoPath, e.name, file);
 
-                              }else if(newValue == 'Detail'){
-                                print('Detail');
-                                FileStat s = e[3];
-                                Get.defaultDialog(
-                                  title: 'Detail',
-                                  content: Column(
+                                  }else if(valueG == SingleChoice.Music){
+                                    checkPath(_.systemS!.musicPath, e.name, file);
+                                  }
+                                  await Get.find<TabRootL>().getAllFilesDataList();
+                                  Get.back();
+                                },
+                              );
+                              Get.defaultDialog();
+                            },
+                          ),
+                          PopupMenuItem(
+                            child: Text("Detail"),
+                            onTap: (){
+                              print('Detail ${e.name}');
+                              FileStat s = e.fileStat;
+                              Get.back();
+                              Get.defaultDialog(
+                                title: 'Detail',
+                                content: Container(
+                                  height: 200,
+                                  child: Column(
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
-                                          Text('Name: '+e[0],style: TextStyle(fontSize: 12),),
+                                          Expanded(child: Text('Name: '+e.name,style: TextStyle(fontSize: 12),),)
                                         ],
                                       ),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
-                                          Text('Size: '+e[1]+' Kb',style: TextStyle(fontSize: 12),),
+                                          Text('Size: '+getSize(e.fileStat.size),style: TextStyle(fontSize: 12),),
                                         ],
                                       ),
                                       Row(
@@ -249,33 +347,93 @@ class _DownloadVState extends State<DownloadV>{
                                           Text('Date: '+s.modified.toString(),style: TextStyle(fontSize: 12),),
                                         ],
                                       ),
-
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Text('Path: '+e.path,style: TextStyle(fontSize: 12),),
+                                          ),
+                                        ],
+                                      ),
                                     ],
                                   ),
-                                );
-
-                              }
-                              setState(() {});
-                            },
-                            items: <String>['Open', 'Share', 'Detail','Delete',]
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
+                                ),
                               );
-                            }).toList(),
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: Text("Details"),
+                                  actions: [
+                                  ],
+                                ),
+                              );
+
+                            },
+                          ),
+                          PopupMenuItem(
+                            child: Text("Delete"),
+                            onTap: ()async{
+                              print('Delete ${e.name}');
+                              File file = File(e.path);
+                              file.deleteSync();
+                              await Get.find<TabRootL>().getAllFilesDataList();
+                            },
                           ),
                         ],
+                      );
+                    },
+                    child: Container(
+                      width: 230,
+                      height: 70,
+                      child: Container(
+                        //color: Colors.red,
+                        width: 160,
+                        child: ListTile(
+                          title: Text(e.name,style: TextStyle(fontSize: 12),maxLines: 1,),
+                          subtitle: Text(getSize(e.fileStat.size),style: TextStyle(fontSize: 10),),
+                        ),
                       ),
                     ),
                   ),
-                );
-              }).toList(),
-            ),
-          );
-        }
+                ),
+              );
+            }).toList(),
+          ),
+        );
       },
     );
+  }
+
+  checkPath(String p2, String name, File file){
+    File nf = File(p2+'/'+name);
+    var b = nf.existsSync();
+    if(!b){
+      var a = file.copySync(p2+'/'+name);
+      print(a.path);
+    }else{
+      int i = name.lastIndexOf('.');
+      var nameWithOutType = name.replaceRange(i, name.length, '');
+      print("nameWithOutType: "+nameWithOutType);
+      var fileType = name.replaceRange(0, i, '');
+      print("file type: "+fileType);
+
+      var nameF = nameWithOutType+"_copy"+fileType;
+      checkPath(p2,nameF,file);
+    }
+  }
+
+  String getSize(int size){
+    int kb = size~/1024;
+    int mb = kb~/1024;
+    int gb = mb~/1024;
+
+    if(gb>0){
+      return '$gb GB';
+    }else if(mb > 0){
+      return '$mb MB';
+    }else{
+      return '$kb KB';
+    }
   }
 
   index_1CardV(String name, String date){

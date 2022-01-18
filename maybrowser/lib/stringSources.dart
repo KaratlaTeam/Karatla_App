@@ -1,3 +1,5 @@
+enum SingleChoice{File,Picture,Video,Music}
+
 class SS{
 
   static const String googleName = 'Google';
@@ -27,4 +29,11 @@ class SS{
   get yaN => yaHooName;
   get yaU => yaHooUrl;
   get yaS => yaHooUrl+yaHooSearch;
+
+  static const String wikipediaName = 'Wikipedia';
+  static const String wikipediaUrl = 'https://en.wikipedia.org';
+  static const String wikipediaSearch = '/wiki/';
+  get wikiN => wikipediaName;
+  get wikiU => wikipediaUrl;
+  get wikiS => wikipediaUrl+wikipediaSearch;
 }

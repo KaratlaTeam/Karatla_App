@@ -1,9 +1,6 @@
-import 'dart:async';
-import 'dart:isolate';
-import 'dart:math';
-import 'dart:ui';
 
-import 'package:dio/dio.dart';
+import 'dart:isolate';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -12,9 +9,6 @@ import 'package:get/get.dart';
 import 'package:maybrowser/Logic/tabRootL.dart';
 import 'package:maybrowser/Model/tabRootM.dart';
 import 'package:maybrowser/View/downloadV.dart';
-import 'package:maybrowser/View/settingV.dart';
-import 'package:maybrowser/main.dart';
-import 'package:path_provider/path_provider.dart';
 
 
 class TabV extends StatefulWidget {
@@ -92,23 +86,15 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
       },
     );
 
-       IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
-       _port.listen((dynamic data) {
-          String id = data[0];
-          DownloadTaskStatus status = data[1];
-          int progress = data[2];
-          setState((){ });
-       });
+    /// Download bind
+       //await Get.find<TabRootL>().getAllFilesDataList();
+       _bindBackgroundIsolate();
 
        FlutterDownloader.registerCallback(downloadCallback);
 
+
     super.initState();
   }
-
-   static void downloadCallback(String id, DownloadTaskStatus status, int progress) {
-     final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port');
-     send?.send([id, status, progress]);
-   }
 
   @override
   void dispose() {
@@ -118,9 +104,9 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
     //_httpAuthUsernameController.dispose();
     //_httpAuthPasswordController.dispose();
 
-    IsolateNameServer.removePortNameMapping('downloader_send_port');
-
     WidgetsBinding.instance!.removeObserver(this);
+
+    _unbindBackgroundIsolate();
 
     super.dispose();
   }
@@ -135,6 +121,39 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
       }
     }
   }
+
+  void _bindBackgroundIsolate() {
+    bool isSuccess = IsolateNameServer.registerPortWithName(
+        _port.sendPort, 'downloader_send_port');
+    if (!isSuccess) {
+      _unbindBackgroundIsolate();
+      _bindBackgroundIsolate();
+      return;
+    }
+    _port.listen((dynamic data) async{
+      String? id = data[0];
+      DownloadTaskStatus? status = data[1];
+      int? progress = data[2];
+      print('Task Progress: $progress');
+      if(progress == 100){
+        await Get.find<TabRootL>().getAllFilesDataList();
+        //Get.showSnackbar(GetSnackBar(title: 'Inform', message: 'Download Successful', duration: Duration(seconds: 1),));
+        print('task id: $id complete');
+        print('state: $status');
+      }
+    });
+  }
+
+  void _unbindBackgroundIsolate() {
+    IsolateNameServer.removePortNameMapping('downloader_send_port');
+  }
+
+  static void downloadCallback(String id, DownloadTaskStatus status, int progress) {
+    final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port');
+    send?.send([id, status, progress]);
+  }
+
+
 
   void pauseAll() {
     if (GetPlatform.isAndroid) {
@@ -267,10 +286,10 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
                             ],
                           ),
                             onConfirm: ()async{
-                              print(url.path);
+                              print("Download path: "+url.path);
                               String path = url.path;
                               String fileName = path.substring(path.lastIndexOf('/') + 1);
-
+                              print("File name: $fileName");
                               final taskId = await FlutterDownloader.enqueue(
                                 url: url.toString(),
                                 fileName: fileName,
@@ -278,6 +297,7 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
                                 showNotification: true,
                                 openFileFromNotification: true,
                               );
+
                               Get.back();
                             }
                         );
@@ -290,27 +310,9 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
                             action: PermissionRequestResponseAction.GRANT);
                       },
                       shouldOverrideUrlLoading: (controller, navigationAction) async {
-                        //if (![ "http", "https", "file", "chrome",
-                        //  "data", "javascript", "about"].contains(uri.scheme)) {
-                        //  if (await canLaunch(uri.!)) {
-                        //    // Launch the App
-                        //    await launch(
-                        //      url!,
-                        //    );
-                        //    // and cancel the request
-                        //    return NavigationActionPolicy.CANCEL;
-                        //  }
-                        //}
-                        var uri = navigationAction.request;
-                        //////Get.find<TabRootL>().addTabView(uri.toString());
-                        ///if(navigationAction.androidIsRedirect!){
-                          print('new to go: $uri');
-                          controller.loadUrl(urlRequest: uri);
-                          return NavigationActionPolicy.ALLOW;
-                        ///}else{
-                          return NavigationActionPolicy.CANCEL;
-                        ///}
+                        print('new to go: $uri');
 
+                        return NavigationActionPolicy.ALLOW;
                       },
                       onReceivedHttpAuthRequest: (controller,challenge)async{
                         print('onReceivedHttpAuthRequest');
@@ -383,13 +385,22 @@ class TabVState extends State<TabV> with WidgetsBindingObserver{
                             messageText: Container(child: Row(children: [
                               TextButton(onPressed: ()async{
                                 var url = resource.url;
-                                var name = TimeOfDay.now();//await _webViewController?.getTitle();
-                                final d = Dio().downloadUri(url!,'${Get.find<TabRootL>().systemS?.videoPath}/$name.mp4').then((value) {
-                                  print(value.statusMessage);
-                                  if(value.statusMessage == 'OK'){
-                                    Get.showSnackbar(GetSnackBar(title: 'Result', message: 'Download Successful', duration: Duration(seconds: 1),));
-                                  }
-                                });
+                                var name = DateTime.now().hour.toString()
+                                    +DateTime.now().minute.toString()
+                                    +DateTime.now().second.toString();//await _webViewController?.getTitle();
+                                //final d = Dio().downloadUri(url!,'${Get.find<TabRootL>().systemS?.videoPath}/${name.toString()}.mp4').then((value) {
+                                //  print(value.statusMessage);
+                                //  if(value.statusMessage == 'OK'){
+                                //    Get.showSnackbar(GetSnackBar(title: 'Result', message: '$name Download Successful', duration: Duration(seconds: 1),));
+                                //  }
+                                //});
+                                final taskId = await FlutterDownloader.enqueue(
+                                  url: url.toString(),
+                                  fileName: name+".mp4",
+                                  savedDir: Get.find<TabRootL>().getPath('Video').toString(),
+                                  showNotification: true,
+                                  openFileFromNotification: true,
+                                );
                               }, child: Text('Download')),
                             ],),width: 50,),
                             duration: Duration(seconds: 5),
