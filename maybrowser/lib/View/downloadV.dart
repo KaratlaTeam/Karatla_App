@@ -184,6 +184,7 @@ class _DownloadVState extends State<DownloadV>{
                       OpenFile.open(e.path);
                     },
                     onLongPress: (){
+                      bool showMenuItem = !e.name.endsWith('.com');
                       showMenu(
                         context: context,
                         position: RelativeRect.fromRect(_position & const Size(40, 40), Offset.zero & overlay.semanticBounds.size),
@@ -203,6 +204,7 @@ class _DownloadVState extends State<DownloadV>{
                             },
                           ),
                           PopupMenuItem(
+                            enabled: showMenuItem,
                             child: Text("Rename"),
                             onTap: ()async{
                               print('Rename ${e.name}');
@@ -241,6 +243,7 @@ class _DownloadVState extends State<DownloadV>{
                             },
                           ),
                           PopupMenuItem(
+                            enabled: showMenuItem,
                             child: Text("Copy"),
                             onTap: ()async{
                               print('Copy ${e.name}');
@@ -375,7 +378,15 @@ class _DownloadVState extends State<DownloadV>{
                             onTap: ()async{
                               print('Delete ${e.name}');
                               File file = File(e.path);
-                              file.deleteSync();
+                              if(e.name.endsWith('.com')){
+                                print('delete dir');
+                                Directory dir = Directory(e.path);
+                                dir.deleteSync(recursive: true);
+                              }else{
+                                print('delete file');
+                                file.deleteSync();
+                              }
+
                               await Get.find<TabRootL>().getAllFilesDataList();
                             },
                           ),

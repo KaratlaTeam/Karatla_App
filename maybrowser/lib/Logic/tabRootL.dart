@@ -33,7 +33,7 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
     await initializeSystem();
     this.ss = SS();
     this.tabS = TabRootS(
-      tabRootM: TabRootM(tabVList: [], showIndex: 0, tabVMod: []),
+      tabRootM: TabRootM(tabVList: [], showIndex: 0),
       rootIndex: 2,
       url: [ss?.googleN, ss?.googleU, ss?.googleS],
       history: his,
@@ -149,10 +149,10 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
         version: version,
         buildNumber: buildNumber,
       ),
-      fileMList: await getFilesDataList(fileDir),
-      pictureMList: await getFilesDataList(pictureDir),
-      videoMList: await getFilesDataList(videoDir),
-      musicMList: await getFilesDataList(musicDir),
+      fileMList: getFilesDataList(fileDir),
+      pictureMList: getFilesDataList(pictureDir),
+      videoMList: getFilesDataList(videoDir),
+      musicMList: getFilesDataList(musicDir),
     );
 
     update();
@@ -195,6 +195,15 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
     }else if(engine == 'Wikipedia'){
       tabS?.url = [ss?.wikiN, ss?.wikiU, ss?.wikiS];
 
+    }else if(engine == 'CountryReport'){
+      tabS?.url = [ss?.countryN, ss?.countryU, ss?.countryS];
+
+    }else if(engine == 'Eol'){
+      tabS?.url = [ss?.eolN, ss?.eolU, ss?.eolS];
+
+    }else if(engine == 'Dictionary'){
+      tabS?.url = [ss?.dictionaryN, ss?.dictionaryU, ss?.dictionaryS];
+
     }
     update();
   }
@@ -211,40 +220,49 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
   addTabView(String url){
     var l = tabS?.url[1];
     url == "null" ? url = l.toString() : url = url;
-    this.tabS!.tabRootM.showIndex = this.tabS!.tabRootM.tabVList.length;
-    TabM tabM = TabM(url: Uri.parse(url),tabIndex: tabS!.tabRootM.tabVMod.length);
+    int? id = newTabId();
+    int? showIndex = this.tabS?.tabRootM.tabVList.length;
+    this.tabS!.tabRootM.showIndex = showIndex!;
+    TabM tabM = TabM(url: Uri.parse(url),windowId: id, title: '');
     this.tabS!.tabRootM.tabVList.add(TabV(
-        key: GlobalKey(),
-        tabM: tabM,
+      key: GlobalKey(),
+      tabM: tabM,
     ));
-    this.tabS!.tabRootM.tabVMod.add(tabM);
-
     showWeb();
     update();
   }
 
-  removeTabView(){
-    tabS?.tabRootM.tabVMod.removeAt(getShowIndex());
-    tabS?.tabRootM.tabVList.removeAt(getShowIndex());
-    update();
-  }
-
-  updateWebTitle(String title){
-    var m = getTabM();
-    m.title = title;
-    //print(m.title);
-    update();
-  }
-
-  String getWebTitle(){
-    var m = getTabM().title;
-    update();
-    if(m != null){
-    return m;
+  int newTabId(){
+    if(tabS!.tabRootM.tabVList.length == 0){
+      return 0;
     }else{
-      return '';
+      return tabS!.tabRootM.tabVList.last.tabM.windowId+1;
     }
   }
+
+  updateTabW(){
+    update();
+  }
+
+  removeTabView(){
+    int showIndex = getShowIndex();
+    int? l = tabS?.tabRootM.tabVList.length;
+    tabS?.tabRootM.tabVList.removeAt(showIndex);
+    if(showIndex == l! - 1 && l != 1){
+      tabS?.tabRootM.showIndex = showIndex - 1;
+    }
+    update();
+  }
+
+  int getShowIndex(){
+    return tabS!.tabRootM.showIndex;
+  }
+
+  updateShowIndex(int index){
+    tabS?.tabRootM.showIndex = index;
+    update();
+  }
+
 
   showWeb(){
     this.tabS!.rootIndex = 0 ;
@@ -261,39 +279,11 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
     update();
   }
 
-  changeShowIndex(int index){
-    this.tabS!.tabRootM.showIndex = index;
-    update();
-  }
-
-
-  ///
-  updateWebMode(TabM tabM){
-    tabS!.tabRootM.tabVMod[getShowIndex()] = tabM;
-  }
-
-  webScreenShot()async{
-    getTabM().screenshot  = await getTabM()
-        .webViewController!
-        .takeScreenshot(screenshotConfiguration: ScreenshotConfiguration(compressFormat: CompressFormat.JPEG,quality: 20))
-        .timeout(Duration(milliseconds: 500), onTimeout: () => null,);
-    update();
-  }
-
-  TabM getTabM(){
-    update();
-    return tabS!.tabRootM.tabVMod[getShowIndex()];
-  }
 
   TabV getTabV(){
-    update();
     return tabS!.tabRootM.tabVList[getShowIndex()];
   }
 
-  int getShowIndex(){
-    update();
-    return tabS!.tabRootM.showIndex;
-  }
 
   Future<void> createAccount(String account, String password)async{
 
@@ -473,16 +463,16 @@ class TabRootL extends GetxController with StateMixin<TabRootS>{
 
   Future<String> getTemperature()async{
     var dio;
-    var api = 'http://api.weatherstack.com/current?access_key=3f95cff0594a00f62a0bff6eda231c18&query=Kuala%20Lumpur';
+    var api = 'http://api.weatherstack.com/current?access_key=03ef8e911f6f03ffbf4effc1741bbaac&query=Kuala%20Lumpur';
     try{
       dio = await Dio().get(api);
       print('temperature: '+dio.data['current']['temperature'].toString());
       return dio.data['current']['temperature'].toString();
     }catch(e){
       print(e);
+      return '0';
     }
-    print('temperature: '+dio.data['current']['temperature'].toString());
-    return '0';
+
   }
 
 }

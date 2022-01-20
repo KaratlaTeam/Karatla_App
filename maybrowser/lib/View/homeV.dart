@@ -114,7 +114,7 @@ class _HomeVState extends State<HomeV>{
                                         }
 
                                       }
-                                      print(url);
+                                      print('home url: $url');
                                       _.addTabView(url);
                                       _.showWeb();
                                     },
@@ -240,102 +240,14 @@ class _HomeVState extends State<HomeV>{
                               scrollDirection: Axis.horizontal,
                               padding: EdgeInsets.only(bottom: 10),
                               children: [
-                                GestureDetector(
-                                  onTap: (){
-                                    _.changeDefaultEngine(_.ss?.googleN);
-                                  },
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                    margin: EdgeInsets.only(left: 10,right: 10),
-                                    child: Container(
-                                      width: 120,
-                                      child:Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text("Google",style: GoogleFonts.firaSansCondensed(textStyle: TextStyle(fontSize: 20,color: Colors.black)),),
-                                          Image.asset("assets/images/google.png",width: 50,),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: (){
-                                    _.changeDefaultEngine(_.ss?.baiN);
-                                  },
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                    margin: EdgeInsets.only(left: 10,right: 10),
-                                    child: Container(
-                                      width: 120,
-                                      child:Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text("Baidu",style: GoogleFonts.firaSansCondensed(textStyle: TextStyle(fontSize: 20,color: Colors.black)),),
-                                          Image.asset("assets/images/baidu.jpg",width: 50,),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: (){
-                                    _.changeDefaultEngine(_.ss?.bingN);
-                                  },
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                    margin: EdgeInsets.only(left: 10,right: 10),
-                                    child: Container(
-                                      width: 120,
-                                      child:Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text("Bing",style: GoogleFonts.firaSansCondensed(textStyle: TextStyle(fontSize: 20,color: Colors.black)),),
-                                          Image.asset("assets/images/bing.png",width: 70,),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: (){
-                                    _.changeDefaultEngine(_.ss?.yaN);
-                                  },
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                    margin: EdgeInsets.only(left: 10,right: 10),
-                                    child: Container(
-                                      width: 120,
-                                      child:Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text("YaHoo",style: GoogleFonts.firaSansCondensed(textStyle: TextStyle(fontSize: 20,color: Colors.black)),),
-                                          Image.asset("assets/images/yaHu.jpg",width: 40,),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: (){
-                                    _.changeDefaultEngine(_.ss?.wikiN);
-                                  },
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                    margin: EdgeInsets.only(left: 10,right: 10),
-                                    child: Container(
-                                      width: 120,
-                                      child:Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text("Wikipedia",style: GoogleFonts.firaSansCondensed(textStyle: TextStyle(fontSize: 20,color: Colors.black)),),
-                                          Image.asset("assets/images/Wikipedia.png",width: 40,),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-
+                                getCardV(_, _.ss?.googleN, 'google.png'),
+                                getCardV(_, _.ss?.baiN, 'baidu.jpg'),
+                                getCardV(_, _.ss?.bingN, 'bing.png'),
+                                getCardV(_, _.ss?.yaN, 'yaHu.jpg'),
+                                getCardV(_, _.ss?.wikiN, 'Wikipedia.png'),
+                                getCardV(_, _.ss?.countryN, 'countryReport.ico'),
+                                getCardV(_, _.ss?.eolN, 'eol.png'),
+                                getCardV(_, _.ss?.dictionaryN, 'dictionary.ico'),
                               ],
                             ),
                           ),
@@ -353,6 +265,29 @@ class _HomeVState extends State<HomeV>{
       },
     );
   }
+
+  getCardV(TabRootL _, String title, String image){
+    return GestureDetector(
+      onTap: (){
+        _.changeDefaultEngine(title);
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        margin: EdgeInsets.only(left: 10,right: 10),
+        child: Container(
+          width: 120,
+          child:Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(title,style: GoogleFonts.firaSansCondensed(textStyle: TextStyle(fontSize: 20,color: Colors.black)),),
+              Image.asset('assets/images/$image',width: 40,),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   String getMonth(int number){
     if(number == 1){
       return "Jan";

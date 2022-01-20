@@ -48,7 +48,7 @@ class _TabRootVState extends State<TabRootV> with SingleTickerProviderStateMixin
           List<TabV> tabVList = _.tabS!.tabRootM.tabVList;
           return Scaffold(
             backgroundColor: Color(0xffb6c0a4),
-            appBar: _showAppBar(tabRootM, tabVList, _),
+            appBar: _showAppBar(tabRootM, _),
             body: Container(
               child: IndexedStack(
                 index: _.tabS!.rootIndex,
@@ -71,11 +71,10 @@ class _TabRootVState extends State<TabRootV> with SingleTickerProviderStateMixin
   }
 
 
-  _showAppBar(TabRootM tabRootM, List<TabV> tabVList, TabRootL _){
-    return _.tabS?.rootIndex == 2
-        ? null
-        : (_.tabS?.rootIndex == 1
-        ? AppBar(
+  _showAppBar(TabRootM tabRootM, TabRootL _){
+    return _.tabS?.rootIndex == 2 ? null :
+    (_.tabS?.rootIndex == 1 ?
+    AppBar(
       leading: IconButton(icon: Icon(Icons.home),onPressed: (){
         _.showHome();
         _backPosition();
@@ -86,22 +85,22 @@ class _TabRootVState extends State<TabRootV> with SingleTickerProviderStateMixin
           _backPosition();
         },),
       ],
-    )
-        : AppBar(
-      title: Text(_.getWebTitle()),
+    ) :
+    AppBar(
+      title: Text(_.getTabV().tabM.title??''),
       leading: IconButton(
         icon: Icon(Icons.home),
-        onPressed: (){
-          Get.find<TabRootL>().webScreenShot();
-          Get.find<TabRootL>().showHome();
+        onPressed: ()async{
+          await _.getTabV().key.currentState?.webScreenShot();
+          _.showHome();
         },
       ),
       actions: [
         IconButton(
-          onPressed: (){
+          onPressed: ()async{
             //Get.toNamed(RN.download);
-            Get.find<TabRootL>().webScreenShot();
-            Get.find<TabRootL>().showTabs();
+            await _.getTabV().key.currentState?.webScreenShot();
+            _.showTabs();
           },
           icon: Icon(Icons.content_copy),
         ),
@@ -110,12 +109,13 @@ class _TabRootVState extends State<TabRootV> with SingleTickerProviderStateMixin
   }
 
   _tabListV(TabRootM tabRootM, List<TabV> tabVList){
-    return tabVList.length == 0
-        ? Container()
-        :IndexedStack(
+
+    return tabVList.length == 0 ? Container(child: Center(child: Text('wait'),),) :
+    IndexedStack(
       index: tabRootM.showIndex,
       children: tabVList.map((e) {
-        var isCurrentTab = e.tabM.tabIndex == tabRootM.showIndex;
+        int showId = tabVList[tabRootM.showIndex].tabM.windowId;
+        var isCurrentTab = e.tabM.windowId == showId;
         if(isCurrentTab){
           Future.delayed(Duration(milliseconds: 100),(){
             ///TODO Need to check pause, resume
@@ -176,10 +176,8 @@ class _TabRootVState extends State<TabRootV> with SingleTickerProviderStateMixin
         setState(() {});
       },
       onHorizontalDragEnd: (detail){
-        int index = tabRootL.getShowIndex();
         if(cardColor == Colors.grey){
           tabRootL.removeTabView();
-          tabRootL.changeShowIndex(index-1);
         }
         moveLeft = 0;
         cardColor = Color(0xffb6c0a4);
@@ -191,15 +189,15 @@ class _TabRootVState extends State<TabRootV> with SingleTickerProviderStateMixin
   }
 
   _rootVBodyCard(double top, Color color, int showIndex, TabRootL tabRootL){
-    var value = tabRootL.tabS!.tabRootM.tabVMod[showIndex].screenshot;
-    var title = tabRootL.tabS!.tabRootM.tabVMod[showIndex].title;
+    var value = tabRootL.tabS!.tabRootM.tabVList[showIndex].tabM.screenshot;
+    var title = tabRootL.tabS!.tabRootM.tabVList[showIndex].tabM.title;
     return AnimatedPositioned(
       curve: Curves.easeOutCubic,
       duration: const Duration(milliseconds: 1500),
       top: top+moveTop,
       width: 300,
       left: tabRootL.tabS?.tabRootM.showIndex == showIndex ? (Get.width/2-300/2)-moveLeft : (Get.width/2-300/2),
-      height: 550,
+      //height: 550,
       child: Transform(
         transform: Matrix4.identity()..setEntry(3, 2, 0.001)..rotateX(0.7),
         alignment: Alignment.center,
@@ -208,7 +206,7 @@ class _TabRootVState extends State<TabRootV> with SingleTickerProviderStateMixin
            /// setState(() {
            ///   _controller.animateTo(0);
            /// });
-            tabRootL.changeShowIndex(showIndex);
+            tabRootL.updateShowIndex(showIndex);
             tabRootL.showWeb();
             _backPosition();
           },
@@ -217,7 +215,7 @@ class _TabRootVState extends State<TabRootV> with SingleTickerProviderStateMixin
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             elevation: 20,
             child: Container(
-              height: 600,
+              //height: 600,
               child: Column(
                 children: [
                   Container(
@@ -226,7 +224,7 @@ class _TabRootVState extends State<TabRootV> with SingleTickerProviderStateMixin
                   ),
 
                   value != null
-                      ? Container(margin: EdgeInsets.all(5), child: Image.memory(value, height: 500,filterQuality: FilterQuality.none,),)
+                      ? Container( child: Image.memory(value,fit: BoxFit.contain, filterQuality: FilterQuality.none,),)
                       : Container(),
                 ],
               ),

@@ -67,7 +67,7 @@ void initState() {
             tabRootL.changeDefaultEngine(newValue);
           });
         },
-        items: <String>[tabRootL.ss?.googleN, tabRootL.ss?.baiN, tabRootL.ss?.bingN, tabRootL.ss?.yaN, tabRootL.ss?.wikiN]
+        items: <String>[tabRootL.ss?.googleN, tabRootL.ss?.baiN, tabRootL.ss?.bingN, tabRootL.ss?.yaN, tabRootL.ss?.wikiN, tabRootL.ss?.countryN, tabRootL.ss?.eolN, tabRootL.ss?.dictionaryN]
             .map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,

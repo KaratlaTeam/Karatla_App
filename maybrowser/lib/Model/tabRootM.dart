@@ -2,22 +2,20 @@ import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:maybrowser/View/tabV.dart';
 
 class TabRootM {
   TabRootM({
     required this.tabVList,
-    required this.tabVMod,
     required this.showIndex
 });
 
   List<TabV> tabVList;
-  List<TabM> tabVMod;
   int showIndex;
 }
 
 class TabM{
-  int? _tabIndex;
   Uri? _url;
   String? _title;
   Favicon? _favicon;
@@ -29,7 +27,7 @@ class TabM{
   late List<String> _javaScriptConsoleHistory;
   late List<LoadedResource> _loadedResources;
   late bool _isSecure;
-  int? windowId;
+  int windowId;
   InAppWebViewGroupOptions? options;
   InAppWebViewController? webViewController;
   Uint8List? screenshot;
@@ -37,9 +35,8 @@ class TabM{
 
   TabM({
     Uint8List? screenshot,
-    int? tabIndex,
     Uri? url,
-    String? title,
+    String? title = '',
     Favicon? favicon,
     double progress = 0.0,
     bool loaded = false,
@@ -49,12 +46,11 @@ class TabM{
     List<String>? javaScriptConsoleHistory,
     List<LoadedResource>? loadedResources,
     bool isSecure = false,
-    this.windowId,
+    required this.windowId,
     this.options,
     this.webViewController,
     this.needsToCompleteInitialLoad = true,
   }) {
-    _tabIndex = tabIndex;
     _url = url;
     _favicon = favicon;
     _progress = progress;
@@ -68,13 +64,6 @@ class TabM{
     options = options ?? InAppWebViewGroupOptions();
   }
 
-  int? get tabIndex => _tabIndex;
-
-  set tabIndex(int? value) {
-    if (value != _tabIndex) {
-      _tabIndex = value;
-    }
-  }
 
   Uri? get url => _url;
 
@@ -142,7 +131,6 @@ class TabM{
   }
 
   void updateWithValue(TabM tabM) {
-    tabIndex = tabM.tabIndex;
     url = tabM.url;
     title = tabM.title;
     favicon = tabM.favicon;
@@ -157,7 +145,6 @@ class TabM{
 
   static TabM? fromMap(Map<String, dynamic>? map) {
     return map != null ? TabM(
-      tabIndex: map["tabIndex"],
       url: map["url"] != null ? Uri.parse(map["url"]) : null,
       title: map["title"],
       favicon: map["favicon"] != null ? Favicon(
@@ -172,12 +159,12 @@ class TabM{
       javaScriptConsoleHistory: map["javaScriptConsoleHistory"]?.cast<String>(),
       isSecure: map["isSecure"],
       options: InAppWebViewGroupOptions.fromMap(map["options"]),
+      windowId: map["windowId"],
     ) : null;
   }
 
   Map<String, dynamic> toMap() {
     return {
-      "tabIndex": _tabIndex,
       "url": _url?.toString(),
       "title": _title,
       "favicon": _favicon?.toMap(),

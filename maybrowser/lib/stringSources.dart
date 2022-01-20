@@ -36,4 +36,25 @@ class SS{
   get wikiN => wikipediaName;
   get wikiU => wikipediaUrl;
   get wikiS => wikipediaUrl+wikipediaSearch;
+
+  static const String countryReportName = 'CountryReport';
+  static const String countryReportUrl = 'https://www.countryreports.org';
+  static const String countryReportSearch = '/search.htm?q=';
+  get countryN => countryReportName;
+  get countryU => countryReportUrl;
+  get countryS => countryReportUrl+countryReportSearch;
+
+  static const String eolName = 'Eol';
+  static const String eolUrl = 'https://eol.org';
+  static const String eolSearch = '/search?utf8=✓&q=';
+  get eolN => eolName;
+  get eolU => eolUrl;
+  get eolS => eolUrl+eolSearch;
+
+  static const String dictionaryName = 'Dictionary';
+  static const String dictionaryUrl = 'https://dictionary.cambridge.org/dictionary/english';
+  static const String dictionarySearch = '/';
+  get dictionaryN => dictionaryName;
+  get dictionaryU => dictionaryUrl;
+  get dictionaryS => dictionaryUrl+dictionarySearch;
 }
